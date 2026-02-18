@@ -2,7 +2,7 @@
 import Link from 'next/link';
 import { useEffect, useState } from 'react';
 import { Button } from './ui/button';
-import { Menu } from 'lucide-react';
+import { Menu, X } from 'lucide-react';
 
 const Navbar = () => {
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -38,15 +38,7 @@ const Navbar = () => {
           </div>
           <nav className="hidden md:flex items-center space-x-8">
             <Link
-              href="#"
-              className={`text-base font-medium transition-colors ${
-                navScrolled ? 'text-black hover:text-black' : 'text-black hover:text-gray-700'
-              }`}
-            >
-              Case Studies
-            </Link>
-            <Link
-              href="#"
+              href="/about"
               className={`text-base font-medium transition-colors ${
                 navScrolled ? 'text-black hover:text-black' : 'text-black hover:text-gray-700'
               }`}
@@ -54,39 +46,40 @@ const Navbar = () => {
               About
             </Link>
             <Link
-              href="#"
-              className={`text-base font-medium transition-colors ${
-                navScrolled ? 'text-black hover:text-black' : 'text-black hover:text-gray-700'
-              }`}
-            >
-              Blog
-            </Link>
-            <Link
-              href="#"
+              href="/#pricing"
               className={`text-base font-medium transition-colors ${
                 navScrolled ? 'text-black hover:text-black' : 'text-black hover:text-gray-700'
               }`}
             >
               Pricing
             </Link>
-          </nav>
-          <div className="hidden md:flex items-center space-x-4">
-            <Button
-              variant="ghost"
-              size="sm"
-              className={`transition-colors border border-black h-10 px-6 ${
-                navScrolled ? 'text-black hover:text-black hover:bg-gray-100' : 'text-black hover:text-black hover:bg-gray-100'
+            <Link
+              href="/contact"
+              className={`text-base font-medium transition-colors ${
+                navScrolled ? 'text-black hover:text-black' : 'text-black hover:text-gray-700'
               }`}
             >
-              Sign in
-            </Button>
+              Contact
+            </Link>
+            <Link
+              href="/blogs"
+              className={`text-base font-medium transition-colors ${
+                navScrolled ? 'text-black hover:text-black' : 'text-black hover:text-gray-700'
+              }`}
+            >
+              Blog
+            </Link>
+          </nav>
+          <div className="hidden md:flex items-center">
             <Link href="/get-started">
               <Button
+                variant="ghost"
                 size="sm"
-                className="text-white hover:bg-blue-700 h-10 px-6 transition-colors"
-                style={{ backgroundColor: 'rgb(60, 131, 246)' }}
+                className={`transition-colors border border-black h-10 px-6 ${
+                  navScrolled ? 'text-black hover:text-black hover:bg-gray-100' : 'text-black hover:text-black hover:bg-gray-100'
+                }`}
               >
-                Get started
+                Sign in
               </Button>
             </Link>
           </div>
@@ -104,29 +97,22 @@ const Navbar = () => {
         {mobileMenuOpen && (
           <div className="md:hidden p-4 border-t border-gray-200 bg-white">
             <nav className="flex flex-col space-y-4">
-              <Link href="#" className="text-base font-medium text-black hover:text-black transition-colors">
-                Case Studies
-              </Link>
-              <Link href="#" className="text-base font-medium text-black hover:text-black transition-colors">
+              <Link href="/about" className="text-base font-medium text-black hover:text-black transition-colors">
                 About
               </Link>
-              <Link href="#" className="text-base font-medium text-black hover:text-black transition-colors">
-                Blog
-              </Link>
-              <Link href="#" className="text-base font-medium text-black hover:text-black transition-colors">
+              <Link href="/#pricing" className="text-base font-medium text-black hover:text-black transition-colors">
                 Pricing
               </Link>
+              <Link href="/contact" className="text-base font-medium text-black hover:text-black transition-colors">
+                Contact
+              </Link>
+              <Link href="/blogs" className="text-base font-medium text-black hover:text-black transition-colors">
+                Blog
+              </Link>
               <div className="flex flex-col space-y-2 pt-4 border-t border-gray-200">
-                <Button variant="ghost" size="sm" className="text-black hover:text-black hover:bg-gray-100 w-full border border-black h-10">
-                  Sign in
-                </Button>
                 <Link href="/get-started">
-                  <Button
-                    size="sm"
-                    className="text-white hover:bg-blue-700 h-10 w-full transition-colors"
-                    style={{ backgroundColor: 'rgb(60, 131, 246)' }}
-                  >
-                    Get started
+                  <Button variant="ghost" size="sm" className="text-black hover:text-black hover:bg-gray-100 w-full border border-black h-10">
+                    Sign in
                   </Button>
                 </Link>
               </div>

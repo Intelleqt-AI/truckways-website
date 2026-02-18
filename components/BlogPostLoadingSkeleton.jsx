@@ -120,21 +120,17 @@ const CTASkeleton = () => (
 const BlogPostLoadingSkeleton = () => {
   return (
     <div className="min-h-screen bg-white">
-      <style jsx>{`
+      <style dangerouslySetInnerHTML={{ __html: `
         @keyframes shimmer {
-          0% {
-            background-position: -200% 0;
-          }
-          100% {
-            background-position: 200% 0;
-          }
+          0% { background-position: -200% 0; }
+          100% { background-position: 200% 0; }
         }
         .animate-pulse {
           animation: shimmer 2s infinite linear;
           background: linear-gradient(90deg, #f0f0f0 25%, #e0e0e0 50%, #f0f0f0 75%);
           background-size: 200% 100%;
         }
-      `}</style>
+      `}} />
 
       <HeaderSkeleton />
 

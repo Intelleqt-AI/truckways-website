@@ -20,8 +20,28 @@ yarn-error.log*
 .env*
 
 # vercel
+
+
+
+
+
+
+
+
+
+
+
+
 .vercel
 
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# temp files
+nul
+tmpclaude-*
+start-dev.bat
+
+# Claude Code temp files
+*.output

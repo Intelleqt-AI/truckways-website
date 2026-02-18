@@ -1,0 +1,836 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TruckWys - Investor Pitch Deck</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/theme/white.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --truckwys-black: #000000;
+            --truckwys-dark: #0a0a0a;
+            --truckwys-gray: #4a4a4a;
+            --truckwys-light: #f5f5f5;
+            --truckwys-accent: #2563eb;
+            --truckwys-accent-light: rgba(37, 99, 235, 0.1);
+        }
+
+        .reveal {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+        }
+
+        .reveal h1, .reveal h2, .reveal h3, .reveal h4 {
+            font-family: 'Inter', sans-serif;
+            font-weight: 700;
+            text-transform: none;
+            letter-spacing: -0.02em;
+        }
+
+        .reveal h1 {
+            font-size: 2.2em;
+            line-height: 1.1;
+        }
+
+        .reveal h2 {
+            font-size: 1.6em;
+            margin-bottom: 0.4em;
+            color: var(--truckwys-black);
+        }
+
+        .reveal h3 {
+            font-size: 1.2em;
+            color: var(--truckwys-gray);
+            font-weight: 500;
+        }
+
+        .reveal p, .reveal li {
+            font-size: 0.7em;
+            line-height: 1.5;
+            color: var(--truckwys-dark);
+        }
+
+        .reveal ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .reveal li {
+            margin-bottom: 0.6em;
+            padding-left: 1.5em;
+            position: relative;
+        }
+
+        .reveal li:before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.5em;
+            width: 6px;
+            height: 6px;
+            background: var(--truckwys-accent);
+            border-radius: 50%;
+        }
+
+        /* Slide footer logo - positioned bottom center of every slide */
+        .reveal .slide-logo {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            height: 30px;
+            width: auto;
+            z-index: 100;
+        }
+
+        /* Dark slide styling */
+        .reveal .dark-slide {
+            background: linear-gradient(135deg, #000000 0%, #1a1a2e 100%);
+            color: white;
+        }
+
+        .reveal .dark-slide h1,
+        .reveal .dark-slide h2,
+        .reveal .dark-slide h3,
+        .reveal .dark-slide p,
+        .reveal .dark-slide li {
+            color: white;
+        }
+
+        .reveal .dark-slide li:before {
+            background: var(--truckwys-accent);
+        }
+
+        /* Blue accent slide */
+        .reveal .blue-slide {
+            background: linear-gradient(135deg, #1e40af 0%, #2563eb 100%);
+            color: white;
+        }
+
+        .reveal .blue-slide h1,
+        .reveal .blue-slide h2,
+        .reveal .blue-slide h3,
+        .reveal .blue-slide p {
+            color: white;
+        }
+
+        /* Logo styling for title slide */
+        .reveal .logo {
+            max-width: 220px;
+            margin-bottom: 1em;
+        }
+
+        .reveal .logo-small {
+            max-width: 140px;
+            margin-bottom: 0.5em;
+        }
+
+        /* Tagline */
+        .reveal .tagline {
+            font-size: 1.4em;
+            font-weight: 600;
+            margin-top: 0.3em;
+            letter-spacing: -0.02em;
+        }
+
+        .reveal .subtitle {
+            font-size: 0.9em;
+            opacity: 0.8;
+            margin-top: 0.5em;
+        }
+
+        .reveal .quote-text {
+            font-size: 1em;
+            font-style: italic;
+            opacity: 0.9;
+            max-width: 700px;
+            margin: 1em auto;
+        }
+
+        /* Big stat styling */
+        .reveal .big-stat {
+            font-size: 4em;
+            font-weight: 800;
+            color: var(--truckwys-accent);
+            line-height: 1;
+            margin: 0.1em 0;
+        }
+
+        .reveal .dark-slide .big-stat,
+        .reveal .blue-slide .big-stat {
+            color: white;
+        }
+
+        .reveal .stat-description {
+            font-size: 0.85em;
+            color: var(--truckwys-gray);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .reveal .dark-slide .stat-description {
+            color: rgba(255,255,255,0.8);
+        }
+
+        /* Problem points */
+        .reveal .problem-point {
+            background: #fee2e2;
+            border-left: 4px solid #dc2626;
+            padding: 0.5em 1em;
+            margin: 0.4em 0;
+            border-radius: 0 8px 8px 0;
+            text-align: left;
+            font-size: 0.7em;
+        }
+
+        .reveal .problem-point strong {
+            color: #991b1b;
+        }
+
+        /* Solution/insight points */
+        .reveal .insight-point {
+            background: var(--truckwys-accent-light);
+            border-left: 4px solid var(--truckwys-accent);
+            padding: 0.5em 1em;
+            margin: 0.4em 0;
+            border-radius: 0 8px 8px 0;
+            text-align: left;
+            font-size: 0.7em;
+        }
+
+        .reveal .insight-point strong {
+            color: var(--truckwys-accent);
+        }
+
+        /* Feature boxes */
+        .reveal .feature-box {
+            background: var(--truckwys-light);
+            padding: 0.8em;
+            border-radius: 12px;
+            text-align: left;
+        }
+
+        .reveal .feature-box h4 {
+            color: var(--truckwys-accent);
+            font-size: 0.75em;
+            margin-bottom: 0.4em;
+        }
+
+        /* Quote to Cash Flow Diagram */
+        .reveal .flow-container {
+            margin: 1em 0;
+        }
+
+        .reveal .flow-diagram {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0.2em;
+            flex-wrap: wrap;
+        }
+
+        .reveal .flow-step {
+            background: var(--truckwys-black);
+            color: white;
+            padding: 0.4em 0.8em;
+            border-radius: 8px;
+            font-size: 0.75em;
+            font-weight: 600;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-width: 80px;
+        }
+
+        .reveal .flow-step .step-icon {
+            font-size: 1.3em;
+            margin-bottom: 0.2em;
+        }
+
+        .reveal .flow-step .step-subtitle {
+            font-size: 0.65em;
+            font-weight: 400;
+            opacity: 0.8;
+            margin-top: 0.1em;
+        }
+
+        .reveal .flow-arrow {
+            color: var(--truckwys-accent);
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+
+        .reveal .flow-caption {
+            font-size: 0.75em;
+            color: var(--truckwys-accent);
+            margin-top: 0.5em;
+            font-weight: 500;
+        }
+
+        /* Proven Results - Three metric stat grid */
+        .reveal .stat-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5em;
+            margin: 1em 0;
+        }
+
+        .reveal .stat-box {
+            background: rgba(255,255,255,0.1);
+            padding: 1em;
+            border-radius: 16px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .reveal .stat-number {
+            font-size: 2.5em;
+            font-weight: 800;
+            color: white;
+            display: block;
+            line-height: 1;
+        }
+
+        .reveal .stat-label {
+            font-size: 0.7em;
+            color: rgba(255,255,255,0.8);
+            margin-top: 0.4em;
+            display: block;
+        }
+
+        .reveal .stat-context {
+            font-size: 0.6em;
+            color: rgba(255,255,255,0.6);
+            margin-top: 0.2em;
+        }
+
+        /* Revenue model grid */
+        .reveal .revenue-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 0.8em;
+            margin: 0.8em 0;
+        }
+
+        .reveal .revenue-item {
+            background: var(--truckwys-light);
+            padding: 0.7em;
+            border-radius: 12px;
+            text-align: left;
+        }
+
+        .reveal .revenue-item .revenue-type {
+            color: var(--truckwys-accent);
+            font-weight: 600;
+            font-size: 0.7em;
+            margin-bottom: 0.2em;
+        }
+
+        .reveal .revenue-item .revenue-value {
+            font-size: 1.2em;
+            font-weight: 700;
+            color: var(--truckwys-black);
+        }
+
+        .reveal .revenue-item .revenue-desc {
+            font-size: 0.6em;
+            color: var(--truckwys-gray);
+            margin-top: 0.2em;
+        }
+
+        /* Two column layout */
+        .reveal .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5em;
+            text-align: left;
+        }
+
+        /* Team grid */
+        .reveal .team-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1em;
+            margin: 0.5em 0;
+        }
+
+        .reveal .team-member {
+            background: rgba(255,255,255,0.1);
+            padding: 0.8em;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .reveal .team-role {
+            font-weight: 700;
+            font-size: 0.85em;
+            margin-bottom: 0.2em;
+        }
+
+        .reveal .team-bio {
+            font-size: 0.6em;
+            opacity: 0.8;
+        }
+
+        /* Advisors row */
+        .reveal .advisors-row {
+            display: flex;
+            justify-content: center;
+            gap: 2em;
+            margin-top: 0.5em;
+            font-size: 0.7em;
+            opacity: 0.9;
+        }
+
+        /* Use of funds */
+        .reveal .funds-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 0.8em;
+            margin: 0.5em 0;
+        }
+
+        .reveal .fund-item {
+            background: rgba(255,255,255,0.1);
+            padding: 0.6em;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .reveal .fund-item span {
+            display: block;
+        }
+
+        /* CTA buttons */
+        .reveal .cta-buttons {
+            display: flex;
+            gap: 0.8em;
+            justify-content: center;
+            margin-top: 0.8em;
+        }
+
+        .reveal .cta-button {
+            padding: 0.5em 1.5em;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.75em;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .reveal .cta-primary {
+            background: var(--truckwys-accent);
+            color: white;
+        }
+
+        .reveal .cta-secondary {
+            background: transparent;
+            color: white;
+            border: 2px solid white;
+        }
+
+        /* Vision box */
+        .reveal .vision-box {
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .reveal .vision-item {
+            display: flex;
+            align-items: center;
+            gap: 0.8em;
+            padding: 0.5em 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-size: 0.8em;
+        }
+
+        .reveal .vision-item:last-child {
+            border-bottom: none;
+        }
+
+        .reveal .vision-icon {
+            font-size: 1.2em;
+        }
+
+        /* Highlight text */
+        .reveal .highlight {
+            color: var(--truckwys-accent);
+            font-weight: 600;
+        }
+
+        .reveal .dark-slide .highlight {
+            color: #60a5fa;
+        }
+
+        /* Slide number styling */
+        .reveal .slide-number {
+            color: var(--truckwys-gray);
+            font-size: 14px;
+            font-family: 'Inter', sans-serif;
+        }
+
+        /* Centered content helper */
+        .reveal .centered {
+            text-align: center;
+        }
+
+        /* Contact info */
+        .reveal .contact-info {
+            font-size: 0.7em;
+            margin-top: 0.5em;
+            opacity: 0.9;
+        }
+
+        /* Small text */
+        .reveal .small-text {
+            font-size: 0.65em;
+            opacity: 0.7;
+        }
+    </style>
+</head>
+<body>
+    <div class="reveal">
+        <div class="slides">
+
+            <!-- Slide 1: Title -->
+            <section class="dark-slide">
+                <img src="/images/truckwys-logo-white.jpg" alt="TruckWys Logo" class="logo">
+                <p class="tagline">Financial Intelligence for Road Freight</p>
+                <p class="subtitle">AI-native platform for African trucking operators</p>
+                <p class="quote-text">"Know the cost of every load before the wheels roll."</p>
+            </section>
+
+            <!-- Slide 2: The Problem (Industry Reality) -->
+            <section>
+
+                <h2>Logistics is Still Quoted Like It's 2005</h2>
+                <div class="big-stat">65%</div>
+                <p class="stat-description">of South African fleets still rely on manual processes, leading to inefficiencies and errors in pricing and dispatching</p>
+                <p class="small-text" style="margin-top: 2em;">Source: Berg Insight 2024 / SA telematics penetration</p>
+            </section>
+
+            <!-- Slide 3: The Cost of Bad Decisions -->
+            <section>
+
+                <h2>The Cost of Bad Decisions</h2>
+                <div class="problem-point">
+                    <strong>Wrong loads accepted:</strong> No visibility into true trip profitability before committing
+                </div>
+                <div class="problem-point">
+                    <strong>Poor cashflow:</strong> 45-60 day payment cycles strangle working capital
+                </div>
+                <div class="problem-point">
+                    <strong>Hours lost quoting:</strong> Manual calculations, spreadsheets, guesswork every day
+                </div>
+                <div class="problem-point">
+                    <strong>No visibility:</strong> Only realise losses after the truck has moved
+                </div>
+                <p style="margin-top: 0.8em; font-weight: 600; font-size: 0.85em;">Result: Flying blind on profitability while starved for working capital.</p>
+            </section>
+
+            <!-- Slide 4: Our Insight -->
+            <section class="blue-slide">
+
+                <h2>Our Insight</h2>
+                <p class="tagline" style="font-size: 1.2em; max-width: 700px; margin: 0.3em auto;">Profit in trucking is not about price per kilometre.</p>
+                <p class="tagline" style="font-size: 1.2em; max-width: 700px; margin: 0.3em auto;">It's about <span style="text-decoration: underline;">decision intelligence</span> before the wheels turn.</p>
+                <p class="subtitle" style="margin-top: 2em; opacity: 0.8;">Not gut feel. Not spreadsheets. Data-driven decisions upfront.</p>
+            </section>
+
+            <!-- Slide 5: What Is Truckwys? -->
+            <section>
+
+                <h2>What Is TruckWys?</h2>
+                <p style="font-size: 1em; max-width: 700px; margin: 0.8em auto;">A financial intelligence platform for road freight that answers one question:</p>
+                <div style="background: var(--truckwys-black); color: white; padding: 1em 2em; border-radius: 12px; display: inline-block; margin: 1em 0;">
+                    <p style="font-size: 1.2em; font-weight: 700; margin: 0; color: white;">"Should I take this load - yes or no?"</p>
+                </div>
+                <p style="font-size: 1em; color: var(--truckwys-gray); margin-top: 0.8em;">Built for African fleets. Powered by real AI.</p>
+            </section>
+
+            <!-- Slide 6: The Quoting App (Our Wedge) -->
+            <section>
+
+                <h2>The Quoting App: Our Daily-Use Wedge</h2>
+                <div class="two-column" style="margin-top: 0.8em;">
+                    <div>
+                        <div class="insight-point">
+                            <strong>Saves hours</strong> per operator per day
+                        </div>
+                        <div class="insight-point">
+                            <strong>Auto-calculates</strong> true trip cost (fuel, tolls, time)
+                        </div>
+                        <div class="insight-point">
+                            <strong>Standardises</strong> pricing across your fleet
+                        </div>
+                        <div class="insight-point">
+                            <strong>Eliminates</strong> manual errors and guesswork
+                        </div>
+                    </div>
+                    <div class="feature-box">
+                        <h4>Why This Matters</h4>
+                        <p style="font-size: 0.7em;">The quoting app is used <strong>every day</strong>. It's how we get embedded into operations.</p>
+                        <p style="font-size: 0.7em; margin-top: 0.5em;">High daily use = <span class="highlight">high stickiness</span></p>
+                        <p style="font-size: 0.7em; margin-top: 0.5em;">Once operators rely on us for quoting, they don't churn.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 7: Quote to Cash - One Platform -->
+            <section>
+
+                <h2>Quote to Cash: One Platform</h2>
+                <div class="flow-container">
+                    <div class="flow-diagram">
+                        <div class="flow-step">
+                            <span class="step-icon">&#128196;</span>
+                            <span>Quote</span>
+                            <span class="step-subtitle">Auto km / toll / fuel</span>
+                        </div>
+                        <span class="flow-arrow">&rarr;</span>
+                        <div class="flow-step" style="background: var(--truckwys-accent);">
+                            <span class="step-icon">&#128737;</span>
+                            <span>AI Guard</span>
+                            <span class="step-subtitle">Margin protection</span>
+                        </div>
+                        <span class="flow-arrow">&rarr;</span>
+                        <div class="flow-step">
+                            <span class="step-icon">&#128666;</span>
+                            <span>Dispatch</span>
+                            <span class="step-subtitle">Optimal matching</span>
+                        </div>
+                        <span class="flow-arrow">&rarr;</span>
+                        <div class="flow-step">
+                            <span class="step-icon">&#128203;</span>
+                            <span>Invoice</span>
+                            <span class="step-subtitle">1-click generation</span>
+                        </div>
+                        <span class="flow-arrow">&rarr;</span>
+                        <div class="flow-step" style="background: #16a34a;">
+                            <span class="step-icon">&#128176;</span>
+                            <span>Cash</span>
+                            <span class="step-subtitle">Same-day financing</span>
+                        </div>
+                    </div>
+                    <p class="flow-caption">One platform that plugs into your existing stack</p>
+                </div>
+                <p style="font-size: 0.9em; color: var(--truckwys-gray);">Quoting app is the entry point. Profit protection happens before the quote is sent. Capital is embedded where cashflow breaks.</p>
+            </section>
+
+            <!-- Slide 8: Revenue Model -->
+            <section>
+
+                <h2>Multiple Revenue Engines</h2>
+                <p style="font-size: 0.8em; margin-bottom: 0.5em;">Stacked monetisation, not one bet.</p>
+                <div class="revenue-grid">
+                    <div class="revenue-item">
+                        <span class="revenue-type">SaaS Licence</span>
+                        <span class="revenue-value">R4,500</span>
+                        <span class="revenue-desc">per month per fleet</span>
+                    </div>
+                    <div class="revenue-item">
+                        <span class="revenue-type">Quote Fee</span>
+                        <span class="revenue-value">0.25%</span>
+                        <span class="revenue-desc">on accepted quotes</span>
+                    </div>
+                    <div class="revenue-item">
+                        <span class="revenue-type">Invoice Financing</span>
+                        <span class="revenue-value">2.5%</span>
+                        <span class="revenue-desc">net take via partners</span>
+                    </div>
+                </div>
+                <p style="font-size: 0.85em; color: var(--truckwys-gray); margin-top: 1em;">Multiple levers, growing lifetime value per fleet.</p>
+            </section>
+
+            <!-- Slide 9: Embedded Capital -->
+            <section>
+
+                <h2>Capital Is Built In, Not Bolted On</h2>
+                <div class="two-column" style="margin-top: 0.5em;">
+                    <div>
+                        <ul>
+                            <li><strong>~15% of invoices</strong> factored in base case</li>
+                            <li>Capital offered <strong>contextually</strong> inside workflow</li>
+                            <li>Used exactly when operators <strong>need it</strong></li>
+                            <li>Materially increases <strong>lifetime value</strong> per fleet</li>
+                        </ul>
+                    </div>
+                    <div class="feature-box">
+                        <h4>Capital Risk Structure</h4>
+                        <p style="font-size: 0.85em;">Capital is provided by <strong>lending partners</strong>, not off our balance sheet.</p>
+                        <p style="font-size: 0.7em; margin-top: 0.5em;">We earn fees. Partners carry risk.</p>
+                        <p style="font-size: 0.7em; margin-top: 0.5em; color: var(--truckwys-accent); font-weight: 600;">Asset-light, data-heavy model.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 10: Conservative Growth Assumptions -->
+            <section>
+
+                <h2>Conservative Growth Assumptions</h2>
+                <p style="font-size: 0.85em; margin-bottom: 0.8em;">No hero numbers - just execution.</p>
+                <div class="revenue-grid">
+                    <div class="revenue-item" style="text-align: center;">
+                        <span class="revenue-value">2</span>
+                        <span class="revenue-desc">Starting fleets</span>
+                    </div>
+                    <div class="revenue-item" style="text-align: center;">
+                        <span class="revenue-value">10%</span>
+                        <span class="revenue-desc">Monthly fleet growth</span>
+                    </div>
+                    <div class="revenue-item" style="text-align: center;">
+                        <span class="revenue-value">~100</span>
+                        <span class="revenue-desc">Invoices per fleet/month</span>
+                    </div>
+                    <div class="revenue-item" style="text-align: center;">
+                        <span class="revenue-value">R60,000</span>
+                        <span class="revenue-desc">Average invoice value</span>
+                    </div>
+                </div>
+                <p style="font-size: 0.9em; color: var(--truckwys-gray); margin-top: 0.8em;">Realistic inputs. Proven execution path.</p>
+            </section>
+
+            <!-- Slide 11: Revenue Growth & Operating Leverage -->
+            <section>
+
+                <h2>Revenue Growth & Operating Leverage</h2>
+                <div class="two-column" style="margin-top: 0.5em;">
+                    <div>
+                        <p style="font-size: 0.95em;"><strong>Year 1 trajectory:</strong></p>
+                        <ul>
+                            <li>Monthly revenue: <span class="highlight">~R40k to ~R1.3m</span></li>
+                            <li>Multiple revenue lines activate over time</li>
+                            <li>Factoring contribution increases mid-year</li>
+                            <li>No balance-sheet risk from capital</li>
+                        </ul>
+                    </div>
+                    <div class="feature-box">
+                        <h4>Why This Scales Fast</h4>
+                        <p style="font-size: 0.85em;">Same logic applies across all road freight</p>
+                        <p style="font-size: 0.85em; margin-top: 0.5em;">Software scales faster than fleets</p>
+                        <p style="font-size: 0.85em; margin-top: 0.5em;">Capital partners want distribution</p>
+                        <p style="font-size: 0.85em; margin-top: 0.5em;"><strong>Sticky by design</strong> - operators don't churn once embedded</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 12: Cost Discipline & Scalability -->
+            <section>
+
+                <h2>Cost Discipline & Scalability</h2>
+                <div class="two-column" style="margin-top: 0.5em;">
+                    <div>
+                        <ul>
+                            <li>Low infrastructure cost per fleet</li>
+                            <li>API and hosting scale linearly</li>
+                            <li>Fixed headcount: <strong>8 people</strong></li>
+                            <li>No planned headcount increases</li>
+                            <li>Overheads remain <strong>flat</strong> as revenue grows</li>
+                        </ul>
+                    </div>
+                    <div class="feature-box">
+                        <h4>AI Agents Support Every Role</h4>
+                        <p style="font-size: 0.85em;">In-house AI agents support every team member, <strong>24/7</strong></p>
+                        <p style="font-size: 0.85em; margin-top: 0.5em;">Quoting, analysis, support, operations - all AI-assisted</p>
+                        <p style="font-size: 0.7em; margin-top: 0.5em; color: var(--truckwys-accent); font-weight: 600;">We scale profit-first, not headcount-first.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Slide 13: Proven Results -->
+            <section class="blue-slide">
+
+                <h2>Proven Results</h2>
+                <div class="stat-grid">
+                    <div class="stat-box">
+                        <span class="stat-number">+7%</span>
+                        <span class="stat-label">margin uplift</span>
+                        <span class="stat-context">(80-truck pilot)</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-number">-40%</span>
+                        <span class="stat-label">invoice-to-cash</span>
+                        <span class="stat-context">duration</span>
+                    </div>
+                    <div class="stat-box">
+                        <span class="stat-number">-2h</span>
+                        <span class="stat-label">admin saved</span>
+                        <span class="stat-context">per dispatcher / day</span>
+                    </div>
+                </div>
+                <p style="margin-top: 0.8em; font-size: 0.8em;">Early pilots show strong operational and financial impact.</p>
+            </section>
+
+            <!-- Slide 14: Market Opportunity -->
+            <section>
+
+                <h2>Market Opportunity</h2>
+                <p style="font-size: 0.8em; margin-bottom: 0.5em;">South African Freight &amp; Logistics — sized in Rands</p>
+                <div class="stat-grid" style="margin: 0.8em 0;">
+                    <div style="background: var(--truckwys-accent-light); padding: 1em; border-radius: 16px; text-align: center; border: 2px solid var(--truckwys-accent);">
+                        <span style="font-size: 2.2em; font-weight: 800; color: var(--truckwys-accent); display: block; line-height: 1;">R270B</span>
+                        <span style="font-size: 0.65em; font-weight: 700; color: var(--truckwys-accent); letter-spacing: 0.1em; display: block; margin-top: 0.3em;">TAM</span>
+                        <span style="font-size: 0.6em; color: var(--truckwys-gray); display: block; margin-top: 0.3em;">SA freight &amp; logistics</span>
+                    </div>
+                    <div style="background: var(--truckwys-accent-light); padding: 1em; border-radius: 16px; text-align: center; border: 2px solid var(--truckwys-accent);">
+                        <span style="font-size: 2.2em; font-weight: 800; color: var(--truckwys-accent); display: block; line-height: 1;">~R5B</span>
+                        <span style="font-size: 0.65em; font-weight: 700; color: var(--truckwys-accent); letter-spacing: 0.1em; display: block; margin-top: 0.3em;">SAM</span>
+                        <span style="font-size: 0.6em; color: var(--truckwys-gray); display: block; margin-top: 0.3em;">SME fleet intelligence — 11K operators</span>
+                    </div>
+                    <div style="background: var(--truckwys-accent-light); padding: 1em; border-radius: 16px; text-align: center; border: 2px solid var(--truckwys-accent);">
+                        <span style="font-size: 2.2em; font-weight: 800; color: var(--truckwys-accent); display: block; line-height: 1;">~R100M</span>
+                        <span style="font-size: 0.65em; font-weight: 700; color: var(--truckwys-accent); letter-spacing: 0.1em; display: block; margin-top: 0.3em;">SOM</span>
+                        <span style="font-size: 0.6em; color: var(--truckwys-gray); display: block; margin-top: 0.3em;">Year 3 achievable target</span>
+                    </div>
+                </div>
+                <p class="small-text" style="margin-top: 0.8em;">Sources: Mordor Intelligence 2025, Research and Markets 2025, Berg Insight 2024</p>
+            </section>
+
+            <!-- Slide 15: The Bigger Vision -->
+            <section>
+
+                <h2>The Bigger Vision</h2>
+                <p style="font-size: 0.8em; margin-bottom: 0.5em;">Start narrow. Expand wide.</p>
+                <div class="vision-box" style="text-align: left;">
+                    <div class="vision-item" style="border-bottom: 1px solid #e5e5e5;">
+                        <span class="vision-icon">&#128187;</span>
+                        <span>The <strong>operating system</strong> for SME logistics</span>
+                    </div>
+                    <div class="vision-item" style="border-bottom: 1px solid #e5e5e5;">
+                        <span class="vision-icon">&#128200;</span>
+                        <span>The <strong>data layer</strong> behind freight pricing</span>
+                    </div>
+                    <div class="vision-item" style="border-bottom: 1px solid #e5e5e5;">
+                        <span class="vision-icon">&#9981;</span>
+                        <span>A <strong>gateway</strong> to fuel, insurance, tyres, and finance</span>
+                    </div>
+                    <div class="vision-item">
+                        <span class="vision-icon">&#127758;</span>
+                        <span><strong>Pan-African corridors</strong> - today SA, tomorrow the continent</span>
+                    </div>
+                </div>
+                <p style="font-size: 0.9em; color: var(--truckwys-gray); margin-top: 0.8em;">11,000 operators in SADC with 20-150 trucks need modern fleet management.</p>
+            </section>
+
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/reveal.js/4.6.1/reveal.min.js"></script>
+    <script>
+        Reveal.initialize({
+            hash: true,
+            slideNumber: true,
+            controls: true,
+            progress: true,
+            center: true,
+            transition: 'slide',
+            width: 1200,
+            height: 700,
+            margin: 0.1
+        });
+    </script>
+</body>
+</html>

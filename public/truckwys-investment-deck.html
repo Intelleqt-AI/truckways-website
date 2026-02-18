@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TruckWys - Know Your Profit. Every Trip.</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        html { scroll-snap-type: y mandatory; scroll-behavior: smooth; }
+        body { font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif; overflow-x: hidden; }
+
+        .slide {
+            width: 100vw;
+            height: 100vh;
+            scroll-snap-align: start;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 60px 80px;
+            position: relative;
+        }
+
+        /* Theme colors */
+        .dark { background: #000; color: #fff; }
+        .light { background: #fff; color: #111; }
+        .blue { background: linear-gradient(135deg, #1e40af, #2563eb); color: #fff; }
+
+        h1 { font-size: 4em; font-weight: 900; line-height: 1.05; letter-spacing: -0.03em; }
+        h2 { font-size: 2.8em; font-weight: 800; line-height: 1.1; letter-spacing: -0.02em; margin-bottom: 0.4em; }
+        p { font-size: 1.1em; line-height: 1.6; }
+        .brand { font-size: 0.9em; font-weight: 700; letter-spacing: 0.15em; opacity: 0.5; margin-bottom: 1em; }
+        .subtitle { font-size: 1.3em; opacity: 0.7; margin-top: 1.5em; }
+        .big-stat { font-size: 7em; font-weight: 900; line-height: 1; }
+        .big-stat.blue-text { color: #2563eb; }
+        .stat-desc { font-size: 1.15em; max-width: 550px; line-height: 1.5; }
+        .source { position: absolute; bottom: 30px; left: 80px; font-size: 0.75em; opacity: 0.4; }
+
+        /* Two column */
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 3em; align-items: start; margin-top: 1em; }
+        .stat-row { display: flex; align-items: center; gap: 1.5em; margin: 0.5em 0; }
+
+        /* Pie chart */
+        .pie { width: 250px; height: 250px; border-radius: 50%; background: conic-gradient(#2563eb 0deg 234deg, #d1d5db 234deg 360deg); margin: 1em auto; }
+        .pie-legend { display: flex; justify-content: center; gap: 2em; font-size: 0.85em; margin-top: 0.5em; }
+        .leg::before { content: ''; display: inline-block; width: 14px; height: 14px; border-radius: 3px; margin-right: 8px; vertical-align: middle; }
+        .leg-b::before { background: #2563eb; }
+        .leg-g::before { background: #d1d5db; }
+
+        /* Bar chart */
+        .bars { display: flex; align-items: flex-end; gap: 2em; height: 200px; margin: 1.5em 0; }
+        .bar-item { flex: 1; display: flex; flex-direction: column; align-items: center; }
+        .bar { width: 100%; max-width: 140px; background: #fff; border-radius: 4px 4px 0 0; }
+        .bar-label { font-size: 0.8em; margin-top: 0.5em; opacity: 0.8; }
+
+        /* Flow diagram */
+        .flow { display: flex; align-items: center; justify-content: center; gap: 0.5em; margin: 1.5em 0; flex-wrap: wrap; }
+        .flow-step { text-align: center; min-width: 120px; }
+        .flow-icon { width: 60px; height: 60px; background: #2563eb; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.5em; font-size: 1.5em; }
+        .flow-step h4 { font-size: 1.1em; font-weight: 700; }
+        .flow-step p { font-size: 0.8em; opacity: 0.6; }
+        .flow-arrow { font-size: 1.5em; color: #2563eb; }
+        .flow-caption { text-align: center; color: #2563eb; font-weight: 600; font-style: italic; font-size: 1.1em; margin: 1em 0; }
+
+        /* Integration strip */
+        .int-strip { display: flex; justify-content: center; align-items: center; gap: 0.8em; margin: 1.5em 0; flex-wrap: wrap; }
+        .int-box { background: #f5f5f5; border: 1px solid #e0e0e0; border-radius: 10px; padding: 0.6em 1.2em; font-size: 0.85em; font-weight: 600; text-align: center; min-width: 100px; }
+        .int-box.hl { background: #2563eb; color: #fff; border-color: #2563eb; }
+        .int-dash { width: 25px; height: 2px; background: #333; }
+
+        /* Integration grid */
+        .int-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1em; margin: 1em 0; }
+        .int-card { background: #f8f9fa; border-left: 4px solid #2563eb; padding: 1em 1.2em; border-radius: 0 10px 10px 0; }
+        .int-card h4 { color: #2563eb; font-size: 1em; margin-bottom: 0.4em; }
+        .int-card p { font-size: 0.85em; color: #333; margin: 0.2em 0; line-height: 1.4; }
+
+        /* Stat grid */
+        .stat-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2em; margin: 1em 0; }
+        .stat-box { text-align: center; }
+        .stat-num { font-size: 4.5em; font-weight: 900; line-height: 1; }
+        .stat-label { font-size: 1em; opacity: 0.8; margin-top: 0.3em; }
+        .stat-ctx { font-size: 0.8em; opacity: 0.5; }
+
+        /* Comparison table */
+        .comp-table { width: 100%; max-width: 900px; border-collapse: collapse; margin: 1em 0; }
+        .comp-table th, .comp-table td { padding: 0.8em 1.5em; text-align: center; border-bottom: 1px solid rgba(255,255,255,0.12); font-size: 1em; }
+        .comp-table th { font-weight: 700; color: #2563eb; }
+        .comp-table td:first-child { text-align: left; font-weight: 600; font-size: 1.1em; }
+        .chk { color: #2563eb; font-size: 1.3em; }
+        .x { opacity: 0.25; font-size: 1.3em; }
+
+        /* Revenue grid */
+        .rev-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5em; margin: 1em 0; }
+        .rev-item h3 { color: #2563eb; font-size: 1.1em; margin-bottom: 0.2em; }
+        .rev-val { font-size: 2.5em; font-weight: 900; }
+        .rev-desc { font-size: 0.85em; opacity: 0.5; }
+
+        /* Team */
+        .team-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 2em; margin: 1.5em 0; }
+        .team-card { text-align: center; }
+        .avatar { width: 90px; height: 90px; background: rgba(255,255,255,0.9); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 0.8em; font-size: 2em; color: #2563eb; }
+        .team-role { font-size: 1.3em; font-weight: 700; }
+        .team-bio { font-size: 0.9em; opacity: 0.7; }
+        .advisors { margin-top: 1.5em; }
+        .advisors h3 { font-size: 1.3em; margin-bottom: 0.5em; }
+        .adv-row { display: flex; justify-content: center; gap: 3em; font-size: 1em; opacity: 0.8; }
+
+        /* Security */
+        .sec-point { display: flex; gap: 1em; margin-bottom: 1.2em; align-items: flex-start; }
+        .sec-icon { font-size: 1.5em; color: #2563eb; min-width: 30px; }
+        .sec-point h4 { font-size: 1.1em; font-weight: 700; margin-bottom: 0.2em; }
+        .sec-point p { font-size: 0.9em; opacity: 0.7; }
+
+        /* Guard cols */
+        .guard-cols { display: grid; grid-template-columns: 1fr 1fr; gap: 3em; margin: 1em 0; }
+        .guard-item { border-left: 3px solid rgba(255,255,255,0.4); padding-left: 1.5em; }
+        .guard-item h3 { font-size: 1.3em; margin-bottom: 0.3em; }
+        .guard-item p { font-size: 0.95em; opacity: 0.8; }
+
+        /* Profit bars */
+        .profit-bars { display: flex; justify-content: center; gap: 5em; margin: 1.5em 0; }
+        .profit-col { text-align: center; }
+        .profit-stack { width: 150px; height: 200px; display: flex; flex-direction: column; border-radius: 6px; overflow: hidden; margin: 0 auto 0.5em; }
+        .p-profit { background: rgba(255,255,255,0.9); }
+        .p-marg { background: rgba(255,255,255,0.4); }
+        .p-unprof { background: rgba(255,255,255,0.12); }
+        .profit-col h4 { font-size: 0.9em; opacity: 0.7; }
+
+        /* Dot grid */
+        .dot-grid { display: grid; grid-template-columns: repeat(30, 12px); gap: 4px; justify-content: center; margin: 1.5em auto; }
+        .dot { width: 12px; height: 12px; border-radius: 3px; }
+        .d-b { background: #2563eb; }
+        .d-g { background: #555; }
+        .d-l { background: #888; }
+
+        /* Stacked bars */
+        .stacked-chart { display: flex; align-items: flex-end; justify-content: center; gap: 4em; height: 200px; margin: 1em 0; }
+        .stacked-col { text-align: center; width: 120px; }
+        .stacked-bar { width: 100px; margin: 0 auto; border-radius: 4px 4px 0 0; overflow: hidden; display: flex; flex-direction: column; }
+        .s-saas { background: #3b82f6; }
+        .s-quote { background: #1d4ed8; }
+        .s-inv { background: #1e3a5f; }
+        .s-mkt { background: #111827; }
+        .stacked-label { font-size: 0.85em; font-weight: 600; margin-top: 0.4em; }
+
+        /* Funds */
+        .funds-list { margin: 1em 0; }
+        .fund-item { display: flex; align-items: center; gap: 0.8em; margin-bottom: 0.6em; font-size: 1.1em; }
+        .fund-dot { width: 10px; height: 10px; background: #2563eb; border-radius: 50%; }
+
+        /* CTA */
+        .cta-row { display: flex; gap: 1em; margin-top: 1.5em; }
+        .cta-btn { padding: 0.8em 2em; border-radius: 8px; font-weight: 700; font-size: 1em; text-decoration: none; display: inline-block; }
+        .cta-p { background: #2563eb; color: #fff; }
+        .cta-s { background: transparent; color: #2563eb; border: 2px solid #2563eb; }
+        .dark .cta-s { color: #fff; border-color: rgba(255,255,255,0.4); }
+
+        /* Market opportunity circles */
+        .market-grid { display: flex; justify-content: center; align-items: flex-end; gap: 3em; margin: 1.5em 0; }
+        .market-col { text-align: center; }
+        .market-circle { border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-direction: column; margin: 0 auto; }
+        .market-circle.tam { width: 240px; height: 240px; background: rgba(37,99,235,0.15); border: 3px solid #2563eb; }
+        .market-circle.sam { width: 190px; height: 190px; background: rgba(37,99,235,0.25); border: 3px solid #2563eb; }
+        .market-circle.som { width: 170px; height: 170px; background: rgba(37,99,235,0.4); border: 3px solid #2563eb; }
+        .market-val { font-size: 1.8em; font-weight: 900; color: #fff; line-height: 1; }
+        .market-label { font-size: 0.7em; font-weight: 600; opacity: 0.7; margin-top: 0.3em; text-transform: uppercase; letter-spacing: 0.1em; }
+        .market-tag { font-size: 0.85em; font-weight: 600; margin-top: 0.6em; opacity: 0.9; }
+        .market-desc { font-size: 0.8em; opacity: 0.55; margin-top: 0.2em; max-width: 200px; }
+
+        .quote { font-style: italic; font-size: 1.1em; opacity: 0.6; margin: 1em 0; max-width: 600px; }
+        .up-arrow { font-size: 2.5em; color: #2563eb; }
+
+        /* Slide footer branding */
+        .slide-footer { position: absolute; bottom: 24px; right: 40px; display: flex; align-items: center; gap: 6px; opacity: 0.4; }
+        .slide-footer img { height: 16px; width: auto; }
+        .slide-footer span { font-size: 0.7em; font-weight: 600; letter-spacing: 0.05em; }
+        .dark .slide-footer img, .blue .slide-footer img { filter: brightness(0) invert(1); }
+        .dark .slide-footer span, .blue .slide-footer span { color: #fff; }
+        .light .slide-footer span { color: #111; }
+
+        /* Before/after bars */
+        .ba-bars { display: flex; justify-content: center; gap: 5em; margin: 1em 0; }
+        .ba-col { text-align: center; }
+        .ba-group { display: flex; gap: 4px; align-items: flex-end; height: 150px; justify-content: center; }
+        .ba-bar { width: 35px; border-radius: 3px 3px 0 0; }
+
+        @media (max-width: 768px) {
+            .slide { padding: 30px 24px; }
+            h1 { font-size: 2.2em; }
+            h2 { font-size: 1.8em; }
+            .big-stat { font-size: 4em; }
+            .two-col, .int-grid, .rev-grid, .team-grid, .guard-cols, .stat-grid { grid-template-columns: 1fr; }
+            .flow { flex-direction: column; }
+            .flow-arrow { transform: rotate(90deg); }
+        }
+    </style>
+</head>
+<body>
+
+<!-- SLIDE 1: Title -->
+<div class="slide dark">
+    <img src="/images/truckwys-logo-transparent.png" alt="TruckWys" style="max-width:200px; height:auto; margin-bottom:1.5em; filter:brightness(0) invert(1);">
+    <h1>Know your profit.<br>Every trip.</h1>
+    <p class="subtitle">Financial intelligence for African road freight</p>
+    <p style="font-style:italic; opacity:0.7; margin-top:1.5em; font-size:1.1em;">"Know the cost of every load before the wheels roll."</p>
+</div>
+
+<!-- SLIDE 2: Spreadsheets -->
+<div class="slide light">
+    <h2>Still Quote in Spreadsheets</h2>
+    <div class="two-col">
+        <div>
+            <div class="big-stat blue-text">65%</div>
+            <p class="stat-desc">of South African fleets rely on manual processes, leading to inefficiencies and errors in pricing and dispatching</p>
+        </div>
+        <div>
+            <div class="pie"></div>
+            <div class="pie-legend">
+                <span class="leg leg-b">Spreadsheets</span>
+                <span class="leg leg-g">Digital Solutions</span>
+            </div>
+        </div>
+    </div>
+    <p class="source">Source: Berg Insight 2024 / SA telematics penetration</p>
+</div>
+
+<!-- SLIDE 3: Revenue Lost -->
+<div class="slide blue">
+    <h2>Revenue Lost to Errors</h2>
+    <div class="stat-row">
+        <div class="big-stat">15%</div>
+        <p class="stat-desc">of potential revenue disappears due to pricing and billing errors in manual workflows</p>
+    </div>
+    <div class="bars">
+        <div class="bar-item"><div class="bar" style="height:100%;"></div><span class="bar-label">Pricing Errors</span></div>
+        <div class="bar-item"><div class="bar" style="height:72%;"></div><span class="bar-label">Billing Mistakes</span></div>
+        <div class="bar-item"><div class="bar" style="height:55%;"></div><span class="bar-label">Missed Charges</span></div>
+        <div class="bar-item"><div class="bar" style="height:35%;"></div><span class="bar-label">Calculation Errors</span></div>
+    </div>
+    <p class="source" style="color:rgba(255,255,255,0.4);">Source: Softlink Global logistics errors report</p>
+</div>
+
+<!-- SLIDE 4: Rising Costs -->
+<div class="slide dark">
+    <h2>Rising Costs Squeeze Every Kilometer</h2>
+    <div class="stat-row">
+        <span class="up-arrow">&uarr;</span>
+        <p class="stat-desc">Diesel and toll costs continue to rise, putting pressure on already thin margins for fleet operators</p>
+    </div>
+    <svg viewBox="0 0 800 280" style="max-width:800px; margin:1em 0;">
+        <line x1="60" y1="40" x2="740" y2="40" stroke="rgba(255,255,255,0.08)"/>
+        <line x1="60" y1="100" x2="740" y2="100" stroke="rgba(255,255,255,0.08)"/>
+        <line x1="60" y1="160" x2="740" y2="160" stroke="rgba(255,255,255,0.08)"/>
+        <line x1="60" y1="220" x2="740" y2="220" stroke="rgba(255,255,255,0.08)"/>
+        <text x="45" y="225" fill="rgba(255,255,255,0.4)" font-size="12" text-anchor="end" font-family="Inter">100</text>
+        <text x="45" y="165" fill="rgba(255,255,255,0.4)" font-size="12" text-anchor="end" font-family="Inter">120</text>
+        <text x="45" y="105" fill="rgba(255,255,255,0.4)" font-size="12" text-anchor="end" font-family="Inter">140</text>
+        <text x="45" y="45" fill="rgba(255,255,255,0.4)" font-size="12" text-anchor="end" font-family="Inter">160</text>
+        <text x="60" y="250" fill="rgba(255,255,255,0.4)" font-size="12" font-family="Inter">2020</text>
+        <text x="196" y="250" fill="rgba(255,255,255,0.4)" font-size="12" font-family="Inter">2021</text>
+        <text x="332" y="250" fill="rgba(255,255,255,0.4)" font-size="12" font-family="Inter">2022</text>
+        <text x="468" y="250" fill="rgba(255,255,255,0.4)" font-size="12" font-family="Inter">2023</text>
+        <text x="604" y="250" fill="rgba(255,255,255,0.4)" font-size="12" font-family="Inter">2024</text>
+        <text x="720" y="250" fill="rgba(255,255,255,0.4)" font-size="12" font-family="Inter">2025</text>
+        <polygon points="60,220 196,190 332,145 468,95 604,55 740,25 740,230 60,230" fill="rgba(37,99,235,0.12)"/>
+        <polyline points="60,220 196,190 332,145 468,95 604,55 740,25" fill="none" stroke="#2563eb" stroke-width="3"/>
+        <polyline points="60,220 196,195 332,160 468,115 604,60 740,30" fill="none" stroke="rgba(255,255,255,0.6)" stroke-width="2"/>
+        <circle cx="196" cy="190" r="4" fill="#2563eb"/><circle cx="332" cy="145" r="4" fill="#2563eb"/>
+        <circle cx="468" cy="95" r="4" fill="#2563eb"/><circle cx="604" cy="55" r="4" fill="#2563eb"/>
+        <rect x="250" y="265" width="14" height="4" fill="#2563eb"/><text x="270" y="270" fill="rgba(255,255,255,0.5)" font-size="11" font-family="Inter">Diesel Cost Index</text>
+        <rect x="430" y="265" width="14" height="4" fill="rgba(255,255,255,0.6)"/><text x="450" y="270" fill="rgba(255,255,255,0.5)" font-size="11" font-family="Inter">Toll Fees Index</text>
+    </svg>
+</div>
+
+<!-- SLIDE 5: Why Now -->
+<div class="slide light">
+    <h2>Why Now: The Data Opportunity</h2>
+    <div class="stat-row">
+        <div class="big-stat blue-text" style="font-size:5em;">2.3M</div>
+        <div><h3 style="font-size:1.3em; font-weight:700;">Telematics Units Installed</h3><p style="color:#666;">Data locked in operational silos ready to be unlocked</p></div>
+    </div>
+    <div class="two-col" style="margin-top:1.5em;">
+        <div><h3 style="font-size:1.2em; font-weight:700;">POPIA Compliance Deadlines</h3><p style="color:#666;">Regulatory changes pushing digital adoption across the industry</p></div>
+        <div><h3 style="font-size:1.2em; font-weight:700;">Investor Preference Shift</h3><p style="color:#666;">Growing focus on asset-light, data-heavy logistics plays</p></div>
+    </div>
+    <p class="source">Source: Berg Insight 2024 / SA telematics penetration</p>
+</div>
+
+<!-- SLIDE 6: Market Opportunity -->
+<div class="slide blue">
+    <h2>Market Opportunity</h2>
+    <div class="two-col">
+        <div>
+            <div class="big-stat" style="font-size:5em;">R 1.0 bn</div>
+            <p style="font-size:1.1em; margin-top:0.3em;">SA freight-management software spend, 2024</p>
+            <div style="display:flex; gap:3em; margin-top:1.5em;">
+                <div><span style="font-size:1.6em; font-weight:800; display:block;">2.3 m</span><span style="font-size:0.85em; opacity:0.6;">connected trucks (Q4 2023)</span></div>
+                <div><span style="font-size:1.6em; font-weight:800; display:block;">R 1.1 trn</span><span style="font-size:0.85em; opacity:0.6;">logistics economy</span></div>
+            </div>
+        </div>
+        <div>
+            <p style="font-weight:600; text-align:center; margin-bottom:0.5em;">Software Market Growth to 2031</p>
+            <svg viewBox="0 0 350 220" style="width:100%;">
+                <polygon points="40,190 100,182 160,165 220,135 280,100 330,65 330,200 40,200" fill="rgba(255,255,255,0.12)"/>
+                <polyline points="40,190 100,182 160,165 220,135 280,100 330,65" fill="none" stroke="#fff" stroke-width="2.5"/>
+                <circle cx="100" cy="182" r="4" fill="#fff"/><circle cx="160" cy="165" r="4" fill="#fff"/><circle cx="220" cy="135" r="4" fill="#fff"/><circle cx="280" cy="100" r="4" fill="#fff"/><circle cx="330" cy="65" r="4" fill="#fff"/>
+                <text x="40" y="210" fill="rgba(255,255,255,0.5)" font-size="10" font-family="Inter">2024</text>
+                <text x="160" y="210" fill="rgba(255,255,255,0.5)" font-size="10" font-family="Inter">2027</text>
+                <text x="315" y="210" fill="rgba(255,255,255,0.5)" font-size="10" font-family="Inter">2031</text>
+            </svg>
+        </div>
+    </div>
+    <p class="source" style="color:rgba(255,255,255,0.3);">Sources: SA Supply Chain Management Software Market | Berg Insight Fleet Management Systems Report 2028 | Expert Market Research SA Logistics Market Report</p>
+</div>
+
+<!-- SLIDE 7: Mid-size Fleets -->
+<div class="slide dark">
+    <h2>Mid-size Fleets <span style="color:#2563eb;">Waiting</span></h2>
+    <div class="stat-row">
+        <div class="big-stat" style="color:#2563eb; font-size:5.5em;">11,000</div>
+        <p class="stat-desc">operators in the SADC region with 20-150 trucks need modern fleet management solutions</p>
+    </div>
+    <div class="dot-grid" id="dotgrid"></div>
+    <script>
+        (function(){var g=document.getElementById('dotgrid');var c=['d-b','d-g','d-l'];for(var i=0;i<240;i++){var d=document.createElement('div');d.className='dot '+c[Math.floor(Math.random()*3)];g.appendChild(d);}})();
+    </script>
+</div>
+
+<!-- SLIDE 8: Quote to Cash -->
+<div class="slide light">
+    <h2>Quote to Cash: One Platform</h2>
+    <div class="flow">
+        <div class="flow-step"><div class="flow-icon">&#128196;</div><h4>Quote</h4><p>Auto km / toll / fuel</p></div>
+        <span class="flow-arrow">&rarr;</span>
+        <div class="flow-step"><div class="flow-icon">&#128737;</div><h4>AI Guard</h4><p>Margin protection</p></div>
+        <span class="flow-arrow">&rarr;</span>
+        <div class="flow-step"><div class="flow-icon">&#128666;</div><h4>Dispatch</h4><p>Optimal matching</p></div>
+        <span class="flow-arrow">&rarr;</span>
+        <div class="flow-step"><div class="flow-icon">&#128203;</div><h4>Invoice</h4><p>1-click generation</p></div>
+        <span class="flow-arrow">&rarr;</span>
+        <div class="flow-step"><div class="flow-icon">&#128176;</div><h4>Cash</h4><p>Same-day financing</p></div>
+    </div>
+    <p class="flow-caption">One platform that plugs into your existing stack</p>
+    <div class="int-strip">
+        <div class="int-box">Route<br>Planning</div><div class="int-dash"></div>
+        <div class="int-box hl">TRUCKWYS<br>PLATFORM</div><div class="int-dash"></div>
+        <div class="int-box">Financial<br>Systems</div><div class="int-dash"></div>
+        <div class="int-box">Communications</div>
+    </div>
+</div>
+
+<!-- SLIDE 9: AI Guard -->
+<div class="slide blue">
+    <h2>AI Guard: Protect Your Margins</h2>
+    <div class="guard-cols">
+        <div class="guard-item"><h3>&#128737; Quote-Risk Guard</h3><p>AI-powered margin alerts before quotes are sent, preventing unprofitable deals</p></div>
+        <div class="guard-item"><h3>&#128666; Driver/Truck Match</h3><p>Efficiency-based suggestions that pair the right driver with the right truck for each job</p></div>
+    </div>
+    <p style="font-weight:600; margin:1em 0 0.5em;">Quote Profitability Comparison</p>
+    <div class="profit-bars">
+        <div class="profit-col"><div class="profit-stack"><div class="p-profit" style="flex:4;"></div><div class="p-marg" style="flex:4;"></div><div class="p-unprof" style="flex:2;"></div></div><h4>Without AI Guard</h4></div>
+        <div class="profit-col"><div class="profit-stack"><div class="p-profit" style="flex:7;"></div><div class="p-marg" style="flex:2;"></div><div class="p-unprof" style="flex:1;"></div></div><h4>With AI Guard</h4></div>
+    </div>
+</div>
+
+<!-- SLIDE 11: Existing Stack -->
+<div class="slide light">
+    <h2>Plug Into Your Existing Stack</h2>
+    <div class="int-grid">
+        <div class="int-card"><h4>Fleet Data</h4><p>CTRL Fleet</p><p>Webfleet</p><p>MiX</p><p>Ctrack</p><p>Cartrack</p><p>Netstar</p><p>Tracker</p></div>
+        <div class="int-card"><h4>Routing</h4><p>TomTom</p><p>Google Maps</p><p>HERE Maps</p></div>
+        <div class="int-card"><h4>Finance</h4><p>Xero</p><p>Sage</p><p>QuickBooks</p><p>Pastel</p></div>
+        <div class="int-card"><h4>Communications</h4><p>WhatsApp Business</p><p>SMS Gateway</p><p>Email Systems</p></div>
+        <div class="int-card"><h4>Government Feed</h4><p>i-Traffic</p><p>Road Conditions</p><p>Border Systems</p></div>
+        <div class="int-card"><h4>Security</h4><p>VisionTrack</p><p>MiX Vision</p><p>Hikvision</p><p>Bosch</p></div>
+    </div>
+</div>
+
+<!-- SLIDE 12: Market Opportunity -->
+<div class="slide dark">
+    <h2>Market Opportunity</h2>
+    <p style="opacity:0.6; margin-bottom:0.5em;">South African Freight & Logistics — sized in Rands</p>
+    <div class="market-grid">
+        <div class="market-col">
+            <div class="market-circle tam">
+                <span class="market-val">R270B</span>
+                <span class="market-label">TAM</span>
+            </div>
+            <p class="market-tag">Total Addressable Market</p>
+            <p class="market-desc">SA freight &amp; logistics industry</p>
+        </div>
+        <div class="market-col">
+            <div class="market-circle sam">
+                <span class="market-val">~R5B</span>
+                <span class="market-label">SAM</span>
+            </div>
+            <p class="market-tag">Serviceable Addressable</p>
+            <p class="market-desc">SME fleet intelligence — 11,000 SADC operators</p>
+        </div>
+        <div class="market-col">
+            <div class="market-circle som">
+                <span class="market-val">~R100M</span>
+                <span class="market-label">SOM</span>
+            </div>
+            <p class="market-tag">Serviceable Obtainable</p>
+            <p class="market-desc">Year 3 achievable target</p>
+        </div>
+    </div>
+    <p class="source">Sources: Mordor Intelligence 2025 (SA Freight &amp; Logistics), Research and Markets 2025, Berg Insight 2024</p>
+</div>
+
+<!-- SLIDE 13: Proven Results -->
+<div class="slide blue">
+    <h2>Proven Results</h2>
+    <div class="stat-grid">
+        <div class="stat-box"><span class="stat-num">+7%</span><span class="stat-label">margin uplift</span><span class="stat-ctx">(80-truck pilot)</span></div>
+        <div class="stat-box"><span class="stat-num">-40%</span><span class="stat-label">invoice-to-cash</span><span class="stat-ctx">duration</span></div>
+        <div class="stat-box"><span class="stat-num">-2h</span><span class="stat-label">admin saved</span><span class="stat-ctx">per dispatcher / day</span></div>
+    </div>
+    <div class="ba-bars">
+        <div class="ba-col">
+            <div class="ba-group">
+                <div class="ba-bar" style="height:75%; background:rgba(255,255,255,0.5);"></div>
+                <div class="ba-bar" style="height:40%; background:rgba(255,255,255,0.35);"></div>
+                <div class="ba-bar" style="height:45%; background:rgba(255,255,255,0.25);"></div>
+            </div>
+            <p style="font-size:0.85em; margin-top:0.5em;">Before TruckWys</p>
+        </div>
+        <div class="ba-col">
+            <div class="ba-group">
+                <div class="ba-bar" style="height:100%; background:rgba(255,255,255,0.9);"></div>
+                <div class="ba-bar" style="height:22%; background:rgba(255,255,255,0.35);"></div>
+                <div class="ba-bar" style="height:28%; background:rgba(255,255,255,0.25);"></div>
+            </div>
+            <p style="font-size:0.85em; margin-top:0.5em;">With TruckWys</p>
+        </div>
+    </div>
+</div>
+
+<!-- SLIDE 13: Competitive -->
+<div class="slide dark">
+    <h2>What Others Can't Deliver</h2>
+    <table class="comp-table">
+        <thead><tr><th style="text-align:left;">Feature</th><th>TruckWys</th><th>Loadsmart</th><th>Samsara</th><th>Local ERPs</th></tr></thead>
+        <tbody>
+            <tr><td>SA currency & tolls</td><td><span class="chk">&#10003;</span></td><td><span class="x">&#10005;</span></td><td><span class="x">&#10005;</span></td><td><span class="chk">&#10003;</span></td></tr>
+            <tr><td>AI Quote Guard</td><td><span class="chk">&#10003;</span></td><td><span class="chk">&#10003;</span></td><td><span class="x">&#10005;</span></td><td><span class="x">&#10005;</span></td></tr>
+            <tr><td>Security-cam alerts</td><td><span class="chk">&#10003;</span></td><td><span class="x">&#10005;</span></td><td><span class="chk">&#10003;</span></td><td><span class="x">&#10005;</span></td></tr>
+            <tr><td>Invoice financing</td><td><span class="chk">&#10003;</span></td><td><span class="x">&#10005;</span></td><td><span class="x">&#10005;</span></td><td><span class="x">&#10005;</span></td></tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- SLIDE 14: Revenue -->
+<div class="slide light">
+    <h2>Multiple Revenue Streams</h2>
+    <div class="rev-grid">
+        <div class="rev-item"><h3>SaaS Licence</h3><span class="rev-val">R4 500</span> <span class="rev-desc">per month</span></div>
+        <div class="rev-item"><h3>Invoice Financing</h3><span class="rev-val">2.5%</span> <span class="rev-desc">net take</span></div>
+        <div class="rev-item"><h3>Quote Fee</h3><span class="rev-val">0.25%</span> <span class="rev-desc">on accepted</span></div>
+
+    </div>
+    <p style="font-weight:600; text-align:center; margin:1em 0 0.5em;">Revenue Stack Projection</p>
+    <div class="stacked-chart">
+        <div class="stacked-col"><div class="stacked-bar" style="height:50px;"><div class="s-saas" style="height:60%;"></div><div class="s-quote" style="height:25%;"></div><div class="s-inv" style="height:15%;"></div></div><span class="stacked-label">Year 1</span></div>
+        <div class="stacked-col"><div class="stacked-bar" style="height:110px;"><div class="s-saas" style="height:45%;"></div><div class="s-quote" style="height:25%;"></div><div class="s-inv" style="height:30%;"></div></div><span class="stacked-label">Year 2</span></div>
+        <div class="stacked-col"><div class="stacked-bar" style="height:180px;"><div class="s-saas" style="height:40%;"></div><div class="s-quote" style="height:25%;"></div><div class="s-inv" style="height:35%;"></div></div><span class="stacked-label">Year 3</span></div>
+    </div>
+</div>
+
+<!-- SLIDE 15: Team -->
+<div class="slide blue">
+    <h2>Built By Industry Veterans</h2>
+    <div class="advisors"><h3>Industry Partners</h3><div class="adv-row"><span>80-truck fleet owner — pilot partner &amp; co-developer</span><span>Commercial Lead, major logistics software co.</span><span>300-truck fleet owner — early adopter &amp; advisor</span></div></div>
+</div>
+
+<!-- SLIDE 16: Ask -->
+<div class="slide dark">
+    <h2>Join Our Journey</h2>
+    <div class="stat-row">
+        <div class="big-stat" style="color:#2563eb;">R 3.0 M</div>
+        <div><span style="font-size:1.2em; font-weight:600;">seed round</span><br><span style="opacity:0.6;">to revolutionize African road freight</span></div>
+    </div>
+    <p style="font-size:1.1em; font-weight:600; margin:1em 0 0.3em;">Use of Funds</p>
+    <div class="funds-list">
+        <div class="fund-item"><div class="fund-dot"></div><span><strong>40%</strong> — Product &amp; AI engine (production-ready platform)</span></div>
+        <div class="fund-item"><div class="fund-dot"></div><span><strong>35%</strong> — Channel sales (fleet acquisition &amp; partnerships)</span></div>
+        <div class="fund-item"><div class="fund-dot"></div><span><strong>25%</strong> — Working capital (seed the financing pool)</span></div>
+    </div>
+    <p class="quote">"Know the cost of every load before the wheels roll."</p>
+    <div class="cta-row">
+        <a href="/get-started" class="cta-btn cta-p">Book a Demo</a>
+        <a href="mailto:grant@truckwys.com" class="cta-btn cta-s">Invest With Us</a>
+    </div>
+    <div style="display:flex; gap:1.5em; margin-top:1.5em; opacity:0.7;">
+        <a href="https://linkedin.com/in/truckwys-a8519239a" target="_blank" style="color:#fff; text-decoration:none; font-size:0.85em; font-weight:500;">LinkedIn</a>
+        <a href="https://x.com/truckwys" target="_blank" style="color:#fff; text-decoration:none; font-size:0.85em; font-weight:500;">X / Twitter</a>
+    </div>
+</div>
+
+<script>
+document.querySelectorAll('.slide').forEach(function(s){
+    var f=document.createElement('div');
+    f.className='slide-footer';
+    f.innerHTML='<img src="/images/truckwys-logo-transparent.png" alt="TruckWys">';
+    s.appendChild(f);
+});
+</script>
+</body>
+</html>

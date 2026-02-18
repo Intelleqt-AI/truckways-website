@@ -1,0 +1,11 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100">
+  <!-- TruckWys Logo - 3 curved recycling arrows forming triangle -->
+  <g fill="#1a1a1a">
+    <!-- Top arrow - points down-right with arrowhead -->
+    <path d="M50,8 L65,35 L55,35 L55,45 L45,45 L45,35 L35,35 Z"/>
+    <!-- Bottom-right arrow - points up-left with arrowhead -->
+    <path d="M88,65 L68,50 L68,58 L58,52 L52,62 L62,68 L62,60 L82,75 Z"/>
+    <!-- Bottom-left arrow - points up-right with arrowhead -->
+    <path d="M12,65 L32,50 L32,58 L42,52 L48,62 L38,68 L38,60 L18,75 Z"/>
+  </g>
+</svg>

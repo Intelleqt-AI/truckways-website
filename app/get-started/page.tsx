@@ -210,11 +210,11 @@ export default function GetStartedPage() {
 
               <p className="text-xs text-gray-500 text-center leading-relaxed pt-2">
                 By submitting this form, you agree to our{" "}
-                <Link href="#" className="underline hover:text-black">
+                <Link href="/terms" className="underline hover:text-black">
                   Terms of Service
                 </Link>{" "}
                 and{" "}
-                <Link href="#" className="underline hover:text-black">
+                <Link href="/privacy" className="underline hover:text-black">
                   Privacy Policy
                 </Link>
                 .

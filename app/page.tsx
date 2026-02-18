@@ -17,45 +17,37 @@ import {
   BarChart,
   Users,
   AlertTriangle,
-  Menu,
-  X,
+  ChevronDown,
 } from 'lucide-react';
 
 export default function HomePage() {
   const [activeTestimonial, setActiveTestimonial] = useState(0);
+  const [openFaq, setOpenFaq] = useState(-1);
 
-  const modules = [
+  const faqs = [
     {
-      id: 1,
-      title: 'Quote & Book AI',
-      subtitle: 'Quote Smart. Book Profitable.',
-      description:
-        'Win more work without sacrificing margin. Our AI provides smart price bands and predicts your win probability on every quote, turning a guessing game into a science.',
-      impact: '3-5% margin improvement per lane',
+      question: 'How quickly can I get started with TruckWys?',
+      answer: 'You can be up and running within 24 hours. We provide a dedicated onboarding specialist who helps you connect your existing systems, import your historical trip data, and configure your first AI-powered quotes. Most fleets see actionable profit insights within the first week, and full ROI within 30 days.',
     },
     {
-      id: 2,
-      title: 'Fleet Performance',
-      subtitle: 'Cut Costs on Every Trip.',
-      description:
-        'Go beyond tracking. Our AI analyses completed trips to find the root cause of high costs. Pinpoint inefficient vehicles, drivers, or routes to improve your cost-per-kilometre.',
-      impact: '15% reduction in empty kilometers',
+      question: 'Do I need to replace my current TMS or accounting software?',
+      answer: 'No - TruckWys works alongside your existing tools, not instead of them. We integrate with popular TMS platforms, accounting software like Sage and Xero, and fleet tracking systems. Think of us as an intelligence layer that makes your current tools smarter, not a replacement.',
     },
     {
-      id: 3,
-      title: 'Invoice & Cashflow',
-      subtitle: 'Automate Invoicing. Accelerate Cash.',
-      description:
-        'Transform your financial operations. AI scans PODs and receipts to auto-generate compliant invoices and syncs with your accounting software for a live view of your cash flow.',
-      impact: '7-10 day improvement in cash cycle',
+      question: 'How does the AI pricing actually work?',
+      answer: 'Our AI analyses 50+ variables including your historical trip costs, fuel prices, route efficiency, customer payment history, and live market rates. It then recommends optimal price bands for each quote - showing you the minimum profitable rate, the market rate, and the premium rate. You always make the final decision, but now you have data backing every quote.',
     },
     {
-      id: 4,
-      title: 'Capital',
-      subtitle: 'Turn Jobs into Same-Day Cash.',
-      description:
-        'Stop waiting weeks to get paid. Our AI risk engine verifies your completed work, allowing you to get an instant advance on your invoices through our trusted lending partners.',
-      impact: 'Same-day payment on completed loads',
+      question: 'What size fleet is TruckWys designed for?',
+      answer: 'TruckWys is built for fleets with 10+ trucks operating in Southern and East Africa. Whether you run 10 trucks or 500, the platform scales with you. Our AI models improve with more data, so larger fleets often see even better results - but even smaller operations see the 15% average margin improvement.',
+    },
+    {
+      question: 'How does QuickCash invoice financing work?',
+      answer: 'After you complete a delivery, upload your POD (proof of delivery) through the app. Our AI verifies the delivery, cross-references the customer payment history from our database of 10,000+ African shippers, and scores the invoice risk in seconds. If approved, you can receive up to 90% of the invoice value same-day through our lending partners. No more 45-day payment waits.',
+    },
+    {
+      question: 'Is my data secure?',
+      answer: 'Absolutely. We use 256-bit bank-level encryption, host on SOC 2 compliant infrastructure, and never share your operational data with competitors or third parties. Your data is used only to improve YOUR business - we aggregate anonymous industry benchmarks, but your specific routes, customers, and pricing remain completely confidential.',
     },
   ];
 
@@ -116,6 +108,8 @@ export default function HomePage() {
     },
   ];
 
+  const [testimonialPaused, setTestimonialPaused] = useState(false);
+
   const nextTestimonial = () => {
     setActiveTestimonial(prev => (prev + 1) % testimonials.length);
   };
@@ -124,8 +118,49 @@ export default function HomePage() {
     setActiveTestimonial(prev => (prev - 1 + testimonials.length) % testimonials.length);
   };
 
+  // Auto-rotate testimonials every 6 seconds, pause on hover
+  useEffect(() => {
+    if (testimonialPaused) return;
+    const interval = setInterval(() => {
+      setActiveTestimonial(prev => (prev + 1) % testimonials.length);
+    }, 6000);
+    return () => clearInterval(interval);
+  }, [testimonialPaused, testimonials.length]);
+
+  // Scroll-reveal animations
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('reveal-visible');
+            observer.unobserve(entry.target);
+          }
+        });
+      },
+      { threshold: 0.1, rootMargin: '0px 0px -50px 0px' }
+    );
+
+    const elements = document.querySelectorAll('.reveal-on-scroll');
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
     <div className="min-h-screen bg-white font-sans">
+      {/* Scroll reveal styles */}
+      <style dangerouslySetInnerHTML={{ __html: `
+        .reveal-on-scroll {
+          opacity: 0;
+          transform: translateY(30px);
+          transition: opacity 0.7s ease-out, transform 0.7s ease-out;
+        }
+        .reveal-visible {
+          opacity: 1 !important;
+          transform: translateY(0) !important;
+        }
+      `}} />
       {/* Header - Made floating with transparent background initially */}
 
       {/* Hero - NO FRAME - Extends to top of page, nav floats over it */}
@@ -133,11 +168,13 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 relative z-10 h-full flex flex-col justify-between py-8 sm:py-12 w-full">
           <div className="max-w-full flex flex-col justify-center items-center flex-1 text-center">
             <div className="space-y-4 sm:space-y-6">
-              <h1 className="font-semibold text-black text-balance leading-[1.1] text-[32px] sm:text-[42px] md:text-[52px] lg:text-[62px]">
-                The financial platform for fleet profitability
+              <h1 className="font-medium text-black leading-[1.15] text-[38px] sm:text-[48px] md:text-[58px] lg:text-[68px]">
+                Know your profit.
+                <br />
+                Every trip.
               </h1>
-              <p className="text-base sm:text-lg text-gray-600 text-pretty leading-relaxed max-w-full sm:max-w-[600px] mx-auto">
-                Truckwys transforms your fleet's operational data into financial intelligence - helping you quote smarter, protect margins,
+              <p className="text-base sm:text-lg text-gray-600 text-pretty leading-relaxed max-w-full sm:max-w-[600px] mx-auto mt-6">
+                TruckWys transforms your operational data into financial intelligence - helping you quote smarter, protect margins,
                 and get paid faster. Built for African fleets, powered by real AI.
               </p>
               <div className="flex gap-4 justify-center pb-6 sm:pb-8">
@@ -147,7 +184,7 @@ export default function HomePage() {
                     className="h-12 px-6 sm:px-8 text-white hover:opacity-90 text-sm sm:text-base"
                     style={{ backgroundColor: 'rgb(60, 131, 246)' }}
                   >
-                    Get started
+                    See Your Fleet's Hidden Profit
                   </Button>
                 </Link>
               </div>
@@ -172,14 +209,14 @@ export default function HomePage() {
       </section>
 
       {/* Dashboard Showcase Section - Outside frame, full width */}
-      <section className="py-0 sm:py-1 lg:py-1 bg-gradient-to-b from-white to-white">
+      <section className="py-0 sm:py-1 lg:py-1 bg-gradient-to-b from-white to-white reveal-on-scroll">
         <div className="max-w-7xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-10 gap-3 items-stretch">
             {/* Right side - 70% - Dashboard screenshot - FIRST on mobile */}
             <div className="lg:col-span-7 lg:order-2 flex items-stretch">
               <div className="rounded-lg overflow-hidden shadow-2xl border border-gray-200 relative w-full">
                 <img
-                  src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-10-27%20at%2013.15.47-BLzbrJLtqdXkw9H3kIKA1XfNzk8YC5.png"
+                  src="/images/dashboards/dashboard-main.png"
                   alt="Truckwys dashboard showing business health metrics, revenue trends, and actionable insights"
                   className="w-full h-full object-cover object-left"
                 />
@@ -267,22 +304,12 @@ export default function HomePage() {
                   </div>
                 </div>
               </div>
-
-              {/* Kilimanjaro Logistics */}
-              <div className="h-12 flex items-center justify-center">
-                <div className="flex items-center gap-2">
-                  <svg viewBox="0 0 24 24" fill="black" className="w-8 h-8">
-                    <path d="M14,6L10.25,11L13.1,14.8L11.5,16C9.81,13.75 7,10 7,10L1,18H23L14,6Z" />
-                  </svg>
-                  <span className="text-xl font-bold text-black">KILIMANJARO</span>
-                </div>
-              </div>
             </div>
           </div>
         </section>
 
         {/* Redesigned workflow-style features section */}
-        <section className="pt-8 pb-16 sm:pb-20 lg:pb-24 bg-white relative overflow-hidden">
+        <section className="pt-8 pb-16 sm:pb-20 lg:pb-24 bg-white relative overflow-hidden reveal-on-scroll">
           <div className="flex justify-between items-center pb-6 mb-8 border-b border-dashed border-gray-200">
             <div className="text-xs sm:text-sm font-medium text-gray-400 tracking-wider px-4 sm:px-6 lg:px-16">[01] FEATURES</div>
             <div className="text-xs sm:text-sm font-medium text-gray-400 tracking-wider px-4 sm:px-6 lg:px-16 hidden sm:block">
@@ -292,7 +319,7 @@ export default function HomePage() {
 
           <div className="px-4 sm:px-6 lg:px-16">
             <div className="py-8 sm:py-12 mb-8 sm:mb-12">
-              <h2 className="text-[32px] sm:text-[28px] lg:text-[32px] font-medium mb-4 text-black text-left leading-tight tracking-[-0.32px]">
+              <h2 className="text-[28px] sm:text-[32px] font-medium mb-4 text-black text-left leading-tight tracking-[-0.32px]">
                 From quote to cash.
               </h2>
               <p className="text-[20px] sm:text-[24px] lg:text-[32px] text-gray-500 leading-tight sm:leading-[38px] tracking-[-0.32px] text-left">
@@ -303,7 +330,7 @@ export default function HomePage() {
 
             <div className="space-y-16 sm:space-y-24">
               {/* Feature 1: Quote Smarter */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div id="quote-ai" className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center scroll-mt-20">
                 <div className="space-y-6">
                   <div>
                     <div className="inline-flex items-center mb-4">
@@ -365,7 +392,7 @@ export default function HomePage() {
               </div>
 
               {/* Feature 2: Deliver Efficiently */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div id="fleet-performance" className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center scroll-mt-20">
                 <div className="space-y-6 lg:order-2">
                   <div>
                     <div className="inline-flex items-center mb-4">
@@ -420,12 +447,12 @@ export default function HomePage() {
                       {/* Top row - 2 alert cards side by side */}
                       <div className="grid grid-cols-2 gap-4">
                         <img
-                          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-10-17%20at%2020.46.35-dH0BdNEPSYrO0FdMuUsTDzWasg67y8.png"
+                          src="/images/dashboards/harsh-braking.png"
                           alt="Harsh braking events alert showing N3 Durban Approach with 12 events per week and R 800 savings potential"
                           className="w-full h-auto rounded"
                         />
                         <img
-                          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-10-17%20at%2020.46.46-b2PzxGoD4ptlJR2xIZuzdZpe1sIlfT.png"
+                          src="/images/dashboards/speed-variance.png"
                           alt="Speed variance alert showing N1 Cape Town-JHB route with high variance and R 1,200 savings potential"
                           className="w-full h-auto rounded"
                         />
@@ -434,7 +461,7 @@ export default function HomePage() {
                       {/* Bottom row - Performance heatmap full width */}
                       <div>
                         <img
-                          src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-10-17%20at%2020.46.20-zvgKQ6K9jlEQV8il921oLJmTd1k8qs.png"
+                          src="/images/dashboards/performance-heatmap.png"
                           alt="Performance activity heatmap showing 12 months of daily performance scores with darker green indicating better performance"
                           className="w-full h-auto rounded"
                         />
@@ -445,7 +472,7 @@ export default function HomePage() {
               </div>
 
               {/* Feature 3: Invoice Automatically */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+              <div id="invoice-cashflow" className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center scroll-mt-20">
                 <div className="space-y-6">
                   <div>
                     <div className="inline-flex items-center mb-4">
@@ -498,7 +525,7 @@ export default function HomePage() {
                     }}
                   >
                     <img
-                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-10-17%20at%2016.27.31-pDSUEy8b52ssLL2WXOoQnyH27zWQci.png"
+                      src="/images/dashboards/invoice-pipeline.png"
                       alt="Invoice pipeline dashboard showing outstanding invoices, overdue amounts, and AI-powered advance scoring with POD verification status"
                       className="w-full h-auto rounded"
                     />
@@ -558,7 +585,7 @@ export default function HomePage() {
                     }}
                   >
                     <img
-                      src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-10-17%20at%2016.28.22-f5FPQxNu6OgiUmyPlGq7u79inL9Byi.png"
+                      src="/images/dashboards/capital-dashboard.png"
                       alt="Capital dashboard showing 39 eligible invoices ready for instant payment, available capital of R 500,000, outstanding advances, utilisation rate, and advance history with customer details and status"
                       className="w-full h-auto rounded"
                     />
@@ -570,7 +597,7 @@ export default function HomePage() {
         </section>
 
         {/* Capital Section - Moved from [05] to [02] */}
-        <section className="pt-8 pb-16 sm:pb-20 lg:pb-24 bg-gray-50">
+        <section id="capital" className="pt-8 pb-16 sm:pb-20 lg:pb-24 bg-gray-50 scroll-mt-20 reveal-on-scroll">
           <div className="flex justify-between items-center pb-6 mb-8 border-b border-dashed border-gray-200">
             <div className="text-xs sm:text-sm font-medium text-gray-400 tracking-wider px-4 sm:px-6 lg:px-16">[02] CAPITAL</div>
             <div className="text-xs sm:text-sm font-medium text-gray-400 tracking-wider px-4 sm:px-6 lg:px-16 hidden sm:block">
@@ -770,30 +797,18 @@ export default function HomePage() {
                   </div>
 
                   {/* CSS animations */}
-                  <style jsx>{`
+                  <style dangerouslySetInnerHTML={{ __html: `
                     @keyframes scan {
-                      0% {
-                        top: 0;
-                      }
-                      50% {
-                        top: 100%;
-                      }
-                      100% {
-                        top: 0;
-                      }
+                      0% { top: 0; }
+                      50% { top: 100%; }
+                      100% { top: 0; }
                     }
                     @keyframes progress {
-                      0% {
-                        width: 0%;
-                      }
-                      50% {
-                        width: 75%;
-                      }
-                      100% {
-                        width: 100%;
-                      }
+                      0% { width: 0%; }
+                      50% { width: 75%; }
+                      100% { width: 100%; }
                     }
-                  `}</style>
+                  `}} />
                 </div>
               </div>
             </div>
@@ -827,11 +842,20 @@ export default function HomePage() {
                 </div>
               </div>
             </div>
+
+            <div className="mt-10 text-center">
+              <p className="text-sm text-gray-500 mb-4">Capital powered by our trusted partner</p>
+              <a href="https://www.merchantcapital.co.za/" target="_blank" rel="noopener noreferrer">
+                <Button variant="outline" size="lg" className="h-12 px-8 border-black text-black hover:bg-gray-100 text-sm sm:text-base">
+                  Learn more about Merchant Capital
+                </Button>
+              </a>
+            </div>
           </div>
         </section>
 
         {/* How it works - Redesigned */}
-        <section className="overflow-hidden pt-8 pb-16 sm:pb-20 lg:pb-24 bg-white">
+        <section className="overflow-hidden pt-8 pb-16 sm:pb-20 lg:pb-24 bg-white reveal-on-scroll">
           <div className="flex justify-between items-center pb-6 mb-8 border-b border-dashed border-gray-200">
             <div className="text-xs sm:text-sm font-medium text-gray-400 tracking-wider px-4 sm:px-6 lg:px-16">[03] HOW IT WORKS</div>
             <div className="text-xs sm:text-sm font-medium text-gray-400 tracking-wider px-4 sm:px-6 lg:px-16 hidden sm:block">
@@ -1043,7 +1067,7 @@ export default function HomePage() {
         </section>
 
         {/* Why We're Different - Moved from [03] to [04] */}
-        <section className="pt-8 pb-16 sm:pb-20 lg:pb-24 bg-gray-50">
+        <section className="pt-8 pb-16 sm:pb-20 lg:pb-24 bg-gray-50 reveal-on-scroll">
           <div className="flex justify-between items-center pb-6 mb-8 border-b border-dashed border-gray-200">
             <div className="text-xs sm:text-sm font-medium text-gray-400 tracking-wider px-4 sm:px-6 lg:px-16">
               [04] WHY WE'RE DIFFERENT
@@ -1116,7 +1140,7 @@ export default function HomePage() {
 
                 <div className="mt-auto bg-gray-50 rounded-md p-6 border border-gray-200">
                   <img
-                    src="https://hebbkx1anhila5yf.public.blob.vercel-storage.com/Screenshot%202025-10-06%20at%2017.57.51-lKldL5JZCSAsGxDvyTeBo6zOYnh7RQ.png"
+                    src="/images/dashboards/cashflow-forecast.png"
                     alt="30-day cash flow forecast dashboard"
                     className="w-full h-auto rounded-md"
                   />
@@ -1210,7 +1234,7 @@ export default function HomePage() {
         </section>
 
         {/* Integrations */}
-        <section className="pt-8 pb-16 sm:pb-20 lg:pb-24 bg-white">
+        <section className="pt-8 pb-16 sm:pb-20 lg:pb-24 bg-white reveal-on-scroll">
           <div className="flex justify-between items-center pb-6 mb-8 border-b border-dashed border-gray-200">
             <div className="text-xs sm:text-sm font-medium text-gray-400 tracking-wider px-4 sm:px-6 lg:px-16">[05] INTEGRATIONS</div>
             <div className="text-xs sm:text-sm font-medium text-gray-400 tracking-wider px-4 sm:px-6 lg:px-16 hidden sm:block">
@@ -1227,44 +1251,36 @@ export default function HomePage() {
                   Truckwys connects directly to your existing TMS, telematics, and accounting software — no rip-and-replace, no downtime.
                   Just plug in your data, and our AI starts finding profit within hours.
                 </p>
-                <Link href="/get-started">
-                  <Button size="lg" className="h-12 px-8 text-white hover:opacity-90" style={{ backgroundColor: 'rgb(60, 131, 246)' }}>
-                    Get started
-                  </Button>
-                </Link>
+                <div>
+                  <Link href="/get-started">
+                    <Button size="lg" className="h-12 px-8 text-white hover:opacity-90" style={{ backgroundColor: 'rgb(60, 131, 246)' }}>
+                      Get started
+                    </Button>
+                  </Link>
+                </div>
               </div>
 
               {/* Right side - Integration logos grid */}
-              <div className="relative min-h-[400px] flex items-center justify-center">
+              <div className="flex items-center justify-center">
                 <div className="grid grid-cols-4 gap-4 w-full max-w-lg">
                   {/* Row 1 */}
-                  <div className="aspect-square rounded-md bg-white border border-gray-200 shadow-sm flex items-center justify-center p-6 transform translate-y-4">
-                    <div className="w-full h-full flex items-center justify-center">
-                      <svg viewBox="0 0 24 24" fill="none" className="w-12 h-12">
-                        <path
-                          d="M12 2L2 7L12 12L22 7L12 2Z"
-                          fill="#FF6B6B"
-                          stroke="#FF6B6B"
-                          strokeWidth="2"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                        />
-                        <path d="M2 17L12 22L22 17" stroke="#FF6B6B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                        <path d="M2 12L12 17L22 12" stroke="#FF6B6B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
-                      </svg>
-                    </div>
+                  <div className="aspect-square rounded-md bg-white border border-gray-200 shadow-sm flex items-center justify-center p-4">
+                    <svg viewBox="0 0 24 24" fill="none" className="w-10 h-10">
+                      <path d="M12 2L2 7L12 12L22 7L12 2Z" fill="#FF6B6B" stroke="#FF6B6B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      <path d="M2 17L12 22L22 17" stroke="#FF6B6B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                      <path d="M2 12L12 17L22 12" stroke="#FF6B6B" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
                   </div>
 
                   {/* Xero Logo */}
-                  <div className="aspect-square rounded-md bg-white border border-gray-200 shadow-sm flex items-center justify-center p-6 transform -translate-y-2">
-                    <div className="flex flex-col items-center justify-center">
-                      <div className="text-2xl font-bold text-[#13B5EA]">Xero</div>
-                    </div>
+                  <div className="aspect-square rounded-md bg-white border border-gray-200 shadow-sm flex items-center justify-center p-4">
+                    <div className="text-2xl font-bold text-[#13B5EA]">Xero</div>
                   </div>
 
-                  <div className="aspect-square rounded-md bg-white border border-gray-200 shadow-sm flex items-center justify-center p-6 transform translate-y-6">
-                    <div className="w-12 h-12 bg-green-500 rounded flex items-center justify-center">
-                      <div className="grid grid-cols-3 gap-0.5 w-8 h-8">
+                  {/* Green grid logo */}
+                  <div className="aspect-square rounded-md bg-white border border-gray-200 shadow-sm flex items-center justify-center p-4">
+                    <div className="w-10 h-10 bg-green-500 rounded flex items-center justify-center">
+                      <div className="grid grid-cols-3 gap-0.5 w-7 h-7">
                         <div className="bg-white rounded-sm"></div>
                         <div className="bg-white rounded-sm"></div>
                         <div className="bg-white rounded-sm"></div>
@@ -1278,26 +1294,29 @@ export default function HomePage() {
                     </div>
                   </div>
 
-                  <div className="aspect-square rounded-md bg-white border border-gray-200 shadow-sm flex items-center justify-center p-6">
-                    <div className="w-12 h-12 bg-purple-600 rounded flex items-center justify-center text-white font-bold text-2xl">M</div>
+                  {/* M Logo */}
+                  <div className="aspect-square rounded-md bg-white border border-gray-200 shadow-sm flex items-center justify-center p-4">
+                    <div className="w-10 h-10 bg-purple-600 rounded flex items-center justify-center text-white font-bold text-xl">M</div>
                   </div>
 
                   {/* Row 2 */}
                   {/* CtrlFleet Logo */}
-                  <div className="aspect-square rounded-md bg-white border border-gray-200 shadow-sm flex items-center justify-center p-6 transform -translate-y-4">
+                  <div className="aspect-square rounded-md bg-white border border-gray-200 shadow-sm flex items-center justify-center p-4">
                     <div className="flex flex-col items-center justify-center">
-                      <div className="text-lg font-bold text-black">Ctrl</div>
-                      <div className="text-lg font-bold text-[#3C83F6]">Fleet</div>
+                      <div className="text-base font-bold text-black leading-tight">Ctrl</div>
+                      <div className="text-base font-bold text-[#3C83F6] leading-tight">Fleet</div>
                     </div>
                   </div>
 
-                  <div className="aspect-square rounded-md bg-white border border-gray-200 shadow-sm flex items-center justify-center p-6 transform translate-y-2">
-                    <div className="w-12 h-12 bg-green-600 rounded-full flex items-center justify-center text-white font-bold text-xl">
+                  {/* QuickBooks Logo */}
+                  <div className="aspect-square rounded-md bg-white border border-gray-200 shadow-sm flex items-center justify-center p-4">
+                    <div className="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
                       QB
                     </div>
                   </div>
 
-                  <div className="aspect-square rounded-md bg-white border border-gray-200 shadow-sm flex items-center justify-center p-6 transform -translate-y-6">
+                  {/* Purple dots logo */}
+                  <div className="aspect-square rounded-md bg-white border border-gray-200 shadow-sm flex items-center justify-center p-4">
                     <div className="flex flex-col gap-1">
                       <div className="flex gap-1">
                         <div className="w-2 h-2 bg-purple-600 rounded-sm"></div>
@@ -1318,10 +1337,10 @@ export default function HomePage() {
                   </div>
 
                   {/* Geotab Logo */}
-                  <div className="aspect-square rounded-md bg-white border border-gray-200 shadow-sm flex items-center justify-center p-6 transform translate-y-4">
+                  <div className="aspect-square rounded-md bg-white border border-gray-200 shadow-sm flex items-center justify-center p-4">
                     <div className="flex flex-col items-center justify-center">
-                      <div className="w-10 h-10 bg-[#0066CC] rounded-full flex items-center justify-center mb-1">
-                        <div className="w-6 h-6 border-2 border-white rounded-full"></div>
+                      <div className="w-8 h-8 bg-[#0066CC] rounded-full flex items-center justify-center mb-1">
+                        <div className="w-5 h-5 border-2 border-white rounded-full"></div>
                       </div>
                       <div className="text-xs font-bold text-[#0066CC]">GEOTAB</div>
                     </div>
@@ -1332,10 +1351,148 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Testimonials */}
-        <section className="pt-8 pb-16 sm:pb-20 lg:pb-24 bg-white">
+        {/* Pricing Section */}
+        <section className="pt-8 pb-16 sm:pb-20 lg:pb-24 bg-gray-50 reveal-on-scroll">
           <div className="flex justify-between items-center pb-6 mb-8 border-b border-dashed border-gray-200">
-            <div className="text-xs sm:text-sm font-medium text-gray-400 tracking-wider px-4 sm:px-6 lg:px-16">[06] TESTIMONIALS</div>
+            <div className="text-xs sm:text-sm font-medium text-gray-400 tracking-wider px-4 sm:px-6 lg:px-16">[06] PRICING</div>
+            <div className="text-xs sm:text-sm font-medium text-gray-400 tracking-wider px-4 sm:px-6 lg:px-16 hidden sm:block">
+              TRANSPARENT & SIMPLE
+            </div>
+          </div>
+
+          <div id="pricing" className="px-4 sm:px-6 lg:px-16 scroll-mt-20">
+            <div className="py-12 mb-16">
+              <h2 className="text-[32px] font-medium leading-[38px] tracking-[-0.32px] text-black text-left lg:text-center mb-4">
+                Simple, transparent pricing
+              </h2>
+              <p className="text-[20px] sm:text-[24px] lg:text-[32px] text-gray-500 leading-[38px] tracking-[-0.32px] text-left lg:text-center">
+                Pay for the platform, then only pay when you win work
+              </p>
+            </div>
+
+            <div className="max-w-5xl mx-auto">
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                {/* Platform Fee */}
+                <div className="bg-white rounded-lg border-2 border-gray-200 p-8 sm:p-10 flex flex-col">
+                  <div className="mb-6">
+                    <h3 className="text-lg font-semibold text-gray-600 mb-2">Platform Fee</h3>
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-5xl font-bold text-black">R4,500</span>
+                      <span className="text-xl text-gray-500">/month</span>
+                    </div>
+                  </div>
+
+                  <p className="text-base text-gray-600 mb-6 leading-relaxed">
+                    Covers all your data storage, infrastructure, and IT needs
+                  </p>
+
+                  <div className="space-y-3 mb-8">
+                    <div className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: 'rgb(60, 131, 246)' }} />
+                      <span className="text-sm text-gray-700">Unlimited data storage</span>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: 'rgb(60, 131, 246)' }} />
+                      <span className="text-sm text-gray-700">Cloud infrastructure & security</span>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: 'rgb(60, 131, 246)' }} />
+                      <span className="text-sm text-gray-700">All software updates included</span>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: 'rgb(60, 131, 246)' }} />
+                      <span className="text-sm text-gray-700">Full platform access</span>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: 'rgb(60, 131, 246)' }} />
+                      <span className="text-sm text-gray-700">24/7 support</span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Success Fee */}
+                <div className="bg-white rounded-lg border-2 border-gray-200 p-8 sm:p-10 flex flex-col relative overflow-hidden">
+                  <div className="absolute top-4 right-4">
+                    <div className="bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full">
+                      Pay on success
+                    </div>
+                  </div>
+
+                  <div className="mb-6">
+                    <h3 className="text-lg font-semibold text-gray-600 mb-2">Success Fee</h3>
+                    <div className="flex items-baseline gap-2">
+                      <span className="text-5xl font-bold text-black">0.25%</span>
+                      <span className="text-xl text-gray-500">per quote</span>
+                    </div>
+                  </div>
+
+                  <p className="text-base text-gray-600 mb-6 leading-relaxed">
+                    Only charged on accepted quotes booked through the platform
+                  </p>
+
+                  <div className="space-y-3 mb-8">
+                    <div className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: 'rgb(60, 131, 246)' }} />
+                      <span className="text-sm text-gray-700">Only pay when you win work</span>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: 'rgb(60, 131, 246)' }} />
+                      <span className="text-sm text-gray-700">No charges on declined quotes</span>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: 'rgb(60, 131, 246)' }} />
+                      <span className="text-sm text-gray-700">Transparent billing dashboard</span>
+                    </div>
+                    <div className="flex items-start gap-3">
+                      <CheckCircle className="w-5 h-5 flex-shrink-0 mt-0.5" style={{ color: 'rgb(60, 131, 246)' }} />
+                      <span className="text-sm text-gray-700">Detailed transaction reports</span>
+                    </div>
+                  </div>
+
+                  <div className="mt-auto bg-blue-50 rounded-lg p-4 border border-blue-200">
+                    <p className="text-sm text-gray-700">
+                      <span className="font-semibold">Example:</span> Win a R100,000 quote = R250 success fee
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              {/* Total Value Proposition */}
+              <div className="mt-12 bg-white rounded-lg border border-gray-200 p-8 text-center">
+                <h4 className="text-xl font-semibold text-black mb-4">Why our pricing works for you</h4>
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                  <div>
+                    <div className="text-3xl font-bold text-black mb-2">R4,500</div>
+                    <p className="text-sm text-gray-600">Fixed monthly cost - predictable budgeting</p>
+                  </div>
+                  <div>
+                    <div className="text-3xl font-bold text-black mb-2">0.25%</div>
+                    <p className="text-sm text-gray-600">Tiny fraction of won business - aligned incentives</p>
+                  </div>
+                  <div>
+                    <div className="text-3xl font-bold text-black mb-2">15%</div>
+                    <p className="text-sm text-gray-600">Average margin improvement - ROI in weeks</p>
+                  </div>
+                </div>
+              </div>
+
+              {/* CTA */}
+              <div className="mt-12 text-center">
+                <Link href="/get-started">
+                  <Button size="lg" className="h-12 px-8 text-white hover:opacity-90 text-base" style={{ backgroundColor: 'rgb(60, 131, 246)' }}>
+                    Start your free 30-day trial
+                  </Button>
+                </Link>
+                <p className="text-sm text-gray-500 mt-4">No credit card required • Cancel anytime</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* Testimonials */}
+        <section id="testimonials" className="pt-8 pb-16 sm:pb-20 lg:pb-24 bg-white scroll-mt-20 reveal-on-scroll">
+          <div className="flex justify-between items-center pb-6 mb-8 border-b border-dashed border-gray-200">
+            <div className="text-xs sm:text-sm font-medium text-gray-400 tracking-wider px-4 sm:px-6 lg:px-16">[07] TESTIMONIALS</div>
             <div className="text-xs sm:text-sm font-medium text-gray-400 tracking-wider px-4 sm:px-6 lg:px-16 hidden sm:block">
               PROVEN RESULTS
             </div>
@@ -1348,7 +1505,10 @@ export default function HomePage() {
               </h2>
             </div>
 
-            <div>
+            <div
+              onMouseEnter={() => setTestimonialPaused(true)}
+              onMouseLeave={() => setTestimonialPaused(false)}
+            >
               <div className="max-w-7xl mx-auto">
                 <div className="grid grid-cols-1 lg:grid-cols-12 gap-6">
                   {/* Left side - 2 stacked boxes */}
@@ -1411,7 +1571,7 @@ export default function HomePage() {
                       /* Headshot display */
                       <div className="bg-gray-200 rounded-md overflow-hidden flex items-center justify-center max-h-[200px]">
                         <img
-                          src={testimonials[activeTestimonial].image || '/placeholder.svg'}
+                          src={'/placeholder.svg'}
                           alt={testimonials[activeTestimonial].name}
                           className="w-full h-full object-cover"
                         />
@@ -1495,8 +1655,62 @@ export default function HomePage() {
           </div>
         </section>
 
+        {/* FAQ Section */}
+        <section className="pt-8 pb-16 sm:pb-20 lg:pb-24 bg-white reveal-on-scroll">
+          <div className="flex justify-between items-center pb-6 mb-8 border-b border-dashed border-gray-200">
+            <div className="text-xs sm:text-sm font-medium text-gray-400 tracking-wider px-4 sm:px-6 lg:px-16">[08] FAQ</div>
+            <div className="text-xs sm:text-sm font-medium text-gray-400 tracking-wider px-4 sm:px-6 lg:px-16 hidden sm:block">
+              COMMON QUESTIONS
+            </div>
+          </div>
+
+          <div className="px-4 sm:px-6 lg:px-16">
+            <div className="py-12 mb-8">
+              <h2 className="text-[32px] font-medium leading-[38px] tracking-[-0.32px] text-black text-left lg:text-center">
+                Frequently asked questions
+              </h2>
+            </div>
+
+            <div className="max-w-3xl mx-auto">
+              {faqs.map((faq, index) => (
+                <div key={index} className="border-b border-gray-200">
+                  <button
+                    type="button"
+                    onClick={() => {
+                      console.log('FAQ clicked:', index, 'current:', openFaq);
+                      setOpenFaq(openFaq === index ? -1 : index);
+                    }}
+                    className="w-full py-6 flex items-center justify-between text-left hover:bg-gray-50 transition-colors cursor-pointer"
+                  >
+                    <span className="text-lg font-medium text-black pr-4">{faq.question}</span>
+                    <ChevronDown
+                      className={`w-5 h-5 text-gray-500 flex-shrink-0 transition-transform duration-200 ${
+                        openFaq === index ? 'rotate-180' : ''
+                      }`}
+                    />
+                  </button>
+                  {openFaq === index && (
+                    <div className="pb-6 px-1">
+                      <p className="text-gray-600 leading-relaxed">{faq.answer}</p>
+                    </div>
+                  )}
+                </div>
+              ))}
+            </div>
+
+            <div className="mt-12 text-center">
+              <p className="text-gray-600 mb-4">Still have questions?</p>
+              <Link href="/contact">
+                <Button variant="outline" className="border-black text-black hover:bg-gray-100">
+                  Contact us
+                </Button>
+              </Link>
+            </div>
+          </div>
+        </section>
+
         {/* CTA Section */}
-        <section className="pt-8 pb-16 sm:pb-20 lg:pb-24 bg-white">
+        <section className="pt-8 pb-16 sm:pb-20 lg:pb-24 bg-white reveal-on-scroll">
           <div
             className="relative overflow-hidden shadow-2xl"
             style={{
@@ -1574,7 +1788,6 @@ export default function HomePage() {
         </section>
       </div>
 
-      {/* Footer - NO FRAME */}
     </div>
   );
 }
