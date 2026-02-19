@@ -14,7 +14,6 @@ const navItems = [
   { href: '/dashboard', icon: LayoutDashboard, label: 'Home' },
   { href: '/dashboard/quotes', icon: FileText, label: 'Quotes' },
   { href: '/dashboard/finance', icon: Wallet, label: 'Finance' },
-  { href: '/dashboard/capital', icon: Building2, label: 'Capital' },
 ];
 
 interface MobileBottomNavProps {

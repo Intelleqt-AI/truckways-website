@@ -1,0 +1,13 @@
+# TruckWys Robots.txt
+# https://truckwys.com
+
+User-agent: *
+Allow: /
+
+# Sitemaps
+Sitemap: https://truckwys.com/sitemap.xml
+
+# Disallow admin/api routes
+Disallow: /api/
+Disallow: /_next/
+Disallow: /admin/

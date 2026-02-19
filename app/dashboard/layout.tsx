@@ -44,11 +44,6 @@ const navigationItems = [
     href: '/dashboard/finance',
     icon: Wallet,
   },
-  {
-    name: 'Capital',
-    href: '/dashboard/capital',
-    icon: Building2,
-  },
 ];
 
 export default function DashboardLayout({
