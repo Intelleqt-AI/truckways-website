@@ -843,14 +843,7 @@ export default function HomePage() {
               </div>
             </div>
 
-            <div className="mt-10 text-center">
-              <p className="text-sm text-gray-500 mb-4">Capital powered by our trusted partner</p>
-              <a href="https://www.merchantcapital.co.za/" target="_blank" rel="noopener noreferrer">
-                <Button variant="outline" size="lg" className="h-12 px-8 border-black text-black hover:bg-gray-100 text-sm sm:text-base">
-                  Learn more about Merchant Capital
-                </Button>
-              </a>
-            </div>
+            {/* Merchant Capital section removed */}
           </div>
         </section>
 
