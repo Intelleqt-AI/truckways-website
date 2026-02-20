@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+<head><title>OG Image Generator</title></head>
+<body style="margin:0;background:#000">
+<canvas id="og" width="1200" height="630"></canvas>
+<canvas id="apple" width="180" height="180"></canvas>
+<canvas id="icon192" width="192" height="192"></canvas>
+<canvas id="icon512" width="512" height="512"></canvas>
+<script>
+// OG Image
+const og = document.getElementById('og');
+const ctx = og.getContext('2d');
+
+// Background gradient
+const grad = ctx.createLinearGradient(0, 0, 1200, 630);
+grad.addColorStop(0, '#0f172a');
+grad.addColorStop(1, '#1e293b');
+ctx.fillStyle = grad;
+ctx.fillRect(0, 0, 1200, 630);
+
+// Subtle grid pattern
+ctx.strokeStyle = 'rgba(255,255,255,0.03)';
+ctx.lineWidth = 1;
+for(let i = 0; i < 1200; i += 40) {
+  ctx.beginPath(); ctx.moveTo(i, 0); ctx.lineTo(i, 630); ctx.stroke();
+}
+for(let i = 0; i < 630; i += 40) {
+  ctx.beginPath(); ctx.moveTo(0, i); ctx.lineTo(1200, i); ctx.stroke();
+}
+
+// Accent line
+ctx.fillStyle = '#3b82f6';
+ctx.fillRect(80, 200, 4, 230);
+
+// Company name
+ctx.fillStyle = '#ffffff';
+ctx.font = 'bold 72px Inter, system-ui, sans-serif';
+ctx.fillText('TRUCKWYS', 110, 290);
+
+// Tagline
+ctx.fillStyle = '#94a3b8';
+ctx.font = '32px Inter, system-ui, sans-serif';
+ctx.fillText('AI-Powered Fleet Profitability Platform', 110, 350);
+
+// Sub tagline
+ctx.fillStyle = '#64748b';
+ctx.font = '24px Inter, system-ui, sans-serif';
+ctx.fillText('Built for African Transport Operators', 110, 400);
+
+// URL
+ctx.fillStyle = '#3b82f6';
+ctx.font = '20px Inter, system-ui, sans-serif';
+ctx.fillText('truckwys.com', 110, 520);
+
+// Icon canvases (square with logo mark)
+function drawIcon(canvasId) {
+  const c = document.getElementById(canvasId);
+  const x = c.getContext('2d');
+  const s = c.width;
+  
+  // Background
+  const g = x.createLinearGradient(0, 0, s, s);
+  g.addColorStop(0, '#0f172a');
+  g.addColorStop(1, '#1e293b');
+  x.fillStyle = g;
+  x.fillRect(0, 0, s, s);
+  
+  // Draw TW letters as simple icon
+  x.fillStyle = '#ffffff';
+  x.font = `bold ${s * 0.4}px Inter, system-ui, sans-serif`;
+  x.textAlign = 'center';
+  x.textBaseline = 'middle';
+  x.fillText('TW', s/2, s/2);
+  
+  // Blue accent dot
+  x.fillStyle = '#3b82f6';
+  x.beginPath();
+  x.arc(s * 0.78, s * 0.25, s * 0.06, 0, Math.PI * 2);
+  x.fill();
+}
+
+drawIcon('apple');
+drawIcon('icon192');
+drawIcon('icon512');
+
+// Download links
+document.body.innerHTML += '<br><a id="dl-og" style="color:white;margin:10px" href="#">Download OG</a>';
+document.body.innerHTML += '<a id="dl-apple" style="color:white;margin:10px" href="#">Download Apple</a>';
+document.body.innerHTML += '<a id="dl-192" style="color:white;margin:10px" href="#">Download 192</a>';
+document.body.innerHTML += '<a id="dl-512" style="color:white;margin:10px" href="#">Download 512</a>';
+
+document.getElementById('dl-og').href = og.toDataURL('image/png');
+document.getElementById('dl-og').download = 'og-image.png';
+document.getElementById('dl-apple').href = document.getElementById('apple').toDataURL('image/png');
+document.getElementById('dl-apple').download = 'apple-touch-icon.png';
+document.getElementById('dl-192').href = document.getElementById('icon192').toDataURL('image/png');
+document.getElementById('dl-192').download = 'icon-192.png';
+document.getElementById('dl-512').href = document.getElementById('icon512').toDataURL('image/png');
+document.getElementById('dl-512').download = 'icon-512.png';
+</script>
+</body>
+</html>

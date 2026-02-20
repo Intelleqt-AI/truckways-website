@@ -4,6 +4,7 @@ import { Inter } from 'next/font/google';
 import './globals.css';
 import StructuredData from '../components/StructuredData';
 import ConditionalLayout from '../components/ConditionalLayout';
+import { Analytics } from '@vercel/analytics/react';
 
 const inter = Inter({
   subsets: ['latin'],
@@ -73,6 +74,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body className="font-sans">
         <StructuredData />
         <ConditionalLayout>{children}</ConditionalLayout>
+        <Analytics />
       </body>
     </html>
   );
