@@ -74,7 +74,7 @@ const page = async () => {
                   <p className="text-gray-600 text-sm mt-2 line-clamp-2">{item.description}</p>
                   <Link
                     href={`/blogs/${item?.slug ?? item?.id}`}
-                    className="px-6 bg-blue-400 text-white mt-6 py-2 inline-block text-base font-medium rounded-lg duration-200 border-black hover:border-primary cursor-pointer"
+                    className="px-6 bg-blue-600 hover:bg-blue-700 text-white mt-6 py-2 inline-block text-base font-medium rounded-lg duration-200 cursor-pointer"
                   >
                     Read now
                   </Link>

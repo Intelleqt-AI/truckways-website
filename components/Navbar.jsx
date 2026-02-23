@@ -33,18 +33,10 @@ const Navbar = () => {
     >
       <div className="max-w-7xl mx-auto sm:px-6">
         <div className="flex h-16 items-center justify-between">
-          <div className="flex items-center pl-3">
+          <Link href="/" className="flex items-center pl-3">
             <img src="/images/truckwys-logo-transparent.png" alt="TruckWys" className="max-w-[120px] md:max-w-[180px]" />
-          </div>
+          </Link>
           <nav className="hidden md:flex items-center space-x-8">
-            <Link
-              href="/about"
-              className={`text-base font-medium transition-colors ${
-                navScrolled ? 'text-black hover:text-black' : 'text-black hover:text-gray-700'
-              }`}
-            >
-              About
-            </Link>
             <Link
               href="/#pricing"
               className={`text-base font-medium transition-colors ${
@@ -97,9 +89,6 @@ const Navbar = () => {
         {mobileMenuOpen && (
           <div className="md:hidden p-4 border-t border-gray-200 bg-white">
             <nav className="flex flex-col space-y-4">
-              <Link href="/about" className="text-base font-medium text-black hover:text-black transition-colors">
-                About
-              </Link>
               <Link href="/#pricing" className="text-base font-medium text-black hover:text-black transition-colors">
                 Pricing
               </Link>

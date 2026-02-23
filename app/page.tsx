@@ -684,7 +684,7 @@ export default function HomePage() {
                       <div className="flex flex-col items-center gap-3 flex-1 w-full sm:w-auto">
                         <div className="w-16 h-16 rounded-lg bg-white border-2 border-gray-200 flex items-center justify-center relative">
                           <FileText className="w-8 h-8 text-black" />
-                          <div className="absolute -top-1 -right-1 w-4 h-4 bg-green-500 rounded-full flex items-center justify-center">
+                          <div className="absolute -top-1 -right-1 w-4 h-4 bg-blue-500 rounded-full flex items-center justify-center">
                             <CheckCircle className="w-3 h-3 text-white" />
                           </div>
                         </div>
@@ -835,7 +835,7 @@ export default function HomePage() {
 
                 <div className="space-y-4">
                   <div className="flex items-center gap-3">
-                    <TrendingUp className="w-6 h-6 text-green-600" />
+                    <TrendingUp className="w-6 h-6 text-blue-600" />
                     <h5 className="text-lg font-semibold text-black">22% improvement in working capital</h5>
                   </div>
                   <p className="text-base text-gray-600 leading-relaxed">Average increase in available cash flow for our customers.</p>
@@ -891,7 +891,7 @@ export default function HomePage() {
                     {/* Spreadsheet */}
                     <div className="bg-white rounded-lg p-6 shadow-sm border border-gray-200 transform hover:scale-105 transition-transform">
                       <div className="flex items-start gap-4">
-                        <div className="w-8 h-8 bg-green-600 rounded flex items-center justify-center flex-shrink-0">
+                        <div className="w-8 h-8 bg-blue-600 rounded flex items-center justify-center flex-shrink-0">
                           <div className="grid grid-cols-3 gap-0.5 w-5 h-5">
                             <div className="bg-white rounded-sm"></div>
                             <div className="bg-white rounded-sm"></div>
@@ -946,10 +946,10 @@ export default function HomePage() {
 
                     {/* Dashboard chart */}
                     <div className="bg-white rounded-lg p-6 shadow-sm border-2 border-blue-200 transform hover:scale-105 transition-transform relative">
-                      <div className="absolute -top-3 -right-3 w-6 h-6 bg-orange-400 rounded-full"></div>
+                      <div className="absolute -top-3 -right-3 w-6 h-6 bg-blue-400 rounded-full"></div>
                       <div className="flex items-start gap-4">
-                        <div className="bg-purple-100 rounded px-3 py-1 flex-shrink-0">
-                          <span className="text-xs font-bold text-purple-700">Figure</span>
+                        <div className="bg-blue-100 rounded px-3 py-1 flex-shrink-0">
+                          <span className="text-xs font-bold text-blue-700">Figure</span>
                         </div>
                         <div className="flex-1">
                           <div className="text-sm font-semibold text-black mb-3">Margin Analysis</div>
@@ -965,10 +965,10 @@ export default function HomePage() {
 
                     {/* Data table */}
                     <div className="bg-white rounded-lg p-6 shadow-sm border-2 border-blue-200 transform hover:scale-105 transition-transform relative">
-                      <div className="absolute -top-3 -right-3 w-6 h-6 bg-orange-400 rounded-full"></div>
+                      <div className="absolute -top-3 -right-3 w-6 h-6 bg-blue-400 rounded-full"></div>
                       <div className="flex items-start gap-4">
-                        <div className="bg-purple-100 rounded px-3 py-1 flex-shrink-0">
-                          <span className="text-xs font-bold text-purple-700">table</span>
+                        <div className="bg-blue-100 rounded px-3 py-1 flex-shrink-0">
+                          <span className="text-xs font-bold text-blue-700">table</span>
                         </div>
                         <div className="flex-1">
                           <div className="text-sm font-semibold text-black mb-3">Route Performance</div>
@@ -995,10 +995,10 @@ export default function HomePage() {
 
                     {/* Action item */}
                     <div className="bg-white rounded-lg p-6 shadow-sm border-2 border-blue-200 transform hover:scale-105 transition-transform relative">
-                      <div className="absolute -top-3 -right-3 w-6 h-6 bg-orange-400 rounded-full"></div>
+                      <div className="absolute -top-3 -right-3 w-6 h-6 bg-blue-400 rounded-full"></div>
                       <div className="flex items-start gap-4">
-                        <div className="bg-green-100 rounded px-3 py-1 flex-shrink-0">
-                          <span className="text-xs font-bold text-green-700">caption</span>
+                        <div className="bg-blue-100 rounded px-3 py-1 flex-shrink-0">
+                          <span className="text-xs font-bold text-blue-700">caption</span>
                         </div>
                         <div className="flex-1">
                           <div className="text-sm font-semibold text-black mb-2">Recommended Action</div>
@@ -1090,24 +1090,24 @@ export default function HomePage() {
                   <div className="space-y-4">
                     <div className="flex items-center justify-between p-4 bg-white rounded-md border border-gray-200">
                       <div className="flex items-center gap-3">
-                        <div className="w-2 h-2 rounded-full bg-green-500"></div>
+                        <div className="w-2 h-2 rounded-full bg-blue-500"></div>
                         <div>
                           <div className="text-sm font-medium text-black">Margin opportunity found</div>
                           <div className="text-xs text-gray-500">JHB → CPT route</div>
                         </div>
                       </div>
-                      <div className="text-lg font-bold text-green-600">+R12,400</div>
+                      <div className="text-lg font-bold text-blue-600">+R12,400</div>
                     </div>
 
                     <div className="flex items-center justify-between p-4 bg-white rounded-md border border-gray-200">
                       <div className="flex items-center gap-3">
-                        <div className="w-2 h-2 rounded-full bg-amber-500"></div>
+                        <div className="w-2 h-2 rounded-full bg-blue-500"></div>
                         <div>
                           <div className="text-sm font-medium text-black">Cash flow alert</div>
                           <div className="text-xs text-gray-500">Invoice #2847 overdue</div>
                         </div>
                       </div>
-                      <div className="text-lg font-bold text-amber-600">R8,200</div>
+                      <div className="text-lg font-bold text-blue-600">R8,200</div>
                     </div>
 
                     <div className="flex items-center justify-between p-4 bg-white rounded-md border border-gray-200">
@@ -1151,7 +1151,7 @@ export default function HomePage() {
                   <div className="space-y-3">
                     <div className="bg-white rounded-md p-4 border border-gray-200 flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full bg-green-100 flex items-center justify-center text-xs font-bold">ZAR</div>
+                        <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-xs font-bold">ZAR</div>
                         <div>
                           <div className="text-sm font-medium text-black">South African Rand</div>
                           <div className="text-xs text-gray-500">Primary currency</div>
@@ -1173,7 +1173,7 @@ export default function HomePage() {
 
                     <div className="bg-white rounded-md p-4 border border-gray-200 flex items-center justify-between">
                       <div className="flex items-center gap-3">
-                        <div className="w-8 h-8 rounded-full bg-purple-100 flex items-center justify-center text-xs font-bold">EUR</div>
+                        <div className="w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-xs font-bold">EUR</div>
                         <div>
                           <div className="text-sm font-medium text-black">Euro</div>
                           <div className="text-xs text-gray-500">International loads</div>
@@ -1195,8 +1195,8 @@ export default function HomePage() {
                 <div className="mt-auto bg-gray-50 rounded-md p-6 border border-gray-200">
                   <div className="bg-white rounded-md p-4 border border-gray-200 mb-4">
                     <div className="flex items-start gap-3 mb-3">
-                      <div className="w-10 h-10 rounded-md bg-red-100 flex items-center justify-center flex-shrink-0">
-                        <div className="w-2 h-2 rounded-full bg-red-500"></div>
+                      <div className="w-10 h-10 rounded-md bg-blue-100 flex items-center justify-center flex-shrink-0">
+                        <div className="w-2 h-2 rounded-full bg-blue-500"></div>
                       </div>
                       <div className="flex-1">
                         <div className="text-sm font-medium text-black mb-1">Critical Alert</div>
@@ -1209,7 +1209,7 @@ export default function HomePage() {
 
                   <div className="space-y-2">
                     <div className="bg-white rounded-md p-3 border border-gray-200 flex items-center gap-3">
-                      <div className="w-2 h-2 rounded-full bg-green-500 flex-shrink-0"></div>
+                      <div className="w-2 h-2 rounded-full bg-blue-500 flex-shrink-0"></div>
                       <div className="text-xs text-gray-600 flex-1">Payment received: R24,500</div>
                       <div className="text-xs text-gray-500">15m ago</div>
                     </div>
@@ -1272,7 +1272,7 @@ export default function HomePage() {
 
                   {/* Green grid logo */}
                   <div className="aspect-square rounded-md bg-white border border-gray-200 shadow-sm flex items-center justify-center p-4">
-                    <div className="w-10 h-10 bg-green-500 rounded flex items-center justify-center">
+                    <div className="w-10 h-10 bg-blue-500 rounded flex items-center justify-center">
                       <div className="grid grid-cols-3 gap-0.5 w-7 h-7">
                         <div className="bg-white rounded-sm"></div>
                         <div className="bg-white rounded-sm"></div>
@@ -1289,7 +1289,7 @@ export default function HomePage() {
 
                   {/* M Logo */}
                   <div className="aspect-square rounded-md bg-white border border-gray-200 shadow-sm flex items-center justify-center p-4">
-                    <div className="w-10 h-10 bg-purple-600 rounded flex items-center justify-center text-white font-bold text-xl">M</div>
+                    <div className="w-10 h-10 bg-blue-600 rounded flex items-center justify-center text-white font-bold text-xl">M</div>
                   </div>
 
                   {/* Row 2 */}
@@ -1303,7 +1303,7 @@ export default function HomePage() {
 
                   {/* QuickBooks Logo */}
                   <div className="aspect-square rounded-md bg-white border border-gray-200 shadow-sm flex items-center justify-center p-4">
-                    <div className="w-10 h-10 bg-green-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                    <div className="w-10 h-10 bg-blue-600 rounded-full flex items-center justify-center text-white font-bold text-lg">
                       QB
                     </div>
                   </div>
@@ -1312,19 +1312,19 @@ export default function HomePage() {
                   <div className="aspect-square rounded-md bg-white border border-gray-200 shadow-sm flex items-center justify-center p-4">
                     <div className="flex flex-col gap-1">
                       <div className="flex gap-1">
-                        <div className="w-2 h-2 bg-purple-600 rounded-sm"></div>
-                        <div className="w-2 h-2 bg-purple-600 rounded-sm"></div>
-                        <div className="w-2 h-2 bg-purple-600 rounded-sm"></div>
+                        <div className="w-2 h-2 bg-blue-600 rounded-sm"></div>
+                        <div className="w-2 h-2 bg-blue-600 rounded-sm"></div>
+                        <div className="w-2 h-2 bg-blue-600 rounded-sm"></div>
                       </div>
                       <div className="flex gap-1">
-                        <div className="w-2 h-2 bg-purple-600 rounded-sm"></div>
-                        <div className="w-2 h-2 bg-purple-600 rounded-sm"></div>
-                        <div className="w-2 h-2 bg-purple-600 rounded-sm"></div>
+                        <div className="w-2 h-2 bg-blue-600 rounded-sm"></div>
+                        <div className="w-2 h-2 bg-blue-600 rounded-sm"></div>
+                        <div className="w-2 h-2 bg-blue-600 rounded-sm"></div>
                       </div>
                       <div className="flex gap-1">
-                        <div className="w-2 h-2 bg-purple-600 rounded-sm"></div>
-                        <div className="w-2 h-2 bg-purple-600 rounded-sm"></div>
-                        <div className="w-2 h-2 bg-purple-600 rounded-sm"></div>
+                        <div className="w-2 h-2 bg-blue-600 rounded-sm"></div>
+                        <div className="w-2 h-2 bg-blue-600 rounded-sm"></div>
+                        <div className="w-2 h-2 bg-blue-600 rounded-sm"></div>
                       </div>
                     </div>
                   </div>
@@ -1406,7 +1406,7 @@ export default function HomePage() {
                 {/* Success Fee */}
                 <div className="bg-white rounded-lg border-2 border-gray-200 p-8 sm:p-10 flex flex-col relative overflow-hidden">
                   <div className="absolute top-4 right-4">
-                    <div className="bg-green-100 text-green-700 text-xs font-bold px-3 py-1 rounded-full">
+                    <div className="bg-blue-100 text-blue-700 text-xs font-bold px-3 py-1 rounded-full">
                       Pay on success
                     </div>
                   </div>
@@ -1691,14 +1691,7 @@ export default function HomePage() {
               ))}
             </div>
 
-            <div className="mt-12 text-center">
-              <p className="text-gray-600 mb-4">Still have questions?</p>
-              <Link href="/contact">
-                <Button variant="outline" className="border-black text-black hover:bg-gray-100">
-                  Contact us
-                </Button>
-              </Link>
-            </div>
+
           </div>
         </section>
 

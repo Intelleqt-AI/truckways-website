@@ -166,7 +166,7 @@ export default async function Page({ params }) {
             </ul>
             <ul className="text-secondary flex items-center gap-2 text-sm font-normal flex-wrap">
               {article?.tags?.map(item => (
-                <li key={item.id} className="px-3 py-1 bg-[#F3F1FF] rounded-xl">
+                <li key={item.id} className="px-3 py-1 bg-blue-100 rounded-xl">
                   {item.name}
                 </li>
               ))}
