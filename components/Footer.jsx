@@ -7,7 +7,7 @@ const Footer = () => {
       <div className="absolute inset-0 bg-gradient-to-br from-white via-white/50 to-transparent pointer-events-none"></div>
 
       <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-5 gap-8 sm:gap-12 mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 sm:gap-12 mb-12">
           <div className="sm:col-span-2">
             <div className="mb-3">
               <img src="/images/truckwys-logo-transparent.png" alt="TruckWys" className="max-w-[120px] md:max-w-[180px]" />
@@ -42,37 +42,11 @@ const Footer = () => {
           </div>
 
           <div>
-            <h3 className="font-semibold mb-4 text-black">Company</h3>
-            <ul className="space-y-3 text-gray-600">
-              <li>
-                <Link href="/about" className="hover:text-black transition-colors">
-                  About
-                </Link>
-              </li>
-              <li>
-                <Link href="/contact" className="hover:text-black transition-colors">
-                  Contact
-                </Link>
-              </li>
-              <li>
-                <Link href="/#testimonials" className="hover:text-black transition-colors">
-                  Case Studies
-                </Link>
-              </li>
-              <li>
-                <Link href="/blogs" className="hover:text-black transition-colors">
-                  Blog
-                </Link>
-              </li>
-            </ul>
-          </div>
-
-          <div>
             <h3 className="font-semibold mb-4 text-black">Contact Us</h3>
             <ul className="space-y-3 text-gray-600 mb-4">
               <li>
-                <a href="mailto:hello@truckwys.com" className="hover:text-black transition-colors">
-                  hello@truckwys.com
+                <a href="mailto:grant@truckwys.com" className="hover:text-black transition-colors">
+                  grant@truckwys.com
                 </a>
               </li>
               <li className="text-gray-500">South Africa</li>
