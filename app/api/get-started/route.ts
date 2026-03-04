@@ -5,9 +5,9 @@ const TARGET_EMAIL = 'grant@truckwys.com';
 export async function POST(request: Request) {
   try {
     const data = await request.json();
-    const { name, company, email, phone, fleetSize, area, address, message } = data;
+    const { firstName, lastName, email, company, phone, fleetSize } = data;
 
-    if (!name || !company || !email || !phone || !fleetSize || !area || !message) {
+    if (!firstName || !lastName || !email || !company || !phone || !fleetSize) {
       return NextResponse.json({ error: 'Missing required fields' }, { status: 400 });
     }
 
@@ -16,15 +16,13 @@ export async function POST(request: Request) {
       method: 'POST',
       headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
       body: JSON.stringify({
-        _subject: `New TruckWys Enquiry from ${name} at ${company}`,
-        'Full Name': name,
-        'Company': company,
+        _subject: `New TruckWys Trial Request from ${firstName} ${lastName} at ${company}`,
+        'First Name': firstName,
+        'Last Name': lastName,
         'Email': email,
+        'Company': company,
         'Phone': phone,
         'Fleet Size': fleetSize,
-        'Area / Province': area,
-        'Business Address': address || 'Not provided',
-        'Message': message,
         _replyto: email,
         _template: 'table',
       }),
@@ -34,11 +32,10 @@ export async function POST(request: Request) {
       return NextResponse.json({ success: true });
     }
 
-    // Log as fallback
-    console.log('=== CONTACT FORM SUBMISSION ===', { name, company, email, phone, fleetSize, area, address, message });
+    console.log('=== GET-STARTED SUBMISSION ===', { firstName, lastName, email, company, phone, fleetSize });
     return NextResponse.json({ success: true });
   } catch (error) {
-    console.error('Contact form error:', error);
+    console.error('Get-started form error:', error);
     return NextResponse.json({ error: 'Failed to process submission' }, { status: 500 });
   }
 }

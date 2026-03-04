@@ -19,10 +19,32 @@ export default function GetStartedPage() {
     fleetSize: "",
   })
   const [submitted, setSubmitted] = useState(false)
+  const [submitting, setSubmitting] = useState(false)
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    // Handle form submission
+    setSubmitting(true)
+    try {
+      await fetch('https://formsubmit.co/ajax/grant@truckwys.com', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          _subject: `New TruckWys Trial Request from ${formData.firstName} ${formData.lastName} at ${formData.company}`,
+          'First Name': formData.firstName,
+          'Last Name': formData.lastName,
+          'Email': formData.email,
+          'Company': formData.company,
+          'Phone': formData.phone,
+          'Fleet Size': formData.fleetSize,
+          _replyto: formData.email,
+          _template: 'table',
+          _captcha: 'false',
+        }),
+      })
+    } catch (err) {
+      console.error('Submit error:', err)
+    }
+    setSubmitting(false)
     setSubmitted(true)
   }
 
@@ -205,7 +227,7 @@ export default function GetStartedPage() {
                 className="w-full h-10 text-white hover:opacity-90 text-sm font-medium mt-4"
                 style={{ backgroundColor: "rgb(60, 131, 246)" }}
               >
-                Get started
+                {submitting ? 'Submitting...' : 'Get started'}
               </Button>
 
               <p className="text-xs text-gray-500 text-center leading-relaxed pt-2">

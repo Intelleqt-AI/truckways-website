@@ -24,13 +24,27 @@ export default function ContactForm() {
     setStatus('sending');
 
     try {
-      const response = await fetch('/api/contact', {
+      const response = await fetch('https://formsubmit.co/ajax/grant@truckwys.com', {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(formData),
+        headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+        body: JSON.stringify({
+          _subject: `New TruckWys Enquiry from ${formData.name} at ${formData.company}`,
+          'Full Name': formData.name,
+          'Company': formData.company,
+          'Email': formData.email,
+          'Phone': formData.phone,
+          'Fleet Size': formData.fleetSize,
+          'Area / Province': formData.area,
+          'Business Address': formData.address || 'Not provided',
+          'Message': formData.message,
+          _replyto: formData.email,
+          _template: 'table',
+          _captcha: 'false',
+        }),
       });
 
-      if (response.ok) {
+      const result = await response.json();
+      if (result.success) {
         setStatus('success');
         setFormData({ name: '', company: '', email: '', phone: '', fleetSize: '', area: '', address: '', message: '' });
       } else {
@@ -236,7 +250,7 @@ export default function ContactForm() {
       </button>
 
       {status === 'error' && (
-        <p className="text-red-600 text-sm mt-2">Something went wrong. Please try again or email us directly at hello@truckwys.com</p>
+        <p className="text-red-600 text-sm mt-2">Something went wrong. Please try again or email us directly at grant@truckwys.com</p>
       )}
 
       <p className="text-xs text-gray-400 mt-3">
