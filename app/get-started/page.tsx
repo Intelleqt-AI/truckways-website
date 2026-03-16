@@ -62,10 +62,14 @@ export default function GetStartedPage() {
           <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto">
             <CheckCircle className="w-10 h-10 text-green-600" />
           </div>
-          <h1 className="text-3xl font-semibold text-black">Thank you!</h1>
+          <h1 className="text-3xl font-semibold text-black">You're on the list!</h1>
           <p className="text-lg text-gray-600">
-            We've received your request. Our team will reach out within 24 hours to get you started with TruckWys.
+            Our team will reach out within 24 hours to get you set up on TruckWys.
           </p>
+          <div className="text-left bg-blue-50 border border-blue-200 rounded-lg p-4">
+            <p className="text-sm font-semibold text-blue-800 mb-1">💳 Heads up: activate FastPay on day 1</p>
+            <p className="text-xs text-blue-700">Once you're set up, go to <strong>Settings → Billing</strong> to add your payment details and unlock same-day invoice advances.</p>
+          </div>
           <Link href="/">
             <Button
               size="lg"
