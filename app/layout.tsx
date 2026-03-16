@@ -53,6 +53,7 @@ export const metadata: Metadata = {
     description: 'Transform your fleet with AI-powered pricing and instant payments. Built for African transport operators.',
     images: ['/og-image.png'],
     creator: '@truckwys',
+    site: '@truckwys',
   },
   alternates: {
     canonical: 'https://truckwys.com',
@@ -62,8 +63,10 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" className={`${inter.variable} antialiased`}>
+    <html lang="en-ZA" className={`${inter.variable} antialiased`}>
       <head>
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32" />
         <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192" />
         <link rel="icon" href="/icon-512.png" type="image/png" sizes="512x512" />
