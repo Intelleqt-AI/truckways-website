@@ -175,10 +175,11 @@ export default function ProductPage() {
             <div className="shot-frame">
               <Image
                 src="/images/product/invoices-light.png"
-                alt="The TruckWys invoice list with statuses, overdue flags and collection follow-ups"
+                alt="Close-up of the TruckWys invoice list with statuses, overdue flags and collection follow-ups"
                 width={1440}
                 height={834}
-                className="w-full"
+                className="w-[150%] max-w-none"
+                style={{ marginLeft: '-6%', marginTop: '-18%' }}
               />
             </div>
           </div>
@@ -193,10 +194,10 @@ export default function ProductPage() {
               <div className="shot-frame">
                 <Image
                   src="/images/product/insights-light.png"
-                  alt="TruckWys insights showing margin per route, cost per kilometre and fleet utilisation"
+                  alt="Close-up of the TruckWys daily briefing and margin insights"
                   width={1440}
                   height={834}
-                  className="w-full"
+                  className="w-[150%] max-w-none"
                 />
               </div>
             </div>
@@ -258,10 +259,10 @@ export default function ProductPage() {
             <div className="shot-frame">
               <Image
                 src="/images/product/capital-light.png"
-                alt="The TruckWys capital facility showing available capital against outstanding invoices"
+                alt="Close-up of the TruckWys capital facility with R1,000,000 available"
                 width={1440}
                 height={560}
-                className="w-full"
+                className="w-[135%] max-w-none"
               />
             </div>
           </div>
@@ -270,7 +271,7 @@ export default function ProductPage() {
 
       {/* Integrations */}
       <section className="border-t border-line bg-surface">
-        <div className="mx-auto max-w-6xl px-5 py-16 text-center">
+        <div className="mx-auto max-w-6xl px-5 py-20 text-center">
           <div className="eyebrow eyebrow-accent mb-3">Integrations</div>
           <h2 className="text-[20px] font-semibold text-ink">
             Plays well with your TMS, tracking and books
@@ -294,9 +295,9 @@ export default function ProductPage() {
         <div className="mx-auto max-w-6xl px-5 py-24">
           <div className="mx-auto max-w-2xl text-center">
             <div className="eyebrow eyebrow-accent mb-4">Everything inside</div>
-            <h2 className="text-display text-ink">The granular list, for the detail people</h2>
+            <h2 className="text-display text-ink">Everything you get</h2>
             <p className="mt-4 text-[16px] text-ink-2">
-              Every feature below ships in the R4,500. No add-on tiers, no locked modules.
+              The full list. All of it in the R4,500, no add-on tiers, no locked modules.
             </p>
           </div>
           <div className="mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">

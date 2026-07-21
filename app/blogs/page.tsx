@@ -48,7 +48,7 @@ export default function BlogIndexPage() {
       </section>
 
       <section className="border-t border-line bg-page">
-        <div className="mx-auto max-w-6xl px-5 py-16">
+        <div className="mx-auto max-w-6xl px-5 py-20">
           <div className="grid gap-6 md:grid-cols-2">
             {posts.map((post) => (
               <Link

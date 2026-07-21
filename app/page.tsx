@@ -50,8 +50,8 @@ export default function HomePage() {
         <div className="mx-auto mt-14 max-w-6xl px-5">
           <div className="shot-frame">
             <Image
-              src="/images/product/quote-builder-dark.png"
-              alt="The TruckWys quote builder pricing a Johannesburg to Cape Town load with the route on a map, fuel at the live diesel price, R1,115 of N1 tolls, and a quote total of R31,613"
+              src="/images/product/overview-dark.png"
+              alt="The TruckWys command centre: live revenue, net margin, outstanding invoices, fleet utilisation and the agent activity stream"
               width={1440}
               height={900}
               priority
@@ -118,10 +118,11 @@ export default function HomePage() {
             <div className="shot-frame">
               <Image
                 src="/images/product/quote-builder-light.png"
-                alt="The TruckWys quote builder in light mode with route options, cost breakdown and the AI recommended price"
+                alt="Close-up of the TruckWys cost breakdown: fuel at live diesel, N1 tolls and the quote total"
                 width={1440}
                 height={900}
-                className="w-full"
+                className="w-[165%] max-w-none"
+                style={{ marginLeft: '-63%', marginTop: '-30%' }}
               />
             </div>
           </div>
@@ -135,10 +136,10 @@ export default function HomePage() {
             <div className="order-2 lg:order-1">
               <div className="shot-frame">
                 <Image
-                  src="/images/product/invoices-light.png"
-                  alt="The TruckWys invoice pipeline showing invoices created on delivery with statuses, due dates and overdue flags"
-                  width={1440}
-                  height={834}
+                  src="/images/product/frag-invoice-rows.png"
+                  alt="Real TruckWys invoices with amounts, statuses and overdue flags"
+                  width={1233}
+                  height={250}
                   className="w-full"
                 />
               </div>

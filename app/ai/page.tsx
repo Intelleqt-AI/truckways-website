@@ -104,7 +104,7 @@ export default function AiPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(aiPageSchema)} />
 
       {/* Hero */}
-      <section className="hero-wash">
+      <section className="hero-wash-ai">
         <div className="mx-auto max-w-6xl px-5 pb-16 pt-10 text-center md:pt-16">
           <div className="eyebrow eyebrow-accent mb-5">The AI inside</div>
           <h1 className="text-hero mx-auto max-w-3xl text-ink">
@@ -129,7 +129,7 @@ export default function AiPage() {
       {aiFeatures.map((f, i) => (
         <section
           key={f.eyebrow}
-          className={i % 2 === 0 ? 'border-t border-line bg-surface' : 'bg-page'}
+          className={i % 2 === 0 ? 'border-t border-line bg-surface' : 'bg-tint'}
         >
           <div className="mx-auto max-w-6xl px-5 py-20">
             {f.img ? (

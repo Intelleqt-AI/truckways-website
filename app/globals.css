@@ -232,6 +232,18 @@ body {
       linear-gradient(to bottom, #f5f8ff, var(--surface) 55%);
   }
 
+  /* AI page: a stronger electric-blue hero wash, distinct from the standard hero */
+  .hero-wash-ai {
+    background:
+      radial-gradient(50% 55% at 50% 0%, rgba(37, 99, 235, 0.22), transparent 75%),
+      radial-gradient(30% 40% at 82% 12%, rgba(77, 158, 255, 0.14), transparent 70%),
+      linear-gradient(to bottom, #eaf1ff, var(--surface) 62%);
+  }
+  /* Soft blue section tint used on the AI page for alternation */
+  .bg-tint {
+    background: #f0f5ff;
+  }
+
   /* Distinct deep-navy footer: darker than any section, blue-tinted, not the page grey */
   .footer-dark {
     --surface: #0d1526;
