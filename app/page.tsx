@@ -22,13 +22,13 @@ export default function HomePage() {
         <div className="mx-auto max-w-6xl px-5 pb-0 pt-10 text-center md:pt-16">
           <div className="eyebrow eyebrow-accent mb-5">Fleet finance software · South Africa</div>
           <h1 className="text-hero mx-auto max-w-3xl text-ink">
-            Price every load right. Get paid in 48 hours.
+            Know what every load really costs. Get paid in 48 hours, not 60 days.
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-[16px] leading-relaxed text-ink-2">
-            TruckWys quotes your loads with live diesel prices, the actual tolls on the
-            route, and your own running costs. Then it invoices the moment you deliver
-            and settles the money in 48 hours if you want it early. Built for South
-            African fleets.
+            TruckWys prices every quote with the live diesel price, the actual SANRAL
+            tolls on the route and your own running costs. It invoices the moment you
+            deliver, and FastPay settles the money for 0.25% while your client takes
+            their time. Built for South African fleets.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 px-6 sm:flex-row sm:px-0">
             <Link href="/get-started" className="btn-primary w-full sm:w-auto">
@@ -93,7 +93,8 @@ export default function HomePage() {
                 Pick the client, the truck, and the two points. TruckWys draws the
                 route, prices fuel at today&apos;s diesel price, and adds the exact toll
                 plazas that route passes. Johannesburg to Cape Town on the N1 means
-                Huguenot and Verkeerdevlei, not a guess.
+                Huguenot and Verkeerdevlei, not a guess. Your freight rates come out
+                grounded in real numbers, load after load.
               </p>
               <ul className="mt-7 space-y-3.5">
                 {[

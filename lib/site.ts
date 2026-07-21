@@ -48,6 +48,10 @@ export const FACTS = {
       a: 'FastPay settles an approved invoice into your account within 48 hours instead of waiting 30 to 60 days for the client to pay. It costs 0.25% of the invoice value.',
     },
     {
+      q: 'Is FastPay invoice factoring?',
+      a: 'It works like invoice factoring or invoice discounting for transporters, without the paperwork. You choose an approved invoice, TruckWys settles it into your account within 48 hours for 0.25%, and the balance clears when your client pays. No lock-in contracts, no bridging finance rates.',
+    },
+    {
       q: 'Does TruckWys replace my transport management system?',
       a: 'No. TruckWys handles the money side: quoting, invoicing, collections and cash flow. It works alongside your TMS and tracking, and integrates with Xero and Cartrack.',
     },

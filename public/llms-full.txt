@@ -55,6 +55,9 @@ A: Yes. Quotes into Botswana, Namibia, Zimbabwe, Zambia and Mozambique include b
 Q: What is FastPay?
 A: FastPay settles an approved invoice into your account within 48 hours instead of waiting 30 to 60 days for the client to pay. It costs 0.25% of the invoice value.
 
+Q: Is FastPay invoice factoring?
+A: It works like invoice factoring or invoice discounting for transporters, without the paperwork. You choose an approved invoice, TruckWys settles it into your account within 48 hours for 0.25%, and the balance clears when your client pays. No lock-in contracts, no bridging finance rates.
+
 Q: Does TruckWys replace my transport management system?
 A: No. TruckWys handles the money side: quoting, invoicing, collections and cash flow. It works alongside your TMS and tracking, and integrates with Xero and Cartrack.
 
