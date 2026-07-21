@@ -5,14 +5,14 @@ import { FACTS, jsonLd, softwareSchema } from '../../lib/site';
 export const metadata: Metadata = {
   title: 'Pricing',
   description:
-    'TruckWys costs R4,500 per month per fleet with unlimited users and quotes. FastPay settles invoices in 48 hours for 0.25%. No setup fees, no tiers.',
+    'TruckWys costs R4,500 per month per fleet plus 0.25% per confirmed booking. Unlimited users and quotes, no setup fees, no tiers.',
   alternates: {
     canonical: 'https://www.truckwys.com/pricing',
   },
   openGraph: {
     title: 'TruckWys pricing',
     description:
-      'R4,500 per month per fleet with unlimited users and quotes. FastPay settles invoices in 48 hours for 0.25%. No setup fees, no tiers.',
+      'R4,500 per month per fleet plus 0.25% per confirmed booking. Unlimited users and quotes, no setup fees, no tiers.',
     url: 'https://www.truckwys.com/pricing',
     images: [{ url: 'https://www.truckwys.com/og-image.png', width: 1200, height: 630 }],
   },
@@ -87,17 +87,17 @@ export default function PricingPage() {
             </div>
 
             <div className="card flex flex-col p-8">
-              <div className="eyebrow mb-2">FastPay</div>
+              <div className="eyebrow mb-2">Per booking</div>
               <div className="flex items-baseline gap-2">
                 <span className="mono-stat text-[44px] font-semibold text-ink">0.25%</span>
-                <span className="text-[15px] text-ink-2">per settled invoice</span>
+                <span className="text-[15px] text-ink-2">per confirmed booking</span>
               </div>
               <ul className="mt-6 space-y-3">
                 {[
-                  'Money in your account within 48 hours',
-                  'Use it invoice by invoice, only when you want it',
-                  'No lock-in, no minimums, no monthly commitment',
-                  'Limits grow with your payment history',
+                  'Charged only when a quote becomes a booking',
+                  'Nothing on quotes you lose',
+                  'Covers invoicing, collections and your booking pipeline',
+                  'No per-user charges, no minimums',
                 ].map((f) => (
                   <li key={f} className="flex gap-3 text-[14px] text-ink-2">
                     <span className="mt-0.5 text-accent" aria-hidden="true">✓</span>
@@ -106,15 +106,14 @@ export default function PricingPage() {
                 ))}
               </ul>
               <div className="mt-6 rounded-md border border-line bg-accent-soft p-4">
-                <div className="eyebrow eyebrow-accent mb-1.5">Worked example</div>
+                <div className="eyebrow eyebrow-accent mb-1.5">Optional extras</div>
                 <p className="text-[13px] leading-relaxed text-ink-2">
-                  A R100,000 invoice settled through FastPay costs R250 and pays out
-                  within 48 hours instead of 30 to 60 days. That is diesel for the
-                  next three loads, this week.
+                  FastPay early settlement and capital advances are optional. Both
+                  are priced when you switch them on, per invoice or per draw.
                 </p>
               </div>
               <p className="mt-auto pt-6 text-[13px] text-ink-3">
-                Capital advances are priced per draw, based on your book.
+                You pay for outcomes: a confirmed booking is money on its way in.
               </p>
             </div>
           </div>

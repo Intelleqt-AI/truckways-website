@@ -21,13 +21,17 @@ export default function HomePage() {
       <section className="hero-wash">
         <div className="mx-auto max-w-6xl px-5 pb-0 pt-10 text-center md:pt-16">
           <div className="eyebrow eyebrow-accent mb-5">Fleet finance software · South Africa</div>
-          <h1 className="text-hero mx-auto max-w-3xl text-ink">
-            Know what every load really costs. Get paid in 48 hours.
+          <h1
+            className="text-hero mx-auto max-w-5xl text-ink"
+            style={{ fontSize: 'clamp(36px, 4.6vw, 58px)' }}
+          >
+            <span className="block">Know what every load really costs.</span>
+            <span className="block">Get paid in 48 hours.</span>
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-[16px] leading-relaxed text-ink-2">
             TruckWys prices every quote with the live diesel price, the actual SANRAL
             tolls on the route and your own running costs. It invoices the moment you
-            deliver, and FastPay settles the money for 0.25% while your client takes
+            deliver, and FastPay can settle the money early while your client takes
             their time. Built for South African fleets.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 px-6 sm:flex-row sm:px-0">
@@ -66,7 +70,7 @@ export default function HomePage() {
             {[
               { v: '60 sec', l: 'to price a load' },
               { v: '48 hrs', l: 'to money in the bank' },
-              { v: '0.25%', l: 'FastPay fee' },
+              { v: 'R0', l: 'setup fees' },
               { v: '31', l: 'SANRAL toll plazas priced' },
             ].map((s) => (
               <div key={s.l} className="text-center">
@@ -152,14 +156,14 @@ export default function HomePage() {
               <p className="mt-5 text-[16px] leading-relaxed text-ink-2">
                 Mark a load delivered and the invoice already exists: right amounts,
                 right client, right terms. TruckWys chases what is overdue so you do
-                not have to, and when the wait is too long, FastPay settles the
-                invoice into your account in 48 hours for 0.25%.
+                not have to, and when the wait is too long, FastPay can settle the
+                invoice into your account in 48 hours.
               </p>
               <ul className="mt-7 space-y-3.5">
                 {[
                   'Invoices created automatically on delivery, with POD attached',
                   'Overdue follow-ups written and sent for you',
-                  'FastPay: 48-hour settlement at 0.25% of invoice value',
+                  'FastPay: optional 48-hour settlement when you need the cash',
                   'Xero sync so your books stay right',
                 ].map((f) => (
                   <li key={f} className="flex gap-3 text-[15px] text-ink-2">
@@ -219,8 +223,8 @@ export default function HomePage() {
                   <div className="mt-1 text-[13px] text-ink-2">flat monthly price</div>
                 </div>
                 <div className="card p-6">
-                  <div className="mono-stat text-[24px] font-semibold text-ink">0.25%</div>
-                  <div className="mt-1 text-[13px] text-ink-2">FastPay fee when you use it</div>
+                  <div className="mono-stat text-[24px] font-semibold text-ink">48 hrs</div>
+                  <div className="mt-1 text-[13px] text-ink-2">from request to money</div>
                 </div>
               </div>
             </div>
@@ -381,17 +385,17 @@ export default function HomePage() {
             </div>
 
             <div className="card flex flex-col p-8">
-              <div className="eyebrow mb-2">FastPay</div>
+              <div className="eyebrow mb-2">Per booking</div>
               <div className="flex items-baseline gap-2">
                 <span className="mono-stat text-[44px] font-semibold text-ink">0.25%</span>
-                <span className="text-[15px] text-ink-2">per settled invoice</span>
+                <span className="text-[15px] text-ink-2">per confirmed booking</span>
               </div>
               <ul className="mt-6 space-y-3">
                 {[
-                  'Money in your account within 48 hours',
-                  'Use it invoice by invoice, only when you want it',
-                  'No lock-in, no minimums, no monthly commitment',
-                  'Limits grow with your payment history',
+                  'Charged only when a quote becomes a booking',
+                  'Nothing on quotes you lose',
+                  'No per-user charges, no minimums',
+                  'FastPay early settlement is optional, priced when you switch it on',
                 ].map((f) => (
                   <li key={f} className="flex gap-3 text-[14px] text-ink-2">
                     <span className="mt-0.5 text-accent" aria-hidden="true">✓</span>
@@ -400,8 +404,7 @@ export default function HomePage() {
                 ))}
               </ul>
               <p className="mt-auto pt-8 text-[13px] leading-relaxed text-ink-3">
-                Example: a R100,000 invoice settled through FastPay costs R250 and
-                pays out within 48 hours instead of 30 to 60 days.
+                You pay for outcomes: a confirmed booking is money on its way in.
               </p>
             </div>
           </div>

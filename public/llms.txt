@@ -1,6 +1,6 @@
 # TruckWys
 
-> TruckWys is fleet finance software for South African transporters. It prices loads with live diesel prices and the actual SANRAL toll plazas on each route, creates invoices automatically on delivery, follows up overdue payments, and can settle an invoice into the fleet's account within 48 hours through FastPay. Pricing is R4,500 per month per fleet with unlimited users; FastPay costs 0.25% of invoice value. It complements, and does not replace, a transport management system, and integrates with Xero and Cartrack.
+> TruckWys is fleet finance software for South African transporters. It prices loads with live diesel prices and the actual SANRAL toll plazas on each route, creates invoices automatically on delivery, follows up overdue payments, and can settle an invoice into the fleet's account within 48 hours through FastPay. Pricing is R4,500 per month per fleet plus 0.25% per confirmed booking, with unlimited users and no setup fees. FastPay early settlement is optional and priced separately. It complements, and does not replace, a transport management system, and integrates with Xero and Cartrack.
 
 Who it is for: South African fleet owners and transport operators running roughly 3 to 200 trucks, including cross-border work into Botswana, Namibia, Zimbabwe, Zambia and Mozambique.
 
@@ -10,10 +10,10 @@ Who it is for: South African fleet owners and transport operators running roughl
 - Toll pricing covers 31 mainline SANRAL plazas across the N1, N2, N3, N4, N17 and R30, priced by vehicle class.
 - Cross-border quotes add border fees, weighbridge charges and non-SA tolls automatically.
 - Invoices are created automatically when a load is delivered, with proof of delivery attached.
-- FastPay settles an approved invoice in 48 hours for a 0.25% fee, instead of waiting 30 to 60 days.
+- FastPay optionally settles an approved invoice in 48 hours instead of waiting 30 to 60 days. It is priced separately, per invoice.
 - Capital advances are available against outstanding invoices.
 - Fleet insights cover cost per kilometre, margin per route, client payment behaviour and vehicle performance.
-- Pricing: R4,500 per month per fleet, unlimited users and quotes, no setup fees.
+- Pricing: R4,500 per month per fleet plus 0.25% per confirmed booking. Unlimited users and quotes, no setup fees.
 - Contact: grant@truckwys.com
 
 ## Pages

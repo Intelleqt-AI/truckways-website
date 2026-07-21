@@ -166,10 +166,10 @@ export default function ProductPage() {
                 without you lifting a finger.
               </p>
               <p className="mt-4 text-[16px] leading-relaxed text-ink-2">
-                And when 45-day terms are strangling your diesel budget, FastPay
-                settles any approved invoice into your account within 48 hours for
-                0.25% of its value. A R100,000 invoice costs R250 to have paid this
-                week instead of next month.
+                And when 45-day terms are strangling your diesel budget, FastPay can
+                settle an approved invoice into your account within 48 hours.
+                Optional, invoice by invoice, for when the timing matters more
+                than the wait.
               </p>
             </div>
             <div className="shot-frame">
@@ -328,7 +328,7 @@ export default function ProductPage() {
                   'Collections follow-ups, written and sent',
                   'Short-pay detection',
                   'Overdue flags and ageing',
-                  'FastPay 48-hour settlement at 0.25%',
+                  'FastPay optional 48-hour settlement',
                   'Payment tracking per invoice',
                 ],
               },

@@ -18,7 +18,7 @@ TruckWys handles the money side of running a trucking fleet:
 
 6. Collections. Overdue invoices get written follow-ups automatically, so the operator does not spend evenings chasing payment.
 
-7. FastPay. An approved invoice can be settled into the fleet's bank account within 48 hours for a fee of 0.25% of the invoice value. Example: a R100,000 invoice costs R250 to settle early. Without FastPay, South African transporters typically wait 30 to 60 days.
+7. FastPay. An approved invoice can optionally be settled into the fleet's bank account within 48 hours. It is chosen invoice by invoice and priced separately when switched on. Without FastPay, South African transporters typically wait 30 to 60 days.
 
 8. Capital. Fleets can take advances against outstanding invoices, with limits based on their own payment history.
 
@@ -30,8 +30,8 @@ TruckWys is not a transport management system and does not do route dispatching,
 
 ## Pricing
 
-- Platform: R4,500 per month per fleet. Unlimited users, quotes and invoices. No setup fees. No per-user pricing.
-- FastPay: 0.25% of invoice value per settled invoice. Optional, used invoice by invoice. No lock-in, no minimums.
+- Platform: R4,500 per month per fleet plus 0.25% per confirmed booking. Unlimited users, quotes and invoices. No setup fees. No per-user pricing.
+- FastPay: optional 48-hour invoice settlement, chosen invoice by invoice and priced separately. No lock-in, no minimums.
 - Free trial available via https://www.truckwys.com/get-started
 
 ## Who uses it
@@ -44,7 +44,7 @@ Q: What is TruckWys?
 A: TruckWys is fleet finance software for South African transporters. It prices loads with live diesel and toll costs, creates invoices automatically on delivery, chases payment, and can settle invoices in 48 hours through FastPay.
 
 Q: How much does TruckWys cost?
-A: R4,500 per month per fleet, with unlimited users and quotes. FastPay costs 0.25% of the invoice value when used. There are no setup fees.
+A: R4,500 per month per fleet with unlimited users and quotes, plus 0.25% on confirmed bookings. There are no setup fees. FastPay early settlement is optional and priced separately.
 
 Q: How does the AI quote builder work?
 A: You pick the client, vehicle type, collection and delivery points. TruckWys draws the route, prices fuel from the live diesel price, adds the actual SANRAL toll plazas on that route, and applies your own per-kilometre rates. It then recommends a price based on what has won you work before.
@@ -53,10 +53,10 @@ Q: Does TruckWys handle cross-border loads?
 A: Yes. Quotes into Botswana, Namibia, Zimbabwe, Zambia and Mozambique include border fees, weighbridge charges and non-SA toll costs automatically.
 
 Q: What is FastPay?
-A: FastPay settles an approved invoice into your account within 48 hours instead of waiting 30 to 60 days for the client to pay. It costs 0.25% of the invoice value.
+A: FastPay settles an approved invoice into your account within 48 hours instead of waiting 30 to 60 days for the client to pay. It is optional: you choose it invoice by invoice, and pricing is agreed when you switch it on.
 
 Q: Is FastPay invoice factoring?
-A: It works like invoice factoring or invoice discounting for transporters, without the paperwork. You choose an approved invoice, TruckWys settles it into your account within 48 hours for 0.25%, and the balance clears when your client pays. No lock-in contracts, no bridging finance rates.
+A: It works like invoice factoring or invoice discounting for transporters, without the paperwork. You choose an approved invoice, TruckWys settles it into your account within 48 hours, and the balance clears when your client pays. No lock-in contracts, no bridging finance rates.
 
 Q: Does TruckWys replace my transport management system?
 A: No. TruckWys handles the money side: quoting, invoicing, collections and cash flow. It works alongside your TMS and tracking, and integrates with Xero and Cartrack.

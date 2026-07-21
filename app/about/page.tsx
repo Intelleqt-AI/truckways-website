@@ -75,7 +75,7 @@ export default function AboutPage() {
                   'Quotes priced on live diesel, the actual SANRAL tolls on the route, and your own running costs',
                   'Invoices created automatically the moment a load is delivered',
                   'Collections that chase overdue invoices so you do not have to',
-                  'FastPay: money in your account within 48 hours for 0.25% of the invoice',
+                  'FastPay: optional settlement, money in your account within 48 hours',
                   'Capital advances against outstanding invoices, sized by your payment history',
                 ].map((f) => (
                   <li key={f} className="flex gap-3 text-[14px] leading-relaxed text-ink-2">
