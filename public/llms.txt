@@ -19,6 +19,7 @@ Who it is for: South African fleet owners and transport operators running roughl
 ## Pages
 
 - [Home](https://www.truckwys.com/): product overview, pricing and FAQ
+- [AI](https://www.truckwys.com/ai): every AI feature and how TruckWys uses it
 - [About](https://www.truckwys.com/about): what TruckWys is and is not
 - [Get started](https://www.truckwys.com/get-started): start a free trial
 - [Contact](https://www.truckwys.com/contact): talk to the team

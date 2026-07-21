@@ -3,6 +3,7 @@ import Image from 'next/image';
 
 const productLinks = [
   { href: '/product', label: 'Product' },
+  { href: '/ai', label: 'The AI inside' },
   { href: '/product#quote', label: 'AI quote builder' },
   { href: '/product#paid', label: 'Invoicing and FastPay' },
   { href: '/product#capital', label: 'Capital' },
