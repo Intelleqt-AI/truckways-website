@@ -82,16 +82,47 @@ export default function ProductPage() {
             </Link>
           </div>
         </div>
-        <div className="mx-auto mt-14 max-w-6xl px-5 pb-14">
-          <div className="shot-frame">
-            <Image
-              src="/images/product/quote-builder-light.png"
-              alt="The TruckWys quote builder pricing a Johannesburg to Cape Town load with route options, live diesel, SANRAL tolls and a full cost breakdown"
-              width={1440}
-              height={900}
-              priority
-              className="w-full"
-            />
+        {/* Fragment collage: real pieces of the product, composed */}
+        <div className="mx-auto mt-14 max-w-6xl px-5 pb-16">
+          <div className="relative mx-auto hidden h-[520px] max-w-5xl md:block">
+            <div className="absolute left-0 top-10 w-[58%] -rotate-1 overflow-hidden rounded-[12px] border border-line bg-surface shadow-[0_24px_60px_-18px_rgba(17,24,39,0.25)]">
+              <Image
+                src="/images/product/frag-invoice-rows.png"
+                alt="Real TruckWys invoices with statuses, amounts and overdue flags"
+                width={1233}
+                height={250}
+                priority
+                className="w-full"
+              />
+            </div>
+            <div className="absolute right-0 top-0 z-10 w-[34%] rotate-1 overflow-hidden rounded-[12px] border border-line bg-surface shadow-[0_28px_70px_-18px_rgba(17,24,39,0.32)]">
+              <Image
+                src="/images/product/frag-cost-card.png"
+                alt="The TruckWys cost breakdown: fuel, tolls, surcharges and a quote total of R31,636"
+                width={446}
+                height={370}
+                priority
+                className="w-full"
+              />
+            </div>
+            <div className="absolute bottom-0 left-[12%] z-20 w-[52%] -rotate-1 overflow-hidden rounded-[12px] border border-line bg-surface shadow-[0_24px_60px_-18px_rgba(17,24,39,0.28)]">
+              <Image
+                src="/images/product/frag-copilot.png"
+                alt="TruckWys copilot prompts: what is overdue, fast-pay capacity, quotes pipeline and fleet status"
+                width={1045}
+                height={195}
+                className="w-full"
+              />
+            </div>
+          </div>
+          {/* Mobile: simple stack */}
+          <div className="space-y-4 md:hidden">
+            <div className="overflow-hidden rounded-[12px] border border-line bg-surface shadow-[0_16px_44px_-16px_rgba(17,24,39,0.2)]">
+              <Image src="/images/product/frag-cost-card.png" alt="The TruckWys cost breakdown with a quote total of R31,636" width={446} height={370} priority className="w-full" />
+            </div>
+            <div className="overflow-hidden rounded-[12px] border border-line bg-surface shadow-[0_16px_44px_-16px_rgba(17,24,39,0.2)]">
+              <Image src="/images/product/frag-invoice-rows.png" alt="Real TruckWys invoices with statuses and overdue flags" width={1233} height={250} className="w-full" />
+            </div>
           </div>
         </div>
       </section>
@@ -253,6 +284,90 @@ export default function ProductPage() {
               <span key={n} className="card px-5 py-2.5 text-[14px] font-medium text-ink-2">
                 {n}
               </span>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* Everything inside: the granular layer */}
+      <section className="border-t border-line bg-page">
+        <div className="mx-auto max-w-6xl px-5 py-24">
+          <div className="mx-auto max-w-2xl text-center">
+            <div className="eyebrow eyebrow-accent mb-4">Everything inside</div>
+            <h2 className="text-display text-ink">The granular list, for the detail people</h2>
+            <p className="mt-4 text-[16px] text-ink-2">
+              Every feature below ships in the R4,500. No add-on tiers, no locked modules.
+            </p>
+          </div>
+          <div className="mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+            {[
+              {
+                cat: 'Quoting',
+                items: [
+                  'Plain-language quote fill',
+                  'Live diesel pricing per vehicle',
+                  'SANRAL tolls per route, by vehicle class',
+                  'Cross-border, border and weighbridge fees',
+                  'Route options on a live map',
+                  'Round-trip pricing',
+                  'Editable tolls, driver allowance and R/km',
+                  'Weight surcharges',
+                  'Quote validity dates',
+                  'One-click client acceptance links',
+                  'PDF quotes on your letterhead',
+                  'Draft autosave, park and resume',
+                ],
+              },
+              {
+                cat: 'Getting paid',
+                items: [
+                  'Invoice created on delivery',
+                  'Proof of delivery attached',
+                  'Xero sync',
+                  'Collections follow-ups, written and sent',
+                  'Short-pay detection',
+                  'Overdue flags and ageing',
+                  'FastPay 48-hour settlement at 0.25%',
+                  'Payment tracking per invoice',
+                ],
+              },
+              {
+                cat: 'Capital and risk',
+                items: [
+                  'Capital advances against invoices',
+                  'Client risk scores',
+                  'Credit limits per client',
+                  'Payment behaviour history',
+                  'FastPay eligibility per invoice',
+                ],
+              },
+              {
+                cat: 'Intelligence',
+                items: [
+                  'Copilot on your live data',
+                  'Daily executive briefing',
+                  'Win probability per quote',
+                  'Profit sweet-spot curve',
+                  'Revenue guard on every quote',
+                  'Cost per kilometre, per vehicle',
+                  'Margin per lane and per client',
+                  'Fleet utilisation and idle alerts',
+                  'Driver and vehicle performance',
+                  'Cartrack telemetry connection',
+                ],
+              },
+            ].map((col) => (
+              <div key={col.cat}>
+                <div className="eyebrow eyebrow-accent mb-4">{col.cat}</div>
+                <ul className="space-y-2.5">
+                  {col.items.map((it) => (
+                    <li key={it} className="flex gap-2.5 text-[14px] leading-snug text-ink-2">
+                      <span className="mt-[7px] h-1 w-1 flex-none rounded-full bg-accent" aria-hidden="true" />
+                      {it}
+                    </li>
+                  ))}
+                </ul>
+              </div>
             ))}
           </div>
         </div>
