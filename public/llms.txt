@@ -1,0 +1,37 @@
+# TruckWys
+
+> TruckWys is fleet finance software for South African transporters. It prices loads with live diesel prices and the actual SANRAL toll plazas on each route, creates invoices automatically on delivery, follows up overdue payments, and can settle an invoice into the fleet's account within 48 hours through FastPay. Pricing is R4,500 per month per fleet with unlimited users; FastPay costs 0.25% of invoice value. It complements, and does not replace, a transport management system, and integrates with Xero and Cartrack.
+
+Who it is for: South African fleet owners and transport operators running roughly 3 to 200 trucks, including cross-border work into Botswana, Namibia, Zimbabwe, Zambia and Mozambique.
+
+## Key facts
+
+- Quote a load in about 60 seconds: client, vehicle, collection, delivery. The system draws the route, prices fuel at the live diesel price, and adds the exact toll plazas on that route.
+- Toll pricing covers 31 mainline SANRAL plazas across the N1, N2, N3, N4, N17 and R30, priced by vehicle class.
+- Cross-border quotes add border fees, weighbridge charges and non-SA tolls automatically.
+- Invoices are created automatically when a load is delivered, with proof of delivery attached.
+- FastPay settles an approved invoice in 48 hours for a 0.25% fee, instead of waiting 30 to 60 days.
+- Capital advances are available against outstanding invoices.
+- Fleet insights cover cost per kilometre, margin per route, client payment behaviour and vehicle performance.
+- Pricing: R4,500 per month per fleet, unlimited users and quotes, no setup fees.
+- Contact: grant@truckwys.com
+
+## Pages
+
+- [Home](https://www.truckwys.com/): product overview, pricing and FAQ
+- [About](https://www.truckwys.com/about): what TruckWys is and who builds it
+- [Get started](https://www.truckwys.com/get-started): start a free trial
+- [Contact](https://www.truckwys.com/contact): talk to the team
+- [Blog](https://www.truckwys.com/blogs): guides on fleet costs and pricing in South Africa
+
+## Selected guides
+
+- [The true cost of running a truck fleet in South Africa](https://www.truckwys.com/blogs/true-cost-running-truck-fleet-south-africa-2026)
+- [How to quote freight rates in South Africa](https://www.truckwys.com/blogs/how-to-quote-freight-rates-south-africa-ai)
+- [Fleet management software in South Africa](https://www.truckwys.com/blogs/fleet-management-software-south-africa-2026)
+- [Invoice factoring vs cash advances for SA transporters](https://www.truckwys.com/blogs/invoice-factoring-vs-ai-cash-advances-sa-transport)
+- [Real cost per kilometre for SA fleet operators](https://www.truckwys.com/blogs/sa-fleet-operators-real-cost-per-kilometre)
+
+## Full detail
+
+- [llms-full.txt](https://www.truckwys.com/llms-full.txt): expanded fact sheet with all features, pricing detail and FAQ answers
