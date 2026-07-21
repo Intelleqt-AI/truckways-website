@@ -46,8 +46,22 @@ export default function HomePage() {
           </div>
         </div>
 
+        {/* Hero product shot */}
+        <div className="mx-auto mt-14 max-w-6xl px-5">
+          <div className="shot-frame">
+            <Image
+              src="/images/product/quote-builder-dark.png"
+              alt="The TruckWys quote builder pricing a Johannesburg to Cape Town load with the route on a map, fuel at the live diesel price, R1,115 of N1 tolls, and a quote total of R31,613"
+              width={1440}
+              height={900}
+              priority
+              className="w-full"
+            />
+          </div>
+        </div>
+
         {/* Stat strip */}
-        <div className="mx-auto max-w-6xl px-5 pb-14 pt-16">
+        <div className="mx-auto max-w-6xl px-5 pb-14 pt-14">
           <div className="grid grid-cols-2 gap-8 border-y border-line py-8 md:grid-cols-4">
             {[
               { v: '60 sec', l: 'to price a load' },
@@ -103,11 +117,10 @@ export default function HomePage() {
             </div>
             <div className="shot-frame">
               <Image
-                src="/images/product/quote-builder-dark.png"
-                alt="The TruckWys quote builder pricing a Johannesburg to Cape Town load with the route on a map, fuel at the live diesel price, R1,115 of N1 tolls, and a quote total of R31,636"
+                src="/images/product/quote-builder-light.png"
+                alt="The TruckWys quote builder in light mode with route options, cost breakdown and the AI recommended price"
                 width={1440}
                 height={900}
-                priority
                 className="w-full"
               />
             </div>
