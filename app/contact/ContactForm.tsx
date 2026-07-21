@@ -2,6 +2,11 @@
 
 import { useState } from 'react';
 
+const inputClass =
+  'w-full rounded-md border border-line bg-surface px-3.5 py-2.5 text-[15px] text-ink placeholder:text-ink-3 outline-none transition-colors focus:border-accent focus:ring-2 focus:ring-accent/20 leading-6';
+
+const labelClass = 'mb-1.5 block text-[13px] font-medium text-ink-2';
+
 export default function ContactForm() {
   const [formData, setFormData] = useState({
     name: '',
@@ -57,17 +62,19 @@ export default function ContactForm() {
 
   if (status === 'success') {
     return (
-      <div className="bg-green-50 border border-green-200 rounded-lg p-8 text-center">
-        <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+      <div role="status" aria-live="polite" className="py-8 text-center">
+        <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-accent-soft">
+          <svg aria-hidden="true" className="h-6 w-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h3 className="text-xl font-semibold text-green-900 mb-2">Thank you!</h3>
-        <p className="text-green-700">We've received your details and will get back to you within 24 hours.</p>
+        <h2 className="mt-5 text-[20px] font-semibold text-ink">Message received</h2>
+        <p className="mt-2 text-[15px] text-ink-2">
+          We have your details and will reply within one working day.
+        </p>
         <button
           onClick={() => setStatus('idle')}
-          className="mt-4 text-sm underline text-green-700 hover:text-green-900"
+          className="mt-5 text-[14px] font-medium text-accent underline-offset-4 hover:underline"
         >
           Send another message
         </button>
@@ -78,78 +85,82 @@ export default function ContactForm() {
   return (
     <form onSubmit={handleSubmit} className="space-y-5">
       {/* Name & Company */}
-      <div className="grid sm:grid-cols-2 gap-4">
+      <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label htmlFor="name" className="block text-sm font-medium text-black mb-1.5">
-            Full Name <span className="text-red-500">*</span>
+          <label htmlFor="name" className={labelClass}>
+            Full name
           </label>
           <input
             type="text"
             id="name"
             name="name"
+            autoComplete="name"
             required
             value={formData.name}
             onChange={handleChange}
-            placeholder="e.g. Sipho Mthembu"
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all text-black placeholder:text-gray-400"
+            placeholder="Sipho Mthembu"
+            className={inputClass}
           />
         </div>
         <div>
-          <label htmlFor="company" className="block text-sm font-medium text-black mb-1.5">
-            Company Name <span className="text-red-500">*</span>
+          <label htmlFor="company" className={labelClass}>
+            Company name
           </label>
           <input
             type="text"
             id="company"
             name="company"
+            autoComplete="organization"
             required
             value={formData.company}
             onChange={handleChange}
-            placeholder="e.g. Savanna Express"
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all text-black placeholder:text-gray-400"
+            placeholder="Your transport company"
+            className={inputClass}
           />
         </div>
       </div>
 
       {/* Email & Phone */}
-      <div className="grid sm:grid-cols-2 gap-4">
+      <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label htmlFor="email" className="block text-sm font-medium text-black mb-1.5">
-            Email Address <span className="text-red-500">*</span>
+          <label htmlFor="email" className={labelClass}>
+            Email address
           </label>
           <input
             type="email"
             id="email"
             name="email"
+            autoComplete="email"
             required
             value={formData.email}
             onChange={handleChange}
-            placeholder="sipho@example.com"
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all text-black placeholder:text-gray-400"
+            placeholder="you@company.co.za"
+            className={inputClass}
           />
         </div>
         <div>
-          <label htmlFor="phone" className="block text-sm font-medium text-black mb-1.5">
-            Phone Number <span className="text-red-500">*</span>
+          <label htmlFor="phone" className={labelClass}>
+            Phone number
           </label>
           <input
             type="tel"
             id="phone"
             name="phone"
+            autoComplete="tel"
             required
             value={formData.phone}
             onChange={handleChange}
             placeholder="+27 82 123 4567"
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all text-black placeholder:text-gray-400"
+            className={inputClass}
           />
         </div>
       </div>
 
       {/* Fleet Size & Area */}
-      <div className="grid sm:grid-cols-2 gap-4">
+      <div className="grid gap-4 sm:grid-cols-2">
         <div>
-          <label htmlFor="fleetSize" className="block text-sm font-medium text-black mb-1.5">
-            Fleet Size <span className="text-red-500">*</span>
+          <label htmlFor="fleetSize" className={labelClass}>
+            Fleet size
           </label>
           <select
             id="fleetSize"
@@ -157,20 +168,19 @@ export default function ContactForm() {
             required
             value={formData.fleetSize}
             onChange={handleChange}
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all text-black bg-white"
+            className={inputClass}
           >
             <option value="">Select fleet size</option>
-            <option value="1-10">1 – 10 vehicles</option>
-            <option value="11-25">11 – 25 vehicles</option>
-            <option value="26-50">26 – 50 vehicles</option>
-            <option value="51-100">51 – 100 vehicles</option>
-            <option value="101-250">101 – 250 vehicles</option>
-            <option value="250+">250+ vehicles</option>
+            <option value="1-10">1 to 10 vehicles</option>
+            <option value="11-50">11 to 50 vehicles</option>
+            <option value="51-100">51 to 100 vehicles</option>
+            <option value="101-200">101 to 200 vehicles</option>
+            <option value="200+">200+ vehicles</option>
           </select>
         </div>
         <div>
-          <label htmlFor="area" className="block text-sm font-medium text-black mb-1.5">
-            Area / Province <span className="text-red-500">*</span>
+          <label htmlFor="area" className={labelClass}>
+            Area or province
           </label>
           <select
             id="area"
@@ -178,7 +188,7 @@ export default function ContactForm() {
             required
             value={formData.area}
             onChange={handleChange}
-            className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all text-black bg-white"
+            className={inputClass}
           >
             <option value="">Select your province</option>
             <option value="Gauteng">Gauteng</option>
@@ -190,7 +200,7 @@ export default function ContactForm() {
             <option value="Mpumalanga">Mpumalanga</option>
             <option value="North West">North West</option>
             <option value="Northern Cape">Northern Cape</option>
-            <option value="Other African country">Other African Country</option>
+            <option value="Other African country">Other African country</option>
             <option value="International">International</option>
           </select>
         </div>
@@ -198,24 +208,25 @@ export default function ContactForm() {
 
       {/* Address */}
       <div>
-        <label htmlFor="address" className="block text-sm font-medium text-black mb-1.5">
-          Business Address
+        <label htmlFor="address" className={labelClass}>
+          Business address (optional)
         </label>
         <input
           type="text"
           id="address"
           name="address"
+          autoComplete="street-address"
           value={formData.address}
           onChange={handleChange}
           placeholder="Street address, city"
-          className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all text-black placeholder:text-gray-400"
+          className={inputClass}
         />
       </div>
 
       {/* Message */}
       <div>
-        <label htmlFor="message" className="block text-sm font-medium text-black mb-1.5">
-          How can we help? <span className="text-red-500">*</span>
+        <label htmlFor="message" className={labelClass}>
+          How can we help?
         </label>
         <textarea
           id="message"
@@ -224,8 +235,8 @@ export default function ContactForm() {
           rows={4}
           value={formData.message}
           onChange={handleChange}
-          placeholder="Tell us about your fleet and what you're looking for..."
-          className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 outline-none transition-all text-black placeholder:text-gray-400 resize-none"
+          placeholder="Tell us about your fleet and what you want to fix"
+          className={`${inputClass} resize-none`}
         />
       </div>
 
@@ -233,29 +244,23 @@ export default function ContactForm() {
       <button
         type="submit"
         disabled={status === 'sending'}
-        className="w-full sm:w-auto px-8 py-3 rounded-lg text-white font-medium text-base transition-all disabled:opacity-60"
-        style={{ backgroundColor: 'rgb(60, 131, 246)' }}
+        className="btn-primary w-full disabled:opacity-60"
       >
-        {status === 'sending' ? (
-          <span className="flex items-center gap-2 justify-center">
-            <svg className="animate-spin w-5 h-5" viewBox="0 0 24 24" fill="none">
-              <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-              <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
-            </svg>
-            Sending...
-          </span>
-        ) : (
-          'Submit Enquiry'
-        )}
+        {status === 'sending' ? 'Sending' : 'Send message'}
       </button>
 
       {status === 'error' && (
-        <p className="text-red-600 text-sm mt-2">Something went wrong. Please try again or email us directly at grant@truckwys.com</p>
+        <p role="alert" className="text-[13px] text-warning">
+          Something went wrong. Please try again or email us directly at grant@truckwys.com.
+        </p>
       )}
 
-      <p className="text-xs text-gray-400 mt-3">
-        By submitting this form, you agree to our{' '}
-        <a href="/privacy" className="underline hover:text-gray-600">Privacy Policy</a>.
+      <p className="text-center text-[12px] leading-relaxed text-ink-3">
+        By submitting this form you agree to our{' '}
+        <a href="/privacy" className="underline underline-offset-2 hover:text-ink-2">
+          privacy policy
+        </a>
+        .
       </p>
     </form>
   );

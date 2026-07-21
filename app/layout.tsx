@@ -1,22 +1,41 @@
 import type React from 'react';
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import Script from 'next/script';
+import { Inter, IBM_Plex_Mono } from 'next/font/google';
 import './globals.css';
-import StructuredData from '../components/StructuredData';
-import ConditionalLayout from '../components/ConditionalLayout';
+import Navbar from '../components/Navbar';
+import Footer from '../components/Footer';
 import { Analytics } from '@vercel/analytics/react';
+
+// Set in Vercel project env. GA4 and Search Console activate automatically
+// once the values exist; nothing renders without them.
+const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
+const GOOGLE_SITE_VERIFICATION = process.env.GOOGLE_SITE_VERIFICATION;
 
 const inter = Inter({
   subsets: ['latin'],
-  weight: ['300', '400', '500', '600', '700', '800', '900'],
+  weight: ['400', '500', '600', '700'],
   variable: '--font-inter',
+  display: 'swap',
 });
 
+const plexMono = IBM_Plex_Mono({
+  subsets: ['latin'],
+  weight: ['400', '500'],
+  variable: '--font-plex-mono',
+  display: 'swap',
+});
+
+const SITE = 'https://www.truckwys.com';
+
 export const metadata: Metadata = {
-  metadataBase: new URL('https://truckwys.com'),
-  title: 'TruckWys | AI-Powered Fleet Profitability Platform for African Transport',
-  description: 'AI-powered fleet management for African transport operators. 15% margin uplift, 10 days faster payments. Start your free trial.',
-  keywords: 'fleet management software, transport software South Africa, AI pricing logistics, invoice automation, African transport technology, fleet profitability, truck fleet management, logistics software Africa, TMS software, transport management system',
+  metadataBase: new URL(SITE),
+  title: {
+    default: 'TruckWys | Fleet finance software for South African transporters',
+    template: '%s | TruckWys',
+  },
+  description:
+    'Quote loads with live diesel and toll prices, invoice on delivery, and get paid in 48 hours with FastPay. Built for South African fleets. R4,500 per month.',
   authors: [{ name: 'TruckWys' }],
   creator: 'TruckWys',
   publisher: 'TruckWys',
@@ -34,50 +53,73 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_ZA',
-    url: 'https://truckwys.com',
+    url: SITE,
     siteName: 'TruckWys',
-    title: 'TruckWys | AI-Powered Fleet Profitability Platform',
-    description: 'Transform your fleet operations with AI-powered pricing, automated invoicing, and instant cash flow. Built for African fleets.',
+    title: 'TruckWys | Fleet finance software for South African transporters',
+    description:
+      'Quote loads with live diesel and toll prices, invoice on delivery, and get paid in 48 hours with FastPay. Built for South African fleets.',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'TruckWys - Fleet Profitability Platform',
+        alt: 'The TruckWys quote builder pricing a Johannesburg to Cape Town load',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'TruckWys | AI-Powered Fleet Profitability Platform',
-    description: 'Transform your fleet with AI-powered pricing and instant payments. Built for African transport operators.',
+    title: 'TruckWys | Fleet finance software for South African transporters',
+    description:
+      'Quote loads with live diesel and toll prices, invoice on delivery, and get paid in 48 hours with FastPay.',
     images: ['/og-image.png'],
     creator: '@truckwys',
     site: '@truckwys',
   },
   alternates: {
-    canonical: 'https://truckwys.com',
+    canonical: SITE,
   },
   category: 'technology',
+  ...(GOOGLE_SITE_VERIFICATION
+    ? { verification: { google: GOOGLE_SITE_VERIFICATION } }
+    : {}),
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en-ZA" className={`${inter.variable} antialiased`}>
+    <html lang="en-ZA" className={`${inter.variable} ${plexMono.variable} antialiased`}>
       <head>
-        <link rel="preconnect" href="https://fonts.googleapis.com" />
-        <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32" />
         <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192" />
-        <link rel="icon" href="/icon-512.png" type="image/png" sizes="512x512" />
         <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <meta name="theme-color" content="#3C83F6" />
+        <meta name="theme-color" content="#2563EB" />
         <link rel="manifest" href="/manifest.json" />
       </head>
       <body className="font-sans">
-        <StructuredData />
-        <ConditionalLayout>{children}</ConditionalLayout>
+        <a
+          href="#main"
+          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded focus:bg-accent focus:px-4 focus:py-2 focus:text-accent-ink"
+        >
+          Skip to content
+        </a>
+        <Navbar />
+        <main id="main">{children}</main>
+        <Footer />
         <Analytics />
+        {GA_ID && (
+          <>
+            <Script
+              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
+              strategy="afterInteractive"
+            />
+            <Script id="ga4" strategy="afterInteractive">
+              {`window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                gtag('js', new Date());
+                gtag('config', '${GA_ID}');`}
+            </Script>
+          </>
+        )}
       </body>
     </html>
   );

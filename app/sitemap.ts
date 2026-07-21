@@ -1,37 +1,32 @@
-import { MetadataRoute } from 'next';
-
-const blogSlugs = [
-  'fleet-profitability-south-africa-ai-powered-pricing',
-  'true-cost-running-truck-fleet-south-africa-2026',
-  'invoice-factoring-vs-ai-cash-advances-sa-transport',
-  'hidden-profit-leaks-south-african-fleet-operators',
-  'how-to-quote-freight-rates-south-africa-ai',
-  'fleet-management-software-south-africa-2026',
-  'fuel-cost-management-sa-fleets-strategies',
-  'cross-border-trucking-southern-africa-multi-currency',
-  'sa-fleet-operators-real-cost-per-kilometre',
-  'future-of-freight-africa-ai-transforming-transport',
-];
+import type { MetadataRoute } from 'next';
+import { blogPosts } from '../lib/blog-data';
+import { SITE_URL } from '../lib/site';
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = 'https://truckwys.com';
-
+  // Real content date, not the build timestamp — a fresh lastModified on every
+  // deploy dilutes the freshness signal. Bump when page content actually changes.
+  const contentDate = new Date('2026-07-21');
   const staticPages: MetadataRoute.Sitemap = [
-    { url: baseUrl, lastModified: new Date(), changeFrequency: 'weekly', priority: 1 },
-    { url: `${baseUrl}/get-started`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.9 },
-    { url: `${baseUrl}/blogs`, lastModified: new Date(), changeFrequency: 'weekly', priority: 0.8 },
-    { url: `${baseUrl}/about`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${baseUrl}/contact`, lastModified: new Date(), changeFrequency: 'monthly', priority: 0.7 },
-    { url: `${baseUrl}/privacy`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.3 },
-    { url: `${baseUrl}/terms`, lastModified: new Date(), changeFrequency: 'yearly', priority: 0.3 },
+    { url: SITE_URL, lastModified: contentDate, changeFrequency: 'weekly', priority: 1 },
+    { url: `${SITE_URL}/product`, lastModified: contentDate, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${SITE_URL}/ai`, lastModified: contentDate, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${SITE_URL}/pricing`, lastModified: contentDate, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${SITE_URL}/about`, lastModified: contentDate, changeFrequency: 'monthly', priority: 0.8 },
+    { url: `${SITE_URL}/get-started`, lastModified: contentDate, changeFrequency: 'monthly', priority: 0.9 },
+    { url: `${SITE_URL}/contact`, lastModified: contentDate, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${SITE_URL}/blogs`, lastModified: contentDate, changeFrequency: 'weekly', priority: 0.8 },
+    { url: `${SITE_URL}/privacy`, lastModified: contentDate, changeFrequency: 'yearly', priority: 0.2 },
+    { url: `${SITE_URL}/terms`, lastModified: contentDate, changeFrequency: 'yearly', priority: 0.2 },
   ];
 
-  const blogPages: MetadataRoute.Sitemap = blogSlugs.map(slug => ({
-    url: `${baseUrl}/blogs/${slug}`,
-    lastModified: new Date(),
-    changeFrequency: 'monthly' as const,
-    priority: 0.7,
-  }));
+  const blogPages: MetadataRoute.Sitemap = blogPosts.map(
+    (post: { slug: string; publishedAt?: string }) => ({
+      url: `${SITE_URL}/blogs/${post.slug}`,
+      lastModified: post.publishedAt ? new Date(post.publishedAt) : new Date(),
+      changeFrequency: 'monthly' as const,
+      priority: 0.6,
+    }),
+  );
 
   return [...staticPages, ...blogPages];
 }

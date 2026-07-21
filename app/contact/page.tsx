@@ -1,107 +1,59 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
-import { Mail, Phone, MapPin, ArrowLeft, Clock } from 'lucide-react';
-import { Button } from '@/components/ui/button';
 import ContactForm from './ContactForm';
 
 export const metadata: Metadata = {
-  title: 'Contact TruckWys | Fleet Profitability Support',
+  title: 'Contact',
   description:
-    'Get in touch with TruckWys. Contact our team for demo requests, support, or partnership inquiries. We help African fleet operators improve profitability.',
+    'Talk to TruckWys about quoting, invoicing and FastPay for your fleet. Email grant@truckwys.com. Most fleets get a reply within one working day.',
   alternates: {
-    canonical: 'https://truckwys.com/contact',
+    canonical: 'https://www.truckwys.com/contact',
   },
   openGraph: {
-    title: 'Contact TruckWys | Fleet Profitability Support',
-    description: 'Get in touch with TruckWys for demo requests, support, or partnership inquiries.',
-    url: 'https://truckwys.com/contact',
+    type: 'website',
+    siteName: 'TruckWys',
+    locale: 'en_ZA',
+    title: 'Contact TruckWys',
+    description:
+      'Talk to TruckWys about quoting, invoicing and FastPay for your fleet. Most fleets get a reply within one working day.',
+    url: 'https://www.truckwys.com/contact',
+    images: [{ url: 'https://www.truckwys.com/og-image.png', width: 1200, height: 630, alt: 'The TruckWys quote builder pricing a Johannesburg to Cape Town load' }],
   },
 };
 
 export default function ContactPage() {
   return (
-    <div className="min-h-screen bg-white">
-      <div className="max-w-5xl mx-auto px-4 sm:px-6 pt-28 pb-12 sm:pt-32 sm:pb-16">
-        {/* Back button */}
-        <Link href="/" className="inline-flex items-center gap-2 text-gray-600 hover:text-black transition-colors mb-8">
-          <ArrowLeft className="w-4 h-4" />
-          <span className="text-sm">Back to home</span>
-        </Link>
-
-        {/* Header */}
-        <div className="mb-12">
-          <h1 className="text-3xl sm:text-4xl font-semibold text-black mb-4">Get in Touch</h1>
-          <p className="text-lg text-gray-600 max-w-2xl">
-            Ready to boost your fleet's profitability? Fill in your details below and our team will get back to you within 24 hours.
-          </p>
-        </div>
-
-        <div className="grid lg:grid-cols-5 gap-12">
-          {/* Contact Form - Takes up 3 columns */}
-          <div className="lg:col-span-3">
-            <ContactForm />
-          </div>
-
-          {/* Sidebar - Contact Info - Takes up 2 columns */}
-          <div className="lg:col-span-2 space-y-6">
-            {/* Email */}
-            <div className="p-6 bg-gray-50 rounded-lg border border-gray-200">
-              <div
-                className="w-10 h-10 rounded-lg flex items-center justify-center mb-3"
-                style={{ backgroundColor: 'rgba(60, 131, 246, 0.1)' }}
-              >
-                <Mail className="w-5 h-5" style={{ color: 'rgb(60, 131, 246)' }} />
-              </div>
-              <h2 className="text-lg font-semibold text-black mb-1">Email Us</h2>
+    <section className="bg-page">
+      <div className="mx-auto max-w-6xl px-5 py-24">
+        <div className="grid gap-12 lg:grid-cols-[1fr_1.2fr] lg:gap-16">
+          {/* Left: intro */}
+          <div>
+            <div className="eyebrow eyebrow-accent mb-4">Contact</div>
+            <h1 className="text-display text-ink">Talk to us</h1>
+            <p className="mt-5 max-w-md text-[16px] leading-relaxed text-ink-2">
+              Tell us about your fleet and what you want to fix: quoting, slow
+              payments, cash flow, or all three. We will come back with straight
+              answers, not a sales script.
+            </p>
+            <div className="mt-8">
+              <div className="eyebrow mb-2">Email</div>
               <a
                 href="mailto:grant@truckwys.com"
-                className="text-base font-medium hover:underline"
-                style={{ color: 'rgb(60, 131, 246)' }}
+                className="text-[16px] font-medium text-accent underline-offset-4 hover:underline"
               >
                 grant@truckwys.com
               </a>
             </div>
+            <p className="mt-6 text-[13px] text-ink-3">
+              Most fleets get a reply within one working day.
+            </p>
+          </div>
 
-            {/* Phone */}
-            <div className="p-6 bg-gray-50 rounded-lg border border-gray-200">
-              <div
-                className="w-10 h-10 rounded-lg flex items-center justify-center mb-3"
-                style={{ backgroundColor: 'rgba(60, 131, 246, 0.1)' }}
-              >
-                <Phone className="w-5 h-5" style={{ color: 'rgb(60, 131, 246)' }} />
-              </div>
-              <h2 className="text-lg font-semibold text-black mb-1">Call Us</h2>
-              <p className="text-gray-400 text-base">Coming soon</p>
-            </div>
-
-            {/* Location */}
-            <div className="p-6 bg-gray-50 rounded-lg border border-gray-200">
-              <div
-                className="w-10 h-10 rounded-lg flex items-center justify-center mb-3"
-                style={{ backgroundColor: 'rgba(60, 131, 246, 0.1)' }}
-              >
-                <MapPin className="w-5 h-5" style={{ color: 'rgb(60, 131, 246)' }} />
-              </div>
-              <h2 className="text-lg font-semibold text-black mb-1">Location</h2>
-              <p className="text-gray-600 text-base">South Africa</p>
-            </div>
-
-            {/* Business Hours */}
-            <div className="p-6 bg-gray-50 rounded-lg border border-gray-200">
-              <div
-                className="w-10 h-10 rounded-lg flex items-center justify-center mb-3"
-                style={{ backgroundColor: 'rgba(60, 131, 246, 0.1)' }}
-              >
-                <Clock className="w-5 h-5" style={{ color: 'rgb(60, 131, 246)' }} />
-              </div>
-              <h2 className="text-lg font-semibold text-black mb-1">Business Hours</h2>
-              <p className="text-gray-600 text-base">
-                Mon – Fri: 8:00 AM – 6:00 PM (SAST)
-              </p>
-            </div>
+          {/* Right: form */}
+          <div className="card p-6 sm:p-8">
+            <ContactForm />
           </div>
         </div>
       </div>
-    </div>
+    </section>
   );
 }
