@@ -18,8 +18,8 @@ export default function HomePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(faqSchema)} />
 
       {/* Hero */}
-      <section className="bg-surface">
-        <div className="mx-auto max-w-6xl px-5 pb-0 pt-20 text-center md:pt-28">
+      <section className="hero-wash">
+        <div className="mx-auto max-w-6xl px-5 pb-0 pt-10 text-center md:pt-16">
           <div className="eyebrow eyebrow-accent mb-5">Fleet finance software · South Africa</div>
           <h1 className="text-hero mx-auto max-w-3xl text-ink">
             Price every load right. Get paid in 48 hours.
@@ -30,17 +30,20 @@ export default function HomePage() {
             and settles the money in 48 hours if you want it early. Built for South
             African fleets.
           </p>
-          <div className="mt-9 flex flex-col items-center justify-center gap-3 px-6 sm:flex-row sm:px-0">
+          <div className="mt-8 flex flex-col items-center justify-center gap-3 px-6 sm:flex-row sm:px-0">
             <Link href="/get-started" className="btn-primary w-full sm:w-auto">
               Start your free trial
             </Link>
-            <Link href="/#quote" className="btn-secondary w-full sm:w-auto">
-              See how it quotes
+            <Link href="/product" className="btn-secondary w-full sm:w-auto">
+              See how it works
             </Link>
           </div>
-          <p className="mt-4 text-[13px] text-ink-3">
-            R4,500 per month. Unlimited users and quotes. No setup fees.
-          </p>
+          <div className="price-chip mt-6">
+            <span className="mono-stat text-[17px] font-semibold text-ink">R4,500</span>
+            <span className="text-[14px] text-ink-2">
+              per month · unlimited users and quotes · no setup fees
+            </span>
+          </div>
         </div>
 
         {/* Hero product shot */}
@@ -78,7 +81,7 @@ export default function HomePage() {
       <div id="product" />
 
       {/* Pillar 1: Quote (dark) */}
-      <section id="quote" className="panel-dark">
+      <section id="quote" className="border-t border-line bg-surface">
         <div className="mx-auto max-w-6xl px-5 py-24">
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <div>
@@ -125,16 +128,16 @@ export default function HomePage() {
       </section>
 
       {/* Pillar 2: Get paid */}
-      <section id="paid" className="bg-surface">
+      <section id="paid" className="bg-page">
         <div className="mx-auto max-w-6xl px-5 py-24">
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <div className="order-2 lg:order-1">
               <div className="shot-frame">
                 <Image
-                  src="/images/product/invoices-dark.png"
+                  src="/images/product/invoices-light.png"
                   alt="The TruckWys invoice pipeline showing invoices created on delivery with statuses, due dates and overdue flags"
                   width={1440}
-                  height={900}
+                  height={834}
                   className="w-full"
                 />
               </div>
@@ -169,7 +172,7 @@ export default function HomePage() {
       </section>
 
       {/* Pillar 3: Know your numbers (dark) */}
-      <section id="numbers" className="panel-dark">
+      <section id="numbers" className="bg-surface">
         <div className="mx-auto max-w-6xl px-5 py-24">
           <div className="mx-auto max-w-2xl text-center">
             <div className="eyebrow eyebrow-accent mb-4">Know your numbers</div>
@@ -184,10 +187,10 @@ export default function HomePage() {
           </div>
           <div className="shot-frame mt-12">
             <Image
-              src="/images/product/insights-dark.png"
+              src="/images/product/insights-light.png"
               alt="TruckWys fleet insights with margin analysis, cost per kilometre and vehicle performance"
               width={1440}
-              height={900}
+              height={834}
               className="w-full"
             />
           </div>
@@ -195,7 +198,7 @@ export default function HomePage() {
       </section>
 
       {/* Pillar 4: Capital */}
-      <section id="capital" className="bg-surface">
+      <section id="capital" className="bg-page">
         <div className="mx-auto max-w-6xl px-5 py-24">
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <div>
@@ -221,10 +224,10 @@ export default function HomePage() {
             </div>
             <div className="shot-frame">
               <Image
-                src="/images/product/capital-dark.png"
+                src="/images/product/capital-light.png"
                 alt="The TruckWys capital view showing R1,000,000 of available capital against outstanding invoices"
                 width={1440}
-                height={540}
+                height={560}
                 className="w-full"
               />
             </div>
@@ -233,7 +236,7 @@ export default function HomePage() {
       </section>
 
       {/* Integrations */}
-      <section className="border-t border-line bg-page">
+      <section className="border-t border-line bg-surface">
         <div className="mx-auto max-w-6xl px-5 py-16 text-center">
           <div className="eyebrow eyebrow-accent mb-3">Works with what you run</div>
           <h2 className="text-[20px] font-semibold text-ink">
@@ -258,13 +261,16 @@ export default function HomePage() {
       </section>
 
       {/* Pricing */}
-      <section id="pricing" className="bg-surface">
+      <section id="pricing" className="bg-page">
         <div className="mx-auto max-w-6xl px-5 py-24">
           <div className="mx-auto max-w-2xl text-center">
             <div className="eyebrow eyebrow-accent mb-4">Pricing</div>
             <h2 className="text-display text-ink">One price. Everything included.</h2>
             <p className="mt-4 text-[16px] text-ink-2">
-              No per-user fees, no tiers, no surprises at month end.
+              No per-user fees, no tiers, no surprises at month end.{' '}
+              <Link href="/pricing" className="font-medium text-accent underline-offset-4 hover:underline">
+                See full pricing
+              </Link>
             </p>
           </div>
 
@@ -326,7 +332,7 @@ export default function HomePage() {
       </section>
 
       {/* FAQ */}
-      <section id="faq" className="border-t border-line bg-page">
+      <section id="faq" className="border-t border-line bg-surface">
         <div className="mx-auto max-w-3xl px-5 py-24">
           <div className="text-center">
             <div className="eyebrow eyebrow-accent mb-4">FAQ</div>
@@ -349,7 +355,7 @@ export default function HomePage() {
       </section>
 
       {/* CTA */}
-      <section className="panel-dark border-t border-line">
+      <section className="panel-accent">
         <div className="mx-auto max-w-6xl px-5 py-24 text-center">
           <div className="eyebrow eyebrow-accent mb-4">Get started</div>
           <h2 className="text-display mx-auto max-w-2xl text-ink">
@@ -360,10 +366,10 @@ export default function HomePage() {
             the diesel price changes again.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 px-6 sm:flex-row sm:px-0">
-            <Link href="/get-started" className="btn-primary w-full sm:w-auto">
+            <Link href="/get-started" className="btn-primary w-full !border-white !bg-white !text-accent sm:w-auto">
               Start your free trial
             </Link>
-            <Link href="/contact" className="btn-secondary w-full !border-line-strong !bg-transparent !text-ink sm:w-auto">
+            <Link href="/contact" className="btn-secondary w-full !border-white/40 !bg-transparent !text-white sm:w-auto">
               Talk to us
             </Link>
           </div>

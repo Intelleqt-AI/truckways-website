@@ -81,7 +81,7 @@ export default function BlogIndexPage() {
             ))}
           </div>
 
-          <div className="panel-dark mt-16 rounded-[14px] border border-line px-8 py-12 text-center">
+          <div className="panel-accent mt-16 rounded-[14px] px-8 py-12 text-center">
             <h2 className="text-[20px] font-semibold text-ink">
               Put the numbers to work on your own fleet
             </h2>
@@ -89,7 +89,7 @@ export default function BlogIndexPage() {
               TruckWys prices your loads with live diesel, real tolls and your own
               running costs, then gets the invoices paid.
             </p>
-            <Link href="/get-started" className="btn-primary mt-6">
+            <Link href="/get-started" className="btn-primary mt-6 !border-white !bg-white !text-accent">
               Start your free trial
             </Link>
           </div>

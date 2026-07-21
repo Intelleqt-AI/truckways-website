@@ -2,11 +2,11 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 const productLinks = [
-  { href: '/#quote', label: 'AI quote builder' },
-  { href: '/#paid', label: 'Invoicing and FastPay' },
-  { href: '/#numbers', label: 'Fleet insights' },
-  { href: '/#capital', label: 'Capital' },
-  { href: '/#pricing', label: 'Pricing' },
+  { href: '/product', label: 'Product' },
+  { href: '/product#quote', label: 'AI quote builder' },
+  { href: '/product#paid', label: 'Invoicing and FastPay' },
+  { href: '/product#capital', label: 'Capital' },
+  { href: '/pricing', label: 'Pricing' },
 ];
 
 const companyLinks = [
@@ -18,7 +18,7 @@ const companyLinks = [
 
 export default function Footer() {
   return (
-    <footer className="panel-dark border-t border-line">
+    <footer className="border-t border-line bg-surface">
       <div className="mx-auto max-w-6xl px-5 py-16">
         <div className="grid gap-12 md:grid-cols-4">
           <div className="md:col-span-2">
@@ -27,7 +27,7 @@ export default function Footer() {
               alt="TruckWys"
               width={148}
               height={32}
-              className="h-7 w-auto invert"
+              className="h-7 w-auto"
             />
             <p className="mt-4 max-w-sm text-[14px] leading-relaxed text-ink-2">
               Fleet finance software for South African transporters. Quote with real

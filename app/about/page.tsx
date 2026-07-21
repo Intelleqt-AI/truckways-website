@@ -111,7 +111,7 @@ export default function AboutPage() {
       </section>
 
       {/* Product shot (dark) */}
-      <section className="panel-dark">
+      <section className="bg-surface border-t border-line">
         <div className="mx-auto max-w-6xl px-5 py-24">
           <div className="mx-auto max-w-2xl text-center">
             <div className="eyebrow eyebrow-accent mb-4">One view</div>
@@ -126,10 +126,10 @@ export default function AboutPage() {
           </div>
           <div className="shot-frame mt-12">
             <Image
-              src="/images/product/overview-dark.png"
+              src="/images/product/overview-light.png"
               alt="The TruckWys overview dashboard showing active quotes, invoices awaiting payment and available FastPay settlement in one screen"
               width={1440}
-              height={900}
+              height={834}
               className="w-full"
             />
           </div>
@@ -137,9 +137,9 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="panel-dark border-t border-line">
+      <section className="panel-accent">
         <div className="mx-auto max-w-6xl px-5 py-24 text-center">
-          <div className="eyebrow eyebrow-accent mb-4">Get started</div>
+          <div className="eyebrow mb-4" style={{color: "rgba(255,255,255,0.7)"}}>Get started</div>
           <h2 className="text-display mx-auto max-w-2xl text-ink">
             See what your next load really costs
           </h2>
@@ -148,10 +148,10 @@ export default function AboutPage() {
             ask anything.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 px-6 sm:flex-row sm:px-0">
-            <Link href="/get-started" className="btn-primary w-full sm:w-auto">
+            <Link href="/get-started" className="btn-primary w-full !border-white !bg-white !text-accent sm:w-auto">
               Start your free trial
             </Link>
-            <Link href="/contact" className="btn-secondary w-full !border-line-strong !bg-transparent !text-ink sm:w-auto">
+            <Link href="/contact" className="btn-secondary w-full !border-white/40 !bg-transparent !text-white sm:w-auto">
               Talk to us
             </Link>
           </div>

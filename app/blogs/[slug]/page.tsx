@@ -157,7 +157,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
 
-            <div className="panel-dark mt-16 rounded-[14px] border border-line px-8 py-12 text-center">
+            <div className="panel-accent mt-16 rounded-[14px] px-8 py-12 text-center">
               <h2 className="text-[20px] font-semibold text-ink">
                 Price your next load with real costs
               </h2>
@@ -165,7 +165,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                 TruckWys quotes with live diesel prices, the actual tolls on the route
                 and your own running costs, then invoices the moment you deliver.
               </p>
-              <Link href="/get-started" className="btn-primary mt-6">
+              <Link href="/get-started" className="btn-primary mt-6 !border-white !bg-white !text-accent">
                 Start your free trial
               </Link>
             </div>

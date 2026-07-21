@@ -5,8 +5,8 @@ import Link from 'next/link';
 import Image from 'next/image';
 
 const links = [
-  { href: '/#product', label: 'Product' },
-  { href: '/#pricing', label: 'Pricing' },
+  { href: '/product', label: 'Product' },
+  { href: '/pricing', label: 'Pricing' },
   { href: '/blogs', label: 'Blog' },
   { href: '/contact', label: 'Contact' },
 ];
