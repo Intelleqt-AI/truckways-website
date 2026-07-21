@@ -347,6 +347,7 @@ export default function ProductPage() {
                   'Overdue flags and ageing',
                   'FastPay optional 48-hour settlement',
                   'Payment tracking per invoice',
+                  'Mobile app for iOS and Android',
                 ],
               },
               {

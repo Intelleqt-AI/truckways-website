@@ -234,6 +234,78 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Mobile app */}
+      <section id="mobile" className="border-t border-line bg-surface">
+        <div className="mx-auto max-w-6xl px-5 py-24">
+          <div className="grid items-center gap-12 lg:grid-cols-2">
+            <div>
+              <div className="eyebrow eyebrow-accent mb-4">iOS and Android</div>
+              <h2 className="text-display text-ink">
+                The mobile app: quote and invoice from the roadside
+              </h2>
+              <p className="mt-5 text-[16px] leading-relaxed text-ink-2">
+                The full TruckWys account in your pocket, same data as the web app.
+                Price a load in the truck, capture the proof of delivery at the
+                drop, and have the invoice on its way before you leave the yard.
+              </p>
+              <ul className="mt-7 space-y-3.5">
+                {[
+                  'Quote with live diesel and tolls from anywhere',
+                  'Capture and attach POD at the point of delivery',
+                  'See cash, overdue invoices and fleet status on the move',
+                  'One account across web, iOS and Android',
+                ].map((f) => (
+                  <li key={f} className="flex gap-3 text-[15px] text-ink-2">
+                    <span className="mt-1 h-1.5 w-1.5 flex-none rounded-full bg-accent" aria-hidden="true" />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <p className="mt-7 text-[14px] text-ink-3">
+                Rolling out with the platform. Ask us for early access when you
+                start your trial.
+              </p>
+            </div>
+
+            {/* Stylised phone: the app's dark operations-terminal look, real numbers */}
+            <div className="flex justify-center">
+              <div className="w-[300px] rounded-[42px] border border-line-strong bg-[#060709] p-3 shadow-[0_32px_80px_-24px_rgba(17,24,39,0.45)]">
+                <div className="overflow-hidden rounded-[32px] border border-[#2a2e34] bg-[#060709]">
+                  <div className="flex items-center justify-between px-5 pb-2 pt-4">
+                    <span className="mono-stat text-[11px] text-[#9aa1a9]">09:41</span>
+                    <span className="h-5 w-20 rounded-full bg-[#101215]" aria-hidden="true" />
+                    <span className="mono-stat text-[11px] text-[#9aa1a9]">LTE</span>
+                  </div>
+                  <div className="px-5 pb-6 pt-3">
+                    <div className="eyebrow" style={{ color: '#6e757d' }}>Quote · JHB to CPT</div>
+                    <div className="mono-stat mt-1 text-[26px] font-semibold text-[#ededed]">R 31 613</div>
+                    <div className="mt-4 space-y-2.5 rounded-[10px] border border-[#2a2e34] bg-[#101215] p-4">
+                      {[
+                        ['Fuel at live diesel', 'R 13 238'],
+                        ['Tolls, N1 plazas', 'R 1 115'],
+                        ['Base rate, R10/km', 'R 15 009'],
+                      ].map(([l, v]) => (
+                        <div key={l} className="flex items-center justify-between">
+                          <span className="text-[12px] text-[#9aa1a9]">{l}</span>
+                          <span className="mono-stat text-[12px] text-[#ededed]">{v}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="mt-4 rounded-[8px] bg-[#4d9eff] py-3 text-center text-[13px] font-medium text-[#05101f]">
+                      Send quote
+                    </div>
+                    <div className="mt-3 flex items-center gap-2 rounded-[8px] border border-[#2a2e34] bg-[#101215] px-3.5 py-2.5">
+                      <span className="h-2 w-2 rounded-full bg-[#4d9eff]" aria-hidden="true" />
+                      <span className="mono-stat text-[11px] text-[#9aa1a9]">POD captured · invoice queued</span>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* AI: navy blueprint panel, terminal left, agent pipeline right */}
       <section id="ai" className="footer-dark">
         <div className="ai-grid">

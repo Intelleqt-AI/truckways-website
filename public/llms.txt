@@ -14,6 +14,7 @@ Who it is for: South African fleet owners and transport operators running roughl
 - Capital advances are available against outstanding invoices.
 - Fleet insights cover cost per kilometre, margin per route, client payment behaviour and vehicle performance.
 - Pricing: R4,500 per month per fleet plus 0.25% per confirmed booking. Unlimited users and quotes, no setup fees.
+- A mobile app for iOS and Android shares the same account and data as the web app.
 - Contact: grant@truckwys.com
 
 ## Pages
