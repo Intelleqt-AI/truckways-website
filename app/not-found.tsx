@@ -10,7 +10,7 @@ export default function NotFound() {
           The page may have moved in the site rebuild. The links below will get
           you back on the road.
         </p>
-        <div className="mt-8 flex flex-col items-center gap-3 sm:flex-row">
+        <div className="mt-8 flex w-full max-w-xs flex-col items-center gap-3 sm:w-auto sm:max-w-none sm:flex-row">
           <Link href="/" className="btn-primary w-full sm:w-auto">
             Back to home
           </Link>

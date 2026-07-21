@@ -71,7 +71,7 @@ export default function Navbar() {
                 key={l.href}
                 href={l.href}
                 onClick={() => setOpen(false)}
-                className="text-[15px] font-medium text-ink-2"
+                className="block py-2 text-[15px] font-medium text-ink-2"
               >
                 {l.label}
               </Link>

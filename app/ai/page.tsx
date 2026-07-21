@@ -152,18 +152,20 @@ export default function AiPage() {
                 </div>
               </div>
             ) : (
-              <div className="mx-auto max-w-3xl">
-                <div className="eyebrow eyebrow-accent mb-4">{f.eyebrow}</div>
-                <h2 className="text-display text-ink">{f.h}</h2>
-                <p className="mt-5 text-[16px] leading-relaxed text-ink-2">{f.body}</p>
-                <ul className="mt-7 grid gap-3.5 sm:grid-cols-1">
+              <div>
+                <div className="mx-auto max-w-2xl text-center">
+                  <div className="eyebrow eyebrow-accent mb-4">{f.eyebrow}</div>
+                  <h2 className="text-display text-ink">{f.h}</h2>
+                  <p className="mt-5 text-[16px] leading-relaxed text-ink-2">{f.body}</p>
+                </div>
+                <div className="mx-auto mt-10 grid max-w-5xl gap-4 sm:grid-cols-3">
                   {f.bullets.map((b) => (
-                    <li key={b} className="flex gap-3 text-[15px] text-ink-2">
-                      <span className="mt-1 h-1.5 w-1.5 flex-none rounded-full bg-accent" aria-hidden="true" />
-                      {b}
-                    </li>
+                    <div key={b} className="card p-6 text-left">
+                      <span className="mb-3 block h-1.5 w-8 rounded-full bg-accent" aria-hidden="true" />
+                      <p className="text-[14px] leading-relaxed text-ink-2">{b}</p>
+                    </div>
                   ))}
-                </ul>
+                </div>
               </div>
             )}
           </div>

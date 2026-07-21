@@ -42,12 +42,6 @@ export default function HomePage() {
               See how it works
             </Link>
           </div>
-          <div className="price-chip mt-6">
-            <span className="mono-stat text-[17px] font-semibold text-ink">R4,500</span>
-            <span className="text-[14px] text-ink-2">
-              per month · unlimited users and quotes · no setup fees
-            </span>
-          </div>
         </div>
 
         {/* Hero product shot */}
@@ -122,11 +116,10 @@ export default function HomePage() {
             <div className="shot-frame">
               <Image
                 src="/images/product/quote-builder-light.png"
-                alt="Close-up of the TruckWys cost breakdown: fuel at live diesel, N1 tolls and the quote total"
+                alt="The TruckWys quote builder with route options, cost breakdown and the AI recommended price"
                 width={1440}
                 height={900}
-                className="w-[165%] max-w-none"
-                style={{ marginLeft: '-63%', marginTop: '-30%' }}
+                className="w-full"
               />
             </div>
           </div>
@@ -140,10 +133,10 @@ export default function HomePage() {
             <div className="order-2 lg:order-1">
               <div className="shot-frame">
                 <Image
-                  src="/images/product/frag-invoice-rows.png"
-                  alt="Real TruckWys invoices with amounts, statuses and overdue flags"
-                  width={1233}
-                  height={250}
+                  src="/images/product/invoices-light.png"
+                  alt="The TruckWys invoice pipeline with statuses, due dates and overdue flags"
+                  width={1440}
+                  height={834}
                   className="w-full"
                 />
               </div>
@@ -185,7 +178,7 @@ export default function HomePage() {
             <h2 className="text-display text-ink">
               What does each truck, route and client really make you?
             </h2>
-            <p className="mt-5 text-[16px] leading-relaxed text-ink-2">
+            <p className="mt-4 text-[16px] leading-relaxed text-ink-2">
               Cost per kilometre, margin per route, which clients pay late and which
               vehicles burn money. The numbers update themselves from your quotes,
               loads and invoices.
@@ -437,7 +430,6 @@ export default function HomePage() {
       {/* CTA */}
       <section className="panel-accent">
         <div className="mx-auto max-w-6xl px-5 py-24 text-center">
-          <div className="eyebrow eyebrow-accent mb-4">Get started</div>
           <h2 className="text-display mx-auto max-w-2xl text-ink">
             Your next quote can be priced right
           </h2>

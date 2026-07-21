@@ -123,11 +123,11 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
         <div className="mx-auto max-w-6xl px-5 pb-16 pt-16 md:pt-20">
           <div className="mx-auto max-w-3xl">
             <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-[13px] text-ink-3">
-              <Link href="/" className="transition-colors hover:text-ink">
+              <Link href="/" className="inline-block py-1.5 transition-colors hover:text-ink">
                 Home
               </Link>
               <span aria-hidden="true">/</span>
-              <Link href="/blogs" className="transition-colors hover:text-ink">
+              <Link href="/blogs" className="inline-block py-1.5 transition-colors hover:text-ink">
                 Blog
               </Link>
               <span aria-hidden="true">/</span>
@@ -150,7 +150,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
       </section>
 
       <section className="border-t border-line bg-page">
-        <div className="mx-auto max-w-6xl px-5 py-14">
+        <div className="mx-auto max-w-6xl px-5 py-20">
           <div className="mx-auto max-w-3xl">
             <article
               className="article-body measure"
@@ -174,7 +174,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           {related.length > 0 && (
             <div className="mx-auto mt-20 max-w-3xl">
               <div className="eyebrow mb-5">Keep reading</div>
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              <div className="grid gap-4 sm:grid-cols-3">
                 {related.map((r) => (
                   <Link
                     key={r.slug}

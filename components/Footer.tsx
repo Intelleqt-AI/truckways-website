@@ -46,7 +46,7 @@ export default function Footer() {
             <ul className="space-y-2.5">
               {productLinks.map((l) => (
                 <li key={l.href}>
-                  <Link href={l.href} className="text-[14px] text-ink-2 transition-colors hover:text-ink">
+                  <Link href={l.href} className="inline-block py-1.5 text-[14px] text-ink-2 transition-colors hover:text-ink">
                     {l.label}
                   </Link>
                 </li>
@@ -59,7 +59,7 @@ export default function Footer() {
             <ul className="space-y-2.5">
               {companyLinks.map((l) => (
                 <li key={l.href}>
-                  <Link href={l.href} className="text-[14px] text-ink-2 transition-colors hover:text-ink">
+                  <Link href={l.href} className="inline-block py-1.5 text-[14px] text-ink-2 transition-colors hover:text-ink">
                     {l.label}
                   </Link>
                 </li>
@@ -77,7 +77,7 @@ export default function Footer() {
               href="https://www.linkedin.com/in/truckwys-a8519239a"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[13px] text-ink-3 transition-colors hover:text-ink"
+              className="inline-block py-1.5 text-[13px] text-ink-3 transition-colors hover:text-ink"
             >
               LinkedIn
             </a>
@@ -85,14 +85,14 @@ export default function Footer() {
               href="https://twitter.com/truckwys"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-[13px] text-ink-3 transition-colors hover:text-ink"
+              className="inline-block py-1.5 text-[13px] text-ink-3 transition-colors hover:text-ink"
             >
               X
             </a>
-            <Link href="/privacy" className="text-[13px] text-ink-3 transition-colors hover:text-ink">
+            <Link href="/privacy" className="inline-block py-1.5 text-[13px] text-ink-3 transition-colors hover:text-ink">
               Privacy
             </Link>
-            <Link href="/terms" className="text-[13px] text-ink-3 transition-colors hover:text-ink">
+            <Link href="/terms" className="inline-block py-1.5 text-[13px] text-ink-3 transition-colors hover:text-ink">
               Terms
             </Link>
           </div>

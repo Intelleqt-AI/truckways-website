@@ -66,7 +66,7 @@ export default function BlogIndexPage() {
                     </span>
                   ))}
                 </div>
-                <h2 className="mt-4 line-clamp-2 text-[20px] font-semibold leading-snug text-ink">
+                <h2 className="mt-4 line-clamp-2 max-md:line-clamp-3 text-[20px] font-semibold leading-snug text-ink">
                   {post.title}
                 </h2>
                 <p className="mt-2 line-clamp-3 text-[14px] leading-relaxed text-ink-2">

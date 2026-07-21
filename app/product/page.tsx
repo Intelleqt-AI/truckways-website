@@ -84,7 +84,7 @@ export default function ProductPage() {
         </div>
         {/* Fragment collage: real pieces of the product, composed */}
         <div className="mx-auto mt-14 max-w-6xl px-5 pb-16">
-          <div className="relative mx-auto hidden h-[520px] max-w-5xl md:block">
+          <div className="relative mx-auto hidden h-[440px] max-w-5xl md:block">
             <div className="absolute left-0 top-10 w-[58%] -rotate-1 overflow-hidden rounded-[12px] border border-line bg-surface shadow-[0_24px_60px_-18px_rgba(17,24,39,0.25)]">
               <Image
                 src="/images/product/frag-invoice-rows.png"
@@ -105,7 +105,7 @@ export default function ProductPage() {
                 className="w-full"
               />
             </div>
-            <div className="absolute bottom-0 left-[12%] z-20 w-[52%] -rotate-1 overflow-hidden rounded-[12px] border border-line bg-surface shadow-[0_24px_60px_-18px_rgba(17,24,39,0.28)]">
+            <div className="absolute left-[22%] top-[52%] z-20 w-[52%] -rotate-1 overflow-hidden rounded-[12px] border border-line bg-surface shadow-[0_24px_60px_-18px_rgba(17,24,39,0.28)]">
               <Image
                 src="/images/product/frag-copilot.png"
                 alt="TruckWys copilot prompts: what is overdue, fast-pay capacity, quotes pipeline and fleet status"
@@ -175,11 +175,10 @@ export default function ProductPage() {
             <div className="shot-frame">
               <Image
                 src="/images/product/invoices-light.png"
-                alt="Close-up of the TruckWys invoice list with statuses, overdue flags and collection follow-ups"
+                alt="The TruckWys invoice list with statuses, overdue flags and collection follow-ups"
                 width={1440}
                 height={834}
-                className="w-[150%] max-w-none"
-                style={{ marginLeft: '-6%', marginTop: '-18%' }}
+                className="w-full"
               />
             </div>
           </div>
@@ -194,10 +193,10 @@ export default function ProductPage() {
               <div className="shot-frame">
                 <Image
                   src="/images/product/insights-light.png"
-                  alt="Close-up of the TruckWys daily briefing and margin insights"
+                  alt="TruckWys insights showing the daily briefing, margins and fleet performance"
                   width={1440}
                   height={834}
-                  className="w-[150%] max-w-none"
+                  className="w-full"
                 />
               </div>
             </div>
@@ -259,10 +258,10 @@ export default function ProductPage() {
             <div className="shot-frame">
               <Image
                 src="/images/product/capital-light.png"
-                alt="Close-up of the TruckWys capital facility with R1,000,000 available"
+                alt="The TruckWys capital facility with R1,000,000 available against outstanding invoices"
                 width={1440}
                 height={560}
-                className="w-[135%] max-w-none"
+                className="w-full"
               />
             </div>
           </div>
@@ -271,12 +270,12 @@ export default function ProductPage() {
 
       {/* Integrations */}
       <section className="border-t border-line bg-surface">
-        <div className="mx-auto max-w-6xl px-5 py-20 text-center">
-          <div className="eyebrow eyebrow-accent mb-3">Integrations</div>
-          <h2 className="text-[20px] font-semibold text-ink">
+        <div className="mx-auto max-w-6xl px-5 py-24 text-center">
+          <div className="eyebrow eyebrow-accent mb-4">Integrations</div>
+          <h2 className="text-display mx-auto max-w-2xl text-ink">
             Plays well with your TMS, tracking and books
           </h2>
-          <p className="mx-auto mt-3 max-w-xl text-[15px] text-ink-2">
+          <p className="mx-auto mt-4 max-w-xl text-[15px] text-ink-2">
             TruckWys is not a transport management system and does not want to be.
             It runs the money and connects to Xero, Cartrack and your email.
           </p>
@@ -320,6 +319,21 @@ export default function ProductPage() {
                 ],
               },
               {
+                cat: 'Intelligence',
+                items: [
+                  'Copilot on your live data',
+                  'Daily executive briefing',
+                  'Win probability per quote',
+                  'Profit sweet-spot curve',
+                  'Revenue guard on every quote',
+                  'Cost per kilometre, per vehicle',
+                  'Margin per lane and per client',
+                  'Fleet utilisation and idle alerts',
+                  'Driver and vehicle performance',
+                  'Cartrack telemetry connection',
+                ],
+              },
+              {
                 cat: 'Getting paid',
                 items: [
                   'Invoice created on delivery',
@@ -340,21 +354,6 @@ export default function ProductPage() {
                   'Credit limits per client',
                   'Payment behaviour history',
                   'FastPay eligibility per invoice',
-                ],
-              },
-              {
-                cat: 'Intelligence',
-                items: [
-                  'Copilot on your live data',
-                  'Daily executive briefing',
-                  'Win probability per quote',
-                  'Profit sweet-spot curve',
-                  'Revenue guard on every quote',
-                  'Cost per kilometre, per vehicle',
-                  'Margin per lane and per client',
-                  'Fleet utilisation and idle alerts',
-                  'Driver and vehicle performance',
-                  'Cartrack telemetry connection',
                 ],
               },
             ].map((col) => (

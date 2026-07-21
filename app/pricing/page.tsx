@@ -40,7 +40,7 @@ export default function PricingPage() {
 
       {/* Hero */}
       <section className="hero-wash">
-        <div className="mx-auto max-w-6xl px-5 pb-16 pt-10 text-center md:pt-16">
+        <div className="mx-auto max-w-6xl px-5 pb-16 pt-20 text-center md:pt-28">
           <div className="eyebrow eyebrow-accent mb-5">Pricing</div>
           <h1 className="text-hero mx-auto max-w-3xl text-ink">
             One price. Everything included.

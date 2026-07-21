@@ -3,7 +3,7 @@
 import { useState } from 'react';
 
 const inputClass =
-  'w-full rounded-md border border-line bg-surface px-3.5 py-2.5 text-[15px] text-ink placeholder:text-ink-3 outline-none transition-colors focus:border-accent focus:ring-2 focus:ring-accent/20';
+  'w-full rounded-md border border-line bg-surface px-3.5 py-2.5 text-[15px] text-ink placeholder:text-ink-3 outline-none transition-colors focus:border-accent focus:ring-2 focus:ring-accent/20 leading-6';
 
 const labelClass = 'mb-1.5 block text-[13px] font-medium text-ink-2';
 
@@ -255,7 +255,7 @@ export default function ContactForm() {
         </p>
       )}
 
-      <p className="text-[12px] leading-relaxed text-ink-3">
+      <p className="text-center text-[12px] leading-relaxed text-ink-3">
         By submitting this form you agree to our{' '}
         <a href="/privacy" className="underline underline-offset-2 hover:text-ink-2">
           privacy policy
