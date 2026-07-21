@@ -9,11 +9,14 @@ export const metadata: Metadata = {
     canonical: 'https://www.truckwys.com/contact',
   },
   openGraph: {
+    type: 'website',
+    siteName: 'TruckWys',
+    locale: 'en_ZA',
     title: 'Contact TruckWys',
     description:
       'Talk to TruckWys about quoting, invoicing and FastPay for your fleet. Most fleets get a reply within one working day.',
     url: 'https://www.truckwys.com/contact',
-    images: [{ url: 'https://www.truckwys.com/og-image.png', width: 1200, height: 630 }],
+    images: [{ url: 'https://www.truckwys.com/og-image.png', width: 1200, height: 630, alt: 'The TruckWys quote builder pricing a Johannesburg to Cape Town load' }],
   },
 };
 

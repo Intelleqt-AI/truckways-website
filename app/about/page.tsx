@@ -11,11 +11,14 @@ export const metadata: Metadata = {
     canonical: 'https://www.truckwys.com/about',
   },
   openGraph: {
+    type: 'website',
+    siteName: 'TruckWys',
+    locale: 'en_ZA',
     title: 'About TruckWys',
     description:
       'Why TruckWys exists: South African fleets quote below cost and wait 30 to 60 days to be paid. TruckWys fixes the money side of running trucks.',
     url: 'https://www.truckwys.com/about',
-    images: [{ url: 'https://www.truckwys.com/og-image.png', width: 1200, height: 630 }],
+    images: [{ url: 'https://www.truckwys.com/og-image.png', width: 1200, height: 630, alt: 'The TruckWys quote builder pricing a Johannesburg to Cape Town load' }],
   },
 };
 

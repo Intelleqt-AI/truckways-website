@@ -6,16 +6,19 @@ import { jsonLd, softwareSchema, SITE_URL } from '../../lib/site';
 export const metadata: Metadata = {
   title: 'The AI inside TruckWys',
   description:
-    'How TruckWys uses AI: plain-language quoting, prices learned from your own wins, automatic collections, client risk scores and a copilot on your live fleet data.',
+    'How TruckWys uses AI: plain-language quoting, prices learned from your wins, auto collections, client risk scores and a copilot on live fleet data.',
   alternates: {
     canonical: 'https://www.truckwys.com/ai',
   },
   openGraph: {
+    type: 'website',
+    siteName: 'TruckWys',
+    locale: 'en_ZA',
     title: 'The AI inside TruckWys',
     description:
       'Plain-language quoting, prices learned from your own wins, automatic collections, client risk scores and a copilot on your live fleet data.',
     url: 'https://www.truckwys.com/ai',
-    images: [{ url: 'https://www.truckwys.com/og-image.png', width: 1200, height: 630 }],
+    images: [{ url: 'https://www.truckwys.com/og-image.png', width: 1200, height: 630, alt: 'The TruckWys quote builder pricing a Johannesburg to Cape Town load' }],
   },
 };
 
@@ -42,7 +45,7 @@ const aiFeatures = [
   },
   {
     eyebrow: '02 · A price that learns',
-    h: 'Recommendations from your wins, not industry averages',
+    h: 'Price recommendations from your wins, not industry averages',
     body: 'Every quote you send and every outcome you record teaches the model what wins work for your fleet, on your lanes, with your clients. It recommends a price, shows the win probability, and plots the sweet spot between margin and the chance of getting the load.',
     bullets: [
       'Win probability on every quote',
@@ -64,7 +67,7 @@ const aiFeatures = [
   },
   {
     eyebrow: '04 · Collections that write themselves',
-    h: 'The follow-up is sent while you are still driving',
+    h: 'Invoice follow-ups sent while you are still driving',
     body: 'Overdue invoices get chased with written follow-ups in your name, timed to your client’s payment behaviour. Short payments are picked up and queried. You see everything it sends.',
     bullets: [
       'Follow-ups drafted and sent automatically',
@@ -107,8 +110,8 @@ export default function AiPage() {
       <section className="hero-wash-ai">
         <div className="mx-auto max-w-6xl px-5 pb-16 pt-10 text-center md:pt-16">
           <div className="eyebrow eyebrow-accent mb-5">The AI inside</div>
-          <h1 className="text-hero mx-auto max-w-3xl text-ink">
-            AI that earns its keep
+          <h1 className="text-hero mx-auto max-w-4xl text-ink">
+            AI that quotes loads, chases invoices and reads your numbers
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-[16px] leading-relaxed text-ink-2">
             Six places where TruckWys uses AI to make or save you money. Every one

@@ -4,18 +4,21 @@ import Link from 'next/link';
 import { jsonLd, softwareSchema, SITE_URL } from '../../lib/site';
 
 export const metadata: Metadata = {
-  title: 'Product',
+  title: 'Product: AI load quoting, invoicing and FastPay',
   description:
     'Inside TruckWys: the AI quote builder with live diesel and SANRAL tolls, automatic invoicing, collections, FastPay and capital for South African fleets.',
   alternates: {
     canonical: 'https://www.truckwys.com/product',
   },
   openGraph: {
+    type: 'website',
+    siteName: 'TruckWys',
+    locale: 'en_ZA',
     title: 'The TruckWys product',
     description:
       'The AI quote builder with live diesel and SANRAL tolls, automatic invoicing, collections, FastPay and capital for South African fleets.',
     url: 'https://www.truckwys.com/product',
-    images: [{ url: 'https://www.truckwys.com/og-image.png', width: 1200, height: 630 }],
+    images: [{ url: 'https://www.truckwys.com/og-image.png', width: 1200, height: 630, alt: 'The TruckWys quote builder pricing a Johannesburg to Cape Town load' }],
   },
 };
 
@@ -157,7 +160,7 @@ export default function ProductPage() {
             <div>
               <div className="eyebrow eyebrow-accent mb-4">Invoicing and collections</div>
               <h2 className="text-display text-ink">
-                Deliver the load. The paperwork is already done.
+                Deliver the load. The invoice is already done.
               </h2>
               <p className="mt-5 text-[16px] leading-relaxed text-ink-2">
                 The moment a load is marked delivered, its invoice exists: correct
@@ -236,7 +239,7 @@ export default function ProductPage() {
             <div>
               <div className="eyebrow eyebrow-accent mb-4">Capital</div>
               <h2 className="text-display text-ink">
-                Working capital that grows with your book
+                Working capital against your outstanding invoices
               </h2>
               <p className="mt-5 text-[16px] leading-relaxed text-ink-2">
                 Advances against your outstanding invoices, with limits sized by your
@@ -294,7 +297,7 @@ export default function ProductPage() {
         <div className="mx-auto max-w-6xl px-5 py-24">
           <div className="mx-auto max-w-2xl text-center">
             <div className="eyebrow eyebrow-accent mb-4">Everything inside</div>
-            <h2 className="text-display text-ink">Everything you get</h2>
+            <h2 className="text-display text-ink">Every feature, in the one R4,500 price</h2>
             <p className="mt-4 text-[16px] text-ink-2">
               The full list. All of it in the R4,500, no add-on tiers, no locked modules.
             </p>

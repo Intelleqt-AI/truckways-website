@@ -20,6 +20,8 @@ Who it is for: South African fleet owners and transport operators running roughl
 
 - [Home](https://www.truckwys.com/): product overview, pricing and FAQ
 - [AI](https://www.truckwys.com/ai): every AI feature and how TruckWys uses it
+- [Product](https://www.truckwys.com/product): the full product from quote to cash
+- [Pricing](https://www.truckwys.com/pricing): R4,500 per month plus 0.25% per confirmed booking
 - [About](https://www.truckwys.com/about): what TruckWys is and is not
 - [Get started](https://www.truckwys.com/get-started): start a free trial
 - [Contact](https://www.truckwys.com/contact): talk to the team

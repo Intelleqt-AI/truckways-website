@@ -8,11 +8,14 @@ export const metadata: Metadata = {
     canonical: 'https://www.truckwys.com/get-started',
   },
   openGraph: {
+    type: 'website',
+    siteName: 'TruckWys',
+    locale: 'en_ZA',
     title: 'Get started with TruckWys',
     description:
       'Start your free TruckWys trial. R4,500 per month after your trial. No setup fees. Cancel any time.',
     url: 'https://www.truckwys.com/get-started',
-    images: [{ url: 'https://www.truckwys.com/og-image.png', width: 1200, height: 630 }],
+    images: [{ url: 'https://www.truckwys.com/og-image.png', width: 1200, height: 630, alt: 'The TruckWys quote builder pricing a Johannesburg to Cape Town load' }],
   },
 };
 

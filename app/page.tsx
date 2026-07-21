@@ -85,7 +85,7 @@ export default function HomePage() {
             <div>
               <div className="eyebrow eyebrow-accent mb-4">Step 01 · Quote</div>
               <h2 className="text-display text-ink">
-                Every real cost, before you name a price
+                Quote every load on real diesel, toll and running costs
               </h2>
               <p className="mt-5 text-[16px] leading-relaxed text-ink-2">
                 Pick the client, the truck, and the two points. TruckWys draws the
@@ -203,7 +203,7 @@ export default function HomePage() {
             <div>
               <div className="eyebrow eyebrow-accent mb-4">Step 04 · Capital</div>
               <h2 className="text-display text-ink">
-                Diesel money on a Tuesday, against Friday&apos;s invoices
+                Cash advances against your outstanding invoices
               </h2>
               <p className="mt-5 text-[16px] leading-relaxed text-ink-2">
                 Cash flow kills more fleets than competition does. TruckWys gives you
@@ -234,71 +234,82 @@ export default function HomePage() {
         </div>
       </section>
 
-      {/* AI (unique treatment: navy panel, the AI shown actually working) */}
+      {/* AI: navy blueprint panel, terminal left, agent pipeline right */}
       <section id="ai" className="footer-dark">
-        <div className="mx-auto max-w-6xl px-5 py-24">
-          <div className="mx-auto max-w-2xl text-center">
-            <div className="eyebrow mb-4" style={{ color: 'var(--accent)' }}>The AI inside</div>
-            <h2 className="text-display text-ink">
-              It does the homework. You make the call.
-            </h2>
-            <p className="mt-4 text-[16px] leading-relaxed text-ink-2">
-              No black box. You describe the load, the AI prices it from live data,
-              shows its working, and asks before anything is saved or sent.
-            </p>
-          </div>
-
-          {/* The AI at work: real interaction, real numbers */}
-          <div className="mx-auto mt-12 max-w-3xl overflow-hidden rounded-[14px] border border-line bg-[#0b1322] shadow-[0_24px_60px_-20px_rgba(0,0,0,0.5)]">
-            <div className="flex items-center gap-2 border-b border-line px-5 py-3">
-              <span className="h-2.5 w-2.5 rounded-full bg-white/15" aria-hidden="true" />
-              <span className="h-2.5 w-2.5 rounded-full bg-white/15" aria-hidden="true" />
-              <span className="h-2.5 w-2.5 rounded-full bg-white/15" aria-hidden="true" />
-              <span className="eyebrow ml-2">Quote builder</span>
-            </div>
-            <div className="px-6 py-6">
-              <div className="eyebrow mb-2">You type</div>
-              <p className="mono-stat text-[15px] text-ink">
-                &ldquo;20 tons of steel, JHB to Cape Town, flatbed, Tuesday&rdquo;
+        <div className="ai-grid">
+          <div className="mx-auto max-w-6xl px-5 py-24">
+            <div className="mx-auto max-w-2xl text-center">
+              <div className="eyebrow mb-4" style={{ color: 'var(--accent)' }}>The AI inside</div>
+              <h2 className="text-display text-ink">
+                AI that prices loads, chases invoices and watches your margins
+              </h2>
+              <p className="mt-4 text-[16px] leading-relaxed text-ink-2">
+                No black box. It works from your live data, shows its working, and
+                asks before anything is saved or sent.
               </p>
-              <div className="eyebrow mb-3 mt-6">The AI answers with</div>
-              <div className="flex flex-wrap gap-2.5">
+            </div>
+
+            <div className="mt-14 grid items-stretch gap-6 lg:grid-cols-[1.15fr_1fr]">
+              {/* Terminal: the AI at work */}
+              <div className="flex flex-col overflow-hidden rounded-[14px] border border-[rgba(77,158,255,0.25)] bg-[#0b1322] shadow-[0_0_60px_-12px_rgba(77,158,255,0.25)]">
+                <div className="flex items-center gap-2 border-b border-line px-5 py-3">
+                  <span className="h-2.5 w-2.5 rounded-full bg-white/15" aria-hidden="true" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-white/15" aria-hidden="true" />
+                  <span className="h-2.5 w-2.5 rounded-full bg-white/15" aria-hidden="true" />
+                  <span className="eyebrow ml-2">Quote builder</span>
+                </div>
+                <div className="flex flex-1 flex-col px-6 py-6">
+                  <div className="eyebrow mb-2">You type</div>
+                  <p className="mono-stat ai-cursor text-[15px] text-ink">
+                    &ldquo;20 tons of steel, JHB to Cape Town, flatbed, Tuesday&rdquo;
+                  </p>
+                  <div className="eyebrow mb-3 mt-7">The AI prices it from live data</div>
+                  <div className="flex flex-wrap gap-2.5">
+                    {[
+                      'Route drawn · 1,501 km',
+                      'Fuel R13,238 at live diesel',
+                      'Tolls R1,115 · Huguenot + Verkeerdevlei',
+                      'Quote R31,613',
+                      'Win probability 43%',
+                    ].map((c) => (
+                      <span
+                        key={c}
+                        className="mono-stat rounded-full border border-line bg-white/5 px-3.5 py-1.5 text-[13px] text-ink-2"
+                      >
+                        {c}
+                      </span>
+                    ))}
+                  </div>
+                  <p className="mt-auto pt-7 text-[13px] text-ink-3">
+                    Every number traceable to a real cost. Nothing sent without you.
+                  </p>
+                </div>
+              </div>
+
+              {/* Agent pipeline */}
+              <div className="flex flex-col justify-between gap-3">
                 {[
-                  'Route drawn · 1,501 km',
-                  'Fuel R13,238 at live diesel',
-                  'Tolls R1,115 · Huguenot + Verkeerdevlei',
-                  'Quote R31,613',
-                  'Win probability 43%',
-                ].map((c) => (
-                  <span
-                    key={c}
-                    className="mono-stat rounded-full border border-line bg-white/5 px-3.5 py-1.5 text-[13px] text-ink-2"
-                  >
-                    {c}
-                  </span>
+                  { n: '01', t: 'Prices that learn from your wins', d: 'Recommendations and win probability from your own quote history.' },
+                  { n: '02', t: 'Collections written for you', d: 'Overdue follow-ups drafted and sent, timed to each client.' },
+                  { n: '03', t: 'Risk scores on every client', d: 'Who pays late, who is slipping, how much credit they deserve.' },
+                  { n: '04', t: 'A copilot on your live numbers', d: 'Ask about cash, quotes or fleet status in plain words.' },
+                ].map((f) => (
+                  <div key={f.n} className="flex gap-4 rounded-[10px] border border-line bg-white/[0.04] p-5">
+                    <span className="mono-stat text-[13px] font-medium" style={{ color: 'var(--accent)' }}>{f.n}</span>
+                    <div>
+                      <h3 className="text-[15px] font-semibold text-ink">{f.t}</h3>
+                      <p className="mt-1 text-[13px] leading-relaxed text-ink-2">{f.d}</p>
+                    </div>
+                  </div>
                 ))}
               </div>
             </div>
-          </div>
 
-          <div className="mx-auto mt-10 grid max-w-4xl gap-4 sm:grid-cols-2 lg:grid-cols-4">
-            {[
-              { t: 'A price that learns', d: 'Recommendations built from your own won and lost quotes, with a win probability on each.' },
-              { t: 'Collections that write themselves', d: 'Overdue follow-ups drafted and sent, in your name, at the right moments.' },
-              { t: 'Risk scores per client', d: 'Who pays late, who is slipping, and how much credit each client deserves.' },
-              { t: 'A copilot on your numbers', d: 'Ask about cash, quotes or fleet status in plain words. It answers from your live data.' },
-            ].map((f) => (
-              <div key={f.t} className="rounded-[10px] border border-line bg-white/[0.04] p-5">
-                <h3 className="text-[15px] font-semibold text-ink">{f.t}</h3>
-                <p className="mt-1.5 text-[13px] leading-relaxed text-ink-2">{f.d}</p>
-              </div>
-            ))}
-          </div>
-
-          <div className="mt-10 text-center">
-            <Link href="/ai" className="btn-primary">
-              See how the AI works
-            </Link>
+            <div className="mt-10 text-center">
+              <Link href="/ai" className="btn-primary">
+                See how the AI works
+              </Link>
+            </div>
           </div>
         </div>
       </section>
@@ -339,7 +350,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-6xl px-5 py-24">
           <div className="mx-auto max-w-2xl text-center">
             <div className="eyebrow eyebrow-accent mb-4">Pricing</div>
-            <h2 className="text-display text-ink">One price. Everything included.</h2>
+            <h2 className="text-display text-ink">Simple pricing: R4,500 a month, everything included</h2>
             <p className="mt-4 text-[16px] text-ink-2">
               No per-user fees, no tiers, no surprises at month end.{' '}
               <Link href="/pricing" className="font-medium text-accent underline-offset-4 hover:underline">
@@ -409,7 +420,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-3xl px-5 py-24">
           <div className="text-center">
             <div className="eyebrow eyebrow-accent mb-4">FAQ</div>
-            <h2 className="text-display text-ink">Straight answers</h2>
+            <h2 className="text-display text-ink">Questions fleet owners ask us</h2>
           </div>
           <div className="mt-10 space-y-3">
             {FACTS.faqs.map((f) => (

@@ -10,11 +10,14 @@ export const metadata: Metadata = {
     canonical: 'https://www.truckwys.com/pricing',
   },
   openGraph: {
+    type: 'website',
+    siteName: 'TruckWys',
+    locale: 'en_ZA',
     title: 'TruckWys pricing',
     description:
       'R4,500 per month per fleet plus 0.25% per confirmed booking. Unlimited users and quotes, no setup fees, no tiers.',
     url: 'https://www.truckwys.com/pricing',
-    images: [{ url: 'https://www.truckwys.com/og-image.png', width: 1200, height: 630 }],
+    images: [{ url: 'https://www.truckwys.com/og-image.png', width: 1200, height: 630, alt: 'The TruckWys quote builder pricing a Johannesburg to Cape Town load' }],
   },
 };
 
@@ -42,8 +45,8 @@ export default function PricingPage() {
       <section className="hero-wash">
         <div className="mx-auto max-w-6xl px-5 pb-16 pt-20 text-center md:pt-28">
           <div className="eyebrow eyebrow-accent mb-5">Pricing</div>
-          <h1 className="text-hero mx-auto max-w-3xl text-ink">
-            One price. Everything included.
+          <h1 className="text-hero mx-auto max-w-4xl text-ink">
+            TruckWys pricing: R4,500 a month, everything included
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-[16px] leading-relaxed text-ink-2">
             No per-user fees, no tiers, no surprises at month end. Every fleet gets
