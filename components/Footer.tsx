@@ -18,7 +18,7 @@ const companyLinks = [
 
 export default function Footer() {
   return (
-    <footer className="border-t border-line bg-surface">
+    <footer className="footer-dark">
       <div className="mx-auto max-w-6xl px-5 py-16">
         <div className="grid gap-12 md:grid-cols-4">
           <div className="md:col-span-2">
@@ -27,7 +27,7 @@ export default function Footer() {
               alt="TruckWys"
               width={148}
               height={32}
-              className="h-7 w-auto"
+              className="h-7 w-auto invert"
             />
             <p className="mt-4 max-w-sm text-[14px] leading-relaxed text-ink-2">
               Fleet finance software for South African transporters. Quote with real

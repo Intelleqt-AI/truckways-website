@@ -28,7 +28,7 @@
   --warning: #b45309;
 
   /* Type scale (marketing display sizes + the app scale) */
-  --text-hero: clamp(40px, 6vw, 64px);
+  --text-hero: clamp(42px, 6.5vw, 72px);
   --text-display: clamp(30px, 4vw, 40px);
   --text-title: 20px;
   --text-subhead: 16px;
@@ -230,6 +230,20 @@ body {
     background:
       radial-gradient(56% 44% at 50% 0%, rgba(37, 99, 235, 0.09), transparent 78%),
       linear-gradient(to bottom, #f5f8ff, var(--surface) 55%);
+  }
+
+  /* Distinct deep-navy footer: darker than any section, blue-tinted, not the page grey */
+  .footer-dark {
+    --surface: #0d1526;
+    --ink: #e7eaf2;
+    --ink-2: #9aa3b5;
+    --ink-3: #8a94a8;
+    --line: rgba(255, 255, 255, 0.09);
+    --accent: #4d9eff;
+    background:
+      radial-gradient(80% 60% at 50% 0%, rgba(37, 99, 235, 0.12), transparent 70%),
+      #0a1120;
+    color: var(--ink);
   }
 
   /* Accent CTA band: deep blue gradient instead of black */

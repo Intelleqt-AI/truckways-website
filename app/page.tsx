@@ -22,7 +22,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-6xl px-5 pb-0 pt-10 text-center md:pt-16">
           <div className="eyebrow eyebrow-accent mb-5">Fleet finance software · South Africa</div>
           <h1 className="text-hero mx-auto max-w-3xl text-ink">
-            Know what every load really costs. Get paid in 48 hours, not 60 days.
+            Know what every load really costs. Get paid in 48 hours.
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-[16px] leading-relaxed text-ink-2">
             TruckWys prices every quote with the live diesel price, the actual SANRAL
@@ -46,22 +46,8 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Hero product shot */}
-        <div className="mx-auto mt-14 max-w-6xl px-5">
-          <div className="shot-frame">
-            <Image
-              src="/images/product/quote-builder-dark.png"
-              alt="The TruckWys quote builder pricing a Johannesburg to Cape Town load with the route on a map, fuel at the live diesel price, R1,115 of N1 tolls, and a quote total of R31,636"
-              width={1440}
-              height={900}
-              priority
-              className="w-full"
-            />
-          </div>
-        </div>
-
         {/* Stat strip */}
-        <div className="mx-auto max-w-6xl px-5 py-14">
+        <div className="mx-auto max-w-6xl px-5 pb-14 pt-16">
           <div className="grid grid-cols-2 gap-8 border-y border-line py-8 md:grid-cols-4">
             {[
               { v: '60 sec', l: 'to price a load' },
@@ -85,7 +71,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-6xl px-5 py-24">
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <div>
-              <div className="eyebrow eyebrow-accent mb-4">Quote</div>
+              <div className="eyebrow eyebrow-accent mb-4">Step 01 · Quote</div>
               <h2 className="text-display text-ink">
                 Every real cost, before you name a price
               </h2>
@@ -117,10 +103,11 @@ export default function HomePage() {
             </div>
             <div className="shot-frame">
               <Image
-                src="/images/product/quote-builder-light.png"
-                alt="TruckWys route options and cost breakdown showing fuel, tolls and base rate for three route choices"
+                src="/images/product/quote-builder-dark.png"
+                alt="The TruckWys quote builder pricing a Johannesburg to Cape Town load with the route on a map, fuel at the live diesel price, R1,115 of N1 tolls, and a quote total of R31,636"
                 width={1440}
                 height={900}
+                priority
                 className="w-full"
               />
             </div>
@@ -144,7 +131,7 @@ export default function HomePage() {
               </div>
             </div>
             <div className="order-1 lg:order-2">
-              <div className="eyebrow eyebrow-accent mb-4">Get paid</div>
+              <div className="eyebrow eyebrow-accent mb-4">Step 02 · Get paid</div>
               <h2 className="text-display text-ink">
                 The invoice sends itself. The money can arrive in 48 hours.
               </h2>
@@ -176,7 +163,7 @@ export default function HomePage() {
       <section id="numbers" className="bg-surface">
         <div className="mx-auto max-w-6xl px-5 py-24">
           <div className="mx-auto max-w-2xl text-center">
-            <div className="eyebrow eyebrow-accent mb-4">Know your numbers</div>
+            <div className="eyebrow eyebrow-accent mb-4">Step 03 · Know your numbers</div>
             <h2 className="text-display text-ink">
               What does each truck, route and client really make you?
             </h2>
@@ -203,7 +190,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-6xl px-5 py-24">
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <div>
-              <div className="eyebrow eyebrow-accent mb-4">Capital</div>
+              <div className="eyebrow eyebrow-accent mb-4">Step 04 · Capital</div>
               <h2 className="text-display text-ink">
                 Diesel money on a Tuesday, against Friday&apos;s invoices
               </h2>
@@ -238,24 +225,30 @@ export default function HomePage() {
 
       {/* Integrations */}
       <section className="border-t border-line bg-surface">
-        <div className="mx-auto max-w-6xl px-5 py-16 text-center">
-          <div className="eyebrow eyebrow-accent mb-3">Works with what you run</div>
-          <h2 className="text-[20px] font-semibold text-ink">
+        <div className="mx-auto max-w-6xl px-5 py-24 text-center">
+          <div className="eyebrow eyebrow-accent mb-4">Works with what you run</div>
+          <h2 className="text-display mx-auto max-w-2xl text-ink">
             Your TMS, tracking and books stay in the loop
           </h2>
-          <p className="mx-auto mt-3 max-w-xl text-[15px] text-ink-2">
+          <p className="mx-auto mt-4 max-w-xl text-[16px] text-ink-2">
             TruckWys handles the money side and connects to the tools you already
-            use: Xero for accounting, Cartrack for vehicle tracking, and email for
-            quotes your clients can accept in one click.
+            use. Your clients get quotes they can accept in one click.
           </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-            {['Xero', 'Cartrack', 'Email quoting', 'PDF invoices'].map((n) => (
-              <span
-                key={n}
-                className="card px-5 py-2.5 text-[14px] font-medium text-ink-2"
-              >
-                {n}
-              </span>
+          <div className="mx-auto mt-12 grid max-w-3xl grid-cols-2 gap-4 sm:grid-cols-3">
+            {[
+              { name: 'xero', style: { fontWeight: 700, letterSpacing: '-0.02em', textTransform: 'lowercase' as const }, note: 'Accounting sync' },
+              { name: 'Cartrack', style: { fontWeight: 700, letterSpacing: '-0.01em' }, note: 'Vehicle tracking' },
+              { name: 'CtrlFleet', style: { fontWeight: 600, letterSpacing: '-0.01em' }, note: 'Fleet management' },
+              { name: 'Email', style: { fontWeight: 600 }, note: 'One-click quote acceptance' },
+              { name: 'PDF', style: { fontWeight: 700 }, note: 'Branded invoices' },
+              { name: 'WhatsApp', style: { fontWeight: 600 }, note: 'Describe a load in a message' },
+            ].map((l) => (
+              <div key={l.name} className="card flex flex-col items-center justify-center gap-1 px-4 py-7">
+                <span className="text-[22px] leading-none text-ink" style={l.style}>
+                  {l.name}
+                </span>
+                <span className="text-[12px] text-ink-3">{l.note}</span>
+              </div>
             ))}
           </div>
         </div>
