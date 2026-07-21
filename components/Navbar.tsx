@@ -47,9 +47,11 @@ export default function Navbar() {
         </div>
 
         <button
+          type="button"
           className="flex h-10 w-10 items-center justify-center md:hidden"
           onClick={() => setOpen(!open)}
           aria-expanded={open}
+          aria-controls="mobile-nav"
           aria-label="Toggle menu"
         >
           <div className="space-y-1.5">
@@ -61,7 +63,7 @@ export default function Navbar() {
       </div>
 
       {open && (
-        <nav className="border-t border-line bg-surface px-5 py-4 md:hidden" aria-label="Mobile">
+        <nav id="mobile-nav" className="border-t border-line bg-surface px-5 py-4 md:hidden" aria-label="Mobile">
           <div className="flex flex-col gap-4">
             {links.map((l) => (
               <Link

@@ -15,6 +15,7 @@ export const metadata: Metadata = {
     description:
       'Why TruckWys exists: South African fleets quote below cost and wait 30 to 60 days to be paid. TruckWys fixes the money side of running trucks.',
     url: 'https://www.truckwys.com/about',
+    images: [{ url: 'https://www.truckwys.com/og-image.png', width: 1200, height: 630 }],
   },
 };
 
@@ -41,7 +42,7 @@ export default function AboutPage() {
             <h1 className="text-display text-ink">
               Trucking runs on thin margins and late money. We started there.
             </h1>
-            <p className="mx-auto mt-6 max-w-2xl text-[17px] leading-relaxed text-ink-2">
+            <p className="mx-auto mt-6 max-w-2xl text-[16px] leading-relaxed text-ink-2">
               South African transporters quote off gut feel while diesel moves every
               month and tolls differ route by route. Too many loads get priced below
               cost, and the money for the good ones arrives 30 to 60 days after the
@@ -59,7 +60,7 @@ export default function AboutPage() {
             <div className="eyebrow eyebrow-accent mb-4">The product</div>
             <h2 className="text-display text-ink">The money side of running trucks</h2>
             <p className="mt-4 text-[16px] text-ink-2">
-              One system for everything between quoting a load and banking the payment.
+              One system for everything between quoting a load and banking the payment: the money half of fleet management software.
             </p>
           </div>
 
@@ -136,7 +137,7 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="bg-surface">
+      <section className="panel-dark border-t border-line">
         <div className="mx-auto max-w-6xl px-5 py-24 text-center">
           <div className="eyebrow eyebrow-accent mb-4">Get started</div>
           <h2 className="text-display mx-auto max-w-2xl text-ink">
@@ -146,11 +147,11 @@ export default function AboutPage() {
             R4,500 per month, unlimited users and quotes. Or write to us first and
             ask anything.
           </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <Link href="/get-started" className="btn-primary">
+          <div className="mt-8 flex flex-col items-center justify-center gap-3 px-6 sm:flex-row sm:px-0">
+            <Link href="/get-started" className="btn-primary w-full sm:w-auto">
               Start your free trial
             </Link>
-            <Link href="/contact" className="btn-secondary">
+            <Link href="/contact" className="btn-secondary w-full !border-line-strong !bg-transparent !text-ink sm:w-auto">
               Talk to us
             </Link>
           </div>

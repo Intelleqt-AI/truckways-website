@@ -10,15 +10,19 @@ export default function robots(): MetadataRoute.Robots {
   return {
     rules: [
       { userAgent: '*', allow: '/', disallow: ['/api/'] },
-      { userAgent: 'GPTBot', allow: '/' },
-      { userAgent: 'OAI-SearchBot', allow: '/' },
-      { userAgent: 'ChatGPT-User', allow: '/' },
-      { userAgent: 'ClaudeBot', allow: '/' },
-      { userAgent: 'Claude-Web', allow: '/' },
-      { userAgent: 'anthropic-ai', allow: '/' },
-      { userAgent: 'PerplexityBot', allow: '/' },
-      { userAgent: 'Google-Extended', allow: '/' },
-      { userAgent: 'CCBot', allow: '/' },
+      // A named UA group does not inherit the * rules, so each AI crawler
+      // gets its own allow + /api/ disallow.
+      ...[
+        'GPTBot',
+        'OAI-SearchBot',
+        'ChatGPT-User',
+        'ClaudeBot',
+        'Claude-Web',
+        'anthropic-ai',
+        'PerplexityBot',
+        'Google-Extended',
+        'CCBot',
+      ].map((userAgent) => ({ userAgent, allow: '/', disallow: ['/api/'] })),
     ],
     sitemap: `${SITE_URL}/sitemap.xml`,
   };

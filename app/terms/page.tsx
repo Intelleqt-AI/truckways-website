@@ -4,9 +4,14 @@ import Link from 'next/link';
 export const metadata: Metadata = {
   title: 'Terms of service',
   description:
-    'The terms and conditions for using the TruckWys fleet profitability platform.',
+    'The terms and conditions for using the TruckWys fleet finance platform.',
   alternates: {
     canonical: 'https://www.truckwys.com/terms',
+  },
+  openGraph: {
+    title: 'Terms of service | TruckWys',
+    url: 'https://www.truckwys.com/terms',
+    images: [{ url: 'https://www.truckwys.com/og-image.png', width: 1200, height: 630 }],
   },
   robots: {
     index: true,
@@ -17,13 +22,13 @@ export const metadata: Metadata = {
 export default function TermsPage() {
   return (
     <section className="bg-surface">
-      <div className="mx-auto max-w-6xl px-5 py-20 md:py-24">
+      <div className="mx-auto max-w-6xl px-5 pb-20 pt-20 md:pt-28">
         <div className="mx-auto max-w-3xl">
           <div className="eyebrow eyebrow-accent mb-5">Legal</div>
           <h1 className="text-display text-ink">Terms of service</h1>
           <p className="mt-3 text-[13px] text-ink-3">Last updated: January 2025</p>
 
-          <div className="article-body measure mx-auto mt-12">
+          <div className="article-body measure mt-12">
             <section>
               <h2>1. Acceptance of Terms</h2>
               <p>

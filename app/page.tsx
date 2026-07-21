@@ -24,17 +24,17 @@ export default function HomePage() {
           <h1 className="text-hero mx-auto max-w-3xl text-ink">
             Price every load right. Get paid in 48 hours.
           </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-[17px] leading-relaxed text-ink-2">
+          <p className="mx-auto mt-6 max-w-2xl text-[16px] leading-relaxed text-ink-2">
             TruckWys quotes your loads with live diesel prices, the actual tolls on the
             route, and your own running costs. Then it invoices the moment you deliver
             and settles the money in 48 hours if you want it early. Built for South
             African fleets.
           </p>
-          <div className="mt-9 flex flex-wrap items-center justify-center gap-3">
-            <Link href="/get-started" className="btn-primary">
+          <div className="mt-9 flex flex-col items-center justify-center gap-3 px-6 sm:flex-row sm:px-0">
+            <Link href="/get-started" className="btn-primary w-full sm:w-auto">
               Start your free trial
             </Link>
-            <Link href="/#quote" className="btn-secondary">
+            <Link href="/#quote" className="btn-secondary w-full sm:w-auto">
               See how it quotes
             </Link>
           </div>
@@ -96,7 +96,7 @@ export default function HomePage() {
                 {[
                   'Live diesel prices and your vehicle’s real consumption',
                   'SANRAL toll fees per route, matched to the road you will drive',
-                  'Cross-border, weighbridge and border fees for Southern Africa',
+                  'Border, weighbridge and non-SA toll fees for cross-border loads',
                   'Route options with distance, tolls and fuel for each',
                   'A recommended price based on what has won you work before',
                 ].map((f) => (
@@ -209,11 +209,11 @@ export default function HomePage() {
                 history, so a slow-paying client never parks your trucks.
               </p>
               <div className="mt-8 grid grid-cols-2 gap-6">
-                <div className="card p-5">
+                <div className="card p-6">
                   <div className="mono-stat text-[24px] font-semibold text-ink">R4,500</div>
                   <div className="mt-1 text-[13px] text-ink-2">flat monthly price</div>
                 </div>
-                <div className="card p-5">
+                <div className="card p-6">
                   <div className="mono-stat text-[24px] font-semibold text-ink">0.25%</div>
                   <div className="mt-1 text-[13px] text-ink-2">FastPay fee when you use it</div>
                 </div>
@@ -224,7 +224,7 @@ export default function HomePage() {
                 src="/images/product/capital-dark.png"
                 alt="The TruckWys capital view showing R1,000,000 of available capital against outstanding invoices"
                 width={1440}
-                height={620}
+                height={540}
                 className="w-full"
               />
             </div>
@@ -235,9 +235,9 @@ export default function HomePage() {
       {/* Integrations */}
       <section className="border-t border-line bg-page">
         <div className="mx-auto max-w-6xl px-5 py-16 text-center">
-          <div className="eyebrow mb-3">Works with what you run</div>
-          <h2 className="text-[22px] font-semibold text-ink">
-            Keeps your TMS, tracking and books in the loop
+          <div className="eyebrow eyebrow-accent mb-3">Works with what you run</div>
+          <h2 className="text-[20px] font-semibold text-ink">
+            Your TMS, tracking and books stay in the loop
           </h2>
           <p className="mx-auto mt-3 max-w-xl text-[15px] text-ink-2">
             TruckWys handles the money side and connects to the tools you already
@@ -269,7 +269,7 @@ export default function HomePage() {
           </div>
 
           <div className="mx-auto mt-12 grid max-w-4xl gap-6 md:grid-cols-2">
-            <div className="card p-8">
+            <div className="card flex flex-col p-8">
               <div className="eyebrow mb-2">Platform</div>
               <div className="flex items-baseline gap-2">
                 <span className="mono-stat text-[44px] font-semibold text-ink">R4,500</span>
@@ -285,17 +285,19 @@ export default function HomePage() {
                   'Email and phone support',
                 ].map((f) => (
                   <li key={f} className="flex gap-3 text-[14px] text-ink-2">
-                    <span className="mt-0.5 text-accent">✓</span>
+                    <span className="mt-0.5 text-accent" aria-hidden="true">✓</span>
                     {f}
                   </li>
                 ))}
               </ul>
-              <Link href="/get-started" className="btn-primary mt-8 w-full">
-                Start your free trial
-              </Link>
+              <div className="mt-auto pt-8">
+                <Link href="/get-started" className="btn-primary w-full">
+                  Start your free trial
+                </Link>
+              </div>
             </div>
 
-            <div className="card p-8">
+            <div className="card flex flex-col p-8">
               <div className="eyebrow mb-2">FastPay</div>
               <div className="flex items-baseline gap-2">
                 <span className="mono-stat text-[44px] font-semibold text-ink">0.25%</span>
@@ -309,12 +311,12 @@ export default function HomePage() {
                   'Limits grow with your payment history',
                 ].map((f) => (
                   <li key={f} className="flex gap-3 text-[14px] text-ink-2">
-                    <span className="mt-0.5 text-accent">✓</span>
+                    <span className="mt-0.5 text-accent" aria-hidden="true">✓</span>
                     {f}
                   </li>
                 ))}
               </ul>
-              <p className="mt-8 text-[13px] leading-relaxed text-ink-3">
+              <p className="mt-auto pt-8 text-[13px] leading-relaxed text-ink-3">
                 Example: a R100,000 invoice settled through FastPay costs R250 and
                 pays out within 48 hours instead of 30 to 60 days.
               </p>
@@ -336,7 +338,7 @@ export default function HomePage() {
                 <summary className="cursor-pointer list-none text-[15px] font-medium text-ink marker:content-none">
                   <span className="flex items-center justify-between gap-4">
                     {f.q}
-                    <span className="text-ink-3 transition-transform group-open:rotate-45">+</span>
+                    <span className="text-ink-3 transition-transform group-open:rotate-45" aria-hidden="true">+</span>
                   </span>
                 </summary>
                 <p className="mt-3 text-[14px] leading-relaxed text-ink-2">{f.a}</p>
@@ -357,11 +359,11 @@ export default function HomePage() {
             Set up your fleet today and send your first properly costed quote before
             the diesel price changes again.
           </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-3">
-            <Link href="/get-started" className="btn-primary">
+          <div className="mt-8 flex flex-col items-center justify-center gap-3 px-6 sm:flex-row sm:px-0">
+            <Link href="/get-started" className="btn-primary w-full sm:w-auto">
               Start your free trial
             </Link>
-            <Link href="/contact" className="btn-secondary !border-line-strong !bg-transparent !text-ink">
+            <Link href="/contact" className="btn-secondary w-full !border-line-strong !bg-transparent !text-ink sm:w-auto">
               Talk to us
             </Link>
           </div>

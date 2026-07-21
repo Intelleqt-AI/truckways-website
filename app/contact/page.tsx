@@ -4,7 +4,7 @@ import ContactForm from './ContactForm';
 export const metadata: Metadata = {
   title: 'Contact',
   description:
-    'Talk to TruckWys about quoting, invoicing and FastPay for your fleet. Email grant@truckwys.com, most South African fleets get a reply within one working day.',
+    'Talk to TruckWys about quoting, invoicing and FastPay for your fleet. Email grant@truckwys.com. Most fleets get a reply within one working day.',
   alternates: {
     canonical: 'https://www.truckwys.com/contact',
   },
@@ -13,6 +13,7 @@ export const metadata: Metadata = {
     description:
       'Talk to TruckWys about quoting, invoicing and FastPay for your fleet. Most fleets get a reply within one working day.',
     url: 'https://www.truckwys.com/contact',
+    images: [{ url: 'https://www.truckwys.com/og-image.png', width: 1200, height: 630 }],
   },
 };
 

@@ -43,8 +43,9 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
     return { title: 'Post not found' };
   }
   const url = `${SITE_URL}/blogs/${post.slug}`;
+  const seoTitle = (post as { seoTitle?: string }).seoTitle || post.title;
   return {
-    title: post.title,
+    title: seoTitle,
     description: post.description,
     alternates: {
       canonical: url,
@@ -52,10 +53,17 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
     openGraph: {
       type: 'article',
       url,
-      title: post.title,
+      title: seoTitle,
       description: post.description,
       publishedTime: post.publishedAt,
       siteName: 'TruckWys',
+      images: [{ url: `${SITE_URL}/og-image.png`, width: 1200, height: 630 }],
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: seoTitle,
+      description: post.description,
+      images: [`${SITE_URL}/og-image.png`],
     },
   };
 }
@@ -74,7 +82,9 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
     '@type': 'BlogPosting',
     headline: post.title,
     description: post.description,
+    image: `${SITE_URL}/og-image.png`,
     datePublished: post.publishedAt,
+    dateModified: post.publishedAt,
     author: {
       '@type': 'Organization',
       name: 'TruckWys',
@@ -112,7 +122,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
       <section className="bg-surface">
         <div className="mx-auto max-w-6xl px-5 pb-16 pt-16 md:pt-20">
           <div className="mx-auto max-w-3xl">
-            <nav className="flex items-center gap-2 text-[13px] text-ink-3">
+            <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-[13px] text-ink-3">
               <Link href="/" className="transition-colors hover:text-ink">
                 Home
               </Link>
@@ -121,7 +131,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                 Blog
               </Link>
               <span aria-hidden="true">/</span>
-              <span className="line-clamp-1">{post.title}</span>
+              <span aria-current="page" className="line-clamp-1">{post.title}</span>
             </nav>
 
             {post.tags[0] && (
@@ -142,13 +152,13 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
       <section className="border-t border-line bg-page">
         <div className="mx-auto max-w-6xl px-5 py-14">
           <div className="mx-auto max-w-3xl">
-            <div
-              className="article-body measure mx-auto"
+            <article
+              className="article-body measure"
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
 
             <div className="panel-dark mt-16 rounded-[14px] border border-line px-8 py-12 text-center">
-              <h2 className="text-[22px] font-semibold text-ink">
+              <h2 className="text-[20px] font-semibold text-ink">
                 Price your next load with real costs
               </h2>
               <p className="mx-auto mt-3 max-w-xl text-[15px] text-ink-2">

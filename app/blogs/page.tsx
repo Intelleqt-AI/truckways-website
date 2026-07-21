@@ -9,6 +9,15 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://www.truckwys.com/blogs',
   },
+  openGraph: {
+    type: 'website',
+    url: 'https://www.truckwys.com/blogs',
+    title: 'Blog | TruckWys',
+    description:
+      'Guides on fleet costs, freight pricing and cash flow for South African transporters.',
+    siteName: 'TruckWys',
+    images: [{ url: 'https://www.truckwys.com/og-image.png', width: 1200, height: 630 }],
+  },
 };
 
 const MONTHS = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -26,11 +35,13 @@ export default function BlogIndexPage() {
   return (
     <>
       <section className="bg-surface">
-        <div className="mx-auto max-w-6xl px-5 pb-16 pt-20 md:pt-24">
+        <div className="mx-auto max-w-6xl px-5 pb-16 pt-20 md:pt-28">
           <div className="eyebrow eyebrow-accent mb-5">Blog</div>
-          <h1 className="text-display max-w-2xl text-ink">Guides for SA fleet operators</h1>
+          <h1 className="text-display max-w-2xl text-ink">
+            Guides for South African fleet operators
+          </h1>
           <p className="mt-4 max-w-2xl text-[16px] text-ink-2">
-            Practical writing on what it costs to run trucks in South Africa, how to
+            Practical guides to what it costs to run trucks in South Africa, how to
             price loads, and how to keep the cash coming in.
           </p>
         </div>
@@ -49,13 +60,13 @@ export default function BlogIndexPage() {
                   {post.tags.map((tag) => (
                     <span
                       key={tag.id}
-                      className="rounded bg-surface-2 px-2.5 py-1 text-[13px] text-ink-2"
+                      className="rounded-[6px] bg-surface-2 px-2.5 py-1 text-[13px] text-ink-2"
                     >
                       {tag.name}
                     </span>
                   ))}
                 </div>
-                <h2 className="mt-4 line-clamp-2 text-[18px] font-semibold leading-snug text-ink">
+                <h2 className="mt-4 line-clamp-2 text-[20px] font-semibold leading-snug text-ink">
                   {post.title}
                 </h2>
                 <p className="mt-2 line-clamp-3 text-[14px] leading-relaxed text-ink-2">
@@ -71,7 +82,7 @@ export default function BlogIndexPage() {
           </div>
 
           <div className="panel-dark mt-16 rounded-[14px] border border-line px-8 py-12 text-center">
-            <h2 className="text-[22px] font-semibold text-ink">
+            <h2 className="text-[20px] font-semibold text-ink">
               Put the numbers to work on your own fleet
             </h2>
             <p className="mx-auto mt-3 max-w-xl text-[15px] text-ink-2">

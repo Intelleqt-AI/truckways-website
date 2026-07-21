@@ -7,6 +7,11 @@ export const metadata: Metadata = {
   alternates: {
     canonical: 'https://www.truckwys.com/privacy',
   },
+  openGraph: {
+    title: 'Privacy policy | TruckWys',
+    url: 'https://www.truckwys.com/privacy',
+    images: [{ url: 'https://www.truckwys.com/og-image.png', width: 1200, height: 630 }],
+  },
   robots: {
     index: true,
     follow: true,
@@ -16,13 +21,13 @@ export const metadata: Metadata = {
 export default function PrivacyPage() {
   return (
     <section className="bg-surface">
-      <div className="mx-auto max-w-6xl px-5 py-20 md:py-24">
+      <div className="mx-auto max-w-6xl px-5 pb-20 pt-20 md:pt-28">
         <div className="mx-auto max-w-3xl">
           <div className="eyebrow eyebrow-accent mb-5">Legal</div>
           <h1 className="text-display text-ink">Privacy policy</h1>
           <p className="mt-3 text-[13px] text-ink-3">Last updated: January 2025</p>
 
-          <div className="article-body measure mx-auto mt-12">
+          <div className="article-body measure mt-12">
             <section>
               <h2>1. Introduction</h2>
               <p>

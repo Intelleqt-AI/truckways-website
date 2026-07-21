@@ -62,13 +62,13 @@ export default function ContactForm() {
 
   if (status === 'success') {
     return (
-      <div className="py-8 text-center">
+      <div role="status" aria-live="polite" className="py-8 text-center">
         <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-accent-soft">
-          <svg className="h-6 w-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg aria-hidden="true" className="h-6 w-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
           </svg>
         </div>
-        <h3 className="mt-5 text-[20px] font-semibold text-ink">Message received</h3>
+        <h2 className="mt-5 text-[20px] font-semibold text-ink">Message received</h2>
         <p className="mt-2 text-[15px] text-ink-2">
           We have your details and will reply within one working day.
         </p>
@@ -94,6 +94,7 @@ export default function ContactForm() {
             type="text"
             id="name"
             name="name"
+            autoComplete="name"
             required
             value={formData.name}
             onChange={handleChange}
@@ -109,6 +110,7 @@ export default function ContactForm() {
             type="text"
             id="company"
             name="company"
+            autoComplete="organization"
             required
             value={formData.company}
             onChange={handleChange}
@@ -128,6 +130,7 @@ export default function ContactForm() {
             type="email"
             id="email"
             name="email"
+            autoComplete="email"
             required
             value={formData.email}
             onChange={handleChange}
@@ -143,6 +146,7 @@ export default function ContactForm() {
             type="tel"
             id="phone"
             name="phone"
+            autoComplete="tel"
             required
             value={formData.phone}
             onChange={handleChange}
@@ -168,11 +172,10 @@ export default function ContactForm() {
           >
             <option value="">Select fleet size</option>
             <option value="1-10">1 to 10 vehicles</option>
-            <option value="11-25">11 to 25 vehicles</option>
-            <option value="26-50">26 to 50 vehicles</option>
+            <option value="11-50">11 to 50 vehicles</option>
             <option value="51-100">51 to 100 vehicles</option>
-            <option value="101-250">101 to 250 vehicles</option>
-            <option value="250+">250+ vehicles</option>
+            <option value="101-200">101 to 200 vehicles</option>
+            <option value="200+">200+ vehicles</option>
           </select>
         </div>
         <div>
@@ -212,6 +215,7 @@ export default function ContactForm() {
           type="text"
           id="address"
           name="address"
+          autoComplete="street-address"
           value={formData.address}
           onChange={handleChange}
           placeholder="Street address, city"
@@ -246,7 +250,7 @@ export default function ContactForm() {
       </button>
 
       {status === 'error' && (
-        <p className="text-[13px] text-warning">
+        <p role="alert" className="text-[13px] text-warning">
           Something went wrong. Please try again or email us directly at grant@truckwys.com.
         </p>
       )}

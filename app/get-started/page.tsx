@@ -21,12 +21,14 @@ export default function GetStartedPage() {
   });
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setSubmitting(true);
+    setError(false);
     try {
-      await fetch('https://formsubmit.co/ajax/grant@truckwys.com', {
+      const response = await fetch('https://formsubmit.co/ajax/grant@truckwys.com', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
         body: JSON.stringify({
@@ -42,11 +44,16 @@ export default function GetStartedPage() {
           _captcha: 'false',
         }),
       });
-    } catch (err) {
-      console.error('Submit error:', err);
+      const result = await response.json();
+      if (response.ok && result.success) {
+        setSubmitted(true);
+      } else {
+        setError(true);
+      }
+    } catch {
+      setError(true);
     }
     setSubmitting(false);
-    setSubmitted(true);
   };
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
@@ -60,21 +67,21 @@ export default function GetStartedPage() {
     return (
       <section className="bg-page">
         <div className="mx-auto max-w-lg px-5 py-24 md:py-32">
-          <div className="card p-8 text-center sm:p-10">
+          <div role="status" aria-live="polite" className="card p-8 text-center sm:p-10">
             <div className="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-accent-soft">
-              <svg className="h-6 w-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg aria-hidden="true" className="h-6 w-6 text-accent" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
               </svg>
             </div>
-            <h1 className="mt-6 text-[24px] font-semibold text-ink">You are on the list</h1>
+            <h1 className="mt-6 text-[24px] font-semibold text-ink">Request received</h1>
             <p className="mt-3 text-[15px] leading-relaxed text-ink-2">
-              We will reach out within 24 hours to get your fleet set up on TruckWys.
+              We will contact you within one working day to get your fleet set up on TruckWys.
             </p>
             <div className="mt-6 rounded-md border border-line bg-accent-soft p-4 text-left">
               <div className="eyebrow eyebrow-accent mb-1.5">FastPay</div>
               <p className="text-[13px] leading-relaxed text-ink-2">
-                Once you are set up, go to Settings, then Billing, to add your payment
-                details and switch on invoice advances from day one.
+                Once you are set up, go to Settings, then Billing, add your payment
+                details and switch on FastPay from day one.
               </p>
             </div>
             <Link href="/" className="btn-secondary mt-8 w-full">
@@ -108,6 +115,7 @@ export default function GetStartedPage() {
                   id="firstName"
                   name="firstName"
                   type="text"
+                  autoComplete="given-name"
                   required
                   value={formData.firstName}
                   onChange={handleChange}
@@ -123,6 +131,7 @@ export default function GetStartedPage() {
                   id="lastName"
                   name="lastName"
                   type="text"
+                  autoComplete="family-name"
                   required
                   value={formData.lastName}
                   onChange={handleChange}
@@ -140,6 +149,7 @@ export default function GetStartedPage() {
                 id="email"
                 name="email"
                 type="email"
+                autoComplete="email"
                 required
                 value={formData.email}
                 onChange={handleChange}
@@ -156,6 +166,7 @@ export default function GetStartedPage() {
                 id="company"
                 name="company"
                 type="text"
+                autoComplete="organization"
                 required
                 value={formData.company}
                 onChange={handleChange}
@@ -172,6 +183,7 @@ export default function GetStartedPage() {
                 id="phone"
                 name="phone"
                 type="tel"
+                autoComplete="tel"
                 required
                 value={formData.phone}
                 onChange={handleChange}
@@ -194,16 +206,22 @@ export default function GetStartedPage() {
               >
                 <option value="">Select fleet size</option>
                 <option value="1-10">1 to 10 vehicles</option>
-                <option value="11-25">11 to 25 vehicles</option>
-                <option value="26-50">26 to 50 vehicles</option>
+                <option value="11-50">11 to 50 vehicles</option>
                 <option value="51-100">51 to 100 vehicles</option>
-                <option value="100+">100+ vehicles</option>
+                <option value="101-200">101 to 200 vehicles</option>
+                <option value="200+">200+ vehicles</option>
               </select>
             </div>
 
             <button type="submit" disabled={submitting} className="btn-primary w-full disabled:opacity-60">
-              {submitting ? 'Submitting' : 'Start your free trial'}
+              {submitting ? 'Sending' : 'Start your free trial'}
             </button>
+
+            {error && (
+              <p role="alert" className="text-[13px] text-warning">
+                Something went wrong. Please try again or email us directly at grant@truckwys.com.
+              </p>
+            )}
 
             <p className="text-center text-[12px] leading-relaxed text-ink-3">
               By submitting this form you agree to our{' '}

@@ -18,7 +18,7 @@ export const FACTS = {
   features: [
     'AI quote builder: price a load in about 60 seconds with live diesel prices, SANRAL toll plaza fees per route, cross-border and weighbridge charges, and your own vehicle running costs',
     'Route options on a live map with per-route distance, tolls and fuel burn',
-    'Win-probability and margin recommendations learned from your own quote history',
+    'Win probability and margin recommendations learned from your own quote history',
     'Automatic invoice creation the moment a load is delivered',
     'Collections agent that follows up overdue invoices',
     'FastPay: settle an invoice in 48 hours for a 0.25% fee',
@@ -52,6 +52,10 @@ export const FACTS = {
       a: 'No. TruckWys handles the money side: quoting, invoicing, collections and cash flow. It works alongside your TMS and tracking, and integrates with Xero and Cartrack.',
     },
     {
+      q: 'Is TruckWys fleet management software?',
+      a: 'TruckWys is fleet management software for the money side of a South African trucking business: load pricing, truck quoting, invoicing, collections and cash flow. It does not do dispatch or routing, so it fits alongside the fleet management system you already run.',
+    },
+    {
       q: 'How long does setup take?',
       a: 'Most fleets are quoting on day one. Add your vehicles and rates, import your clients, and the system is ready. Xero and Cartrack connections take a few minutes each.',
     },
@@ -62,10 +66,11 @@ export const FACTS = {
   ],
 };
 
-/** Renders a JSON-LD script tag. Server component friendly. */
+/** Renders a JSON-LD script tag. Server component friendly.
+ * Escapes < so content can never break out of the script tag. */
 export function jsonLd(data: object) {
   return {
-    __html: JSON.stringify(data),
+    __html: JSON.stringify(data).replace(/</g, '\\u003c'),
   };
 }
 

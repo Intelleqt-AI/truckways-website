@@ -69,7 +69,7 @@ export default function Footer() {
 
         <div className="mt-14 flex flex-col gap-4 border-t border-line pt-6 md:flex-row md:items-center md:justify-between">
           <p className="text-[13px] text-ink-3">
-            {new Date().getFullYear()} TruckWys. Built for South African fleets.
+            © {new Date().getFullYear()} TruckWys. Built for South African fleets.
           </p>
           <div className="flex items-center gap-6">
             <a
