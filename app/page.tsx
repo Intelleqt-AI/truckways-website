@@ -234,6 +234,127 @@ export default function HomePage() {
         </div>
       </section>
 
+      {/* Mobile app */}
+      <section id="mobile" className="border-t border-line bg-surface">
+        <div className="mx-auto max-w-6xl px-5 py-24">
+          <div className="grid items-center gap-12 lg:grid-cols-2">
+            <div>
+              <div className="eyebrow eyebrow-accent mb-4">iOS and Android</div>
+              <h2 className="text-display text-ink">
+                The mobile app: quote and invoice from the roadside
+              </h2>
+              <p className="mt-5 text-[16px] leading-relaxed text-ink-2">
+                The full TruckWys account in your pocket, same data as the web app.
+                Price a load in the truck, capture the proof of delivery at the
+                drop, and have the invoice on its way before you leave the yard.
+              </p>
+              <ul className="mt-7 space-y-3.5">
+                {[
+                  'Quote with live diesel and tolls from anywhere',
+                  'Capture and attach POD at the point of delivery',
+                  'See cash, overdue invoices and fleet status on the move',
+                  'One account across web, iOS and Android',
+                ].map((f) => (
+                  <li key={f} className="flex gap-3 text-[15px] text-ink-2">
+                    <span className="mt-1 h-1.5 w-1.5 flex-none rounded-full bg-accent" aria-hidden="true" />
+                    {f}
+                  </li>
+                ))}
+              </ul>
+
+              {/* Store badges (link to early access until the store listings go live) */}
+              <div className="mt-8 flex flex-wrap items-center gap-3">
+                <Link href="/get-started" aria-label="Download on the App Store (early access)">
+                  <svg width="162" height="48" viewBox="0 0 162 48" role="img" aria-hidden="true">
+                    <rect width="162" height="48" rx="9" fill="#000" stroke="#3c3c3c" strokeWidth="1" />
+                    <path
+                      d="M31.6 24.6c0-3.3 2.7-4.9 2.8-5-1.5-2.2-3.9-2.5-4.7-2.6-2-.2-3.9 1.2-4.9 1.2-1 0-2.6-1.2-4.2-1.1-2.2 0-4.2 1.3-5.3 3.2-2.3 3.9-.6 9.7 1.6 12.9 1.1 1.6 2.4 3.3 4 3.2 1.6-.1 2.3-1 4.2-1s2.5 1 4.3 1c1.8 0 2.9-1.6 4-3.1 1.2-1.8 1.8-3.6 1.8-3.7-.1-.1-3.5-1.4-3.6-5zm-3.3-9.2c.9-1.1 1.5-2.6 1.3-4.1-1.3.1-2.9.9-3.8 2-.8 1-1.6 2.5-1.4 4 1.5.1 2.9-.8 3.9-1.9z"
+                      fill="#fff"
+                    />
+                    <text x="44" y="20" fill="#fff" fontSize="10" fontFamily="Inter, sans-serif">Download on the</text>
+                    <text x="44" y="37" fill="#fff" fontSize="17" fontWeight="600" fontFamily="Inter, sans-serif">App Store</text>
+                  </svg>
+                </Link>
+                <Link href="/get-started" aria-label="Get it on Google Play (early access)">
+                  <svg width="162" height="48" viewBox="0 0 162 48" role="img" aria-hidden="true">
+                    <rect width="162" height="48" rx="9" fill="#000" stroke="#3c3c3c" strokeWidth="1" />
+                    <g transform="translate(14 12)">
+                      <path d="M1.2.9C.7 1.4.5 2.2.5 3.1v17.8c0 .9.3 1.7.8 2.2l.1.1 10-10v-.4L1.3.8l-.1.1z" fill="#00d7fe" />
+                      <path d="M14.7 16.6l-3.3-3.3v-.4l3.3-3.3.1.1 4 2.3c1.1.6 1.1 1.7 0 2.3l-4 2.3h-.1z" fill="#ffce00" />
+                      <path d="M14.8 16.5L11.4 13 1.2 23.1c.4.4 1 .4 1.7 0l11.9-6.6" fill="#ff3a44" />
+                      <path d="M14.8 9.6L2.9.9C2.2.5 1.6.5 1.2.9L11.4 13l3.4-3.4z" fill="#00f076" />
+                    </g>
+                    <text x="44" y="20" fill="#fff" fontSize="10" fontFamily="Inter, sans-serif">GET IT ON</text>
+                    <text x="44" y="37" fill="#fff" fontSize="17" fontWeight="600" fontFamily="Inter, sans-serif">Google Play</text>
+                  </svg>
+                </Link>
+              </div>
+              <p className="mt-4 text-[13px] text-ink-3">
+                Rolling out with the platform. The badges take you to early access
+                until the store listings go live.
+              </p>
+            </div>
+
+            {/* iPhone-proportioned mock: the app's dark operations-terminal look */}
+            <div className="flex justify-center">
+              <div
+                className="relative w-[290px] rounded-[54px] p-[10px] shadow-[0_40px_90px_-28px_rgba(17,24,39,0.5)]"
+                style={{ background: 'linear-gradient(160deg, #2a2e35, #101216 40%, #23272e)' }}
+              >
+                <div className="relative flex h-[600px] flex-col overflow-hidden rounded-[44px] bg-[#060709]">
+                  {/* Dynamic Island */}
+                  <div className="absolute left-1/2 top-3 h-[26px] w-[92px] -translate-x-1/2 rounded-full bg-black" aria-hidden="true" />
+                  {/* Status bar */}
+                  <div className="flex items-center justify-between px-8 pb-1 pt-4">
+                    <span className="mono-stat text-[12px] font-medium text-[#ededed]">09:41</span>
+                    <span className="flex items-center gap-1.5" aria-hidden="true">
+                      <span className="h-[9px] w-[13px] rounded-[2px] bg-[#9aa1a9]/70" />
+                      <span className="h-[9px] w-[13px] rounded-[2px] bg-[#9aa1a9]/70" />
+                      <span className="h-[10px] w-[20px] rounded-[3px] border border-[#9aa1a9]/70 bg-[#4d9eff]/80" />
+                    </span>
+                  </div>
+                  {/* App content */}
+                  <div className="flex flex-1 flex-col px-6 pb-6 pt-6">
+                    <div className="eyebrow" style={{ color: '#6e757d' }}>Operations</div>
+                    <div className="text-[19px] font-semibold text-[#ededed]">New quote</div>
+                    <div className="eyebrow mt-5" style={{ color: '#6e757d' }}>Quote · JHB to CPT</div>
+                    <div className="mono-stat mt-1 text-[30px] font-semibold text-[#ededed]">R 31 613</div>
+                    <div className="mt-5 space-y-3 rounded-[12px] border border-[#2a2e34] bg-[#101215] p-4">
+                      {[
+                        ['Fuel at live diesel', 'R 13 238'],
+                        ['Tolls, N1 plazas', 'R 1 115'],
+                        ['Base rate, R10/km', 'R 15 009'],
+                        ['Weight surcharge', 'R 2 251'],
+                      ].map(([l, v]) => (
+                        <div key={l} className="flex items-center justify-between">
+                          <span className="text-[13px] text-[#9aa1a9]">{l}</span>
+                          <span className="mono-stat text-[13px] text-[#ededed]">{v}</span>
+                        </div>
+                      ))}
+                    </div>
+                    <div className="mt-4 flex items-center justify-between rounded-[12px] border border-[#2a2e34] bg-[#101215] px-4 py-3">
+                      <span className="text-[13px] text-[#9aa1a9]">Win probability</span>
+                      <span className="mono-stat text-[13px] font-medium text-[#4d9eff]">43%</span>
+                    </div>
+                    <div className="mt-auto">
+                      <div className="rounded-[12px] bg-[#4d9eff] py-3.5 text-center text-[14px] font-medium text-[#05101f]">
+                        Send quote
+                      </div>
+                      <div className="mt-3 flex items-center gap-2 rounded-[12px] border border-[#2a2e34] bg-[#101215] px-4 py-3">
+                        <span className="h-2 w-2 rounded-full bg-[#4d9eff]" aria-hidden="true" />
+                        <span className="mono-stat text-[11px] text-[#9aa1a9]">POD captured · invoice queued</span>
+                      </div>
+                    </div>
+                  </div>
+                  {/* Home indicator */}
+                  <div className="mx-auto mb-2 h-[5px] w-[120px] rounded-full bg-white/25" aria-hidden="true" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
       {/* AI: navy blueprint panel, terminal left, agent pipeline right */}
       <section id="ai" className="footer-dark">
         <div className="ai-grid">

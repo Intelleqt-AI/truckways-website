@@ -24,6 +24,8 @@ TruckWys handles the money side of running a trucking fleet:
 
 9. Insights. Dashboards show cost per kilometre, margin per route, fleet utilisation, client payment behaviour, driver and vehicle performance, and cash flow forecasts.
 
+10. Mobile. A mobile app for iOS and Android (React Native) shares the same account and data as the web app: quoting from the road, proof-of-delivery capture at the drop, and cash and fleet status on the move.
+
 ## What TruckWys does not do
 
 TruckWys is not a transport management system and does not do route dispatching, load planning or driver rostering. It complements the TMS and telematics a fleet already runs. It integrates with Xero for accounting and Cartrack for vehicle tracking.

@@ -25,6 +25,7 @@ export const FACTS = {
     'Capital advances against outstanding invoices',
     'Fleet insights: cost per kilometre, margin per route, utilisation, driver and vehicle performance',
     'Integrations with Xero and Cartrack',
+    'Mobile app for iOS and Android with the same account and data as the web app',
   ],
   faqs: [
     {
