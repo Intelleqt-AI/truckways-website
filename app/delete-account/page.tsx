@@ -70,7 +70,7 @@ export default function DeleteAccountPage() {
               <h2>What we have to keep, and for how long</h2>
               <p>
                 Some records cannot be deleted on request because South African tax and company law requires us to keep
-                them. These are retained for the statutory period — generally five years — and then deleted:
+                them. These are retained for 7 years, in line with the Companies Act 71 of 2008, and then deleted:
               </p>
               <ul>
                 <li>Invoices, payments and other financial transaction records</li>
