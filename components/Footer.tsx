@@ -95,6 +95,13 @@ export default function Footer() {
             <Link href="/terms" className="inline-block py-1.5 text-[13px] text-ink-3 transition-colors hover:text-ink">
               Terms
             </Link>
+            {/* PAIA section 51 requires the manual to be publicly available. */}
+            <Link
+              href="/paia-manual"
+              className="inline-block py-1.5 text-[13px] text-ink-3 transition-colors hover:text-ink"
+            >
+              PAIA Manual
+            </Link>
           </div>
         </div>
       </div>
