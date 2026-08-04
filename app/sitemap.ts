@@ -17,6 +17,8 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/blogs`, lastModified: contentDate, changeFrequency: 'weekly', priority: 0.8 },
     { url: `${SITE_URL}/privacy`, lastModified: contentDate, changeFrequency: 'yearly', priority: 0.2 },
     { url: `${SITE_URL}/terms`, lastModified: contentDate, changeFrequency: 'yearly', priority: 0.2 },
+    // Play Console and App Store Review both require this to be reachable.
+    { url: `${SITE_URL}/delete-account`, lastModified: contentDate, changeFrequency: 'yearly', priority: 0.2 },
   ];
 
   const blogPages: MetadataRoute.Sitemap = blogPosts.map(
