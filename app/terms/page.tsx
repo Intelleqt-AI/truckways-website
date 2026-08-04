@@ -2,14 +2,14 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 
 export const metadata: Metadata = {
-  title: 'Terms of service',
+  title: 'Terms and conditions',
   description:
-    'The terms and conditions for using the TruckWys fleet finance platform and mobile app.',
+    'The agreement governing access to and use of the TruckWys platform, including fees, the mobile app licence, and South African consumer and data protection provisions.',
   alternates: {
     canonical: 'https://www.truckwys.com/terms',
   },
   openGraph: {
-    title: 'Terms of service | TruckWys',
+    title: 'Terms and conditions | TruckWys',
     url: 'https://www.truckwys.com/terms',
     images: [{ url: 'https://www.truckwys.com/og-image.png', width: 1200, height: 630 }],
   },
@@ -19,93 +19,147 @@ export const metadata: Metadata = {
   },
 };
 
+// Clause 7 (Mobile app licence) is required by the app stores. Apple will not
+// accept custom terms without the App Store provisions at the end of it —
+// particularly Apple as third-party beneficiary, and Apple carrying no support
+// or warranty obligation. Do not trim that list.
+//
+// The fee figures in clause 5 are the real ones, checked against
+// core/services/paystack.py (MONTHLY_FEE = 4499.00) and
+// core/services/delivery_fee_billing.py (DELIVERY_FEE_PCT = 0.25, charged the
+// moment a load auto-invoices on delivery). Changing a price in code means
+// changing it here in the same release.
 export default function TermsPage() {
   return (
     <section className="bg-surface">
       <div className="mx-auto max-w-6xl px-5 pb-20 pt-20 md:pt-28">
         <div className="mx-auto max-w-3xl">
           <div className="eyebrow eyebrow-accent mb-5">Legal</div>
-          <h1 className="text-display text-ink">Terms of service</h1>
-          <p className="mt-3 text-[13px] text-ink-3">Last updated: 30 July 2026</p>
+          <h1 className="text-display text-ink">Terms and conditions</h1>
+          <p className="mt-3 text-[13px] text-ink-3">Last updated: 4 August 2026</p>
 
           <div className="article-body measure mt-12">
             <section>
-              <h2>1. Acceptance of Terms</h2>
+              <h2>1. Who this agreement is between</h2>
               <p>
-                By accessing or using TruckWys ("the Platform"), you agree to be bound by these Terms of Service. If you
-                do not agree to these terms, do not use the Platform.
+                These Terms and Conditions ("Agreement") govern access to and use of the TruckWys platform, provided by
+                TruckWys (Pty) Ltd, registration number 2025/773091/07 ("TruckWys", "we", "us"), by the customer that
+                accepts this Agreement ("Customer", "you"). By creating an account, clicking to accept, or using the
+                platform, you agree to be bound by this Agreement.
               </p>
-              <p>
-                These terms constitute a legally binding agreement between you ("User," "you," or "your") and TruckWys
-                (Pty) Ltd ("TruckWys," "we," "us," or "our").
-              </p>
+              <p>TruckWys (Pty) Ltd, 12 Keurboom Road, Claremont, Cape Town, 7800, Western Cape, South Africa.</p>
             </section>
 
             <section>
-              <h2>2. Description of Services</h2>
-              <p>TruckWys provides a fleet profitability platform that includes:</p>
+              <h2>2. Definitions</h2>
               <ul>
-                <li>AI-powered pricing and quoting recommendations</li>
-                <li>Fleet performance analytics and optimization</li>
-                <li>Automated invoicing and cash flow management</li>
-                <li>Capital access through invoice financing (subject to separate terms)</li>
-                <li>Integration with third-party telematics and accounting systems</li>
+                <li>
+                  <strong>"Platform"</strong> means the TruckWys software-as-a-service application, including quoting,
+                  invoicing, trip profitability tracking and related features, accessed through the web dashboard or the
+                  mobile app.
+                </li>
+                <li>
+                  <strong>"Subscription Fee"</strong> means the recurring monthly fee payable for access to the Platform.
+                </li>
+                <li>
+                  <strong>"Invoice Fee"</strong> means the success fee payable on freight invoices processed through the
+                  Platform.
+                </li>
+                <li>
+                  <strong>"Factoring Referral"</strong> means the optional introduction to our invoice financing partner
+                  described in clause 10.
+                </li>
+                <li>
+                  <strong>"Customer Data"</strong> means data uploaded to or generated within the Platform by or on behalf
+                  of the Customer, including personal information as defined in POPIA.
+                </li>
               </ul>
+            </section>
+
+            <section>
+              <h2>3. The service</h2>
               <p>
-                "the Platform" means the TruckWys web dashboard and the TruckWys mobile app for iOS and Android, together.
+                TruckWys grants the Customer a non-exclusive, non-transferable right to access and use the Platform for
+                the Customer&apos;s internal business purposes for the term of this Agreement, subject to payment of the
+                applicable fees and compliance with this Agreement.
+              </p>
+              <p>
+                TruckWys may modify, add to or discontinue features of the Platform from time to time, provided that we
+                will give reasonable notice of any change that materially reduces core functionality.
               </p>
             </section>
 
             <section>
-              <h2>3. Account Registration</h2>
-              <p>To use the Platform, you must:</p>
-              <ul>
-                <li>Be at least 18 years old</li>
-                <li>Provide accurate and complete registration information</li>
-                <li>Maintain the security of your account credentials</li>
-                <li>Be authorized to act on behalf of your organization if registering a business account</li>
-              </ul>
-              <p>You are responsible for all activities that occur under your account.</p>
+              <h2>4. Accounts and access</h2>
               <p>
-                <strong>Accounts are created on the web dashboard only.</strong> The mobile app is for signing in to an
-                existing account. If your organization already uses TruckWys, an administrator can invite you from
-                Settings → Users &amp; permissions, and you complete that invitation on the web.
+                TruckWys is a business platform. A company account is created by the Customer, and the Customer&apos;s
+                administrator then provisions accounts for its own staff. There is no public sign-up in the mobile app.
               </p>
               <p>
-                You may delete your account at any time from Settings → Security in either the app or the dashboard. See
-                our <Link href="/privacy">Privacy Policy</Link> for what happens to your data.
+                The Customer is responsible for keeping account credentials confidential, for all activity under its
+                accounts, and for promptly removing access for people who leave. Notify us at{' '}
+                <a href="mailto:support@truckwys.com">support@truckwys.com</a> if you believe an account has been
+                compromised.
               </p>
             </section>
 
             <section>
-              <h2>4. Subscription and Payment</h2>
-              <h3>Fees</h3>
+              <h2>5. Fees and payment</h2>
+
+              <h3>5.1 Subscription Fee</h3>
               <p>
-                Our pricing consists of a monthly platform fee and success fees based on usage. Current pricing is
-                available on our website and may be updated from time to time.
+                The Customer will pay a Subscription Fee of R4,499 per month per fleet, or such other amount as set out in
+                the applicable order form or on our pricing page, including any tiered pricing applicable to larger fleets.
               </p>
 
-              <h3>Payment Terms</h3>
-              <ul>
-                <li>Fees are billed monthly in advance</li>
-                <li>Success fees are billed based on actual usage</li>
-                <li>All fees are quoted in South African Rand (ZAR) unless otherwise specified</li>
-                <li>Late payments may result in service suspension</li>
-              </ul>
-
-              <h3>Where you pay</h3>
+              <h3>5.2 Invoice Fee</h3>
               <p>
-                Subscriptions are purchased and managed on the web dashboard only. The mobile app contains no purchases,
-                and nothing you do in the app charges you. The app shows your current plan and status for reference.
+                TruckWys charges an Invoice Fee of 0.25% of the value of each freight invoice processed through the
+                Platform. This fee is charged when a delivery is completed and the invoice is raised, not batched monthly.
+              </p>
+
+              <h3>5.3 Payment processing</h3>
+              <p>
+                Fees are collected via our payment gateway, Paystack, using a tokenised payment method provided by the
+                Customer. The Customer authorises TruckWys to charge the Subscription Fee and the Invoice Fee to that
+                payment method as they fall due. We do not receive or store full card numbers.
+              </p>
+
+              <h3>5.4 Non-payment, grace period and suspension</h3>
+              <p>
+                If a payment fails, the Customer&apos;s account enters a grace period of 7 days, during which the Customer
+                keeps full access, TruckWys will retry the charge, and we will notify the Customer. Any successful charge
+                during the grace period restores the account immediately. If payment is not collected within the grace
+                period, the account is suspended and the ability to create quotes and invoices is restricted until the
+                outstanding amount is paid. Continued non-payment may result in cancellation of the account.
+              </p>
+
+              <h3>5.5 Taxes</h3>
+              <p>All fees are exclusive of VAT, which will be added where applicable.</p>
+            </section>
+
+            <section>
+              <h2>6. Term and termination</h2>
+              <p>
+                This Agreement commences on the date the Customer accepts it and continues on a month-to-month basis until
+                terminated by either party on 30 days&apos; written notice. TruckWys may suspend or terminate the
+                Customer&apos;s account immediately for material breach of this Agreement, non-payment beyond the grace
+                period described in clause 5.4, or misuse of the Platform.
+              </p>
+              <p>
+                On termination, the Customer&apos;s right to access the Platform ends, and TruckWys will make Customer
+                Data available for export for a period of 30 days, after which it may be deleted in accordance with our{' '}
+                <Link href="/privacy">Privacy Policy</Link> and Data Processing Agreement. Records we are required by law
+                to retain are kept for the statutory period described in section 10 of the Privacy Policy.
               </p>
             </section>
 
             <section>
-              <h2>5. Mobile App Licence</h2>
+              <h2>7. Mobile app licence</h2>
               <p>
                 We grant you a limited, non-exclusive, non-transferable, revocable licence to install and use the TruckWys
                 mobile app on devices you own or control, solely to access your TruckWys account. This licence ends when
-                your account or this agreement ends.
+                your account or this Agreement ends.
               </p>
               <p>You may not:</p>
               <ul>
@@ -121,9 +175,15 @@ export default function TermsPage() {
                 of the app keeps working if you say no:
               </p>
               <ul>
-                <li><strong>Microphone</strong> — to record a voice quote</li>
-                <li><strong>Photo library</strong> — to attach a proof of delivery, profile picture, or company logo</li>
-                <li><strong>Notifications</strong> — to receive operational alerts about your bookings and invoices</li>
+                <li>
+                  <strong>Microphone</strong> — to record a voice quote
+                </li>
+                <li>
+                  <strong>Photo library</strong> — to attach a proof of delivery, profile picture, or company logo
+                </li>
+                <li>
+                  <strong>Notifications</strong> — to receive operational alerts about your bookings and invoices
+                </li>
               </ul>
 
               <h3>Notifications</h3>
@@ -157,7 +217,7 @@ export default function TermsPage() {
                 </li>
                 <li>
                   TruckWys, not Apple, is responsible for investigating and resolving any third-party claim that the app
-                  infringes that party's intellectual property rights.
+                  infringes that party&apos;s intellectual property rights.
                 </li>
                 <li>
                   You represent that you are not located in a country subject to a U.S. Government embargo or designated
@@ -169,123 +229,182 @@ export default function TermsPage() {
                 </li>
               </ul>
               <p>
-                If you obtained the app from Google Play, Google's Play Terms of Service apply to the distribution of the
-                app in addition to these terms.
+                If you obtained the app from Google Play, Google&apos;s Play Terms of Service apply to the distribution of
+                the app in addition to these terms.
               </p>
             </section>
 
             <section>
-              <h2>6. User Obligations</h2>
-              <p>You agree to:</p>
+              <h2>8. Customer obligations</h2>
               <ul>
-                <li>Use the Platform only for lawful business purposes</li>
-                <li>Provide accurate data and information</li>
-                <li>Not attempt to reverse engineer or copy the Platform</li>
-                <li>Not share your account with unauthorized users</li>
-                <li>Comply with all applicable laws and regulations</li>
-                <li>Not use the Platform to harm competitors or engage in anti-competitive practices</li>
+                <li>Provide accurate account, billing and payment information, and keep it up to date</li>
+                <li>Use the Platform only for lawful purposes related to freight quoting, invoicing and fleet management</li>
+                <li>
+                  Ensure that any personal information uploaded to the Platform — for example driver details — is uploaded
+                  lawfully, and that the Customer has the necessary rights and consents to do so
+                </li>
+                <li>Not attempt to reverse-engineer, resell, or provide unauthorised third parties access to the Platform</li>
               </ul>
             </section>
 
             <section>
-              <h2>7. Data and Privacy</h2>
+              <h2>9. AI features</h2>
               <p>
-                Your use of the Platform is also governed by our <Link href="/privacy">Privacy Policy</Link>.
+                Our AI features — pricing and margin analysis, the AI assistant, natural-language quote creation and
+                voice-to-quote transcription — are decision-support tools. They do not constitute financial, legal or
+                professional advice.
               </p>
               <p>
-                You retain ownership of your data. By using the Platform, you grant us a license to process your data to
-                provide our services, including generating insights and recommendations.
-              </p>
-            </section>
-
-            <section>
-              <h2>8. Intellectual Property</h2>
-              <p>
-                The Platform, including all software, algorithms, designs, and content, is owned by TruckWys and protected
-                by intellectual property laws.
-              </p>
-              <p>
-                You may not copy, modify, distribute, or create derivative works based on the Platform without our written
-                consent.
+                You remain responsible for all business decisions. TruckWys does not warrant that quotes, toll calculations
+                or profitability figures generated by the Platform will be error-free, and you remain responsible for
+                verifying figures before relying on them commercially. How these features process your data is described in
+                section 6 of our <Link href="/privacy">Privacy Policy</Link>.
               </p>
             </section>
 
             <section>
-              <h2>9. AI Recommendations Disclaimer</h2>
+              <h2>10. Invoice financing (factoring) referral</h2>
               <p>
-                Our AI-powered recommendations (pricing, routing, performance insights) are provided as decision-support
-                tools. They do not constitute financial, legal, or professional advice.
+                Where the Customer opts in, TruckWys may introduce the Customer to Merchant Capital, an independent invoice
+                financing provider, for the purposes of factoring the Customer&apos;s invoices.
               </p>
               <p>
-                You remain responsible for all business decisions. TruckWys is not liable for decisions made based on our
-                recommendations.
+                TruckWys is not a credit provider and does not itself provide, underwrite or guarantee any factoring or
+                financing arrangement. Any factoring agreement is entered into directly between the Customer and Merchant
+                Capital, on Merchant Capital&apos;s own terms, and is subject to Merchant Capital&apos;s own credit
+                assessment and approval — including its own fees and interest rates. TruckWys accepts no liability for the
+                terms, approval, performance or outcome of any such arrangement.
               </p>
             </section>
 
             <section>
-              <h2>10. Capital Module</h2>
+              <h2>11. Third-party services</h2>
               <p>
-                The Capital module connects you with third-party lending partners. Invoice financing is subject to:
+                The Platform integrates with third-party services, including Paystack (payments), Xero (accounting sync,
+                where connected by the Customer), TomTom (routing) and MapTiler (map imagery), and relies on Anthropic and
+                OpenAI for AI features, Google Firebase Cloud Messaging and the Apple Push Notification service for push
+                notifications, Resend for transactional email, and Amazon Web Services for hosting.
               </p>
+              <p>
+                Use of these integrations may be subject to the relevant third party&apos;s own terms. TruckWys is not
+                responsible for the availability or performance of third-party services outside its reasonable control. The
+                full list of providers that process personal information is in section 5 of our{' '}
+                <Link href="/privacy">Privacy Policy</Link>.
+              </p>
+            </section>
+
+            <section>
+              <h2>12. Data protection</h2>
+              <p>
+                TruckWys will process personal information in accordance with POPIA, our{' '}
+                <Link href="/privacy">Privacy Policy</Link>, and — where TruckWys acts as an operator on the
+                Customer&apos;s behalf — the Data Processing Agreement incorporated by reference into this Agreement.
+                Information about how to request access to records we hold is in our{' '}
+                <Link href="/paia-manual">PAIA Manual</Link>.
+              </p>
+            </section>
+
+            <section>
+              <h2>13. Intellectual property</h2>
+              <p>
+                TruckWys retains all right, title and interest in and to the Platform, including all software, design and
+                underlying technology. This Agreement does not transfer any intellectual property rights to the Customer.
+                Customer Data remains the property of the Customer.
+              </p>
+            </section>
+
+            <section>
+              <h2>14. Warranties and disclaimers</h2>
+              <p>
+                TruckWys will use reasonable skill and care in providing the Platform. Except as expressly stated in this
+                Agreement, the Platform is provided "as is", and TruckWys disclaims all other warranties, whether express
+                or implied, to the maximum extent permitted by law.
+              </p>
+            </section>
+
+            <section>
+              <h2>15. Limitation of liability</h2>
+              <p>
+                To the maximum extent permitted by law, TruckWys&apos;s total liability arising out of or in connection
+                with this Agreement is limited to the total Subscription Fees paid by the Customer in the 3 months
+                preceding the event giving rise to the claim. Neither party is liable for indirect, special or
+                consequential loss, including loss of profit or loss of business opportunity.
+              </p>
+              <p>
+                Nothing in this clause limits liability that cannot be limited under South African law, including liability
+                arising from gross negligence, wilful misconduct, or breach of POPIA to the extent such limitation is not
+                permitted. Where the Customer is protected by the Consumer Protection Act 68 of 2008, nothing in this
+                Agreement limits or excludes any right that Act gives you, and any provision that would do so does not
+                apply to you.
+              </p>
+            </section>
+
+            <section>
+              <h2>16. Indemnity</h2>
+              <p>
+                The Customer indemnifies TruckWys against any claim, loss or damage arising from the Customer&apos;s breach
+                of this Agreement, unlawful use of the Platform, or unlawful upload of personal information to the
+                Platform.
+              </p>
+            </section>
+
+            <section>
+              <h2>17. Confidentiality</h2>
+              <p>
+                Each party will keep confidential any non-public information disclosed by the other party in connection
+                with this Agreement, and use it only for the purposes of this Agreement.
+              </p>
+            </section>
+
+            <section>
+              <h2>18. Online transaction disclosures</h2>
+              <p>
+                In accordance with section 43 of the Electronic Communications and Transactions Act 25 of 2002,
+                TruckWys&apos;s full name, company registration number, physical address and pricing information are made
+                available on the TruckWys website wherever the Customer transacts with TruckWys online, including at
+                sign-up and checkout.
+              </p>
+            </section>
+
+            <section>
+              <h2>19. Governing law and disputes</h2>
+              <p>
+                This Agreement is governed by the laws of the Republic of South Africa. The parties will attempt to resolve
+                any dispute through good-faith negotiation before resorting to litigation in the courts of South Africa,
+                which have exclusive jurisdiction.
+              </p>
+            </section>
+
+            <section>
+              <h2>20. General</h2>
               <ul>
-                <li>Separate terms and conditions from lending partners</li>
-                <li>Credit approval by the lending partner</li>
-                <li>Fees and interest rates set by the lending partner</li>
+                <li>
+                  This Agreement, together with the <Link href="/privacy">Privacy Policy</Link> and the Data Processing
+                  Agreement, constitutes the entire agreement between the parties regarding its subject matter.
+                </li>
+                <li>
+                  TruckWys may update this Agreement from time to time. Material changes will be notified to the Customer,
+                  and continued use of the Platform after such notice constitutes acceptance.
+                </li>
+                <li>
+                  If any provision of this Agreement is found invalid or unenforceable, the remaining provisions continue
+                  in full force.
+                </li>
+                <li>Neither party is liable for delay or failure to perform due to events beyond its reasonable control.</li>
+                <li>
+                  Notices under this Agreement should be sent to{' '}
+                  <a href="mailto:grant@truckwys.com">grant@truckwys.com</a>, or to the registered address in clause 1, or
+                  to the Customer&apos;s registered account email address.
+                </li>
               </ul>
-              <p>
-                TruckWys facilitates connections but is not a lender and does not guarantee financing approval.
-              </p>
             </section>
 
             <section>
-              <h2>11. Limitation of Liability</h2>
-              <p>To the maximum extent permitted by law, TruckWys shall not be liable for:</p>
-              <ul>
-                <li>Indirect, incidental, or consequential damages</li>
-                <li>Loss of profits, revenue, or data</li>
-                <li>Business interruption</li>
-                <li>Decisions made based on Platform recommendations</li>
-              </ul>
+              <h2>21. Contact</h2>
               <p>
-                Our total liability shall not exceed the fees paid by you in the 12 months preceding the claim.
-              </p>
-            </section>
-
-            <section>
-              <h2>12. Termination</h2>
-              <p>
-                Either party may terminate this agreement with 30 days written notice. We may suspend or terminate your
-                account immediately if you:
-              </p>
-              <ul>
-                <li>Breach these terms</li>
-                <li>Fail to pay fees when due</li>
-                <li>Engage in fraudulent or illegal activity</li>
-              </ul>
-              <p>Upon termination, you may request export of your data within 30 days.</p>
-            </section>
-
-            <section>
-              <h2>13. Governing Law</h2>
-              <p>
-                These terms are governed by the laws of the Republic of South Africa. Any disputes shall be resolved in
-                the courts of South Africa.
-              </p>
-            </section>
-
-            <section>
-              <h2>14. Changes to Terms</h2>
-              <p>
-                We may update these terms from time to time. We will notify you of material changes via email or through
-                the Platform. Continued use after changes constitutes acceptance of the new terms.
-              </p>
-            </section>
-
-            <section>
-              <h2>15. Contact</h2>
-              <p>
-                For questions about these Terms of Service, contact us at:{' '}
-                <a href="mailto:grant@truckwys.com">grant@truckwys.com</a>
+                For questions about this Agreement, contact us at{' '}
+                <a href="mailto:grant@truckwys.com">grant@truckwys.com</a>. For app support, contact{' '}
+                <a href="mailto:support@truckwys.com">support@truckwys.com</a>.
               </p>
             </section>
           </div>
