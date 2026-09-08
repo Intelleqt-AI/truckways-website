@@ -1,5 +1,6 @@
 import Link from 'next/link';
 import Image from 'next/image';
+import { APP_LOGIN_URL } from '../lib/site';
 
 const productLinks = [
   { href: '/product', label: 'Product' },
@@ -14,8 +15,12 @@ const companyLinks = [
   { href: '/about', label: 'About' },
   { href: '/blogs', label: 'Blog' },
   { href: '/contact', label: 'Contact' },
-  { href: '/get-started', label: 'Get started' },
+  // Points at the product app, not a page on this site.
+  { href: APP_LOGIN_URL, label: 'Get started' },
 ];
+
+const linkClass =
+  'inline-block py-1.5 text-[14px] text-ink-2 transition-colors hover:text-ink';
 
 export default function Footer() {
   return (
@@ -46,7 +51,7 @@ export default function Footer() {
             <ul className="space-y-2.5">
               {productLinks.map((l) => (
                 <li key={l.href}>
-                  <Link href={l.href} className="inline-block py-1.5 text-[14px] text-ink-2 transition-colors hover:text-ink">
+                  <Link href={l.href} className={linkClass}>
                     {l.label}
                   </Link>
                 </li>
@@ -57,13 +62,21 @@ export default function Footer() {
           <div>
             <div className="eyebrow mb-4">Company</div>
             <ul className="space-y-2.5">
-              {companyLinks.map((l) => (
-                <li key={l.href}>
-                  <Link href={l.href} className="inline-block py-1.5 text-[14px] text-ink-2 transition-colors hover:text-ink">
-                    {l.label}
-                  </Link>
-                </li>
-              ))}
+              {companyLinks.map((l) =>
+                l.href.startsWith('http') ? (
+                  <li key={l.href}>
+                    <a href={l.href} className={linkClass}>
+                      {l.label}
+                    </a>
+                  </li>
+                ) : (
+                  <li key={l.href}>
+                    <Link href={l.href} className={linkClass}>
+                      {l.label}
+                    </Link>
+                  </li>
+                ),
+              )}
             </ul>
           </div>
         </div>

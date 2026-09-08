@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
-import { FACTS, jsonLd, softwareSchema } from '../../lib/site';
+import { APP_LOGIN_URL, FACTS, jsonLd, softwareSchema } from '../../lib/site';
 
 export const metadata: Metadata = {
   title: 'Pricing',
@@ -83,9 +83,9 @@ export default function PricingPage() {
                 ))}
               </ul>
               <div className="mt-auto pt-8">
-                <Link href="/get-started" className="btn-primary w-full">
-                  Start your free trial
-                </Link>
+                <a href={APP_LOGIN_URL} className="btn-primary w-full">
+                  Get started
+                </a>
               </div>
             </div>
 
@@ -180,13 +180,13 @@ export default function PricingPage() {
             R4,500 gets your whole fleet on board
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-[16px] text-ink-2">
-            Start the trial today and send your first properly costed quote before
-            the diesel price changes again.
+            Sign in and send your first properly costed quote before the diesel
+            price changes again.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 px-6 sm:flex-row sm:px-0">
-            <Link href="/get-started" className="btn-primary w-full !border-white !bg-white !text-accent sm:w-auto">
-              Start your free trial
-            </Link>
+            <a href={APP_LOGIN_URL} className="btn-primary w-full !border-white !bg-white !text-accent sm:w-auto">
+              See the demo
+            </a>
             <Link href="/contact" className="btn-secondary w-full !border-white/40 !bg-transparent !text-white sm:w-auto">
               Talk to us
             </Link>

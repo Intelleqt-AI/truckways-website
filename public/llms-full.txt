@@ -34,7 +34,7 @@ TruckWys is not a transport management system and does not do route dispatching,
 
 - Platform: R4,500 per month per fleet plus 0.25% per confirmed booking. Unlimited users, quotes and invoices. No setup fees. No per-user pricing.
 - FastPay: optional 48-hour invoice settlement, chosen invoice by invoice and priced separately. No lock-in, no minimums.
-- Free trial available via https://www.truckwys.com/get-started
+- There is no free trial. Prospective customers can sign in at https://app.truckwys.com/login and look around with the demo account, or contact grant@truckwys.com.
 
 ## Who uses it
 
@@ -73,4 +73,4 @@ A: Yes. Data is encrypted in transit and at rest, hosted securely, and never sha
 
 - Email: grant@truckwys.com
 - Website: https://www.truckwys.com
-- Trial: https://www.truckwys.com/get-started
+- App sign-in: https://app.truckwys.com/login
