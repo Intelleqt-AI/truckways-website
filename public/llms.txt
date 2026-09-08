@@ -24,7 +24,7 @@ Who it is for: South African fleet owners and transport operators running roughl
 - [Product](https://www.truckwys.com/product): the full product from quote to cash
 - [Pricing](https://www.truckwys.com/pricing): R4,500 per month plus 0.25% per confirmed booking
 - [About](https://www.truckwys.com/about): what TruckWys is and is not
-- [Get started](https://www.truckwys.com/get-started): start a free trial
+- [Get started](https://app.truckwys.com/login): sign in to the app, or look around with the demo account
 - [Contact](https://www.truckwys.com/contact): talk to the team
 - [Blog](https://www.truckwys.com/blogs): guides on fleet costs and pricing in South Africa
 

@@ -2,7 +2,7 @@ import type { Metadata } from 'next';
 import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { blogPosts } from '../../../lib/blog-data';
-import { SITE_URL, jsonLd } from '../../../lib/site';
+import { APP_LOGIN_URL, SITE_URL, jsonLd } from '../../../lib/site';
 
 type Post = (typeof blogPosts)[number];
 
@@ -165,9 +165,9 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                 TruckWys quotes with live diesel prices, the actual tolls on the route
                 and your own running costs, then invoices the moment you deliver.
               </p>
-              <Link href="/get-started" className="btn-primary mt-6 !border-white !bg-white !text-accent">
-                Start your free trial
-              </Link>
+              <a href={APP_LOGIN_URL} className="btn-primary mt-6 !border-white !bg-white !text-accent">
+                See the demo
+              </a>
             </div>
           </div>
 

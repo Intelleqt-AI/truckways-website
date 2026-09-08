@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import Link from 'next/link';
 import { blogPosts } from '../../lib/blog-data';
+import { APP_LOGIN_URL } from '../../lib/site';
 
 export const metadata: Metadata = {
   title: 'Blog',
@@ -89,9 +90,9 @@ export default function BlogIndexPage() {
               TruckWys prices your loads with live diesel, real tolls and your own
               running costs, then gets the invoices paid.
             </p>
-            <Link href="/get-started" className="btn-primary mt-6 !border-white !bg-white !text-accent">
-              Start your free trial
-            </Link>
+            <a href={APP_LOGIN_URL} className="btn-primary mt-6 !border-white !bg-white !text-accent">
+              See the demo
+            </a>
           </div>
         </div>
       </section>

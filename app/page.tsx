@@ -1,6 +1,8 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import {
+  APP_LOGIN_URL,
+  APP_STORE_URL,
   FACTS,
   jsonLd,
   organizationSchema,
@@ -35,9 +37,9 @@ export default function HomePage() {
             their time. Built for South African fleets.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 px-6 sm:flex-row sm:px-0">
-            <Link href="/get-started" className="btn-primary w-full sm:w-auto">
-              Start your free trial
-            </Link>
+            <a href={APP_LOGIN_URL} className="btn-primary w-full sm:w-auto">
+              Get started
+            </a>
             <Link href="/product" className="btn-secondary w-full sm:w-auto">
               See how it works
             </Link>
@@ -262,9 +264,13 @@ export default function HomePage() {
                 ))}
               </ul>
 
-              {/* Store badges (link to early access until the store listings go live) */}
               <div className="mt-8 flex flex-wrap items-center gap-3">
-                <Link href="/get-started" aria-label="Download on the App Store (early access)">
+                <a
+                  href={APP_STORE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Download TruckWys on the App Store"
+                >
                   <svg width="162" height="48" viewBox="0 0 162 48" role="img" aria-hidden="true">
                     <rect width="162" height="48" rx="9" fill="#000" stroke="#3c3c3c" strokeWidth="1" />
                     <path
@@ -274,8 +280,15 @@ export default function HomePage() {
                     <text x="44" y="20" fill="#fff" fontSize="10" fontFamily="Inter, sans-serif">Download on the</text>
                     <text x="44" y="37" fill="#fff" fontSize="17" fontWeight="600" fontFamily="Inter, sans-serif">App Store</text>
                   </svg>
-                </Link>
-                <Link href="/get-started" aria-label="Get it on Google Play (early access)">
+                </a>
+                {/* Google Play: put the listing URL in PLAY_STORE_URL (lib/site.ts) and
+                    uncomment this once the Android app is live on the Play Store.
+                <a
+                  href={PLAY_STORE_URL}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label="Get TruckWys on Google Play"
+                >
                   <svg width="162" height="48" viewBox="0 0 162 48" role="img" aria-hidden="true">
                     <rect width="162" height="48" rx="9" fill="#000" stroke="#3c3c3c" strokeWidth="1" />
                     <g transform="translate(14 12)">
@@ -287,11 +300,11 @@ export default function HomePage() {
                     <text x="44" y="20" fill="#fff" fontSize="10" fontFamily="Inter, sans-serif">GET IT ON</text>
                     <text x="44" y="37" fill="#fff" fontSize="17" fontWeight="600" fontFamily="Inter, sans-serif">Google Play</text>
                   </svg>
-                </Link>
+                </a>
+                */}
               </div>
               <p className="mt-4 text-[13px] text-ink-3">
-                Rolling out with the platform. The badges take you to early access
-                until the store listings go live.
+                On the App Store now. The Android app is on its way to Google Play.
               </p>
             </div>
 
@@ -503,9 +516,9 @@ export default function HomePage() {
                 ))}
               </ul>
               <div className="mt-auto pt-8">
-                <Link href="/get-started" className="btn-primary w-full">
-                  Start your free trial
-                </Link>
+                <a href={APP_LOGIN_URL} className="btn-primary w-full">
+                  Get started
+                </a>
               </div>
             </div>
 
@@ -570,9 +583,9 @@ export default function HomePage() {
             the diesel price changes again.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 px-6 sm:flex-row sm:px-0">
-            <Link href="/get-started" className="btn-primary w-full !border-white !bg-white !text-accent sm:w-auto">
-              Start your free trial
-            </Link>
+            <a href={APP_LOGIN_URL} className="btn-primary w-full !border-white !bg-white !text-accent sm:w-auto">
+              See the demo
+            </a>
             <Link href="/contact" className="btn-secondary w-full !border-white/40 !bg-transparent !text-white sm:w-auto">
               Talk to us
             </Link>

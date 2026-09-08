@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import Image from 'next/image';
+import { APP_LOGIN_URL } from '../lib/site';
 
 const links = [
   { href: '/product', label: 'Product' },
@@ -42,9 +43,9 @@ export default function Navbar() {
         </nav>
 
         <div className="hidden items-center gap-3 md:flex">
-          <Link href="/get-started" className="btn-primary !px-5 !py-2.5 text-[14px]">
+          <a href={APP_LOGIN_URL} className="btn-primary !px-5 !py-2.5 text-[14px]">
             Get started
-          </Link>
+          </a>
         </div>
 
         <button
@@ -76,9 +77,9 @@ export default function Navbar() {
                 {l.label}
               </Link>
             ))}
-            <Link href="/get-started" onClick={() => setOpen(false)} className="btn-primary mt-2">
+            <a href={APP_LOGIN_URL} onClick={() => setOpen(false)} className="btn-primary mt-2">
               Get started
-            </Link>
+            </a>
           </div>
         </nav>
       )}

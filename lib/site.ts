@@ -6,6 +6,22 @@
 
 export const SITE_URL = 'https://www.truckwys.com';
 
+/**
+ * The product app. Every "Get started" and "See the demo" CTA points here:
+ * there is no free trial, so visitors sign in and look around with the demo
+ * account rather than filling in a form and waiting for a call.
+ */
+export const APP_LOGIN_URL = 'https://app.truckwys.com/login';
+
+/** The live iOS listing. */
+export const APP_STORE_URL = 'https://apps.apple.com/app/truckwys/id6796449044';
+
+/**
+ * The Android app is not on the Play Store yet. When it is, set this and
+ * uncomment the Google Play badge in app/page.tsx.
+ */
+// export const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=';
+
 export const FACTS = {
   name: 'TruckWys',
   oneLiner:

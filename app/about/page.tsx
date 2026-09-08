@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { jsonLd, organizationSchema, SITE_URL } from '../../lib/site';
+import { APP_LOGIN_URL, jsonLd, organizationSchema, SITE_URL } from '../../lib/site';
 
 export const metadata: Metadata = {
   title: 'About',
@@ -151,9 +151,9 @@ export default function AboutPage() {
             ask anything.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 px-6 sm:flex-row sm:px-0">
-            <Link href="/get-started" className="btn-primary w-full !border-white !bg-white !text-accent sm:w-auto">
-              Start your free trial
-            </Link>
+            <a href={APP_LOGIN_URL} className="btn-primary w-full !border-white !bg-white !text-accent sm:w-auto">
+              See the demo
+            </a>
             <Link href="/contact" className="btn-secondary w-full !border-white/40 !bg-transparent !text-white sm:w-auto">
               Talk to us
             </Link>
