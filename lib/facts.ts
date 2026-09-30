@@ -75,4 +75,4 @@ export const PRICE_AND_FEE = `${PRICE_LINE}, plus ${FEE_LINE}.`;
 /** Short form for tight spots (CTA bands, the phone menu). */
 export const PRICE_SHORT = `${PRICE_LINE}, plus 0,25% per delivered load.`;
 /** Owner is still deciding notice terms: say only this. Never point to the Terms for notice. */
-export const CANCELLATION = 'Month to month. No long-term contract.';
+export const CANCELLATION = 'Month to month. No long\u2011term contract.'; // non-breaking hyphen

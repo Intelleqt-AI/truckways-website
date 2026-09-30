@@ -9,11 +9,11 @@ import { CostBreakdown, QuoteCard, N3Tolls } from '../components/fragments/Quote
 import {
   InvoiceRow, NeedsYouCard, LaneRanking, CopilotPanel, Findings, Stats,
 } from '../components/fragments/Money';
-import { FACTS, PRICE_AND_FEE, PRICE_LINE, CANCELLATION } from '../lib/facts';
+import { FACTS, PRICE, PRICE_AND_FEE, PRICE_SHORT, FEE_LINE, CANCELLATION } from '../lib/facts';
 import { signupUrl, demoUrl, jsonLd, SITE_URL } from '../lib/site';
 import { graph, softwareSchema, offerSchema, faqSchema } from '../lib/schema';
-import { INVOICE, KPIS } from '../content/demo-data';
-import { rand } from '../lib/format';
+import { INVOICE, KPIS, QUOTE, FEE_EXAMPLE } from '../content/demo-data';
+import { rand, date } from '../lib/format';
 
 const TITLE = 'TruckWys: quoting, invoicing and debtors for SA transporters';
 const DESCRIPTION =
@@ -32,7 +32,6 @@ export const metadata: Metadata = {
   twitter: { title: TITLE, description: DESCRIPTION, images: ['/og/home.png'] },
 };
 
-// TODO(owner) VAT-1: every price line on this page renders without "incl." or "excl." VAT until confirmed.
 
 const FACTS_ROW = [
   { fig: String(FACTS.tollPlazas), label: 'SANRAL mainline toll plazas, priced by vehicle class at 2026 tariffs' },
@@ -44,7 +43,7 @@ const FACTS_ROW = [
 const STEPS = [
   {
     title: 'Quote from real costs',
-    body: "This month's FIASA diesel, every SANRAL mainline plaza at your truck's class, border fees, allowance and your rate, with a warning in rand when a quote is below cost.",
+    body: `This month's FIASA diesel, the ${FACTS.tollPlazas} SANRAL mainline plazas at your truck's class, border fees, allowance and your rate, with a warning in rand when a quote is below cost.`,
     href: '/product#quote',
     link: 'How quoting works',
   },
@@ -69,34 +68,36 @@ const STEPS = [
 ];
 
 const CARDS = [
-  { icon: Calculator, name: 'Quoting', line: 'Priced from diesel, tolls and your costs', href: '/product#quote' },
-  { icon: Receipt, name: 'Invoicing', line: 'Raised when the load delivers', href: '/product#paid' },
-  { icon: Users, name: 'Debtors', line: 'Who owes you, and one-click reminders', href: '/product#paid' },
-  { icon: FileBarChart, name: 'Reports', line: 'P&L, VAT and margin by lane', href: '/product#numbers' },
-  { icon: MessageSquareText, name: 'Copilot', line: 'Ask your numbers in plain words', href: '/product#models' },
-  { icon: Plug, name: 'Integrations', line: 'Cartrack, CtrlFleet, API and CSV', href: '/product#integrations' },
+  { icon: Calculator, name: 'Quoting', line: 'Priced from diesel, tolls and your costs', href: '/product#quote', fact: `FIASA diesel · ${FACTS.tollPlazas} toll plazas` },
+  { icon: Receipt, name: 'Invoicing', line: 'Raised when the load delivers', href: '/product#paid', fact: '15% VAT · EFT reference' },
+  { icon: Users, name: 'Debtors', line: 'Who owes you, and one-click reminders', href: '/product#paid', fact: 'By age · statement per customer' },
+  { icon: FileBarChart, name: 'Reports', line: 'P&L, VAT and margin by lane', href: '/product#numbers', fact: `${FACTS.reports} reports · CSV export` },
+  { icon: MessageSquareText, name: 'Copilot', line: 'Ask your numbers in plain words', href: '/product#models', fact: 'Drafts wait for you to confirm' },
+  { icon: Plug, name: 'Integrations', line: 'Cartrack, CtrlFleet, API and CSV', href: '/product#integrations', fact: 'Nothing to install' },
 ];
 
 const SOON = [
   { icon: Zap, name: 'Fast Pay', line: 'Get paid before your customer pays.', topic: 'fast-pay' },
-  // Q12: one-line description of Insurance pending; "Not live yet" until then.
-  { icon: ShieldCheck, name: 'Insurance', line: 'Not live yet.', topic: 'insurance' },
+  // Q12: no product detail until the owner confirms it; one honest line meanwhile.
+  { icon: ShieldCheck, name: 'Insurance', line: 'Being built. What it covers is published before it goes live.', topic: 'insurance' },
 ];
 
+/* Milestones, not durations: nothing here implies a measured setup time. */
 const TIMELINE = [
-  { t: 'Before you pay', d: 'Open the demo: a working company with sample data. No form, no call.' },
-  { t: 'Day 0', d: 'Create your account, confirm your email with a code and add a card. You are live once the payment clears.' },
-  { t: 'Setup', d: 'Paste your customers and trucks from Excel, set your rates and driver allowance, and connect Cartrack or CtrlFleet with your login.' },
-  { t: 'First delivery', d: 'Mark a load delivered, or let your TMS do it, and the invoice is raised with VAT.' },
-  { t: 'Month end', d: 'Profit and loss, debtors age and the VAT report come from the same numbers.' },
+  { t: 'Before you pay', h: 'Look around the demo', d: 'A working company with sample data. No form, no call.' },
+  { t: 'Day 0', h: 'Create your account', d: 'Confirm your email with a code and add a card. You are live once the payment clears.' },
+  { t: 'First quote', h: 'Load your lists and rates', d: 'Paste customers and trucks from Excel, set your rates and allowance, and price a load.' },
+  { t: 'First delivery', h: 'The invoice raises itself', d: 'Mark the load delivered, or let your TMS do it. The invoice goes out with 15% VAT.' },
+  { t: 'Month end', h: 'Close the month', d: 'Profit and loss, debtors by age and the VAT report, from the same numbers.' },
 ];
 
 const FAQ: QA[] = [
   { id: 'tms', q: 'Is TruckWys a TMS?', a: 'No. It does not dispatch, route or schedule. It works next to your TMS, your spreadsheets and your tracking, and handles the money on each load.' },
   { id: 'cost', q: 'What does it cost?', a: `${PRICE_AND_FEE} Unlimited users. No long-term contract.` },
+  { id: 'vat', q: 'Is VAT included?', a: `No. ${PRICE} per month is excl. VAT, and VAT is added to your subscription invoice. The 0,25% is worked out on each delivered load's invoice total including VAT: a load invoiced at ${rand(FEE_EXAMPLE.invoice, { cents: true })} adds ${rand(FEE_EXAMPLE.fee, { cents: true })}.` },
   { id: 'try', q: 'Can I try it first?', a: 'Yes. Open the demo: a working company with sample data. No form and no call.' },
   { id: 'prices', q: 'Where do diesel and toll prices come from?', a: `Diesel from FIASA, inland or coastal. Tolls from the SANRAL tariffs effective 1 March 2026, for ${FACTS.tollPlazas} mainline plazas, by vehicle class.` },
-  { id: 'cartrack', q: 'Does it work with Cartrack?', a: 'Yes. Connect with your Cartrack login and vehicle location and odometer flow in. CtrlFleet connects too.' },
+  { id: 'cartrack', q: 'Does it work with Cartrack?', a: 'Yes. Connect with your Cartrack API username and password (in Fleetweb under Settings, API Settings), not your normal login, and vehicle location and odometer flow in. CtrlFleet connects too.' },
   // Q11 (data pooling wording) is held until the owner approves it.
   { id: 'fastpay', q: 'What about Fast Pay?', a: 'Coming soon. It is not live, and we will not publish rates until it is.' },
 ];
@@ -197,7 +198,6 @@ export default function Home() {
                 Open the demo
               </ButtonLink>
             </div>
-            {/* TODO(owner) VAT-1 */}
             <p className="small hero__price">
               {PRICE_AND_FEE} No <span className="nowrap">long-term</span> contract.
             </p>
@@ -301,6 +301,7 @@ export default function Home() {
             </div>
           </figure>
           <p className="small fit__note">No hardware to install. Nothing to migrate. Your tools stay in place.</p>
+          <p className="caption fit__cap">Invoice, debtors and lanes: {SAMPLE_CAPTION.charAt(0).toLowerCase() + SAMPLE_CAPTION.slice(1)}</p>
           <div className="fit__foot">
             <TextLink href="/contact?topic=partner" cta="talk_to_us" loc="fit">
               For TMS partners
@@ -322,8 +323,35 @@ export default function Home() {
             <StepSwitcher
               steps={STEPS}
               panels={[<QuoteCard key="q" />, <InvoiceRow key="i" />, <NeedsYouCard key="n" />, <LaneRanking key="l" />]}
+              aside={
+                <>
+                  <p className="chain__title">One load, one record</p>
+                  <ul className="chain list-reset">
+                    <li>
+                      <span>Quote</span>
+                      <span>{QUOTE.number}, accepted</span>
+                      <span>{rand(QUOTE.quotePrice, { cents: true })}</span>
+                    </li>
+                    <li>
+                      <span>Invoice</span>
+                      <span>{INVOICE.number}, due {date(INVOICE.due)}</span>
+                      <span>{rand(INVOICE.total, { cents: true })}</span>
+                    </li>
+                    <li>
+                      <span>Margin</span>
+                      <span>After fuel, tolls, allowance and base rate</span>
+                      <span>{String(QUOTE.marginPct).replace('.', ',')}%</span>
+                    </li>
+                    <li>
+                      <span>Lane</span>
+                      <span>Johannesburg to Durban, per km</span>
+                      <span>{rand(QUOTE.perKm, { cents: true })}</span>
+                    </li>
+                  </ul>
+                  <Caption />
+                </>
+              }
             />
-            <Caption />
           </div>
         </div>
       </section>
@@ -370,6 +398,7 @@ export default function Home() {
           </div>
           <div className="band__float reveal">
             <CopilotPanel float />
+            <p className="caption band__cap">{SAMPLE_CAPTION}</p>
           </div>
         </div>
       </section>
@@ -379,26 +408,33 @@ export default function Home() {
         <div className="wrap">
           <SectionHeader id="plan-h" a="Everything in one plan." b="And two more on the way." line="One subscription covers every module, for your whole team." />
           <ul className="cards list-reset">
-            {CARDS.map(({ icon: Icon, name, line, href }) => (
+            {CARDS.map(({ icon: Icon, name, line, href, fact }) => (
               <li key={name} className="reveal">
                 <a className="pcard" href={href}>
-                  <Icon className="pcard__icon" strokeWidth={1.75} aria-hidden="true" />
-                  <span className="pcard__name">
-                    {name}
-                    <ArrowRight strokeWidth={1.75} aria-hidden="true" />
+                  <span className="pcard__top">
+                    <span className="pcard__tile" aria-hidden="true">
+                      <Icon className="pcard__icon" strokeWidth={1.75} />
+                    </span>
+                    <ArrowRight className="pcard__go" strokeWidth={1.75} aria-hidden="true" />
                   </span>
+                  <span className="pcard__name">{name}</span>
                   <span className="pcard__line">{line}</span>
+                  <span className="pcard__foot pcard__fact">{fact}</span>
                 </a>
               </li>
             ))}
             {SOON.map(({ icon: Icon, name, line, topic }) => (
               <li key={name} className="reveal">
-                <div className="pcard">
-                  <Icon className="pcard__icon" strokeWidth={1.75} aria-hidden="true" />
+                <div className="pcard pcard--soon">
+                  <span className="pcard__top">
+                    <span className="pcard__tile" aria-hidden="true">
+                      <Icon className="pcard__icon" strokeWidth={1.75} />
+                    </span>
+                    <StatusChip />
+                  </span>
                   <span className="pcard__name">{name}</span>
                   <span className="pcard__line">{line}</span>
                   <span className="pcard__foot">
-                    <StatusChip />
                     <TextLink href={`/contact?topic=${topic}`} cta="notify" loc="plan_cards" quiet>
                       Get notified<span className="sr-only"> about {name}</span>
                     </TextLink>
@@ -418,7 +454,7 @@ export default function Home() {
             <ul className="sa__rows list-reset reveal">
               <li>
                 Tolls go into the quote excl. VAT, because you claim the VAT back.
-                <span>Every SANRAL mainline plaza on the route, at your truck&apos;s class.</span>
+                <span>The {FACTS.tollPlazas} SANRAL mainline plazas on the N1, N2, N3, N4, N17 and R30, at your truck&apos;s class.</span>
               </li>
               <li>
                 Border, permit and foreign toll fees for SADC loads.
@@ -446,14 +482,16 @@ export default function Home() {
             line="Nothing to install and nothing to rip out. You set it up yourself, and we are a message away."
           />
           <ol className="tl list-reset reveal">
-            {TIMELINE.map((s) => (
+            {TIMELINE.map((s, i) => (
               <li className="tl__item" key={s.t}>
+                <span className="tl__node" aria-hidden="true">
+                  {i + 1}
+                </span>
+                <span className="tl__when">{s.t}</span>
                 <div className="tl__card">
-                  <h3>{s.t}</h3>
+                  <h3>{s.h}</h3>
                   <p>{s.d}</p>
                 </div>
-                <span className="tl__stem" aria-hidden="true" />
-                <span className="tl__node" aria-hidden="true" />
               </li>
             ))}
           </ol>
@@ -465,32 +503,39 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 10. Pricing (G). Ref: flott-1440-full-3 "Deploy your first use case." */}
+      {/* 10. Pricing (G). Ref: flott-1440-full-3 "Deploy your first use case." The price is the figure. */}
       <section className="sec sec--grey" aria-labelledby="price-h">
         <div className="wrap psplit">
           <div className="psplit__lead reveal">
             <TwoTone id="price-h" a="One plan. One price." b="Everything in it." />
-            {/* TODO(owner) VAT-1 */}
-            <p className="psplit__price">{PRICE_AND_FEE}</p>
-            <p className="small" style={{ marginTop: 12 }}>
-              Worked example: a load invoiced at R&nbsp;34&nbsp;500 adds R&nbsp;86,25.
-            </p>
+            <p className="body psplit__intro">One subscription for your whole team, month to month. The only other charge is on loads that deliver.</p>
           </div>
-          <ul className="psplit__list list-reset reveal">
-            {['Unlimited loads, quotes, invoices and users', 'Reports, Copilot, integrations and API', 'Nothing on quotes you lose', CANCELLATION].map((t) => (
-              <li key={t}>
-                <Check strokeWidth={1.75} aria-hidden="true" />
-                {t}
-              </li>
-            ))}
-          </ul>
-          <div className="psplit__cta reveal">
-            <ButtonLink href={signupUrl('home-pricing')} cta="get_started" loc="pricing_section">
-              Get started
-            </ButtonLink>
-            <TextLink href="/pricing" cta="see_pricing" loc="pricing_section">
-              See pricing
-            </TextLink>
+          <div className="psplit__offer reveal">
+            <p className="psplit__fig">
+              <span className="figure-big">{PRICE}</span>
+              <span>per month excl.&nbsp;VAT</span>
+            </p>
+            <p className="psplit__fee">plus {FEE_LINE}</p>
+            <p className="small psplit__eg">
+              Worked example: the load invoiced above, {rand(FEE_EXAMPLE.invoice, { cents: true })} incl. VAT, adds{' '}
+              {rand(FEE_EXAMPLE.fee, { cents: true })}.
+            </p>
+            <ul className="psplit__list list-reset">
+              {['Unlimited loads, quotes, invoices and users', 'Reports, Copilot, integrations and API', 'Nothing on quotes you lose', CANCELLATION].map((t) => (
+                <li key={t}>
+                  <Check strokeWidth={1.75} aria-hidden="true" />
+                  {t}
+                </li>
+              ))}
+            </ul>
+            <div className="btn-row psplit__cta">
+              <ButtonLink href={signupUrl('home-pricing')} cta="get_started" loc="pricing_section">
+                Get started
+              </ButtonLink>
+              <TextLink href="/pricing" cta="see_pricing" loc="pricing_section">
+                See pricing
+              </TextLink>
+            </div>
           </div>
         </div>
       </section>
@@ -516,17 +561,19 @@ export default function Home() {
                 Get started
               </ButtonLink>
             </div>
-            {/* TODO(owner) VAT-1 */}
-            <p className="small">{PRICE_LINE}, plus 0,25% per delivered load.</p>
+            <p className="small">{PRICE_SHORT}</p>
           </div>
           <div className="ctap__visual" aria-hidden="true">
             <div className="ctap__crop">
-              <HomeDashboard />
+              <div className="ctap__scale">
+                <HomeDashboard />
+              </div>
             </div>
             <div className="ctap__float">
               <InvoiceRow compact float />
             </div>
           </div>
+          <p className="caption ctap__cap">{SAMPLE_CAPTION}</p>
         </div>
       </section>
     </>

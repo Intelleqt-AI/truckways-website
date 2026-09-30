@@ -12,7 +12,7 @@ type Step = { title: string; body: string; href: string; link: string };
  * fetched. Semantics: disclosure buttons (aria-expanded) that control the row's
  * text and its panel, which reads correctly as the accordion it becomes on phones.
  */
-export default function StepSwitcher({ steps, panels }: { steps: Step[]; panels: ReactNode[] }) {
+export default function StepSwitcher({ steps, panels, aside }: { steps: Step[]; panels: ReactNode[]; aside?: ReactNode }) {
   const [active, setActive] = useState(0);
   const btns = useRef<(HTMLButtonElement | null)[]>([]);
 
@@ -34,6 +34,7 @@ export default function StepSwitcher({ steps, panels }: { steps: Step[]; panels:
 
   return (
     <div className="steps">
+      <div className="steps__left">
       <ol className="steps__list list-reset">
         {steps.map((s, i) => (
           <li key={s.title} className={`step${i === active ? ' is-active' : ''}`} onMouseEnter={() => hover(i)}>
@@ -69,6 +70,8 @@ export default function StepSwitcher({ steps, panels }: { steps: Step[]; panels:
           </li>
         ))}
       </ol>
+      {aside ? <div className="steps__aside">{aside}</div> : null}
+      </div>
       <div className="steps__panels">
         {panels.map((p, i) => (
           <div

@@ -70,8 +70,8 @@ export default function Footer() {
           </div>
         </div>
         <div className="footer__legal">
-          <p className="small">
-            {FACTS.company.name} · Reg. {FACTS.company.reg} · {FACTS.company.address}
+          <p className="small footer__co">
+            <span>{FACTS.company.name}</span> <span>· Reg. {FACTS.company.reg}</span> <span>· {FACTS.company.address}</span>
           </p>
           <p className="small">© 2026 TruckWys</p>
         </div>

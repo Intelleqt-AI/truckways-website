@@ -210,7 +210,7 @@ export const FINDINGS = [
     title: `${sandveld.customer.split(' ')[0]} stopped paying`,
     severity: 'Medium',
     area: 'Get paid',
-    detail: `Paid 5 invoices on time, then skipped ${sandveld.number}. Now ${sandveld.daysLate} days late.`,
+    detail: `Paid 5 invoices on time, then skipped ${sandveld.number.replace(/-/g, '\u2011')}. Now ${sandveld.daysLate} days late.`,
     action: 'Call about the skipped invoice',
     share: 0.33,
   },
