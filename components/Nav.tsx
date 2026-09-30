@@ -1,5 +1,5 @@
 import { signupUrl, demoUrl, loginUrl } from '../lib/site';
-import { PRICE_AND_FEE } from '../lib/facts';
+import { PRICE_SHORT } from '../lib/facts';
 import NavSheet from './NavSheet';
 
 /*
@@ -38,7 +38,7 @@ export default function Nav({ current }: { current?: string }) {
           <a href={signupUrl('nav')} className="btn btn--primary btn--sm" data-cta="get_started" data-loc="nav">
             Get started
           </a>
-          <NavSheet links={NAV_LINKS} signIn={loginUrl('menu')} demo={demoUrl('menu')} signup={signupUrl('menu')} price={PRICE_AND_FEE} />
+          <NavSheet links={NAV_LINKS} signIn={loginUrl('menu')} demo={demoUrl('menu')} signup={signupUrl('menu')} price={PRICE_SHORT} />
         </div>
       </div>
     </header>

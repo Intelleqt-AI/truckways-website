@@ -1,6 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
+import { createPortal } from 'react-dom';
 
 type Props = {
   links: { href: string; label: string }[];
@@ -10,9 +11,23 @@ type Props = {
   price: string;
 };
 
-/** Phone menu: full-height sheet, focus trapped while open, Escape closes and returns focus. */
+/**
+ * Phone menu: full-height sheet, focus trapped while open, Escape closes and
+ * returns focus, page scroll locked. The sheet is portalled to <body> so no
+ * ancestor (the sticky header) can become its containing block and clip it.
+ */
 export default function NavSheet({ links, signIn, demo, signup, price }: Props) {
   const [open, setOpen] = useState(false);
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => setMounted(true), []);
+  // Close if the viewport grows past the phone/tablet nav while open.
+  useEffect(() => {
+    if (!open) return;
+    const mq = window.matchMedia('(min-width: 1100px)');
+    const onChange = () => mq.matches && setOpen(false);
+    mq.addEventListener('change', onChange);
+    return () => mq.removeEventListener('change', onChange);
+  }, [open]);
   const btn = useRef<HTMLButtonElement>(null);
   const panel = useRef<HTMLDivElement>(null);
 
@@ -22,7 +37,11 @@ export default function NavSheet({ links, signIn, demo, signup, price }: Props) 
     const focusables = () =>
       Array.from(root?.querySelectorAll<HTMLElement>('a[href], button') ?? []);
     focusables()[0]?.focus();
-    document.documentElement.style.overflow = 'hidden';
+    const html = document.documentElement;
+    const prevOverflow = html.style.overflow;
+    const scrollbar = window.innerWidth - html.clientWidth;
+    html.style.overflow = 'hidden';
+    if (scrollbar > 0) html.style.paddingRight = `${scrollbar}px`;
     const onKey = (e: KeyboardEvent) => {
       if (e.key === 'Escape') {
         setOpen(false);
@@ -43,7 +62,8 @@ export default function NavSheet({ links, signIn, demo, signup, price }: Props) 
     document.addEventListener('keydown', onKey);
     return () => {
       document.removeEventListener('keydown', onKey);
-      document.documentElement.style.overflow = '';
+      html.style.overflow = prevOverflow;
+      html.style.paddingRight = '';
       btn.current?.focus();
     };
   }, [open]);
@@ -55,7 +75,8 @@ export default function NavSheet({ links, signIn, demo, signup, price }: Props) 
         type="button"
         className="nav__menu-btn"
         aria-expanded={open}
-        aria-controls="site-sheet"
+        aria-controls={mounted ? 'site-sheet' : undefined}
+        aria-haspopup="dialog"
         onClick={() => setOpen(true)}
       >
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" aria-hidden="true">
@@ -63,6 +84,7 @@ export default function NavSheet({ links, signIn, demo, signup, price }: Props) 
         </svg>
         <span className="sr-only">Menu</span>
       </button>
+      {mounted && createPortal(
       <div
         className="sheet"
         id="site-sheet"
@@ -87,7 +109,7 @@ export default function NavSheet({ links, signIn, demo, signup, price }: Props) 
                 {l.label}
               </a>
             ))}
-            <a href="/contact">Talk to us</a>
+            <a href="/contact" data-cta="talk_to_us" data-loc="menu">Talk to us</a>
             <a href={signIn} data-cta="sign_in" data-loc="menu">
               Sign in
             </a>
@@ -102,7 +124,9 @@ export default function NavSheet({ links, signIn, demo, signup, price }: Props) 
             <p className="small sheet__price">{price}</p>
           </div>
         </div>
-      </div>
+      </div>,
+        document.body,
+      )}
     </>
   );
 }
