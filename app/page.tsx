@@ -1,538 +1,526 @@
-import Image from 'next/image';
-import Link from 'next/link';
+import type { Metadata } from 'next';
+import { Calculator, Receipt, Users, FileBarChart, MessageSquareText, Plug, Zap, ShieldCheck, ArrowRight, Check } from 'lucide-react';
+import { ButtonLink, TextLink, SectionHeader, TwoTone, StatusChip, Caption, SAMPLE_CAPTION } from '../components/ui';
+import StepSwitcher from '../components/StepSwitcher';
+import Faq, { type QA } from '../components/Faq';
+import HomeDashboard from '../components/fragments/HomeDashboard';
+import { CostBreakdown, QuoteCard, N3Tolls } from '../components/fragments/Quote';
 import {
-  APP_LOGIN_URL,
-  APP_STORE_URL,
-  CANCELLATION,
-  FACTS,
-  FEE_BASIS,
-  FEE_LABEL,
-  PRICE_LABEL,
-  jsonLd,
-  organizationSchema,
-  websiteSchema,
-  softwareSchema,
-  faqSchema,
-} from '../lib/site';
+  InvoiceRow, NeedsYouCard, LaneRanking, CopilotPanel, Findings, Stats, PhoneHome,
+} from '../components/fragments/Money';
+import { FACTS, PRICE_AND_FEE, PRICE_LINE, CANCELLATION } from '../lib/facts';
+import { signupUrl, demoUrl, jsonLd, SITE_URL } from '../lib/site';
+import { graph, softwareSchema, offerSchema, faqSchema } from '../lib/schema';
+import { INVOICE, KPIS } from '../content/demo-data';
+import { rand } from '../lib/format';
 
-export default function HomePage() {
+const TITLE = 'TruckWys: quoting, invoicing and debtors for SA transporters';
+const DESCRIPTION =
+  "Load-to-cash software for South African transporters. Price loads from FIASA diesel and SANRAL tolls, invoice on delivery and chase what's owed.";
+
+export const metadata: Metadata = {
+  title: { absolute: TITLE },
+  description: DESCRIPTION,
+  alternates: { canonical: SITE_URL },
+  openGraph: {
+    url: SITE_URL,
+    title: TITLE,
+    description: DESCRIPTION,
+    images: [{ url: '/og/home.png', width: 1200, height: 630, alt: 'TruckWys: Price it right. Invoice on delivery. Get paid.' }],
+  },
+  twitter: { title: TITLE, description: DESCRIPTION, images: ['/og/home.png'] },
+};
+
+// TODO(owner) VAT-1: every price line on this page renders without "incl." or "excl." VAT until confirmed.
+
+const FACTS_ROW = [
+  { fig: String(FACTS.tollPlazas), label: 'SANRAL mainline toll plazas, priced by vehicle class at 2026 tariffs' },
+  { fig: String(FACTS.reports), label: 'Reports, all reconciled to your invoices, payments and expenses' },
+  { fig: String(FACTS.roles.length), label: 'User roles, with unlimited users on one plan' },
+  { fig: '0,25%', label: 'Only on loads that deliver. Nothing on quotes you lose.' },
+];
+
+const STEPS = [
+  {
+    title: 'Quote from real costs',
+    body: "This month's FIASA diesel, every SANRAL mainline plaza at your truck's class, border fees, allowance and your rate, with a warning in rand when a quote is below cost.",
+    href: '/product#quote',
+    link: 'How quoting works',
+  },
+  {
+    title: 'Delivered means invoiced',
+    body: 'Mark a load delivered, in TruckWys or from your TMS, and the invoice is raised with 15% VAT, your terms, your bank details and the invoice number as the EFT reference.',
+    href: '/product#paid',
+    link: 'How invoicing works',
+  },
+  {
+    title: 'See who owes you',
+    body: 'Debtors by age, a statement per customer and reminders that get firmer as the days pass, one customer or everyone overdue at once.',
+    href: '/product#paid',
+    link: 'How debtors work',
+  },
+  {
+    title: 'Know what every lane makes',
+    body: 'Profit and loss, net margin by month, revenue per kilometre by lane and a VAT report, with CSV for your accountant.',
+    href: '/product#numbers',
+    link: 'See the reports',
+  },
+];
+
+const CARDS = [
+  { icon: Calculator, name: 'Quoting', line: 'Priced from diesel, tolls and your costs', href: '/product#quote' },
+  { icon: Receipt, name: 'Invoicing', line: 'Raised when the load delivers', href: '/product#paid' },
+  { icon: Users, name: 'Debtors', line: 'Who owes you, and one-click reminders', href: '/product#paid' },
+  { icon: FileBarChart, name: 'Reports', line: 'P&L, VAT and margin by lane', href: '/product#numbers' },
+  { icon: MessageSquareText, name: 'Copilot', line: 'Ask your numbers in plain words', href: '/product#models' },
+  { icon: Plug, name: 'Integrations', line: 'Cartrack, CtrlFleet, API and CSV', href: '/product#integrations' },
+];
+
+const SOON = [
+  { icon: Zap, name: 'Fast Pay', line: 'Get paid before your customer pays.', topic: 'fast-pay' },
+  // Q12: one-line description of Insurance pending; "Not live yet" until then.
+  { icon: ShieldCheck, name: 'Insurance', line: 'Not live yet.', topic: 'insurance' },
+];
+
+const TIMELINE = [
+  { t: 'Before you pay', d: 'Open the demo: a working company with sample data. No form, no call.' },
+  { t: 'Day 0', d: 'Create your account, confirm your email with a code and add a card. You are live once the payment clears.' },
+  { t: 'Setup', d: 'Paste your customers and trucks from Excel, set your rates and driver allowance, and connect Cartrack or CtrlFleet with your login.' },
+  { t: 'First delivery', d: 'Mark a load delivered, or let your TMS do it, and the invoice is raised with VAT.' },
+  { t: 'Month end', d: 'Profit and loss, debtors age and the VAT report come from the same numbers.' },
+];
+
+const FAQ: QA[] = [
+  { id: 'tms', q: 'Is TruckWys a TMS?', a: 'No. It does not dispatch, route or schedule. It works next to your TMS, your spreadsheets and your tracking, and handles the money on each load.' },
+  { id: 'cost', q: 'What does it cost?', a: `${PRICE_AND_FEE} Unlimited users. No long-term contract.` },
+  { id: 'try', q: 'Can I try it first?', a: 'Yes. Open the demo: a working company with sample data. No form and no call.' },
+  { id: 'prices', q: 'Where do diesel and toll prices come from?', a: `Diesel from FIASA, inland or coastal. Tolls from the SANRAL tariffs effective 1 March 2026, for ${FACTS.tollPlazas} mainline plazas, by vehicle class.` },
+  { id: 'cartrack', q: 'Does it work with Cartrack?', a: 'Yes. Connect with your Cartrack login and vehicle location and odometer flow in. CtrlFleet connects too.' },
+  // Q11 (data pooling wording) is held until the owner approves it.
+  { id: 'fastpay', q: 'What about Fast Pay?', a: 'Coming soon. It is not live, and we will not publish rates until it is.' },
+];
+
+function MiniInvoice() {
+  return (
+    <div className="frag tw-card" style={{ padding: 14 }} aria-hidden="true">
+      <div className="tw-row" style={{ paddingTop: 0 }}>
+        <span className="tw-12 tw-muted">{INVOICE.number}</span>
+        <span className="tw-status" style={{ height: 20 }}>
+          <span className="tw-status__dot" style={{ background: 'var(--status-info-dot)' }} />
+          Sent
+        </span>
+      </div>
+      <div className="tw-row">
+        <span className="tw-13 tw-sec">VAT 15%</span>
+        <span className="tw-13">{rand(INVOICE.vat, { cents: true })}</span>
+      </div>
+      <div className="tw-row" style={{ paddingBottom: 0 }}>
+        <span className="tw-13 tw-600">Total</span>
+        <span className="tw-13 tw-600">{rand(INVOICE.total, { cents: true })}</span>
+      </div>
+    </div>
+  );
+}
+function MiniAge() {
+  const parts = [76, 8, 13, 3];
+  const tones = ['var(--chart-muted)', 'var(--chart-axis)', 'var(--chart-hatch)', 'var(--text-secondary)'];
+  return (
+    <div className="frag tw-card" style={{ padding: 14 }} aria-hidden="true">
+      <div className="tw-row" style={{ paddingTop: 0, borderBottom: 0 }}>
+        <span className="tw-12 tw-muted">Owed to you</span>
+        <span className="tw-13 tw-600">{rand(KPIS.owed)}</span>
+      </div>
+      <div className="age__bar" style={{ margin: '4px 0 8px' }}>
+        {parts.map((p, i) => (
+          <span key={i} style={{ width: `${p}%`, background: tones[i] }} />
+        ))}
+      </div>
+      <div className="tw-12 tw-muted">Current · 1 to 30 · 31 to 60 · 61 to 90</div>
+    </div>
+  );
+}
+function MiniLanes() {
+  const rows = [
+    ['JHB to DBN', 100],
+    ['JHB to CPT', 84],
+    ['PTA to Lebombo', 80],
+  ] as const;
+  return (
+    <div className="frag tw-card" style={{ padding: 14 }} aria-hidden="true">
+      {rows.map(([l, w], i) => (
+        <div key={l} style={{ display: 'grid', gridTemplateColumns: '96px 1fr', alignItems: 'center', gap: 10, padding: '4px 0' }}>
+          <span className="tw-12 tw-sec">{l}</span>
+          <span className="lane__track">
+            <span className="lane__fill" style={{ display: 'block', width: `${w}%`, background: i === 0 ? 'var(--text-primary)' : undefined }} />
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function ArrowUp() {
+  return (
+    <div className="fit__arrow" aria-hidden="true">
+      <svg viewBox="0 0 12 40" fill="none" stroke="currentColor" strokeWidth="1.5">
+        <path d="M6 39V2M1.5 6.5 6 2l4.5 4.5" />
+      </svg>
+    </div>
+  );
+}
+
+export default function Home() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(organizationSchema)} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(websiteSchema)} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(softwareSchema)} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(faqSchema)} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLd(graph(softwareSchema, offerSchema, faqSchema(FAQ)))}
+      />
 
-      {/* Hero */}
-      <section className="hero-wash">
-        <div className="mx-auto max-w-6xl px-5 pb-0 pt-10 text-center md:pt-16">
-          <div className="eyebrow eyebrow-accent mb-5">Fleet finance software · South Africa</div>
-          <h1
-            className="text-hero mx-auto max-w-5xl text-ink"
-            style={{ fontSize: 'clamp(36px, 4.6vw, 58px)' }}
-          >
-            <span className="block">Know what every load really costs.</span>
-            <span className="block">Invoice it the moment it delivers.</span>
-          </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-[16px] leading-relaxed text-ink-2">
-            TruckWys prices every quote with the live diesel price, the actual SANRAL
-            tolls on the route and your own running costs. It invoices the moment you
-            deliver and shows you who still owes you. Built for South African fleets.
-          </p>
-          <div className="mt-8 flex flex-col items-center justify-center gap-3 px-6 sm:flex-row sm:px-0">
-            <a href={APP_LOGIN_URL} className="btn-primary w-full sm:w-auto">
-              Get started
-            </a>
-            <Link href="/product" className="btn-secondary w-full sm:w-auto">
-              See how it works
-            </Link>
+      {/* 1. Hero (I, inset panel). Ref: hemut-1440-full-0 top + flott-1440-full-0 top */}
+      <section className="hero" aria-labelledby="hero-h1">
+        <div className="hero__panel" data-theme="dark">
+          <div className="hero__text">
+            <p className="hero__eyebrow">Load-to-cash software for South African transporters</p>
+            <h1 className="h1 hero__h1" id="hero-h1">
+              <span>Price it right.</span> <span>Invoice on delivery.</span> <span className="tone-2">Get paid.</span>
+            </h1>
+            <p className="lead hero__lead">
+              TruckWys runs the money side of every load, next to the TMS, spreadsheets and tracking you already use.
+            </p>
+            <div className="btn-row btn-row--stack hero__ctas">
+              <ButtonLink href={signupUrl('home-hero')} cta="get_started" loc="hero">
+                Get started
+              </ButtonLink>
+              <ButtonLink href={demoUrl('home-hero')} variant="secondary" cta="open_demo" loc="hero">
+                Open the demo
+              </ButtonLink>
+            </div>
+            {/* TODO(owner) VAT-1 */}
+            <p className="small hero__price">
+              {PRICE_AND_FEE} No long-term contract.
+            </p>
+          </div>
+
+          {/* Composition: S1 (Home, light) rising from the panel's bottom edge, F1 floating over its left edge.
+              Slot for the real S1 capture: replace <HomeDashboard /> with a <picture> (priority, sizes). */}
+          <figure className="hero__comp" role="img" aria-label={`TruckWys Home for a demo company, showing ${rand(KPIS.owed)} owed to you and five items that need attention, with the cost breakdown of a Johannesburg to Durban load.`}>
+            <div className="hero__frame" data-theme="light">
+              <HomeDashboard />
+            </div>
+            <div className="hero__float" data-theme="light">
+              <CostBreakdown float hidden />
+            </div>
+          </figure>
+          <div className="hero__phone" data-theme="light" role="img" aria-label={`TruckWys Home on a phone for a demo company, showing ${rand(KPIS.owed)} owed to you.`}>
+            <div className="phone">
+              <PhoneHome />
+            </div>
           </div>
         </div>
+        <div className="hero__below" data-theme="light">
+          <CostBreakdown />
+        </div>
+        <p className="small hero__caption">{SAMPLE_CAPTION}</p>
+      </section>
 
-        {/* Stat strip */}
-        <div className="mx-auto max-w-6xl px-5 pb-14 pt-14">
-          <div className="grid grid-cols-2 gap-8 border-y border-line py-8 md:grid-cols-4">
-            {[
-              { v: PRICE_LABEL, l: 'per month, whole team' },
-              { v: FEE_LABEL, l: 'per delivered load' },
-              { v: 'R0', l: 'setup fees' },
-              { v: '31', l: 'SANRAL toll plazas priced' },
-            ].map((s) => (
-              <div key={s.l} className="text-center">
-                <div className="mono-stat text-[28px] font-semibold text-ink">{s.v}</div>
-                <div className="mt-1 text-[13px] text-ink-2">{s.l}</div>
-              </div>
+      {/* 2. Facts row (W). Ref: Flott "Backed by" line, replacing Hemut's ROI counters */}
+      <section className="facts" aria-label="Product facts">
+        <div className="wrap">
+          <ul className="facts__list list-reset">
+            {FACTS_ROW.map((f) => (
+              <li className="facts__item" key={f.label}>
+                <span className="figure-big">{f.fig}</span>
+                <span className="facts__label">{f.label}</span>
+              </li>
             ))}
-          </div>
+          </ul>
         </div>
       </section>
 
-      <div id="product" />
-
-      {/* Pillar 1: Quote (dark) */}
-      <section id="quote" className="border-t border-line bg-surface">
-        <div className="mx-auto max-w-6xl px-5 py-24">
-          <div className="grid items-center gap-12 lg:grid-cols-2">
-            <div>
-              <div className="eyebrow eyebrow-accent mb-4">Step 01 · Quote</div>
-              <h2 className="text-display text-ink">
-                Quote every load on real diesel, toll and running costs
-              </h2>
-              <p className="mt-5 text-[16px] leading-relaxed text-ink-2">
-                Pick the client, the truck, and the two points. TruckWys draws the
-                route, prices fuel at today&apos;s diesel price, and adds the exact toll
-                plazas that route passes. Johannesburg to Cape Town on the N1 means
-                Huguenot and Verkeerdevlei, not a guess. Your freight rates come out
-                grounded in real numbers, load after load.
-              </p>
-              <ul className="mt-7 space-y-3.5">
-                {[
-                  'Live diesel prices and your vehicle’s real consumption',
-                  'SANRAL toll fees per route, matched to the road you will drive',
-                  'Border, weighbridge and non-SA toll fees for cross-border loads',
-                  'Route options with distance, tolls and fuel for each',
-                  'A recommended price based on what has won you work before',
-                ].map((f) => (
-                  <li key={f} className="flex gap-3 text-[15px] text-ink-2">
-                    <span className="mt-1 h-1.5 w-1.5 flex-none rounded-full bg-accent" />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-7 text-[14px] text-ink-3">
-                Describe the load in plain words and the form fills itself:
-                &ldquo;20 tons of steel, JHB to Cape Town, flatbed, Tuesday&rdquo;.
-              </p>
-            </div>
-            <div className="shot-frame">
-              <Image
-                src="/images/product/frag-cost-card.png"
-                alt="The TruckWys cost breakdown for a Johannesburg to Cape Town load: fuel, tolls, surcharge and base rate"
-                width={446}
-                height={370}
-                className="w-full"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Pillar 2: Get paid */}
-      <section id="paid" className="bg-page">
-        <div className="mx-auto max-w-6xl px-5 py-24">
-          <div className="max-w-3xl">
-            <div>
-              <div className="eyebrow eyebrow-accent mb-4">Step 02 · Get paid</div>
-              <h2 className="text-display text-ink">
-                Deliver the load. The invoice is already done.
-              </h2>
-              <p className="mt-5 text-[16px] leading-relaxed text-ink-2">
-                Mark a load delivered and the invoice already exists: right amounts,
-                right client, right terms. Debtors are sorted by age, and you can
-                remind a client, or everyone overdue, in one click.
-              </p>
-              <ul className="mt-7 space-y-3.5">
-                {[
-                  'Invoices created automatically on delivery, with POD attached',
-                  'One-click payment reminders that get firmer as invoices age',
-                  'Debtors by age, so you know who owes you and for how long',
-                  'Xero sync so your books stay right',
-                ].map((f) => (
-                  <li key={f} className="flex gap-3 text-[15px] text-ink-2">
-                    <span className="mt-1 h-1.5 w-1.5 flex-none rounded-full bg-accent" />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Pillar 3: Know your numbers (dark) */}
-      <section id="numbers" className="bg-surface">
-        <div className="mx-auto max-w-6xl px-5 py-24">
-          <div className="mx-auto max-w-2xl text-center">
-            <div className="eyebrow eyebrow-accent mb-4">Step 03 · Know your numbers</div>
-            <h2 className="text-display text-ink">
-              What does each truck, route and client really make you?
-            </h2>
-            <p className="mt-4 text-[16px] leading-relaxed text-ink-2">
-              Cost per kilometre, margin per route, which clients pay late and which
-              vehicles burn money. The numbers update themselves from your quotes,
-              loads and invoices.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Coming soon: Fast Pay is not live (CAPITAL_LAUNCHED = false in the app) */}
-      <section id="capital" className="bg-page">
-        <div className="mx-auto max-w-6xl px-5 py-24">
-          <div className="max-w-3xl">
-            <div className="eyebrow eyebrow-accent mb-4">Coming soon</div>
-            <h2 className="text-display text-ink">Fast Pay is not live yet</h2>
-            <p className="mt-5 text-[16px] leading-relaxed text-ink-2">
-              Fast Pay is planned as a way to get paid on an invoice before your
-              client pays. It is not available today, and there are no rates or
-              limits yet. We will publish them when it launches.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Mobile app */}
-      <section id="mobile" className="border-t border-line bg-surface">
-        <div className="mx-auto max-w-6xl px-5 py-24">
-          <div className="grid items-center gap-12 lg:grid-cols-2">
-            <div>
-              <div className="eyebrow eyebrow-accent mb-4">iPhone app</div>
-              <h2 className="text-display text-ink">
-                The mobile app: quote and invoice from the roadside
-              </h2>
-              <p className="mt-5 text-[16px] leading-relaxed text-ink-2">
-                The full TruckWys account in your pocket, same data as the web app.
-                Price a load in the truck, capture the proof of delivery at the
-                drop, and have the invoice on its way before you leave the yard.
-              </p>
-              <ul className="mt-7 space-y-3.5">
-                {[
-                  'Quote with live diesel and tolls from anywhere',
-                  'Capture and attach POD at the point of delivery',
-                  'See cash, overdue invoices and fleet status on the move',
-                  'One account across the web and the iPhone app',
-                ].map((f) => (
-                  <li key={f} className="flex gap-3 text-[15px] text-ink-2">
-                    <span className="mt-1 h-1.5 w-1.5 flex-none rounded-full bg-accent" aria-hidden="true" />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-
-              <div className="mt-8 flex flex-wrap items-center gap-3">
-                <a
-                  href={APP_STORE_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Download TruckWys on the App Store"
-                >
-                  <svg width="162" height="48" viewBox="0 0 162 48" role="img" aria-hidden="true">
-                    <rect width="162" height="48" rx="9" fill="#000" stroke="#3c3c3c" strokeWidth="1" />
-                    <path
-                      d="M31.6 24.6c0-3.3 2.7-4.9 2.8-5-1.5-2.2-3.9-2.5-4.7-2.6-2-.2-3.9 1.2-4.9 1.2-1 0-2.6-1.2-4.2-1.1-2.2 0-4.2 1.3-5.3 3.2-2.3 3.9-.6 9.7 1.6 12.9 1.1 1.6 2.4 3.3 4 3.2 1.6-.1 2.3-1 4.2-1s2.5 1 4.3 1c1.8 0 2.9-1.6 4-3.1 1.2-1.8 1.8-3.6 1.8-3.7-.1-.1-3.5-1.4-3.6-5zm-3.3-9.2c.9-1.1 1.5-2.6 1.3-4.1-1.3.1-2.9.9-3.8 2-.8 1-1.6 2.5-1.4 4 1.5.1 2.9-.8 3.9-1.9z"
-                      fill="#fff"
-                    />
-                    <text x="44" y="20" fill="#fff" fontSize="10" fontFamily="Inter, sans-serif">Download on the</text>
-                    <text x="44" y="37" fill="#fff" fontSize="17" fontWeight="600" fontFamily="Inter, sans-serif">App Store</text>
-                  </svg>
-                </a>
-                {/* Google Play: put the listing URL in PLAY_STORE_URL (lib/site.ts) and
-                    uncomment this once the Android app is live on the Play Store.
-                <a
-                  href={PLAY_STORE_URL}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label="Get TruckWys on Google Play"
-                >
-                  <svg width="162" height="48" viewBox="0 0 162 48" role="img" aria-hidden="true">
-                    <rect width="162" height="48" rx="9" fill="#000" stroke="#3c3c3c" strokeWidth="1" />
-                    <g transform="translate(14 12)">
-                      <path d="M1.2.9C.7 1.4.5 2.2.5 3.1v17.8c0 .9.3 1.7.8 2.2l.1.1 10-10v-.4L1.3.8l-.1.1z" fill="#00d7fe" />
-                      <path d="M14.7 16.6l-3.3-3.3v-.4l3.3-3.3.1.1 4 2.3c1.1.6 1.1 1.7 0 2.3l-4 2.3h-.1z" fill="#ffce00" />
-                      <path d="M14.8 16.5L11.4 13 1.2 23.1c.4.4 1 .4 1.7 0l11.9-6.6" fill="#ff3a44" />
-                      <path d="M14.8 9.6L2.9.9C2.2.5 1.6.5 1.2.9L11.4 13l3.4-3.4z" fill="#00f076" />
-                    </g>
-                    <text x="44" y="20" fill="#fff" fontSize="10" fontFamily="Inter, sans-serif">GET IT ON</text>
-                    <text x="44" y="37" fill="#fff" fontSize="17" fontWeight="600" fontFamily="Inter, sans-serif">Google Play</text>
-                  </svg>
-                </a>
-                */}
+      {/* 3. How it fits (G). Ref: flott-1440-full-2 "Keep your infrastructure. Add the intelligence." */}
+      <section className="sec sec--grey" aria-labelledby="fit-h">
+        <div className="wrap">
+          <SectionHeader
+            id="fit-h"
+            a="Your TMS runs the trucks."
+            b="We run the money."
+            line="No dispatch, no routing, nothing to rip out. TruckWys starts when a load is priced and ends when it is paid."
+          />
+          <figure className="fit reveal">
+            <figcaption className="sr-only">
+              How TruckWys fits: what you already run (your TMS, spreadsheets, Cartrack, CtrlFleet, Excel and CSV, API) feeds
+              TruckWys, which quotes, invoices, collects and reports; what you get is invoices with VAT, debtors by age, and
+              profit by lane with a VAT report.
+            </figcaption>
+            <ul className="fit__top list-reset" aria-label="What you get">
+              <li>
+                <h3>Invoices with VAT</h3>
+                <MiniInvoice />
+              </li>
+              <li>
+                <h3>Debtors by age</h3>
+                <MiniAge />
+              </li>
+              <li>
+                <h3>Profit by lane and a VAT report</h3>
+                <MiniLanes />
+              </li>
+            </ul>
+            <ArrowUp />
+            <div className="fit__layer" data-theme="dark">
+              <div className="fit__brand">
+                <img src="/brand/truckwys-logo.png" alt="TruckWys" width={92} height={18} loading="lazy" />
               </div>
-              <p className="mt-4 text-[13px] text-ink-3">
-                On the App Store now. Android coming soon.
-              </p>
-            </div>
-
-            {/* iPhone-proportioned mock: the app's dark operations-terminal look */}
-            <div className="flex justify-center">
-              <div
-                className="relative w-[290px] rounded-[54px] p-[10px] shadow-[0_40px_90px_-28px_rgba(17,24,39,0.5)]"
-                style={{ background: 'linear-gradient(160deg, #2a2e35, #101216 40%, #23272e)' }}
-              >
-                <div className="relative flex h-[600px] flex-col overflow-hidden rounded-[44px] bg-[#060709]">
-                  {/* Dynamic Island */}
-                  <div className="absolute left-1/2 top-3 h-[26px] w-[92px] -translate-x-1/2 rounded-full bg-black" aria-hidden="true" />
-                  {/* Status bar */}
-                  <div className="flex items-center justify-between px-8 pb-1 pt-4">
-                    <span className="mono-stat text-[12px] font-medium text-[#ededed]">09:41</span>
-                    <span className="flex items-center gap-1.5" aria-hidden="true">
-                      <span className="h-[9px] w-[13px] rounded-[2px] bg-[#9aa1a9]/70" />
-                      <span className="h-[9px] w-[13px] rounded-[2px] bg-[#9aa1a9]/70" />
-                      <span className="h-[10px] w-[20px] rounded-[3px] border border-[#9aa1a9]/70 bg-[#4d9eff]/80" />
-                    </span>
-                  </div>
-                  {/* App content */}
-                  <div className="flex flex-1 flex-col px-6 pb-6 pt-6">
-                    <div className="eyebrow" style={{ color: '#6e757d' }}>Operations</div>
-                    <div className="text-[19px] font-semibold text-[#ededed]">New quote</div>
-                    <div className="eyebrow mt-5" style={{ color: '#6e757d' }}>Quote · JHB to CPT</div>
-                    <div className="mono-stat mt-1 text-[30px] font-semibold text-[#ededed]">R 31 613</div>
-                    <div className="mt-5 space-y-3 rounded-[12px] border border-[#2a2e34] bg-[#101215] p-4">
-                      {[
-                        ['Fuel at live diesel', 'R 13 238'],
-                        ['Tolls, N1 plazas', 'R 1 115'],
-                        ['Base rate, R10/km', 'R 15 009'],
-                        ['Weight surcharge', 'R 2 251'],
-                      ].map(([l, v]) => (
-                        <div key={l} className="flex items-center justify-between">
-                          <span className="text-[13px] text-[#9aa1a9]">{l}</span>
-                          <span className="mono-stat text-[13px] text-[#ededed]">{v}</span>
-                        </div>
-                      ))}
-                    </div>
-                    <div className="mt-4 flex items-center justify-between rounded-[12px] border border-[#2a2e34] bg-[#101215] px-4 py-3">
-                      <span className="text-[13px] text-[#9aa1a9]">Win probability</span>
-                      <span className="mono-stat text-[13px] font-medium text-[#4d9eff]">43%</span>
-                    </div>
-                    <div className="mt-auto">
-                      <div className="rounded-[12px] bg-[#4d9eff] py-3.5 text-center text-[14px] font-medium text-[#05101f]">
-                        Send quote
-                      </div>
-                      <div className="mt-3 flex items-center gap-2 rounded-[12px] border border-[#2a2e34] bg-[#101215] px-4 py-3">
-                        <span className="h-2 w-2 rounded-full bg-[#4d9eff]" aria-hidden="true" />
-                        <span className="mono-stat text-[11px] text-[#9aa1a9]">POD captured · invoice queued</span>
-                      </div>
-                    </div>
-                  </div>
-                  {/* Home indicator */}
-                  <div className="mx-auto mb-2 h-[5px] w-[120px] rounded-full bg-white/25" aria-hidden="true" />
+              {[
+                ['Quote.', 'Priced from diesel, tolls and your costs.'],
+                ['Invoice.', 'Raised when the load delivers.'],
+                ['Collect.', 'Debtors by age, one-click reminders.'],
+                ['Know.', 'Profit, margin and VAT from the same numbers.'],
+              ].map(([t, d], i) => (
+                <div className="fit__step" key={t}>
+                  <i>0{i + 1}</i>
+                  <b>{t}</b>
+                  <span>{d}</span>
                 </div>
-              </div>
+              ))}
             </div>
-          </div>
-        </div>
-      </section>
-
-      {/* AI: navy blueprint panel, terminal left, agent pipeline right */}
-      <section id="ai" className="footer-dark">
-        <div className="ai-grid">
-          <div className="mx-auto max-w-6xl px-5 py-24">
-            <div className="mx-auto max-w-2xl text-center">
-              <div className="eyebrow mb-4" style={{ color: 'var(--accent)' }}>The AI inside</div>
-              <h2 className="text-display text-ink">
-                AI that reads your loads, learns your prices and answers your questions
-              </h2>
-              <p className="mt-4 text-[16px] leading-relaxed text-ink-2">
-                No black box. It works from your live data, shows its working, and
-                asks before anything is saved or sent.
-              </p>
-            </div>
-
-            <div className="mt-14 grid items-stretch gap-6 lg:grid-cols-[1.15fr_1fr]">
-              {/* Terminal: the AI at work */}
-              <div className="flex flex-col overflow-hidden rounded-[14px] border border-[rgba(77,158,255,0.25)] bg-[#0b1322] shadow-[0_0_60px_-12px_rgba(77,158,255,0.25)]">
-                <div className="flex items-center gap-2 border-b border-line px-5 py-3">
-                  <span className="h-2.5 w-2.5 rounded-full bg-white/15" aria-hidden="true" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-white/15" aria-hidden="true" />
-                  <span className="h-2.5 w-2.5 rounded-full bg-white/15" aria-hidden="true" />
-                  <span className="eyebrow ml-2">Quote builder</span>
-                </div>
-                <div className="flex flex-1 flex-col px-6 py-6">
-                  <div className="eyebrow mb-2">You type</div>
-                  <p className="mono-stat ai-cursor text-[15px] text-ink">
-                    &ldquo;20 tons of steel, JHB to Cape Town, flatbed, Tuesday&rdquo;
-                  </p>
-                  <div className="eyebrow mb-3 mt-7">The price comes from live costs</div>
-                  <div className="flex flex-wrap gap-2.5">
-                    {[
-                      'Route drawn · 1,501 km',
-                      'Fuel R13,238 at live diesel',
-                      'Tolls R1,115 · Huguenot + Verkeerdevlei',
-                      'Quote R31,613',
-                      'Win probability 43%',
-                    ].map((c) => (
-                      <span
-                        key={c}
-                        className="mono-stat rounded-full border border-line bg-white/5 px-3.5 py-1.5 text-[13px] text-ink-2"
-                      >
-                        {c}
-                      </span>
-                    ))}
-                  </div>
-                  <p className="mt-auto pt-7 text-[13px] text-ink-3">
-                    Every number traceable to a real cost. Nothing sent without you.
-                  </p>
-                </div>
-              </div>
-
-              {/* Agent pipeline */}
-              <div className="flex flex-col justify-between gap-3">
-                {[
-                  { n: '01', t: 'Prices that learn from your wins', d: 'Recommendations and win probability from your own quote history.' },
-                  { n: '02', t: 'Quotes from a sentence', d: 'Type the load the way you would say it and the quote form fills itself.' },
-                  { n: '03', t: 'A copilot on your live numbers', d: 'Ask about cash, quotes or fleet status in plain words.' },
-                ].map((f) => (
-                  <div key={f.n} className="flex gap-4 rounded-[10px] border border-line bg-white/[0.04] p-5">
-                    <span className="mono-stat text-[13px] font-medium" style={{ color: 'var(--accent)' }}>{f.n}</span>
-                    <div>
-                      <h3 className="text-[15px] font-semibold text-ink">{f.t}</h3>
-                      <p className="mt-1 text-[13px] leading-relaxed text-ink-2">{f.d}</p>
-                    </div>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            <div className="mt-10 text-center">
-              <Link href="/ai" className="btn-primary">
-                See how the AI works
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Integrations */}
-      <section className="border-t border-line bg-surface">
-        <div className="mx-auto max-w-6xl px-5 py-24 text-center">
-          <div className="eyebrow eyebrow-accent mb-4">Works with what you run</div>
-          <h2 className="text-display mx-auto max-w-2xl text-ink">
-            Your TMS, tracking and books stay in the loop
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-[16px] text-ink-2">
-            TruckWys handles the money side and connects to the tools you already
-            use. Your clients get quotes they can accept in one click.
-          </p>
-          <div className="mx-auto mt-12 grid max-w-3xl grid-cols-2 gap-4 sm:grid-cols-3">
-            {[
-              { name: 'xero', style: { fontWeight: 700, letterSpacing: '-0.02em', textTransform: 'lowercase' as const }, note: 'Accounting sync' },
-              { name: 'Cartrack', style: { fontWeight: 700, letterSpacing: '-0.01em' }, note: 'Vehicle tracking' },
-              { name: 'CtrlFleet', style: { fontWeight: 600, letterSpacing: '-0.01em' }, note: 'Vehicle positions' },
-              { name: 'Email', style: { fontWeight: 600 }, note: 'One-click quote acceptance' },
-              { name: 'PDF', style: { fontWeight: 700 }, note: 'Branded invoices' },
-            ].map((l) => (
-              <div key={l.name} className="card flex flex-col items-center justify-center gap-1 px-4 py-7">
-                <span className="text-[22px] leading-none text-ink" style={l.style}>
-                  {l.name}
-                </span>
-                <span className="text-[12px] text-ink-3">{l.note}</span>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Pricing */}
-      <section id="pricing" className="bg-page">
-        <div className="mx-auto max-w-6xl px-5 py-24">
-          <div className="mx-auto max-w-2xl text-center">
-            <div className="eyebrow eyebrow-accent mb-4">Pricing</div>
-            <h2 className="text-display text-ink">Simple pricing: {PRICE_LABEL} a month, everything included</h2>
-            <p className="mt-4 text-[16px] text-ink-2">
-              No per-user fees, no tiers, no surprises at month end.{' '}
-              <Link href="/pricing" className="font-medium text-accent underline-offset-4 hover:underline">
-                See full pricing
-              </Link>
-            </p>
-          </div>
-
-          <div className="mx-auto mt-12 grid max-w-4xl gap-6 md:grid-cols-2">
-            <div className="card flex flex-col p-8">
-              <div className="eyebrow mb-2">Platform</div>
-              <div className="flex items-baseline gap-2">
-                {/* TODO(owner): confirm VAT basis of the monthly price before adding excl./incl. VAT. */}
-                <span className="mono-stat text-[44px] font-semibold text-ink">{PRICE_LABEL}</span>
-                <span className="text-[15px] text-ink-2">per month</span>
-              </div>
-              <ul className="mt-6 space-y-3">
-                {[
-                  'Unlimited users, quotes and invoices',
-                  'AI quote builder with live diesel and tolls',
-                  'Automatic invoicing and one-click reminders',
-                  'Fleet insights and reporting',
-                  'Xero and Cartrack integrations',
-                  'Email and phone support',
-                ].map((f) => (
-                  <li key={f} className="flex gap-3 text-[14px] text-ink-2">
-                    <span className="mt-0.5 text-accent" aria-hidden="true">✓</span>
-                    {f}
-                  </li>
+            <ArrowUp />
+            <div className="fit__bottom">
+              <span className="label">What you already run</span>
+              <ul className="fit__run list-reset">
+                {['Your TMS', 'Spreadsheets', 'Cartrack', 'CtrlFleet', 'Excel and CSV', 'API'].map((n) => (
+                  <li key={n}>{n}</li>
                 ))}
               </ul>
-              <div className="mt-auto pt-8">
-                <a href={APP_LOGIN_URL} className="btn-primary w-full">
-                  Get started
-                </a>
-              </div>
             </div>
-
-            <div className="card flex flex-col p-8">
-              <div className="eyebrow mb-2">Per delivered load</div>
-              <div className="flex items-baseline gap-2">
-                <span className="mono-stat text-[44px] font-semibold text-ink">{FEE_LABEL}</span>
-                <span className="text-[15px] text-ink-2">{FEE_BASIS}</span>
-              </div>
-              <ul className="mt-6 space-y-3">
-                {[
-                  'Charged when a delivered load is invoiced',
-                  'Nothing on quotes you lose',
-                  'No per-user charges, no minimums',
-                  CANCELLATION,
-                ].map((f) => (
-                  <li key={f} className="flex gap-3 text-[14px] text-ink-2">
-                    <span className="mt-0.5 text-accent" aria-hidden="true">✓</span>
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <p className="mt-auto pt-8 text-[13px] leading-relaxed text-ink-3">
-                You pay for outcomes: a delivered load is money on its way in.
-              </p>
-            </div>
+          </figure>
+          <p className="small fit__note">No hardware to install. Nothing to migrate. Your tools stay in place.</p>
+          <div className="fit__foot">
+            <TextLink href="/contact?topic=partner" cta="talk_to_us" loc="fit">
+              For TMS partners
+            </TextLink>
           </div>
         </div>
       </section>
 
-      {/* FAQ */}
-      <section id="faq" className="border-t border-line bg-surface">
-        <div className="mx-auto max-w-3xl px-5 py-24">
-          <div className="text-center">
-            <div className="eyebrow eyebrow-accent mb-4">FAQ</div>
-            <h2 className="text-display text-ink">Questions fleet owners ask us</h2>
+      {/* 4. From price to paid (I, full-width band). Ref: flott-1440-full-0 bottom, flott-1440-full-1 top */}
+      <section className="sec sec--ink" data-theme="dark" aria-labelledby="steps-h">
+        <div className="wrap">
+          <SectionHeader
+            id="steps-h"
+            a="One record per load."
+            b="From the first price to the last rand."
+            line="Every load carries its price, its invoice, its payment and its margin, so the numbers always agree."
+          />
+          <div className="reveal">
+            <StepSwitcher
+              steps={STEPS}
+              panels={[<QuoteCard key="q" />, <InvoiceRow key="i" />, <NeedsYouCard key="n" />, <LaneRanking key="l" />]}
+            />
+            <Caption />
           </div>
-          <div className="mt-10 space-y-3">
-            {FACTS.faqs.map((f) => (
-              <details key={f.q} className="card group px-6 py-4">
-                <summary className="cursor-pointer list-none text-[15px] font-medium text-ink marker:content-none">
-                  <span className="flex items-center justify-between gap-4">
-                    {f.q}
-                    <span className="text-ink-3 transition-transform group-open:rotate-45" aria-hidden="true">+</span>
+        </div>
+      </section>
+
+      {/* 5. Where the money leaks (W). Ref: flott-1440-full-1 "Target the losses in your operations." */}
+      <section className="sec" aria-labelledby="leaks-h">
+        <div className="wrap">
+          <SectionHeader
+            id="leaks-h"
+            a="Money you have earned."
+            b="Not yet in the bank."
+            line="Overdue invoices never chased, invoices never sent, customers who stop paying. TruckWys ranks them by rand value."
+          />
+          <figure className="reveal">
+            <div className="leaks">
+              <div className="leaks__main">
+                <Findings />
+              </div>
+              <div className="leaks__side">
+                <Stats />
+              </div>
+            </div>
+            <figcaption className="caption">{SAMPLE_CAPTION}</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      {/* 6. You approve every change (I, rounded inset band). Ref: flott-1440-full-1 bottom / -2 top, hemut-1440-full-1 */}
+      <section aria-labelledby="copilot-h">
+        <div className="inset band" data-theme="dark">
+          <div className="band__texture" aria-hidden="true">
+            {/* Photo-optional slot (S13). Launch default: the Copilot screen rebuilt from the same sample data
+                (components/fragments/Money.tsx CopilotTexture), exported as an image so dimmed text never reads
+                as page text. Swap for the real S13 capture, or a captioned documentary photo, later. */}
+            <img src="/product/s13-copilot-dark.webp" alt="" width={1084} height={499} loading="lazy" decoding="async" />
+          </div>
+          <div className="band__text reveal">
+            <TwoTone id="copilot-h" a="Ask your numbers in plain words." b="You approve every change." />
+            <ul className="band__lines list-reset">
+              <li>Answers come from your own company&apos;s data.</li>
+              <li>Drafts quotes and customers for you to confirm.</li>
+              <li>Uses a language model. Prices, tolls, VAT and reminders do not.</li>
+            </ul>
+          </div>
+          <div className="band__float reveal">
+            <CopilotPanel float />
+          </div>
+        </div>
+      </section>
+
+      {/* 7. Everything in one plan (W). Ref: hemut-1440-full-1 product cards, flott-1440-full-3 */}
+      <section className="sec" aria-labelledby="plan-h">
+        <div className="wrap">
+          <SectionHeader id="plan-h" a="Everything in one plan." b="And two more on the way." line="One subscription covers every module, for your whole team." />
+          <ul className="cards list-reset">
+            {CARDS.map(({ icon: Icon, name, line, href }) => (
+              <li key={name} className="reveal">
+                <a className="pcard" href={href}>
+                  <Icon className="pcard__icon" strokeWidth={1.75} aria-hidden="true" />
+                  <span className="pcard__name">
+                    {name}
+                    <ArrowRight strokeWidth={1.75} aria-hidden="true" />
                   </span>
-                </summary>
-                <p className="mt-3 text-[14px] leading-relaxed text-ink-2">{f.a}</p>
-              </details>
+                  <span className="pcard__line">{line}</span>
+                </a>
+              </li>
             ))}
+            {SOON.map(({ icon: Icon, name, line, topic }) => (
+              <li key={name} className="reveal">
+                <div className="pcard">
+                  <Icon className="pcard__icon" strokeWidth={1.75} aria-hidden="true" />
+                  <span className="pcard__name">{name}</span>
+                  <span className="pcard__line">{line}</span>
+                  <span className="pcard__foot">
+                    <StatusChip />
+                    <TextLink href={`/contact?topic=${topic}`} cta="notify" loc="plan_cards" quiet>
+                      Get notified<span className="sr-only"> about {name}</span>
+                    </TextLink>
+                  </span>
+                </div>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
+
+      {/* 8. Built for South Africa (G). Ref: Flott's specific local detail */}
+      <section className="sec sec--grey" aria-labelledby="sa-h">
+        <div className="wrap">
+          <SectionHeader id="sa-h" a="Rand, VAT and the N3." b="Not dollars and miles." line="Built for South African road freight, down to the toll class." />
+          <div className="sa">
+            <ul className="sa__rows list-reset reveal">
+              <li>
+                Tolls go into the quote excl. VAT, because you claim the VAT back.
+                <span>Every SANRAL mainline plaza on the route, at your truck&apos;s class.</span>
+              </li>
+              <li>
+                Border, permit and foreign toll fees for SADC loads.
+                <span>Botswana, Namibia, Lesotho, Eswatini and Mozambique.</span>
+              </li>
+              <li>
+                R&nbsp;20&nbsp;505,65 and 5&nbsp;Apr&nbsp;2026, not $20,505.65 and 04/05/26.
+                <span>Rand, 15% VAT and South African dates on every invoice and report.</span>
+              </li>
+            </ul>
+            <div className="sa__frag reveal">
+              <N3Tolls />
+            </div>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="panel-accent">
-        <div className="mx-auto max-w-6xl px-5 py-24 text-center">
-          <h2 className="text-display mx-auto max-w-2xl text-ink">
-            Your next quote can be priced right
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-[16px] text-ink-2">
-            Set up your fleet today and send your first properly costed quote before
-            the diesel price changes again.
-          </p>
-          <div className="mt-8 flex flex-col items-center justify-center gap-3 px-6 sm:flex-row sm:px-0">
-            <a href={APP_LOGIN_URL} className="btn-primary w-full !border-white !bg-white !text-accent sm:w-auto">
-              See the demo
-            </a>
-            <Link href="/contact" className="btn-secondary w-full !border-white/40 !bg-transparent !text-white sm:w-auto">
-              Talk to us
-            </Link>
+      {/* 9. From demo to first invoice (W). Ref: hemut-1440-full-2 Day 0 / 15 / 30 timeline */}
+      <section className="sec" aria-labelledby="setup-h">
+        <div className="wrap">
+          <SectionHeader
+            id="setup-h"
+            a="No migration project."
+            b="Just your lists and your rates."
+            line="Nothing to install and nothing to rip out. You set it up yourself, and we are a message away."
+          />
+          <ol className="tl list-reset reveal">
+            {TIMELINE.map((s) => (
+              <li className="tl__item" key={s.t}>
+                <div className="tl__card">
+                  <h3>{s.t}</h3>
+                  <p>{s.d}</p>
+                </div>
+                <span className="tl__stem" aria-hidden="true" />
+                <span className="tl__node" aria-hidden="true" />
+              </li>
+            ))}
+          </ol>
+          <div className="tl__more">
+            <TextLink href="/contact?topic=fleet-50" cta="talk_to_us" loc="setup">
+              Talk to us if you run 50 or more trucks
+            </TextLink>
+          </div>
+        </div>
+      </section>
+
+      {/* 10. Pricing (G). Ref: flott-1440-full-3 "Deploy your first use case." */}
+      <section className="sec sec--grey" aria-labelledby="price-h">
+        <div className="wrap psplit">
+          <div className="psplit__lead reveal">
+            <TwoTone id="price-h" a="One plan. One price." b="Everything in it." />
+            {/* TODO(owner) VAT-1 */}
+            <p className="psplit__price">{PRICE_AND_FEE}</p>
+            <p className="small" style={{ marginTop: 12 }}>
+              Worked example: a load invoiced at R&nbsp;34&nbsp;500 adds R&nbsp;86,25.
+            </p>
+          </div>
+          <ul className="psplit__list list-reset reveal">
+            {['Unlimited loads, quotes, invoices and users', 'Reports, Copilot, integrations and API', 'Nothing on quotes you lose', CANCELLATION].map((t) => (
+              <li key={t}>
+                <Check strokeWidth={1.75} aria-hidden="true" />
+                {t}
+              </li>
+            ))}
+          </ul>
+          <div className="psplit__cta reveal">
+            <ButtonLink href={signupUrl('home-pricing')} cta="get_started" loc="pricing_section">
+              Get started
+            </ButtonLink>
+            <TextLink href="/pricing" cta="see_pricing" loc="pricing_section">
+              See pricing
+            </TextLink>
+          </div>
+        </div>
+      </section>
+
+      {/* 11. FAQ (W). Ref: flott-1440-full-3 "Before you get started." */}
+      <section className="sec" aria-label="Questions">
+        <div className="wrap">
+          <Faq a="Before you" b="get started." line="The questions fleet owners ask first." items={FAQ} />
+        </div>
+      </section>
+
+      {/* 12. Final CTA (I, rounded inset panel). Ref: hemut-1440-full-2 bottom, hemut-1440-full-3, flott-1440-full-3/4 */}
+      <section aria-labelledby="cta-h" style={{ paddingBottom: 16 }}>
+        <div className="inset ctap" data-theme="dark">
+          <div className="ctap__text reveal">
+            <TwoTone id="cta-h" a="Look around a working company." b="Then decide." />
+            <p className="lead">The demo is open. No form, no sales call.</p>
+            <div className="btn-row btn-row--stack">
+              <ButtonLink href={demoUrl('home-cta')} cta="open_demo" loc="cta_band">
+                Open the demo
+              </ButtonLink>
+              <ButtonLink href={signupUrl('home-cta')} variant="secondary" cta="get_started" loc="cta_band">
+                Get started
+              </ButtonLink>
+            </div>
+            {/* TODO(owner) VAT-1 */}
+            <p className="small">{PRICE_LINE}, plus 0,25% per delivered load.</p>
+          </div>
+          <div className="ctap__visual" aria-hidden="true">
+            <div className="ctap__crop">
+              <HomeDashboard />
+            </div>
+            <div className="ctap__float">
+              <InvoiceRow compact float />
+            </div>
           </div>
         </div>
       </section>
