@@ -435,3 +435,19 @@ a.b-hubcard:hover .b-hubcard__more svg { transform: translateX(2px); }
 .b-hero + .sec:not(.sec--grey):not(.sec--ink) { padding-top: 32px; }
 @media (max-width: 639px) { .b-hero { padding-bottom: 64px; } }
 .b-intlist > li:last-child:nth-child(odd) { grid-column: 1 / -1; }
+.b-lanetable { display: none; }
+@container (max-width: 520px) {
+  .frag .b-scatter, .b-scatter__x { display: none; }
+  .b-lanetable { display: block; margin-top: 4px; }
+  .b-tile__fig { font-size: 21px; line-height: 28px; letter-spacing: -0.02em; white-space: nowrap; }
+}
+@container (max-width: 480px) {
+  .b-apphead__row { flex-wrap: wrap; }
+  .b-apphead__title { white-space: nowrap; }
+}
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .b-row__text { grid-column: 1 / 6; }
+  .b-row__vis { grid-column: 7 / 13; }
+  .b-row--flip .b-row__text { grid-column: 8 / 13; }
+  .b-row--flip .b-row__vis { grid-column: 1 / 7; }
+}

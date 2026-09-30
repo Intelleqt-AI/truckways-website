@@ -72,7 +72,7 @@ export const GUIDES: Guide[] = [
           than the same truck running empty. In the example below we use 46 litres per 100 km, which is an assumption for illustration, not
           a benchmark.
         </p>
-        <div className="calc">
+        <div className="b-calc">
           <p>0,46 L/km × R&nbsp;30,05/L = <strong>R&nbsp;13,82 per km</strong> for diesel</p>
         </div>
         <p>
@@ -433,7 +433,7 @@ export const GUIDES: Guide[] = [
           For contracts that run longer than a month, agree a base diesel price and a fuel share of the rate up front. Then adjust the rate
           when diesel moves:
         </p>
-        <div className="calc">
+        <div className="b-calc">
           <p>Surcharge = (this month&apos;s price − base price) ÷ base price × fuel share of the rate</p>
         </div>
         <p>

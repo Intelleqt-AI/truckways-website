@@ -718,6 +718,19 @@ export function LanesScatter() {
           ))}
         </svg>
         <div className="b-scatter__x">Kilometres per trip</div>
+        <div className="b-lanetable">
+          {[...LANE_POINTS].sort((a, b) => b.perKm - a.perKm).map((p) => (
+            <div className={`tw-row${p.thin ? ' tw-muted' : ''}`} key={p.lane}>
+              <span style={{ minWidth: 0 }}>
+                <span className="tw-500" style={{ display: 'block' }}>{p.lane}</span>
+                <span className="tw-12 tw-muted">
+                  {num(p.km)} km · {p.trips} trips{p.thin ? ', too few to rank' : ''}
+                </span>
+              </span>
+              <span className="tw-600">{rand(p.perKm, { cents: true })}/km</span>
+            </div>
+          ))}
+        </div>
       </div>
     </div>
   );
