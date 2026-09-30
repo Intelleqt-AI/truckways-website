@@ -1,7 +1,7 @@
 /**
- * S1 / S14 stand-in: the v3 Home screen rebuilt in HTML at 1:1 product scale.
- * Replace with the real capture (S1 light, S14 dark) once the demo company is
- * seeded: keep the wrapper, swap the children for a <picture>.
+ * The v3 Home screen rebuilt in HTML at 1:1 product scale, from the same demo
+ * data as the real S1/S14 captures (Home now shows those captures; this stays
+ * for Kpis and any future crop that needs live text).
  * Decorative when a text alternative is given by the caller (aria-hidden here).
  */
 import {
@@ -86,7 +86,7 @@ export function Kpis() {
           Net margin, 12 months <Info strokeWidth={S} />
         </span>
         <span className="tw-kpi__figure">{num(KPIS.netMargin12m, 1)}%</span>
-        <span className="tw-kpi__note">Cash basis, excl. VAT</span>
+        <span className="tw-kpi__note">{KPIS.marginNote}</span>
       </div>
       <div className="tw-kpi">
         <span className="tw-kpi__label" style={{ justifyContent: 'space-between' }}>
@@ -190,7 +190,7 @@ function Pipeline() {
     ['Draft', PIPELINE.draft],
     ['Sent', PIPELINE.sent],
     ['Accepted', PIPELINE.accepted],
-    ['On the road', KPIS.activeLoads],
+    ['On the road', PIPELINE.onRoad],
   ];
   const max = Math.max(...rows.map((r) => r[1]));
   return (
@@ -200,7 +200,7 @@ function Pipeline() {
           <div className="tw-card__title">
             Quote pipeline <Info strokeWidth={S} width={14} height={14} color="var(--text-tertiary)" />
           </div>
-          <div className="tw-card__sub">This month</div>
+          <div className="tw-card__sub">All {num(PIPELINE.all)} quotes</div>
         </div>
         <ArrowUpRight strokeWidth={S} width={16} height={16} color="var(--text-tertiary)" />
       </div>

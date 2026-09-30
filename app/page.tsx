@@ -3,7 +3,6 @@ import { Calculator, Receipt, Users, FileBarChart, MessageSquareText, Plug, Zap,
 import { ButtonLink, TextLink, SectionHeader, TwoTone, StatusChip, Caption, SAMPLE_CAPTION } from '../components/ui';
 import StepSwitcher from '../components/StepSwitcher';
 import Faq, { type QA } from '../components/Faq';
-import HomeDashboard from '../components/fragments/HomeDashboard';
 import { CostBreakdown, QuoteCard, N3Tolls } from '../components/fragments/Quote';
 import {
   InvoiceRow, NeedsYouCard, LaneRanking, CopilotPanel, Findings, Stats,
@@ -11,8 +10,8 @@ import {
 import { FACTS, PRICE, PRICE_AND_FEE, PRICE_SHORT, FEE_LINE, CANCELLATION } from '../lib/facts';
 import { signupUrl, demoUrl, jsonLd, SITE_URL } from '../lib/site';
 import { graph, softwareSchema, offerSchema, faqSchema } from '../lib/schema';
-import { INVOICE, KPIS, QUOTE, FEE_EXAMPLE, AGEING } from '../content/demo-data';
-import { rand, date } from '../lib/format';
+import { INVOICE, KPIS, FEE_EXAMPLE, AGEING, BOOKED_QUOTE, LANES, LANE_JHB_DBN } from '../content/demo-data';
+import { rand, date, num } from '../lib/format';
 
 const TITLE = 'TruckWys: quoting, invoicing and debtors for SA transporters';
 const DESCRIPTION =
@@ -140,15 +139,11 @@ function MiniAge() {
   );
 }
 function MiniLanes() {
-  const rows = [
-    ['JHB to DBN', 100],
-    ['JHB to CPT', 84],
-    ['PTA to Lebombo', 80],
-  ] as const;
+  const rows = LANES.slice(0, 3).map((l) => [l.lane, Math.round((l.perKm / LANES[0].perKm) * 100)] as const);
   return (
     <div className="frag tw-card" style={{ padding: 14 }} aria-hidden="true">
       {rows.map(([l, w], i) => (
-        <div key={l} style={{ display: 'grid', gridTemplateColumns: '96px 1fr', alignItems: 'center', gap: 10, padding: '4px 0' }}>
+        <div key={l} style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.4fr) 1fr', alignItems: 'center', gap: 10, padding: '4px 0' }}>
           <span className="tw-12 tw-sec">{l}</span>
           <span className="lane__track">
             <span className="lane__fill" style={{ display: 'block', width: `${w}%`, background: i === 0 ? 'var(--text-primary)' : undefined }} />
@@ -201,19 +196,32 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Composition: S1 (Home, light) rising from the panel's bottom edge, F1 floating over its left edge.
-              Slot for the real S1 capture: replace <HomeDashboard /> with a <picture> (priority, sizes). */}
-          <figure className="hero__comp" role="img" aria-label={`TruckWys Home for a demo company, showing ${rand(KPIS.owed)} owed to you and five items that need attention, with the cost breakdown of a Johannesburg to Durban load.`}>
+          {/* Composition: the real S1 capture (Home, light, demo company, 30 Sep 2026) rising from the panel's
+              bottom edge, F1 floating over its left edge. Sources only match from 1024px, where the composition
+              shows; phones get the S2 phone capture below and never download this one. */}
+          <figure className="hero__comp" role="img" aria-label={`TruckWys Home for the demo company: ${rand(KPIS.owed)} owed to you (${rand(KPIS.pastDue)} past due), ${rand(KPIS.revenue12m)} received over 12 months, a ${num(KPIS.netMargin12m, 1)}% net margin and ${KPIS.activeLoads} active loads, with the invoices to chase; over it, the cost breakdown of a Johannesburg to Durban quote.`}>
             <div className="hero__frame" data-theme="light">
               <div className="hero__scale">
-                <HomeDashboard />
+                <picture>
+                  <source media="(min-width: 1024px)" type="image/avif" srcSet="/product/s01-home-light-1080.avif 1080w, /product/s01-home-light-1440.avif 1440w, /product/s01-home-light-2880.avif 2880w" sizes="(max-width: 1099px) 944px, (max-width: 1279px) 1008px, (max-width: 1439px) 1152px, (max-width: 1679px) 1181px, 1296px" />
+                  <source media="(min-width: 1024px)" type="image/webp" srcSet="/product/s01-home-light-1080.webp 1080w, /product/s01-home-light-1440.webp 1440w, /product/s01-home-light-2880.webp 2880w" sizes="(max-width: 1099px) 944px, (max-width: 1279px) 1008px, (max-width: 1439px) 1152px, (max-width: 1679px) 1181px, 1296px" />
+                  <img
+                    className="hero__shot"
+                    src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                    width={1440}
+                    height={900}
+                    alt=""
+                    fetchPriority="high"
+                    decoding="async"
+                  />
+                </picture>
               </div>
             </div>
             <div className="hero__float" data-theme="light">
               <CostBreakdown float hidden compact />
             </div>
           </figure>
-          {/* S2: the real phone Home of the demo company (run 2, 30 Sep 2026). Sources only match below 1024px,
+          {/* S2: the real phone Home of the demo company (final capture, 30 Sep 2026). Sources only match below 1024px,
               so desktops load a 1x1 placeholder instead of the screenshot. */}
           <div className="hero__phone" data-theme="light">
             <div className="phone">
@@ -232,7 +240,7 @@ export default function Home() {
                   src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
                   width={390}
                   height={844}
-                  alt={`TruckWys Home on a phone for the demo company: ${rand(KPIS.owed)} owed to you, ${rand(KPIS.revenue12m)} received over 12 months, a ${String(KPIS.netMargin12m).replace('.', ',')}% margin and ${KPIS.activeLoads} active loads.`}
+                  alt={`TruckWys Home on a phone for the demo company: ${rand(KPIS.owed)} owed to you, ${rand(KPIS.revenue12m)} received over 12 months, a ${num(KPIS.netMargin12m, 1)}% margin and ${KPIS.activeLoads} active loads.`}
                   fetchPriority="low"
                   decoding="async"
                 />
@@ -347,9 +355,16 @@ export default function Home() {
                     <li>
                       <span>Quote</span>
                       <span>
-                        <span className="nowrap">{QUOTE.number}</span>, accepted
+                        <span className="nowrap">{BOOKED_QUOTE.number}</span>, accepted
                       </span>
-                      <span>{rand(QUOTE.quotePrice, { cents: true })}</span>
+                      <span>{rand(BOOKED_QUOTE.amount, { cents: true })}</span>
+                    </li>
+                    <li>
+                      <span>Delivered</span>
+                      <span>
+                        <span className="nowrap">{INVOICE.load}</span>, POD attached
+                      </span>
+                      <span className="nowrap">{date(INVOICE.delivered)}</span>
                     </li>
                     <li>
                       <span>Invoice</span>
@@ -359,14 +374,11 @@ export default function Home() {
                       <span>{rand(INVOICE.total, { cents: true })}</span>
                     </li>
                     <li>
-                      <span>Margin</span>
-                      <span>After fuel, tolls, allowance and base rate</span>
-                      <span>{String(QUOTE.marginPct).replace('.', ',')}%</span>
-                    </li>
-                    <li>
                       <span>Lane</span>
-                      <span>Johannesburg to Durban, per km</span>
-                      <span>{rand(QUOTE.perKm, { cents: true })}</span>
+                      <span>
+                        {LANE_JHB_DBN.lane}, 12 months, {LANE_JHB_DBN.trips} trips
+                      </span>
+                      <span>{rand(LANE_JHB_DBN.perKm, { cents: true })}/km</span>
                     </li>
                   </ul>
                   <Caption />
@@ -404,9 +416,9 @@ export default function Home() {
       <section aria-labelledby="copilot-h">
         <div className="inset band" data-theme="dark">
           <div className="band__texture" aria-hidden="true">
-            {/* Photo-optional slot (S13). Launch default: the Copilot screen rebuilt from the same sample data
-                (components/fragments/Money.tsx CopilotTexture), exported as an image so dimmed text never reads
-                as page text. Swap for the real S13 capture, or a captioned documentary photo, later. */}
+            {/* Photo-optional slot (S13). Launch default: a crop of the real S13 capture (Copilot, dark, demo
+                company), dimmed as texture so its text never reads as page text. A captioned documentary photo
+                can replace it later. */}
             <img src="/product/s13-copilot-dark.webp" alt="" width={1084} height={499} loading="lazy" decoding="async" />
           </div>
           <div className="band__text reveal">
@@ -586,9 +598,12 @@ export default function Home() {
           </div>
           <div className="ctap__visual" aria-hidden="true">
             <div className="ctap__crop">
-              <div className="ctap__scale">
-                <HomeDashboard short />
-              </div>
+              {/* S14: the real dark Home capture (top 60%), from 640px up only. */}
+              <picture>
+                <source media="(min-width: 640px)" type="image/avif" srcSet="/product/s14-home-dark-1080.avif 1080w, /product/s14-home-dark-1440.avif 1440w, /product/s14-home-dark-2880.avif 2880w" sizes="(max-width: 1023px) 100vw, 60vw" />
+                <source media="(min-width: 640px)" type="image/webp" srcSet="/product/s14-home-dark-1080.webp 1080w, /product/s14-home-dark-1440.webp 1440w, /product/s14-home-dark-2880.webp 2880w" sizes="(max-width: 1023px) 100vw, 60vw" />
+                <img className="ctap__shot" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" width={1440} height={540} alt="" loading="lazy" decoding="async" />
+              </picture>
             </div>
             <div className="ctap__float">
               <InvoiceRow compact float />

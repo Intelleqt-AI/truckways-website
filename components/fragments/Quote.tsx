@@ -8,18 +8,18 @@ function CostLines({ compact }: { compact?: boolean }) {
   // Compact (the hero float): the app's rows with their detail folded into one short label.
   const rows: [React.ReactNode, number][] = compact
     ? [
-        [<>Fuel · {num(q.litres, 0)}&nbsp;L at {c(q.dieselPerL)}</>, q.fuel],
+        [<>Fuel · {num(q.burn, 1)}&nbsp;L/100&nbsp;km at {c(q.dieselPerL)}/L</>, q.fuel],
         [<>Tolls · {N3_PLAZAS.length} N3 plazas, class {q.tollClass}</>, q.tolls],
         ['Driver allowance', q.allowance],
         [<>Base rate · {c(q.ratePerKm)}/km</>, q.base],
-        ['Markup', q.markup],
+        ['Markup to the suggested price', q.markup],
       ]
     : [
         [
           <>
             Fuel: {num(q.burn, 1)} L/100 km at {c(q.dieselPerL)}/L
             <span className="cost__plazas">
-              {num(q.litres, 0)} L over {num(q.km)} km, inland 50ppm
+              {q.dieselNote} · {num(q.litres, 0)} L over {num(q.km)} km
             </span>
           </>,
           q.fuel,
@@ -41,7 +41,13 @@ function CostLines({ compact }: { compact?: boolean }) {
           </>,
           q.base,
         ],
-        ['Markup (suggested price in use)', q.markup],
+        [
+          <>
+            Markup
+            <span className="cost__plazas">To the suggested price, from your past quotes to this client</span>
+          </>,
+          q.markup,
+        ],
       ];
   return (
     <>
@@ -56,7 +62,8 @@ function CostLines({ compact }: { compact?: boolean }) {
         <span>{c(q.quotePrice)}</span>
       </div>
       <div className="cost__foot">
-        Costs {c(q.costs)} · margin {num(q.marginPct, 1)}%
+        Costs {c(q.costs)} · margin {q.marginPct}%
+        {compact ? null : <> · win chance {q.winPct}%</>}
         {compact ? null : (
           <>
             {' '}· VAT 15% {c(q.vat)} · total {c(q.totalIncl)}
@@ -67,7 +74,7 @@ function CostLines({ compact }: { compact?: boolean }) {
   );
 }
 
-/** F1: the quote builder's cost breakdown card (Johannesburg to Durban, class 4 interlink). */
+/** F1: the quote builder's cost breakdown card (S3: City Deep to Prospecton, Superlink Tautliner, class 4). */
 export function CostBreakdown({ float, hidden, compact }: { float?: boolean; hidden?: boolean; compact?: boolean }) {
   return (
     <div className={`frag tw-card${float ? ' frag--float' : ''}${compact ? ' cost--compact' : ''}`} aria-hidden={hidden || undefined}>
@@ -84,7 +91,7 @@ export function CostBreakdown({ float, hidden, compact }: { float?: boolean; hid
   );
 }
 
-/** F2: a sent-and-accepted quote with its cost lines (StepSwitcher panel 1). */
+/** F2: the new quote from S3 with its cost lines (StepSwitcher panel 1). */
 export function QuoteCard() {
   const q = QUOTE;
   return (
@@ -94,7 +101,7 @@ export function QuoteCard() {
           <div className="tw-card__title">{q.number}</div>
           <div className="tw-card__sub">{q.customer}</div>
         </div>
-        <span className="tw-status tw-status--success">
+        <span className={`tw-status tw-status--${q.status === 'Accepted' ? 'success' : q.status === 'Sent' ? 'info' : 'neutral'}`}>
           <span className="tw-status__dot" />
           {q.status}
         </span>
@@ -109,7 +116,7 @@ export function QuoteCard() {
         <div>
           <span>Vehicle</span>
           <b>
-            {q.vehicle}, class {q.tollClass}
+            {q.vehicle}, {q.weightT} t, class {q.tollClass}
           </b>
         </div>
         <div>
@@ -156,7 +163,7 @@ export function N3Tolls() {
       </div>
       <figcaption className="toll__src">
         Tariffs effective 1 Mar 2026 (GG 54087, GG 54088), {rand(N3_TOTAL_INCL, { cents: true })} incl. VAT. Mainline plazas
-        only. Class 4 is SANRAL&apos;s class for combinations such as an interlink.
+        only. Class 4 is SANRAL&apos;s class for combinations such as a superlink.
       </figcaption>
     </figure>
   );

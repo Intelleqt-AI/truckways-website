@@ -838,3 +838,8 @@ html.js .reveal.is-in { opacity: 1; transform: none; transition: opacity 480ms v
   .nf-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }
 @media (max-width: 639px) { .nf-cards { grid-template-columns: 1fr; } }
+
+/* Real captures in the Home hero (S1) and CTA panel (S14). */
+.hero__shot { display: block; width: 100%; height: auto; }
+.ctap__crop picture { display: block; height: 100%; }
+.ctap__shot { display: block; height: 100%; width: auto; max-width: none; }

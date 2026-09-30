@@ -1,9 +1,8 @@
-import { CircleCheck, Info, ChevronRight, Paperclip, MessageSquareText, Database, Bell, Menu } from 'lucide-react';
+import { CircleCheck, Info, ChevronRight, Paperclip, MessageSquareText, Database } from 'lucide-react';
 import {
-  INVOICE, OVERDUE, LANES, LANE_THIN, FINDINGS, KPIS, OVER_60, COPILOT, COMPANY, COMPANY_INITIAL, AGEING,
+  INVOICE, OVERDUE, LANES, FLEET_AVG_PER_KM, FINDINGS, KPIS, OVER_60, COPILOT, COMPANY, AGEING,
 } from '../../content/demo-data';
 import { rand, date, num } from '../../lib/format';
-import { Kpis } from './HomeDashboard';
 import NeedsYou from './NeedsYou';
 
 const S = 1.75;
@@ -11,7 +10,7 @@ const S = 1.75;
 /** F3: invoice list with the delivered load's invoice expanded (StepSwitcher panel 2, CTA panel). */
 export function InvoiceRow({ compact, float }: { compact?: boolean; float?: boolean }) {
   const inv = INVOICE;
-  const others = OVERDUE.slice(1, 3);
+  const others = OVERDUE.slice(0, 2);
   return (
     <div className={`frag tw-card tw-card--flush cq${float ? ' frag--float' : ''}`}>
       {!compact && (
@@ -53,7 +52,7 @@ export function InvoiceRow({ compact, float }: { compact?: boolean; float?: bool
           <div className="inv__step">
             <Paperclip strokeWidth={S} aria-hidden="true" style={{ color: 'var(--text-tertiary)' }} />
             <span>
-              <b>POD attached</b> · {inv.pod}
+              <b>POD attached</b> {inv.pod}
             </span>
           </div>
         </div>
@@ -116,9 +115,19 @@ export function NeedsYouCard() {
   );
 }
 
-/** F5: revenue per km by lane; bars encode the sorted metric, trip counts shown. */
+/** F5: revenue per km by lane, best three and weakest two of the 14; bars encode the sorted metric, trip counts shown. */
 export function LaneRanking() {
   const max = LANES[0].perKm;
+  const row = (l: (typeof LANES)[number]) => (
+    <div className="lane" key={l.lane}>
+      <span className="lane__name">{l.lane}</span>
+      <span className="lane__track" aria-hidden="true">
+        <span className="lane__fill" style={{ display: 'block', width: `${(l.perKm / max) * 100}%` }} />
+      </span>
+      <span className="lane__val">{rand(l.perKm, { cents: true })}</span>
+      <span className="lane__trips">{l.trips} trips</span>
+    </div>
+  );
   return (
     <div className="frag tw-card cq">
       <div className="tw-card__head">
@@ -127,21 +136,13 @@ export function LaneRanking() {
           <div className="tw-card__sub">Delivered loads, last 12 months, excl. VAT</div>
         </div>
       </div>
-      {LANES.map((l) => (
-        <div className="lane" key={l.lane}>
-          <span className="lane__name">{l.lane}</span>
-          <span className="lane__track" aria-hidden="true">
-            <span className="lane__fill" style={{ display: 'block', width: `${(l.perKm / max) * 100}%` }} />
-          </span>
-          <span className="lane__val">{rand(l.perKm, { cents: true })}</span>
-          <span className="lane__trips">{l.trips} trips</span>
-        </div>
-      ))}
+      {LANES.slice(0, 3).map(row)}
       <div className="lane lane--thin">
-        <span className="lane__name">{LANE_THIN.lane}</span>
-        <span className="lane__val">Too few trips to rank</span>
-        <span className="lane__trips">{LANE_THIN.trips} trips</span>
+        <span className="lane__name">{LANES.length - 5} more lanes</span>
+        <span className="lane__val">Fleet average {rand(FLEET_AVG_PER_KM, { cents: true })}</span>
+        <span className="lane__trips" />
       </div>
+      {LANES.slice(-2).map(row)}
     </div>
   );
 }
@@ -250,84 +251,10 @@ export function Stats() {
           {AGEING.filter((a) => a.amount > 0).map((a) => (
             <div key={a.label}>
               <span>{a.label === 'Current' ? 'Not due yet' : a.label === '90+' ? 'Over 90 days' : `${a.label} days`}</span>
-              <b>{rand(a.amount)}</b>
+              <b>{rand(Math.round(a.amount))}</b>
             </div>
           ))}
         </div>
-      </div>
-    </div>
-  );
-}
-
-/** S2 stand-in: Home on a 390 phone. Replace with the real capture later. */
-export function PhoneHome() {
-  return (
-    <div className="frag ph" aria-hidden="true">
-      <div className="ph__bar">
-        <img src="/brand/truckwys-logo.png" alt="" width={72} height={14} />
-        <span style={{ display: 'flex', gap: 14 }}>
-          <Bell strokeWidth={S} />
-          <Menu strokeWidth={S} />
-        </span>
-      </div>
-      <div className="ph__page">
-        <div>
-          <div className="ph__title">Home</div>
-          <div className="tw-12 tw-muted" style={{ marginTop: 2 }}>
-            <span className="app__mark" style={{ display: 'inline-grid', width: 16, height: 16, fontSize: 9, borderRadius: 4, marginRight: 6, verticalAlign: -3 }}>
-              {COMPANY_INITIAL}
-            </span>
-            {COMPANY}
-          </div>
-        </div>
-        <div className="ph__kpis">
-          <Kpis />
-        </div>
-        <div className="tw-card">
-          <div className="tw-card__head" style={{ marginBottom: 4 }}>
-            <div className="tw-card__title">Needs you</div>
-            <span className="tw-card__count">5</span>
-          </div>
-          <NeedsYou variant="phone" />
-        </div>
-      </div>
-    </div>
-  );
-}
-
-/** S13 stand-in: the Copilot screen (dark). Not rendered on pages: it is exported once to
- * public/product/s13-copilot-dark.webp, the dimmed texture behind the Home Copilot band. */
-export function CopilotTexture() {
-  const cards = [
-    ['What is overdue?', 'Who to chase first'],
-    ['Quotes pipeline', 'Won, lost and open quotes'],
-    ['Fleet status', 'Active, idle and in maintenance'],
-    ['Add a customer', 'Drafts the record for you to check'],
-    ['Draft a quote', 'Drafts a quote for you to check'],
-  ];
-  return (
-    <div className="frag tex" aria-hidden="true">
-      <div className="tex__list">
-        <div className="tw-card__title" style={{ marginBottom: 12 }}>Conversations</div>
-        {['Who owes us the most', 'Lanes below cost', 'Fleet status'].map((t) => (
-          <div key={t} style={{ padding: '8px 0' }}>
-            <div className="tw-500">{t}</div>
-            <div className="tw-12 tw-muted">4 messages</div>
-          </div>
-        ))}
-      </div>
-      <div className="tw-card tex__main" style={{ padding: 40 }}>
-        <div style={{ font: '600 20px/28px var(--font-sans)' }}>What do you need to know?</div>
-        <div className="tw-sec">Ask about cash, overdue invoices, quotes or your fleet.</div>
-        <div className="tex__grid">
-          {cards.map(([t, d]) => (
-            <div key={t} className="tw-card" style={{ padding: 16 }}>
-              <div className="tw-600">{t}</div>
-              <div className="tw-13 tw-muted">{d}</div>
-            </div>
-          ))}
-        </div>
-        <div className="app__search" style={{ width: '100%', maxWidth: 'none', height: 48, marginTop: 24 }}>Ask Copilot about your business</div>
       </div>
     </div>
   );

@@ -8,11 +8,11 @@
  */
 import type { ReactNode } from 'react';
 import { ChevronRight, ChevronDown, Download, Printer, Search, Info, Check, Mic, MessageCircle, Plus, KeyRound, Webhook, Calendar } from 'lucide-react';
-import { COMPANY, INVOICE, KPIS, QUOTE, AGEING, TODAY, OVERDUE, OVERDUE_TOTAL } from '../../content/demo-data';
+import { COMPANY, INVOICE, KPIS, QUOTE, AGEING, TODAY, OVERDUE } from '../../content/demo-data';
 import { rand, date, num } from '../../lib/format';
 import {
   BOARD, BOARD_COUNT, DEBTORS, DEBTOR_STATS, DEBTORS_TOTAL, DEBTOR_CUSTOMERS, DEBTOR_INVOICES, STATEMENT, STATEMENT_BALANCE, PNL_MONTHS, PNL_TOTAL, VAT_ROWS, VAT_TOTAL,
-  REPORTS_INDEX, LANE_POINTS, FLEET_AVG_PER_KM, EXPENSES,
+  REPORTS_INDEX, LANE_POINTS, FLEET_AVG_PER_KM, EXPENSES, INVOICE_TILES,
 } from './sample';
 
 const S = 1.75;
@@ -120,20 +120,20 @@ export function QuotesBoard() {
 export function QuoteForm() {
   const fields: [string, string, boolean?][] = [
     ['Client', QUOTE.customer, true],
-    ['Weight (t)', '20', true],
-    ['Collection', 'City Deep, Johannesburg, GP', true],
-    ['Delivery', 'Prospecton, Durban, KZN', true],
-    ['Pickup date', '28/09/2026'],
-    ['Delivery date', '29/09/2026'],
-    ['Valid until', '05/10/2026'],
-    ['Vehicle type', `${QUOTE.vehicle} (34 t)`],
+    ['Weight (t)', String(QUOTE.weightT), true],
+    ['Collection', 'City Deep, Johannesburg, Gauteng', true],
+    ['Delivery', 'Prospecton, Durban, KwaZulu-Natal', true],
+    ['Pickup date', 'DD/MM/YYYY'],
+    ['Delivery date', 'DD/MM/YYYY'],
+    ['Valid until', '07/10/2026'],
+    ['Vehicle type', `${QUOTE.vehicle} (${QUOTE.vehicleCap})`],
   ];
   return (
     <div className="frag b-app cq">
       <AppHead title="New quote" back="Quote · Auto-saves in this browser" />
       <div className="b-describe">
         <MessageCircle strokeWidth={S} aria-hidden="true" />
-        <span className="b-describe__text">20 t packaged foods, JHB to Durban, interlink, Monday</span>
+        <span className="b-describe__text">28 t palletised floor tiles, City Deep to Prospecton, superlink</span>
         <span className="b-describe__mic">
           <Mic strokeWidth={S} aria-hidden="true" />
         </span>
@@ -146,7 +146,7 @@ export function QuoteForm() {
               {l}
               {req ? <i aria-hidden="true" /> : null}
             </span>
-            <span className="b-field__input">
+            <span className={`b-field__input${v === 'DD/MM/YYYY' ? ' tw-muted' : ''}`}>
               {v}
               {l.includes('date') || l === 'Valid until' ? <Calendar strokeWidth={S} aria-hidden="true" /> : null}
               {l === 'Client' || l === 'Vehicle type' ? <ChevronDown strokeWidth={S} aria-hidden="true" /> : null}
@@ -200,7 +200,7 @@ export function InvoiceDetail() {
           </div>
           <div className="b-inv__charges">
             <div className="tw-card__title">Charges</div>
-            <div className="tw-card__sub">1 line, excl. VAT</div>
+            <div className="tw-card__sub">{inv.lines.length} lines, excl. VAT</div>
           </div>
           <div className="b-inv__th">
             <span>Description</span>
@@ -208,14 +208,14 @@ export function InvoiceDetail() {
             <span>Unit price</span>
             <span>Total</span>
           </div>
-          <div className="b-inv__tr">
-            <span>
-              Linehaul {inv.route}, {QUOTE.vehicle.toLowerCase()}
-            </span>
-            <span>1</span>
-            <span>{R(inv.subtotal)}</span>
-            <span>{R(inv.subtotal)}</span>
-          </div>
+          {inv.lines.map((l) => (
+            <div className="b-inv__tr" key={l.description}>
+              <span>{l.description}</span>
+              <span>1</span>
+              <span>{R(l.amount)}</span>
+              <span>{R(l.amount)}</span>
+            </div>
+          ))}
           <div className="b-inv__sum">
             <div>
               <span>Subtotal</span>
@@ -319,15 +319,15 @@ export function InvoiceList() {
       <AppHead title="Finance" sub="Invoices, expenses and what you are owed" tabs={['Invoices', 'Expenses']} active="Invoices" actions={<span className="tw-btn tw-btn--primary">New invoice</span>} />
       <div className="b-tiles">
         {[
-          ['Invoiced in September', R0(VAT_ROWS[2].incl), 'By issue date'],
-          ['Overdue', R0(KPIS.pastDue), 'Past due, incl. VAT'],
-          ['Owed to you', R0(KPIS.owed), 'Incl. VAT'],
-          ['Time to get paid', '38,6 days', 'Paid invoices, 12 months'],
+          ['Invoiced in September', R0(INVOICE_TILES.invoicedSep), INVOICE_TILES.vsAug],
+          ['Collected', R0(INVOICE_TILES.collectedSep), INVOICE_TILES.collectedShare],
+          ['Overdue', R0(INVOICE_TILES.overdue), `${INVOICE_TILES.lateCount} invoices late`],
+          ['Time to get paid', `${INVOICE_TILES.daysToPay} days`, `${num(INVOICE_TILES.paidCount)} paid invoices`],
         ].map(([l, f, n], i) => (
           <div className="tw-card b-tile" key={l}>
             <span className="stat__label">{l}</span>
             <span className="b-tile__fig">{f}</span>
-            <span className="stat__note" style={i === 1 ? { color: 'var(--status-danger-text)' } : undefined}>
+            <span className="stat__note" style={i === 2 ? { color: 'var(--status-danger-text)' } : undefined}>
               {n}
             </span>
           </div>
@@ -545,7 +545,7 @@ export function ProfitLoss() {
     ['Maintenance and repairs', (m) => num(m.maint), 'sub'],
     ['Gross profit', (m) => num(m.gross), 'bold'],
     ['Gross margin', (m) => `${num((m.gross / m.revenue) * 100, 1)}%`, 'muted'],
-    ['Overheads', (m) => num(m.insurance + m.admin), 'sub'],
+    ['Overheads', (m) => num(m.overheads), 'sub'],
     ['Net profit', (m) => num(m.net), 'bold'],
     ['Net margin', (m) => `${num((m.net / m.revenue) * 100, 1)}%`, 'muted'],
   ];
@@ -639,13 +639,20 @@ export function VatReport() {
 }
 
 /* ================================================================ S12 insights, lanes scatter */
+/** Label placement where the default (right of the dot) would collide, as the app places them. */
+const LBL: Record<string, { dx: number; dy: number; a: 'start' | 'middle' | 'end' }> = {
+  'Tzaneen to Johannesburg': { dx: 8, dy: -10, a: 'start' },
+  'Durban to Johannesburg': { dx: 0, dy: 20, a: 'middle' },
+  'Johannesburg to eMalahleni': { dx: 10, dy: 8, a: 'start' },
+  'Kempton Park to Secunda': { dx: 10, dy: 0, a: 'start' },
+};
 export function LanesScatter() {
   const W = 640;
   const H = 280;
   const pad = { l: 48, r: 12, t: 12, b: 32 };
   const xMax = 1500;
-  const yMin = 30;
-  const yMax = 60;
+  const yMin = 10;
+  const yMax = 100;
   const x = (km: number) => pad.l + (km / xMax) * (W - pad.l - pad.r);
   const y = (v: number) => pad.t + (1 - (v - yMin) / (yMax - yMin)) * (H - pad.t - pad.b);
   const best = LANE_POINTS.filter((p) => !p.thin).sort((a, b) => b.perKm - a.perKm);
@@ -679,7 +686,7 @@ export function LanesScatter() {
           </span>
         </div>
         <svg viewBox={`0 0 ${W} ${H}`} className="b-scatter" aria-hidden="true">
-          {[30, 40, 50, 60].map((v) => (
+          {[20, 40, 60, 80, 100].map((v) => (
             <g key={v}>
               <line x1={pad.l} x2={W - pad.r} y1={y(v)} y2={y(v)} stroke="var(--chart-grid)" />
               <text x={pad.l - 8} y={y(v) + 4} textAnchor="end" className="b-scatter__ax">
@@ -693,7 +700,7 @@ export function LanesScatter() {
             </text>
           ))}
           <line x1={pad.l} x2={W - pad.r} y1={y(FLEET_AVG_PER_KM)} y2={y(FLEET_AVG_PER_KM)} stroke="var(--text-primary)" strokeWidth="1.25" />
-          <text x={pad.l + 4} y={y(FLEET_AVG_PER_KM) - 6} textAnchor="start" className="b-scatter__ax">
+          <text x={pad.l + 4} y={y(FLEET_AVG_PER_KM) + 16} textAnchor="start" className="b-scatter__ax">
             Fleet {rand(FLEET_AVG_PER_KM, { cents: true })}/km
           </text>
           {LANE_POINTS.map((p) => (
@@ -706,14 +713,16 @@ export function LanesScatter() {
                 stroke={p.thin ? 'var(--text-tertiary)' : 'none'}
                 strokeWidth="1.5"
               />
+              {p.label ? (
               <text
-                x={x(p.km) + (p.km > 1100 ? -10 : 10)}
-                y={y(p.perKm) + (p.km > 1100 ? 18 : 4)}
-                textAnchor={p.km > 1100 ? 'end' : 'start'}
+                x={x(p.km) + (LBL[p.lane]?.dx ?? 10)}
+                y={y(p.perKm) + (LBL[p.lane]?.dy ?? 4)}
+                textAnchor={LBL[p.lane]?.a ?? 'start'}
                 className="b-scatter__lbl"
               >
                 {p.lane}
               </text>
+              ) : null}
             </g>
           ))}
         </svg>
@@ -740,7 +749,6 @@ export function LanesScatter() {
 export function Expenses() {
   const e = EXPENSES;
   const max = Math.max(...e.categories.map((c) => c.amount));
-  const total = e.categories.reduce((s, c) => s + c.amount, 0);
   return (
     <div className="frag b-app cq">
       <AppHead
@@ -774,7 +782,7 @@ export function Expenses() {
         <div className="tw-card b-exp__cats">
           <div className="tw-card__title">Spend by category</div>
           <div className="tw-card__sub" style={{ marginBottom: 10 }}>
-            September, approved and pending
+            All {e.allCount} expenses, approved and pending
           </div>
           {e.categories.map((c, i) => (
             <div className="b-cat" key={c.name}>
@@ -783,7 +791,7 @@ export function Expenses() {
                 <span className="lane__fill" style={{ display: 'block', width: `${(c.amount / max) * 100}%`, background: i === 0 ? 'var(--chart-series-1)' : undefined }} />
               </span>
               <span className="tw-500">{R0(c.amount)}</span>
-              <span className="tw-muted">{Math.round((c.amount / total) * 100)}%</span>
+              <span className="tw-muted">{c.pct}%</span>
             </div>
           ))}
         </div>
@@ -820,7 +828,7 @@ export function Expenses() {
 /* ================================================================ S15 integrations settings */
 export function IntegrationsSettings() {
   const cards: { name: string; mark: string; line: string; status: string; tone: 'success' | 'neutral'; foot: string }[] = [
-    { name: 'Cartrack', mark: 'C', line: 'Vehicle location, speed and ignition status', status: 'Connected', tone: 'success', foot: '18 vehicles linked' },
+    { name: 'Cartrack', mark: 'C', line: 'Vehicle location, speed and ignition status', status: 'Connected', tone: 'success', foot: '15 vehicles linked' },
     { name: 'CtrlFleet', mark: 'C', line: 'Vehicle location and points of interest', status: 'Not connected', tone: 'neutral', foot: 'Connect CtrlFleet' },
   ];
   return (
@@ -926,7 +934,7 @@ export function MiniAge() {
           <span key={a.label} style={{ width: `${(a.amount / KPIS.owed) * 100}%`, background: tones[i] }} />
         ))}
       </div>
-      <div className="tw-12 tw-muted">Current · 1 to 30 · 31 to 60 · 61 to 90 days</div>
+      <div className="tw-12 tw-muted">Current · 1 to 30 · 31 to 60 · 61 to 90 · 90+ days</div>
     </div>
   );
 }
@@ -937,7 +945,7 @@ export function MiniLanes() {
     <div className="frag tw-card b-mini" aria-hidden="true">
       {pts.map((p, i) => (
         <div className="b-minilane" key={p.lane}>
-          <span className="tw-12 tw-sec">{p.lane.replace('Johannesburg', 'JHB').replace('Pretoria', 'PTA').replace('Cape Town', 'CPT').replace(' border', '')}</span>
+          <span className="tw-12 tw-sec">{p.lane}</span>
           <span className="lane__track">
             <span className="lane__fill" style={{ display: 'block', width: `${(p.perKm / max) * 100}%`, background: i === 0 ? 'var(--text-primary)' : undefined }} />
           </span>
@@ -953,9 +961,9 @@ export function FuelLine() {
   const q = QUOTE;
   const rows: [string, string, string][] = [
     ['Distance', `${q.from} to ${q.to}, one way`, `${num(q.km)} km`],
-    ['Consumption', `${q.vehicle} at 20 t`, `${num(q.burn, 1)} L/100 km`],
+    ['Consumption', `${q.vehicle} at ${q.weightT} t`, `${num(q.burn, 1)} L/100 km`],
     ['Litres', 'Distance times consumption', `${num(q.litres, 2)} L`],
-    ['Diesel', 'Inland, per litre', rand(q.dieselPerL, { cents: true })],
+    ['Diesel', '50ppm inland, FIASA, effective 2 Sep 2026', rand(q.dieselPerL, { cents: true })],
   ];
   return (
     <div className="frag tw-card cq">

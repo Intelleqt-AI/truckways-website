@@ -1,8 +1,8 @@
 import { FileText, Truck } from 'lucide-react';
-import { OVERDUE, AGEING, KPIS } from '../../content/demo-data';
+import { OVERDUE, NEEDS_YOU, NEEDS_YOU_OTHER, AGEING, KPIS } from '../../content/demo-data';
 import { rand } from '../../lib/format';
 
-const top3 = [...OVERDUE].sort((a, b) => b.amount - a.amount).slice(0, 3);
+const R0 = (n: number) => rand(Math.round(n));
 
 function Row({ icon, title, amount, sub, action }: { icon: 'doc' | 'truck'; title: string; amount?: string; sub: string; action: string }) {
   const Icon = icon === 'doc' ? FileText : Truck;
@@ -23,23 +23,26 @@ function Row({ icon, title, amount, sub, action }: { icon: 'doc' | 'truck'; titl
 
 /** F4: the Home "Needs you" list. `chase` adds the debtors age strip (StepSwitcher panel 3). */
 export default function NeedsYou({ variant = 'home' }: { variant?: 'home' | 'chase' | 'phone' }) {
-  const rows = top3.map((i) => (
+  const toRow = (i: (typeof OVERDUE)[number]) => (
     <Row
       key={i.number}
       icon="doc"
       title={i.customer}
-      amount={rand(i.amount)}
+      amount={R0(i.amount)}
       sub={`${i.daysLate} days late · ${i.number}`}
       action="Chase"
     />
-  ));
-  if (variant === 'phone') return <div>{rows.slice(0, 2)}</div>;
+  );
+  // Home and phone: the app's own "Needs you" order (S1, S2). Chase: largest overdue first.
+  const home = NEEDS_YOU.map(toRow);
+  const rows = OVERDUE.slice(0, 3).map(toRow);
+  if (variant === 'phone') return <div>{home.slice(0, 2)}</div>;
   if (variant === 'home') {
     return (
       <div>
-        <Row icon="truck" title="1 load left open" sub="Past its delivery date since 28 Sep 2026" action="Review" />
-        {rows}
-        <Row icon="truck" title="2 vehicles idle" sub="No load in the last 7 days" action="View" />
+        <Row icon="truck" title={NEEDS_YOU_OTHER.openLoad.title} sub={NEEDS_YOU_OTHER.openLoad.sub} action="Review" />
+        {home}
+        <Row icon="truck" title={NEEDS_YOU_OTHER.idle.title} sub={NEEDS_YOU_OTHER.idle.sub} action="View" />
       </div>
     );
   }
@@ -62,7 +65,7 @@ export default function NeedsYou({ variant = 'home' }: { variant?: 'home' | 'cha
           {AGEING.map((a) => (
             <div key={a.label}>
               <span>{a.label}</span>
-              <b>{rand(a.amount)}</b>
+              <b>{R0(a.amount)}</b>
             </div>
           ))}
         </div>

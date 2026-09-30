@@ -55,7 +55,7 @@ export default function InvoicingPage() {
         b="invoiced."
         lead="When a load is marked delivered, in TruckWys or from your TMS, the invoice is raised with 15% VAT and your payment terms, ready to send."
         frame={
-          <Stage label="An invoice raised on delivery of a Johannesburg to Durban load: bill-to customer, issue and due dates, 30-day terms, the linehaul charge, VAT at 15% and the total due, with its activity.">
+          <Stage label="An invoice raised on delivery of a Johannesburg to Durban load: bill-to customer, issue and due dates, 30-day terms, the linehaul and fuel surcharge lines, VAT at 15% and the total due, with its activity.">
             <InvoiceDetail />
           </Stage>
         }
@@ -99,7 +99,7 @@ export default function InvoicingPage() {
               points={['Draft, Sent, Viewed, Partially paid, Paid and Overdue', 'Payments recorded against the invoice, in part or in full', 'Your TMS can mark a load delivered with its POD, and the invoice follows']}
               link={{ href: '/integrations', label: 'How your TMS connects' }}
             >
-              <Stage label="The invoice list with invoiced this month, overdue, owed to you and time to get paid, and invoices with their status and amount including VAT.">
+              <Stage label="The invoice list with invoiced this month, collected, overdue and time to get paid, and invoices with their status and amount including VAT.">
                 <InvoiceList />
               </Stage>
             </FeatureRow>

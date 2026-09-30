@@ -94,7 +94,7 @@ export default function QuotingPage() {
               body="FIASA's inland or coastal diesel price, times the litres your truck uses over the distance. Checked every morning; the official price changes on the first Wednesday of the month."
               points={['Consumption per vehicle type, adjusted for the load weight', 'Your own price on any quote, if you buy in bulk', 'One way by default; a round trip doubles the distance costs, clearly labelled']}
             >
-              <Stage label="The fuel line of a Johannesburg to Durban quote: 568 km at the interlink's consumption gives the litres, times the inland diesel price per litre.">
+              <Stage label="The fuel line of a Johannesburg to Durban quote: 570 km at the superlink's consumption gives the litres, times the inland diesel price per litre.">
                 <FuelLine />
               </Stage>
             </FeatureRow>
@@ -102,7 +102,7 @@ export default function QuotingPage() {
               flip
               title="Every toll plaza on the route"
               body={`${FACTS.tollPlazas} SANRAL mainline plazas on the N1, N2, N3, N4, N17 and R30, at the tariffs effective 1 March 2026, by class 1 to 4. Tolls go in excl. VAT, because you claim the VAT back.`}
-              points={['Plaza by plaza, named on the quote', 'Class from your vehicle type, so an interlink pays class 4', 'Gauteng e-tolls left out: they ended in April 2024']}
+              points={['Plaza by plaza, named on the quote', 'Class from your vehicle type, so a superlink pays class 4', 'Gauteng e-tolls left out: they ended in April 2024']}
             >
               <Stage label="Toll plazas on the N3 from Johannesburg to Durban for a class 4 vehicle: De Hoek, Wilge, Tugela, Mooi and Mariannhill, with each tariff and the total excluding VAT.">
                 <N3Tolls />

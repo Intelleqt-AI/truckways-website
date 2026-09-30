@@ -73,7 +73,7 @@ export default function IntegrationsPage() {
         b="you already run."
         lead="Connect your tracking, bring your lists across from Excel, and let your TMS send deliveries to TruckWys by API."
         frame={
-          <Stage label="Integration settings: Cartrack connected with 18 vehicles linked, CtrlFleet not connected, one active partner API key and one active webhook.">
+          <Stage label="Integration settings: Cartrack connected with 15 vehicles linked, CtrlFleet not connected, one active partner API key and one active webhook.">
             <IntegrationsSettings />
           </Stage>
         }

@@ -13,7 +13,7 @@
 - Debtors by age, a statement per customer, and templated reminders that get firmer as days pass, sent by the user in one click. Not sent automatically and not written by a model.
 - Nine reports reconciled to invoices, payments and expenses: profit and loss, sales by month, cash movement, debtors age, customer statement, revenue by customer, revenue by lane, expense report and VAT report. CSV export.
 - Copilot: ask about cash, quotes or fleet in plain words. It uses a language model, answers from the company's own data, and drafts quotes and customers for the user to confirm. Prices, tolls, VAT and reminders are rules, not a model.
-- Integrations: Cartrack and CtrlFleet (connect with your login), API keys and signed webhooks, Excel and CSV import. Xero is coming soon.
+- Integrations: Cartrack (connect with your Cartrack API username and password, from Fleetweb under Settings, API Settings) and CtrlFleet, API keys and signed webhooks, Excel and CSV import. Xero is coming soon.
 - Six user roles: Admin, Manager, Operator, Dispatcher, Viewer, Driver.
 - iPhone app on the South African App Store. Android is coming soon.
 - Try it: the demo company is open to everyone at https://app.truckwys.com/login ("View demo"). No form, no call.
@@ -48,7 +48,7 @@ Q: Where do diesel and toll prices come from?
 A: Diesel from FIASA, inland or coastal. Tolls from the SANRAL tariffs effective 1 March 2026, for 31 mainline plazas, by vehicle class.
 
 Q: Does it work with Cartrack?
-A: Yes. Connect with your Cartrack login and vehicle location and odometer flow in. CtrlFleet connects too.
+A: Yes. Connect with your Cartrack API username and password (in Fleetweb under Settings, API Settings), not your normal login, and vehicle location and odometer flow in. CtrlFleet connects too.
 
 Q: Can I pay by EFT?
 A: The subscription is paid by card through Paystack. Your customers pay you by EFT, straight into your own account.
@@ -64,8 +64,13 @@ A: Not yet. The iPhone app is on the App Store; the web app works on any phone.
 - [Home](https://www.truckwys.com/): what TruckWys does, pricing and FAQ
 - [Pricing](https://www.truckwys.com/pricing): one plan, the 0,25% fee explained, a fee calculator
 - [How it works](https://www.truckwys.com/product): from booked load to paid invoice, and where a model is used
+- [Quoting](https://www.truckwys.com/product/quoting): price a load from FIASA diesel, SANRAL tolls by class, border fees, allowance and your rate
+- [Invoicing](https://www.truckwys.com/product/invoicing): the invoice raised on delivery, with 15% VAT and the invoice number as the EFT reference
+- [Debtors](https://www.truckwys.com/product/debtors): who owes you by age, statements per customer and one-click reminders
+- [Reports](https://www.truckwys.com/product/reports): profit and loss, revenue per km by lane, expenses and the VAT report
+- [Integrations](https://www.truckwys.com/integrations): Cartrack, CtrlFleet, API keys, webhooks and CSV import
 - [About](https://www.truckwys.com/about): what TruckWys is and is not
 - [Talk to us](https://www.truckwys.com/contact): for fleets of 50+ trucks and TMS partners
 - [Get started](https://app.truckwys.com/signup): create an account
-- [Guides](https://www.truckwys.com/blogs): pricing loads, tolls, diesel and getting paid in South Africa
+- [Guides](https://www.truckwys.com/guides): pricing loads, tolls, diesel and getting paid in South Africa
 
