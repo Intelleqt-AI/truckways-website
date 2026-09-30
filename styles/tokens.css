@@ -1,0 +1,475 @@
+/*
+ * Design tokens, copied VERBATIM from truckwyas-frontend/src/styles/theme.css
+ * (dark block, scale block, light block, fonts and radius block). Do not edit
+ * the copied values: a later shared package is then a straight lift.
+ * Web-only additions (--web-*) and the Inter override follow at the end.
+ */
+
+/* ===========================
+   DARK MODE (Default)
+   v3 final palette: docs/brand/DESIGN-PRINCIPLES.md §3 lists every value
+   with its measured contrast. Status, text and control tokens are defined
+   here (not under .os-app-shell) so portals, auth and public pages match.
+   =========================== */
+
+:root,
+[data-theme="dark"] {
+  color-scheme: dark;
+
+  /* Surfaces: page < sidebar < card < raised = overlay (overlay adds a border + shadow). */
+  --bg-deep: #0B0C0E;
+  --bg-sidebar: #0E0F12;
+  --bg-surface: #131518;
+  --bg-surface-hover: #181B1F;
+  --bg-raised: #1C1F24;
+  --bg-overlay: #1C1F24;
+  --bg-panel: rgba(255, 255, 255, 0.035); /* retired: alias only */
+  --modal-backdrop: rgba(0, 0, 0, 0.64);
+
+  /* Borders. --border-control is for every form control (1.4.11, >= 3:1). */
+  --border-row: #1D2025;
+  --border-subtle: #23262C;
+  --border-active: #2C3037;         /* = default: chips, outline buttons, overlay edge */
+  --border-default: #2C3037;
+  --border-strong: #3A3F47;
+  --border-overlay: #2C3037;
+  --border-control: #6E7682;
+  --border-control-hover: #8B919C;
+  --border-input: var(--border-control); /* alias (theme review name) */
+
+  /* Accent: data, links, focus and one emphasis per panel. Never a primary fill. */
+  --accent-primary: #6AA6FF;
+  --accent-primary-hover: #86B7FF;
+  --accent-hover: #86B7FF;
+  --accent-pressed: #5592EE;
+  --accent-bright: #86B7FF;         /* legacy alias of the hover step */
+  --accent-dim: rgba(106, 166, 255, 0.10);
+  --accent-glow: rgba(106, 166, 255, 0.15);
+  --link: #7DB2FF;
+  --on-accent: #0B0C0E;
+
+  /* Text */
+  --text-primary: #EDEFF2;
+  --text-secondary: #B4BAC3;
+  --text-tertiary: #9BA1AB;
+  --text-disabled: #555B64;
+
+  /* Primary button: near-white ink, black text. */
+  --btn-primary-bg: #EDEFF2;
+  --btn-primary-fg: #0B0C0E;
+  --btn-primary-hover: #FFFFFF;
+  --btn-primary-pressed: #D5D9DF;
+  --btn-disabled-bg: var(--bg-raised);
+  --btn-disabled-fg: var(--text-disabled);
+  --btn-danger-bg: #D93036;
+  --btn-danger-hover: #C4262C;
+  --btn-danger-fg: #FFFFFF;
+
+  /* Status: -text for words, -dot for chip dots and marks, -bg for banners only.
+     The bare --status-X tokens are text-grade so legacy text uses still pass. */
+  --status-success: #4CC38A;
+  --status-success-text: #4CC38A;
+  --status-success-dot: #3DB87E;
+  --status-success-bg: rgba(76, 195, 138, 0.10);
+  --status-warning: #E09A2D;
+  --status-warning-text: #EDB14F;
+  --status-warning-dot: #E09A2D;
+  --status-warning-bg: rgba(237, 177, 79, 0.10);
+  --status-danger: #E5534B;
+  --status-danger-text: #F47A7A;
+  --status-danger-dot: #E5534B;
+  --status-danger-bg: rgba(244, 122, 122, 0.10);
+  --status-info: #6AA6FF;
+  --status-info-text: #7DB2FF;
+  --status-info-dot: #6AA6FF;
+  --status-info-bg: rgba(106, 166, 255, 0.10);
+  --status-neutral: #9AA0AA;
+  --status-neutral-text: var(--text-secondary);
+  --status-neutral-dot: #6B717B;
+  --status-neutral-bg: var(--bg-raised);
+  --status-ok-dot: var(--status-success-dot); /* legacy alias */
+  --avatar-on-dim: #7DB2FF;
+  --badge-bg: #D93036;
+  --badge-fg: #FFFFFF;
+
+  /* Header */
+  --header-bg: rgba(11, 12, 14, 0.85);
+
+  /* Charts */
+  --chart-series-1: #6AA6FF;
+  --chart-bar-highlight: var(--chart-series-1);
+  --chart-bar: rgba(255, 255, 255, 0.04);   /* comparison fill (under the hatch) */
+  --chart-hatch: #6B7280;                   /* 45deg stroke + 1px outline, >= 3:1 */
+  --chart-muted: #6B7280;                   /* muted / comparison marks, >= 3:1 */
+  --chart-grid: #262A30;
+  --chart-axis: #3A3F47;
+  --chart-hover-band: rgba(255, 255, 255, 0.04);
+  --chart-negative: #F0894F;
+  --chart-bar-gradient: transparent;
+
+  /* Heatmap / sequential ramp (5 steps) */
+  --heat-empty: #1A1D22;
+  --heat-1: #172338;
+  --heat-2: #1F3A66;
+  --heat-3: #2F5FAD;
+  --heat-4: #5592EE;
+  --heat-5: #9CC3FF;
+  --heat-low: var(--heat-2);
+  --heat-medium: var(--heat-3);
+  --heat-high: var(--heat-4);
+  --heat-max: var(--heat-5);
+
+  /* Ambient glow (retired: glows are banned; kept so old references resolve) */
+  --glow-color: transparent;
+  --glow-transparent: transparent;
+
+  /* Scrollbar */
+  --scrollbar-thumb: #2C3037;
+  --scrollbar-thumb-hover: #3A3F47;
+
+  /* Shadows: cards use a border, overlays use border + shadow. */
+  --shadow-card: none;
+  --shadow-card-hover: none;
+  --shadow-pop: 0 12px 32px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(255, 255, 255, 0.02);
+
+  /* Inputs sit one step below the card (inset reads as editable in dark). */
+  --input-bg: #0F1114;
+  --input-bg-focus: #0F1114;
+
+  --card-radius: 12px;
+
+  /* Neutral interaction tints (hover is a surface tint, never a border change). */
+  --surface-tint-hover: rgba(255, 255, 255, 0.04);
+  --surface-tint-active: rgba(255, 255, 255, 0.07);
+
+  /* Shell */
+  --nav-active-bg: #262A31;
+  --nav-active-fg: #EDEFF2;
+  --nav-active-muted: #B4BAC3;     /* "Soon" and counts on the active item */
+  --nav-hover-bg: rgba(255, 255, 255, 0.05);
+  --nav-hover-color: var(--text-primary);
+  --nav-active-color: var(--nav-active-fg);
+  --tip-bg: #EDEFF2;
+  --tip-fg: #0B0C0E;
+  --focus-ring: rgba(106, 166, 255, 0.35);
+  --focus-outline: var(--accent-primary);
+
+  /* Emphasis tile (one per page), R5: same treatment as light. Neutral card
+     surface and border; only the figure carries accent ink. No navy fill. */
+  --emphasis-bg: var(--bg-surface);
+  --emphasis-border: var(--border-subtle);
+  --emphasis-fg: #6AA6FF;
+  --emphasis-fg-muted: #B4BAC3;
+  --emphasis-track: rgba(106, 166, 255, 0.18);
+  --emphasis-fill: #6AA6FF;
+  --emphasis-focus: #6AA6FF;
+
+  /* Alert box */
+  --alert-bg: var(--status-info-bg);
+  --alert-border: rgba(106, 166, 255, 0.25);
+
+  --status-badge-active-border: transparent;
+  --status-badge-delayed-border: transparent;
+  --bar-gradient-opacity: 0;
+  --live-dot-shadow: none;
+
+  /* Legacy: text colour on an accent fill. Primary buttons use --btn-primary-*. */
+  --btn-action-color: #0B0C0E;
+  --btn-action-shadow: none;
+  --pulse-color: rgba(106, 166, 255, 0.4);
+}
+
+/* Theme-agnostic scale (same in light + dark). */
+:root {
+  /* ===========================
+     v3 TYPE SCALE / WEIGHT / SPACING
+     Bold, tight titles; small grey labels; big figures with negative tracking.
+     Uppercase belongs ONLY to --text-micro group labels (sidebar, table eyebrows).
+     =========================== */
+  --text-figure: 32px;    /* KPI figures: 700, -0.03em, tabular */
+  --text-display: 28px;   /* page title: 700, -0.025em */
+  --text-title: 20px;     /* sheet / dialog title: 700, -0.015em */
+  --text-subhead: 15px;   /* card title: 600, -0.01em */
+  --text-body: 14px;      /* default body + inputs */
+  --text-small: 13px;     /* secondary text, table cells */
+  --text-label: 12px;     /* small grey labels, deltas, axis text */
+  --text-micro: 11px;     /* uppercase group labels, 600, +0.06em */
+
+  --tracking-figure: -0.03em;
+  --tracking-display: -0.025em;
+  --tracking-title: -0.01em;
+
+  --weight-regular: 400;
+  --weight-medium: 500;
+  --weight-semibold: 600;
+  --weight-bold: 700;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+  --space-10: 40px;
+
+  /* R3 rhythm (DESIGN-PRINCIPLES §11.1): ONE card recipe and two gaps.
+     Card padding 20 (16 on phones), 16 between sibling cards, 24 between
+     sections. Nothing else. */
+  --card-pad: 20px;
+  --card-gap: 16px;
+  --section-gap: 24px;
+
+  /* R3 control heights: 36 for every control in a page head or toolbar
+     (buttons, search, selects, segmented track), 40 for fields inside forms.
+     Coarse pointers and phones lift both to 44 (touch floor). */
+  --control-h: 36px;
+  --field-h: 40px;
+
+  /* Page rhythm (one page-head geometry everywhere). Applied by
+     .tw-page-head / SectionHeader and the shell's <main>:
+       main top edge -> H1 box top      = --page-head-top
+       head block (title 34 + 4 + one subtitle line 20, reserved even when
+       there is no subtitle, so tabs never move) = --page-head-h
+       head -> tabs row                 = --head-to-tabs
+       tabs row (40) -> first content   = --tabs-to-content
+       head -> first content (no tabs)  = --head-to-content */
+  --main-pad-top: 8px;
+  --page-head-top: 24px;
+  --page-head-h: 58px;
+  --head-to-tabs: 16px;
+  --tabs-h: 40px;
+  --tabs-to-content: 24px;
+  --head-to-content: 24px;
+
+  /* One content width (DESIGN-PRINCIPLES §11.8). */
+  --content-max: 1600px;
+  --form-max: 720px;
+  /* KPI tile: label 16 + figure 34 + note 16, inside the one card padding
+     (106 desktop, 98 phone). */
+  --kpi-height: calc(66px + 2 * var(--card-pad));
+
+  --pill-radius: var(--radius-chip, 6px);
+}
+
+/* ===========================
+   LIGHT MODE
+   =========================== */
+
+[data-theme="light"] {
+  color-scheme: light;
+
+  --bg-deep: #F3F4F6;
+  --bg-sidebar: #FFFFFF;
+  --bg-surface: #FFFFFF;
+  --bg-surface-hover: #F8F9FA;
+  --bg-raised: #EEF0F3;
+  --bg-overlay: #FFFFFF;
+  --bg-panel: rgba(0, 0, 0, 0.025);
+  --modal-backdrop: rgba(14, 17, 22, 0.40);
+
+  --border-row: #EEF0F2;
+  --border-subtle: #E4E6EA;
+  --border-active: #D8DBE0;
+  --border-default: #D8DBE0;
+  --border-strong: #C3C7CE;
+  --border-overlay: #E4E6EA;
+  --border-control: #848B96;
+  --border-control-hover: #6B7280;
+  --border-input: var(--border-control);
+
+  --accent-primary: #2563EB;
+  --accent-primary-hover: #1D4ED8;
+  --accent-hover: #1D4ED8;
+  --accent-pressed: #1A45C2;
+  --accent-bright: #1D4ED8;
+  --accent-dim: #EFF5FF;
+  --accent-glow: rgba(37, 99, 235, 0.15);
+  --link: #1D4ED8;
+  --on-accent: #FFFFFF;
+
+  --text-primary: #0E1116;
+  --text-secondary: #434A55;
+  --text-tertiary: #636A75;
+  --text-disabled: #A3A8B1;
+
+  --btn-primary-bg: #0E1116;
+  --btn-primary-fg: #FFFFFF;
+  --btn-primary-hover: #262B33;
+  --btn-primary-pressed: #000000;
+  --btn-disabled-bg: var(--bg-raised);
+  --btn-disabled-fg: var(--text-disabled);
+  --btn-danger-bg: #C81E1E;
+  --btn-danger-hover: #B91C1C;
+  --btn-danger-fg: #FFFFFF;
+
+  --status-success: #137A3A;
+  --status-success-text: #137A3A;
+  --status-success-dot: #15803D;
+  --status-success-bg: #ECFDF3;
+  --status-warning: #BA7607;
+  --status-warning-text: #A84C08;
+  --status-warning-dot: #BA7607;
+  --status-warning-bg: #FFF7E6;
+  --status-danger: #DC2626;
+  --status-danger-text: #C81E1E;
+  --status-danger-dot: #DC2626;
+  --status-danger-bg: #FEF2F2;
+  --status-info: #2563EB;
+  --status-info-text: #1D4ED8;
+  --status-info-dot: #2563EB;
+  --status-info-bg: #EFF5FF;
+  --status-neutral: #5F6672;
+  --status-neutral-text: var(--text-secondary);
+  --status-neutral-dot: #7D848F;
+  --status-neutral-bg: var(--bg-raised);
+  --status-ok-dot: var(--status-success-dot);
+  --avatar-on-dim: #1D4ED8;
+  --badge-bg: #C81E1E;
+  --badge-fg: #FFFFFF;
+
+  --header-bg: rgba(255, 255, 255, 0.9);
+
+  --chart-series-1: #2563EB;
+  --chart-bar-highlight: var(--chart-series-1);
+  --chart-bar: rgba(14, 17, 22, 0.04);
+  --chart-hatch: #838A95;
+  --chart-muted: #838A95;
+  --chart-grid: #E4E6EA;
+  --chart-axis: #C3C7CE;
+  --chart-hover-band: rgba(14, 17, 22, 0.04);
+  --chart-negative: #C2410C;
+  --chart-bar-gradient: transparent;
+
+  --heat-empty: #F1F3F5;
+  --heat-1: #DCE7FD;
+  --heat-2: #AFC8FB;
+  --heat-3: #6F9EF5;
+  --heat-4: #2563EB;
+  --heat-5: #1A3FA8;
+  --heat-low: var(--heat-2);
+  --heat-medium: var(--heat-3);
+  --heat-high: var(--heat-4);
+  --heat-max: var(--heat-5);
+
+  --glow-color: transparent;
+  --glow-transparent: transparent;
+
+  --scrollbar-thumb: #D8DBE0;
+  --scrollbar-thumb-hover: #C3C7CE;
+
+  --shadow-card: none;
+  --shadow-card-hover: none;
+  --shadow-pop: 0 12px 32px rgba(14, 17, 22, 0.12), 0 2px 6px rgba(14, 17, 22, 0.06);
+
+  --input-bg: #FFFFFF;
+  --input-bg-focus: #FFFFFF;
+
+  --card-radius: 12px;
+
+  --surface-tint-hover: rgba(14, 17, 22, 0.04);
+  --surface-tint-active: rgba(14, 17, 22, 0.07);
+
+  --nav-active-bg: #0E1116;
+  --nav-active-fg: #FFFFFF;
+  --nav-active-muted: #C3C8D0;
+  --nav-hover-bg: rgba(14, 17, 22, 0.045);
+  --nav-hover-color: var(--text-primary);
+  --nav-active-color: var(--nav-active-fg);
+  --tip-bg: #0E1116;
+  --tip-fg: #FFFFFF;
+  --focus-ring: rgba(37, 99, 235, 0.28);
+  --focus-outline: var(--accent-primary);
+
+  /* Emphasis tile: neutral card surface and border; only the figure carries
+     accent ink. Dark uses the identical treatment (R5). */
+  --emphasis-bg: var(--bg-surface);
+  --emphasis-border: var(--border-subtle);
+  --emphasis-fg: #1D4ED8;
+  --emphasis-fg-muted: #434A55;
+  --emphasis-track: rgba(37, 99, 235, 0.14);
+  --emphasis-fill: #2563EB;
+  --emphasis-focus: #1D4ED8;
+
+  --alert-bg: var(--status-info-bg);
+  --alert-border: rgba(37, 99, 235, 0.2);
+
+  --status-badge-active-border: transparent;
+  --status-badge-delayed-border: transparent;
+  --bar-gradient-opacity: 0;
+  --live-dot-shadow: none;
+
+  --btn-action-color: #FFFFFF;
+  --btn-action-shadow: none;
+  --pulse-color: rgba(37, 99, 235, 0.4);
+}
+
+/* ===========================
+   FONTS
+   =========================== */
+
+:root {
+  /* Two families. Identifiers (invoice and quote numbers, plates, licences)
+     use tabular sans (v3 decision): --font-mono is kept as the identifier
+     role name so every existing reference follows, and resolves to sans.
+     True code (API keys, payloads, code blocks) uses --font-code. */
+  --font-code: ui-monospace, 'SFMono-Regular', 'SF Mono', Menlo, Consolas, 'Liberation Mono', monospace;
+  --font-mono: var(--font-sans);
+  --font-id: var(--font-sans);
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);
+  /* Tailwind radius scale (tailwind.config.ts) resolves from these: lg/xl = card 8,
+     md = control 6, sm = badge 4, 2xl/sheet = dialog 12. Previously undefined,
+     so every rounded-* utility collapsed to square corners. */
+  --radius: 12px;
+  --radius-sheet: 16px;
+  /* v3 shape scale (docs/design/v3/00-V3-DECISION.md, DESIGN-PRINCIPLES §3):
+     cards 12, controls 8, chips 6, dialogs and sheets 16, nested 8. */
+  --radius-card: 12px;
+  --radius-control: 8px;
+  --radius-chip: 6px;
+  --radius-pill: 999px;
+  --radius-dialog: 16px;
+  --radius-nested: 8px;
+  --radius-menu: 12px;
+}
+
+/* ===========================
+   WEB-ONLY ADDITIONS (not in the product)
+   =========================== */
+
+:root {
+  /* Inter (self-hosted by next/font) ahead of the product's system stack. */
+  --font-sans: var(--font-inter), -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+
+  --web-bg: #FFFFFF;
+  --web-container: 1200px;
+  --web-gutter: 32px;
+  --web-col-gap: 24px;
+  --web-section-y: 128px;
+  --web-header-to-content: 48px;
+  --web-row-gap: 64px;
+  --web-nav-h: 64px;
+  --web-btn-h: 44px;
+  --web-frame-radius: var(--radius-dialog);
+}
+
+@media (max-width: 1023px) {
+  :root { --web-gutter: 24px; --web-section-y: 96px; }
+}
+@media (max-width: 639px) {
+  :root {
+    --web-gutter: 16px;
+    --web-section-y: 72px;
+    --web-header-to-content: 32px;
+    --web-row-gap: 48px;
+    --web-btn-h: 48px;
+    --card-pad: 16px;
+  }
+}
+@media (pointer: coarse) {
+  :root { --web-btn-h: 48px; }
+}
+
+/* The ink band is the product's dark theme; the page ground follows it. */
+[data-theme="dark"] { --web-bg: #0B0C0E; }

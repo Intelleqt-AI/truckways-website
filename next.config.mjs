@@ -1,17 +1,20 @@
 /** @type {import('next').NextConfig} */
+const APP = 'https://app.truckwys.com';
+
 const nextConfig = {
+  poweredByHeader: false,
+  images: { formats: ['image/avif', 'image/webp'] },
   async redirects() {
-    // Legacy v0 routes removed in the 2026 rebuild.
     return [
-      // There is no free trial any more: the trial-request form is gone and
-      // every CTA sends people straight to the app to sign in. Kept as a
-      // redirect so already-indexed /get-started links still land somewhere
-      // useful instead of on the 404.
-      {
-        source: '/get-started',
-        destination: 'https://app.truckwys.com/login',
-        permanent: true,
-      },
+      // Phase A (brief §2.2)
+      { source: '/ai', destination: '/product#models', permanent: true },
+      { source: '/get-started', destination: `${APP}/signup?ref=site-redirect`, permanent: false },
+      { source: '/signup', destination: `${APP}/signup?ref=site-redirect`, permanent: false },
+      { source: '/login', destination: `${APP}/login`, permanent: false },
+      // No demo deep link in the app yet (owner question Q10): the login page's
+      // "View demo" button opens the demo company with no form.
+      { source: '/demo', destination: `${APP}/login?ref=site-redirect`, permanent: false },
+      // Legacy v0 routes
       { source: '/dashboard', destination: '/', permanent: true },
       { source: '/dashboard/:path*', destination: '/', permanent: true },
       { source: '/ai-analysis', destination: '/', permanent: true },

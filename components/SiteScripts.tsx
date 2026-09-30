@@ -1,0 +1,67 @@
+'use client';
+
+import { useEffect } from 'react';
+import { track } from '@vercel/analytics';
+
+/**
+ * The site's only always-on client code (well under 1 kB of logic):
+ * - reveal on scroll (IntersectionObserver, once, 15% visible, stagger 60ms max 4)
+ * - hairline under the nav after 8px of scroll
+ * - Vercel custom events (no personal data): cta_click, app_store_click, faq_open
+ */
+export default function SiteScripts() {
+  useEffect(() => {
+    const page = location.pathname;
+
+    // Reveal
+    const els = Array.from(document.querySelectorAll<HTMLElement>('.reveal'));
+    let io: IntersectionObserver | undefined;
+    if ('IntersectionObserver' in window) {
+      io = new IntersectionObserver(
+        (entries) => {
+          let i = 0;
+          for (const e of entries) {
+            if (!e.isIntersecting) continue;
+            const el = e.target as HTMLElement;
+            el.style.setProperty('--d', `${Math.min(i++, 3) * 60}ms`);
+            el.classList.add('is-in');
+            io!.unobserve(el);
+          }
+        },
+        { threshold: 0.15 },
+      );
+      els.forEach((el) => io!.observe(el));
+    } else {
+      els.forEach((el) => el.classList.add('is-in'));
+    }
+
+    // Nav hairline
+    const nav = document.getElementById('site-nav');
+    const onScroll = () => nav?.classList.toggle('is-scrolled', window.scrollY > 8);
+    onScroll();
+    window.addEventListener('scroll', onScroll, { passive: true });
+
+    // Events
+    const onClick = (e: MouseEvent) => {
+      const t = (e.target as Element | null)?.closest?.('[data-cta],[data-appstore]') as HTMLElement | null;
+      if (!t) return;
+      if (t.dataset.appstore) track('app_store_click', { location: t.dataset.appstore, page });
+      else track('cta_click', { cta: t.dataset.cta ?? '', location: t.dataset.loc ?? '', page });
+    };
+    const onToggle = (e: Event) => {
+      const d = e.target as HTMLDetailsElement;
+      if (d.tagName === 'DETAILS' && d.open && d.dataset.faq) track('faq_open', { question_id: d.dataset.faq, page });
+    };
+    document.addEventListener('click', onClick);
+    document.addEventListener('toggle', onToggle, true);
+
+    return () => {
+      io?.disconnect();
+      window.removeEventListener('scroll', onScroll);
+      document.removeEventListener('click', onClick);
+      document.removeEventListener('toggle', onToggle, true);
+    };
+  }, []);
+
+  return null;
+}

@@ -1,120 +1,79 @@
-import Link from 'next/link';
-import Image from 'next/image';
-import { APP_LOGIN_URL } from '../lib/site';
+import { FACTS } from '../lib/facts';
+import { APP_STORE_URL, loginUrl } from '../lib/site';
 
-const productLinks = [
-  { href: '/product', label: 'Product' },
-  { href: '/ai', label: 'The AI inside' },
-  { href: '/product#quote', label: 'Quote builder' },
-  { href: '/product#paid', label: 'Invoicing and debtors' },
-  { href: '/pricing', label: 'Pricing' },
+/* Phase A footer: only pages that exist today. Quoting, Invoicing, Debtors,
+   Reports, Integrations, For TMS partners and the calculators join in B and C. */
+const COLS = [
+  {
+    title: 'Product',
+    links: [
+      { href: '/product', label: 'How it works' },
+      { href: '/pricing', label: 'Pricing' },
+      { href: APP_STORE_URL, label: 'iPhone app', app: true },
+    ],
+  },
+  {
+    title: 'Company',
+    links: [
+      { href: '/about', label: 'About' },
+      { href: '/contact', label: 'Talk to us' },
+      { href: loginUrl('footer'), label: 'Sign in' },
+    ],
+  },
+  {
+    title: 'Resources',
+    links: [{ href: '/blogs', label: 'Guides' }],
+  },
+  {
+    title: 'Legal',
+    links: [
+      { href: '/privacy', label: 'Privacy policy' },
+      { href: '/terms', label: 'Terms' },
+      { href: '/paia-manual', label: 'PAIA manual' },
+      { href: '/delete-account', label: 'Delete your account' },
+    ],
+  },
 ];
-
-const companyLinks = [
-  { href: '/about', label: 'About' },
-  { href: '/blogs', label: 'Blog' },
-  { href: '/contact', label: 'Contact' },
-  // Points at the product app, not a page on this site.
-  { href: APP_LOGIN_URL, label: 'Get started' },
-];
-
-const linkClass =
-  'inline-block py-1.5 text-[14px] text-ink-2 transition-colors hover:text-ink';
 
 export default function Footer() {
   return (
-    <footer className="footer-dark">
-      <div className="mx-auto max-w-6xl px-5 py-16">
-        <div className="grid gap-12 md:grid-cols-4">
-          <div className="md:col-span-2">
-            <Image
-              src="/images/truckwys-logo-transparent.png"
-              alt="TruckWys"
-              width={148}
-              height={32}
-              className="h-7 w-auto invert"
-            />
-            <p className="mt-4 max-w-sm text-[14px] leading-relaxed text-ink-2">
-              Fleet finance software for South African transporters. Quote with real
-              costs, invoice on delivery, and see who owes you.
-            </p>
-            <p className="mt-6 text-[13px] text-ink-3">
-              <a href="mailto:grant@truckwys.com" className="hover:text-ink">
-                grant@truckwys.com
+    <footer className="footer">
+      <div className="wrap">
+        <div className="footer__grid">
+          <div className="footer__brand">
+            <img className="footer__logo" src="/brand/truckwys-logo.png" alt="TruckWys" width={113} height={22} loading="lazy" />
+            <p>Load-to-cash software for South African transporters.</p>
+            <div className="footer__app">
+              {/* TODO(owner): swap for Apple's official "Download on the App Store"
+                  badge artwork (Apple marketing guidelines); a text button until then. */}
+              <a href={APP_STORE_URL} className="btn btn--secondary btn--sm" data-appstore="footer">
+                iPhone app on the App Store
               </a>
-            </p>
+              <span className="small">Android coming soon</span>
+            </div>
           </div>
-
-          <div>
-            <div className="eyebrow mb-4">Product</div>
-            <ul className="space-y-2.5">
-              {productLinks.map((l) => (
-                <li key={l.href}>
-                  <Link href={l.href} className={linkClass}>
-                    {l.label}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
-            <div className="eyebrow mb-4">Company</div>
-            <ul className="space-y-2.5">
-              {companyLinks.map((l) =>
-                l.href.startsWith('http') ? (
-                  <li key={l.href}>
-                    <a href={l.href} className={linkClass}>
-                      {l.label}
-                    </a>
-                  </li>
-                ) : (
-                  <li key={l.href}>
-                    <Link href={l.href} className={linkClass}>
-                      {l.label}
-                    </Link>
-                  </li>
-                ),
-              )}
-            </ul>
+          <div className="footer__cols">
+            {COLS.map((c) => (
+              <nav key={c.title} className="footer__col" aria-label={c.title}>
+                <h2>{c.title}</h2>
+                <ul className="list-reset">
+                  {c.links.map((l) => (
+                    <li key={l.label}>
+                      <a href={l.href} {...('app' in l ? { 'data-appstore': 'footer_link' } : {})}>
+                        {l.label}
+                      </a>
+                    </li>
+                  ))}
+                </ul>
+              </nav>
+            ))}
           </div>
         </div>
-
-        <div className="mt-14 flex flex-col gap-4 border-t border-line pt-6 md:flex-row md:items-center md:justify-between">
-          <p className="text-[13px] text-ink-3">
-            © {new Date().getFullYear()} TruckWys. Built for South African fleets.
+        <div className="footer__legal">
+          <p className="small">
+            {FACTS.company.name} · Reg. {FACTS.company.reg} · {FACTS.company.address}
           </p>
-          <div className="flex items-center gap-6">
-            <a
-              href="https://www.linkedin.com/in/truckwys-a8519239a"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block py-1.5 text-[13px] text-ink-3 transition-colors hover:text-ink"
-            >
-              LinkedIn
-            </a>
-            <a
-              href="https://twitter.com/truckwys"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="inline-block py-1.5 text-[13px] text-ink-3 transition-colors hover:text-ink"
-            >
-              X
-            </a>
-            <Link href="/privacy" className="inline-block py-1.5 text-[13px] text-ink-3 transition-colors hover:text-ink">
-              Privacy
-            </Link>
-            <Link href="/terms" className="inline-block py-1.5 text-[13px] text-ink-3 transition-colors hover:text-ink">
-              Terms
-            </Link>
-            {/* PAIA section 51 requires the manual to be publicly available. */}
-            <Link
-              href="/paia-manual"
-              className="inline-block py-1.5 text-[13px] text-ink-3 transition-colors hover:text-ink"
-            >
-              PAIA Manual
-            </Link>
-          </div>
+          <p className="small">© 2026 TruckWys</p>
         </div>
       </div>
     </footer>

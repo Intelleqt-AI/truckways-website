@@ -1,125 +1,72 @@
-import type React from 'react';
-import type { Metadata } from 'next';
-import Script from 'next/script';
-import { Inter, IBM_Plex_Mono } from 'next/font/google';
-import './globals.css';
-import Navbar from '../components/Navbar';
-import Footer from '../components/Footer';
+import type { ReactNode } from 'react';
+import type { Metadata, Viewport } from 'next';
+import { Inter } from 'next/font/google';
 import { Analytics } from '@vercel/analytics/react';
+import './globals.css';
+import Nav from '../components/Nav';
+import Footer from '../components/Footer';
+import SiteScripts from '../components/SiteScripts';
+import { SITE_URL, jsonLd } from '../lib/site';
+import { graph, organizationSchema, websiteSchema } from '../lib/schema';
 
-// Set in Vercel project env. GA4 and Search Console activate automatically
-// once the values exist; nothing renders without them.
-const GA_ID = process.env.NEXT_PUBLIC_GA_ID;
-const GOOGLE_SITE_VERIFICATION = process.env.GOOGLE_SITE_VERIFICATION;
-
+// One variable Inter file, latin subset, self-hosted by next/font at build.
 const inter = Inter({
   subsets: ['latin'],
-  weight: ['400', '500', '600', '700'],
+  display: 'swap',
   variable: '--font-inter',
-  display: 'swap',
+  adjustFontFallback: true,
 });
 
-const plexMono = IBM_Plex_Mono({
-  subsets: ['latin'],
-  weight: ['400', '500'],
-  variable: '--font-plex-mono',
-  display: 'swap',
-});
-
-const SITE = 'https://www.truckwys.com';
+const GOOGLE_SITE_VERIFICATION = process.env.GOOGLE_SITE_VERIFICATION;
 
 export const metadata: Metadata = {
-  metadataBase: new URL(SITE),
+  metadataBase: new URL(SITE_URL),
   title: {
-    default: 'TruckWys | Fleet finance software for South African transporters',
+    default: 'TruckWys: quoting, invoicing and debtors for SA transporters',
     template: '%s | TruckWys',
   },
   description:
-    'Quote loads with live diesel and toll prices, invoice on delivery, and see who owes you. Built for South African fleets. R 4 499 per month.',
-  authors: [{ name: 'TruckWys' }],
-  creator: 'TruckWys',
-  publisher: 'TruckWys',
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
-      index: true,
-      follow: true,
-      'max-video-preview': -1,
-      'max-image-preview': 'large',
-      'max-snippet': -1,
-    },
-  },
-  openGraph: {
-    type: 'website',
-    locale: 'en_ZA',
-    url: SITE,
-    siteName: 'TruckWys',
-    title: 'TruckWys | Fleet finance software for South African transporters',
-    description:
-      'Quote loads with live diesel and toll prices, invoice on delivery, and see who owes you. Built for South African fleets.',
-    images: [
-      {
-        url: '/og-image.png',
-        width: 1200,
-        height: 630,
-        alt: 'TruckWys: know what every load really costs, invoice it the moment it delivers',
-      },
+    "Load-to-cash software for South African transporters. Price loads from FIASA diesel and SANRAL tolls, invoice on delivery and chase what's owed.",
+  applicationName: 'TruckWys',
+  robots: { index: true, follow: true, googleBot: { index: true, follow: true, 'max-image-preview': 'large', 'max-snippet': -1 } },
+  openGraph: { type: 'website', locale: 'en_ZA', siteName: 'TruckWys' },
+  twitter: { card: 'summary_large_image' },
+  icons: {
+    icon: [
+      { url: '/favicon.png', type: 'image/png', sizes: '32x32' },
+      { url: '/icon-192.png', type: 'image/png', sizes: '192x192' },
     ],
+    apple: '/apple-touch-icon.png',
   },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'TruckWys | Fleet finance software for South African transporters',
-    description:
-      'Quote loads with live diesel and toll prices, invoice on delivery, and see who owes you.',
-    images: ['/og-image.png'],
-    creator: '@truckwys',
-    site: '@truckwys',
-  },
-  alternates: {
-    canonical: SITE,
-  },
-  category: 'technology',
-  ...(GOOGLE_SITE_VERIFICATION
-    ? { verification: { google: GOOGLE_SITE_VERIFICATION } }
-    : {}),
+  manifest: '/manifest.json',
+  ...(GOOGLE_SITE_VERIFICATION ? { verification: { google: GOOGLE_SITE_VERIFICATION } } : {}),
 };
 
-export default function RootLayout({ children }: { children: React.ReactNode }) {
+export const viewport: Viewport = {
+  themeColor: '#FFFFFF',
+  width: 'device-width',
+  initialScale: 1,
+};
+
+export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en-ZA" className={`${inter.variable} ${plexMono.variable} antialiased`}>
+    <html lang="en-ZA" data-theme="light" className={inter.variable}>
       <head>
-        <link rel="icon" href="/favicon.png" type="image/png" sizes="32x32" />
-        <link rel="icon" href="/icon-192.png" type="image/png" sizes="192x192" />
-        <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-        <meta name="theme-color" content="#2563EB" />
-        <link rel="manifest" href="/manifest.json" />
+        {/* Marks JS as available before first paint so below-fold reveals never flash.
+            Without JS nothing is hidden. */}
+        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
       </head>
-      <body className="font-sans">
-        <a
-          href="#main"
-          className="sr-only focus:not-sr-only focus:absolute focus:left-4 focus:top-4 focus:z-[100] focus:rounded focus:bg-accent focus:px-4 focus:py-2 focus:text-accent-ink"
-        >
+      <body>
+        <a href="#main" className="skip">
           Skip to content
         </a>
-        <Navbar />
+        <Nav />
         <main id="main">{children}</main>
         <Footer />
+        <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(graph(organizationSchema, websiteSchema))} />
+        <SiteScripts />
+        {/* Vercel Web Analytics: cookieless and aggregate. No GA4, so no consent banner. */}
         <Analytics />
-        {GA_ID && (
-          <>
-            <Script
-              src={`https://www.googletagmanager.com/gtag/js?id=${GA_ID}`}
-              strategy="afterInteractive"
-            />
-            <Script id="ga4" strategy="afterInteractive">
-              {`window.dataLayer = window.dataLayer || [];
-                function gtag(){dataLayer.push(arguments);}
-                gtag('js', new Date());
-                gtag('config', '${GA_ID}');`}
-            </Script>
-          </>
-        )}
       </body>
     </html>
   );

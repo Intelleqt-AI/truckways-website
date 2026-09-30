@@ -1,11 +1,11 @@
 {
-  "name": "TruckWys - Fleet Profitability Platform",
+  "name": "TruckWys",
   "short_name": "TruckWys",
-  "description": "AI-powered fleet profitability platform for African transport operators",
+  "description": "Load-to-cash software for South African transporters",
   "start_url": "/",
   "display": "standalone",
-  "background_color": "#ffffff",
-  "theme_color": "#3C83F6",
+  "background_color": "#FFFFFF",
+  "theme_color": "#FFFFFF",
   "icons": [
     {
       "src": "/icon-192.png",
