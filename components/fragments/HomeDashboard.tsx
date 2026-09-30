@@ -8,7 +8,7 @@ import {
   House, MessageSquareText, FileText, Receipt, ChartNoAxesColumn, FileBarChart, Users, Truck, Zap,
   ShieldCheck, Settings, Search, Bell, Sun, ChevronsUpDown, PanelLeftClose, Info, ArrowUpRight,
 } from 'lucide-react';
-import { COMPANY, COMPANY_INITIAL, KPIS, REVENUE_VS_COSTS, TODAY_LABEL } from '../../content/demo-data';
+import { COMPANY, COMPANY_INITIAL, KPIS, REVENUE_VS_COSTS, TODAY_LABEL, LATEST_QUOTES, PIPELINE } from '../../content/demo-data';
 import { rand, num } from '../../lib/format';
 import NeedsYou from './NeedsYou';
 
@@ -145,6 +145,77 @@ function Chart() {
   );
 }
 
+function LatestWork() {
+  const tone: Record<string, string> = { Accepted: 'success', Sent: 'info', Draft: 'neutral' };
+  return (
+    <div className="tw-card tw-card--flush">
+      <div className="tw-card__head" style={{ padding: '20px 20px 0', marginBottom: 12 }}>
+        <div>
+          <div className="tw-card__title">Latest work</div>
+          <div className="tw-card__sub">Five most recent</div>
+        </div>
+        <div className="tw-seg">
+          <span className="is-active">Quotes</span>
+          <span>Loads</span>
+        </div>
+      </div>
+      <div className="lw__th">
+        <span>Quote</span>
+        <span>Customer</span>
+        <span>Route</span>
+        <span>Total</span>
+        <span>Status</span>
+      </div>
+      {LATEST_QUOTES.map((q) => (
+        <div className="lw__tr" key={q.number}>
+          <span className="tw-500">{q.number}</span>
+          <span>{q.customer}</span>
+          <span className="tw-sec">{q.route}</span>
+          <span>{rand(q.total)}</span>
+          <span>
+            <span className={`tw-status tw-status--${tone[q.status]}`}>
+              <span className="tw-status__dot" />
+              {q.status}
+            </span>
+          </span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
+function Pipeline() {
+  const rows: [string, number][] = [
+    ['Draft', PIPELINE.draft],
+    ['Sent', PIPELINE.sent],
+    ['Accepted', PIPELINE.accepted],
+    ['On the road', KPIS.activeLoads],
+  ];
+  const max = Math.max(...rows.map((r) => r[1]));
+  return (
+    <div className="tw-card">
+      <div className="tw-card__head">
+        <div>
+          <div className="tw-card__title">
+            Quote pipeline <Info strokeWidth={S} width={14} height={14} color="var(--text-tertiary)" />
+          </div>
+          <div className="tw-card__sub">This month</div>
+        </div>
+        <ArrowUpRight strokeWidth={S} width={16} height={16} color="var(--text-tertiary)" />
+      </div>
+      {rows.map(([l, n], i) => (
+        <div className="pipe__row" key={l}>
+          <span className="tw-13 tw-sec">{l}</span>
+          <span className="lane__track">
+            <span className="lane__fill" style={{ display: 'block', width: `${(n / max) * 100}%`, background: i === 2 ? 'var(--chart-series-1)' : undefined }} />
+          </span>
+          <span className="tw-13 tw-600">{n}</span>
+        </div>
+      ))}
+    </div>
+  );
+}
+
 export default function HomeDashboard() {
   return (
     <div className="frag appc" aria-hidden="true">
@@ -188,6 +259,10 @@ export default function HomeDashboard() {
               </div>
               <NeedsYou variant="home" />
             </div>
+          </div>
+          <div className="app__grid">
+            <LatestWork />
+            <Pipeline />
           </div>
         </div>
       </div>

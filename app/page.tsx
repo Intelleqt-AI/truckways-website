@@ -4,9 +4,10 @@ import { ButtonLink, TextLink, SectionHeader, TwoTone, StatusChip, Caption, SAMP
 import StepSwitcher from '../components/StepSwitcher';
 import Faq, { type QA } from '../components/Faq';
 import HomeDashboard from '../components/fragments/HomeDashboard';
+import PhoneApp from '../components/fragments/PhoneApp';
 import { CostBreakdown, QuoteCard, N3Tolls } from '../components/fragments/Quote';
 import {
-  InvoiceRow, NeedsYouCard, LaneRanking, CopilotPanel, Findings, Stats, PhoneHome,
+  InvoiceRow, NeedsYouCard, LaneRanking, CopilotPanel, Findings, Stats,
 } from '../components/fragments/Money';
 import { FACTS, PRICE_AND_FEE, PRICE_LINE, CANCELLATION } from '../lib/facts';
 import { signupUrl, demoUrl, jsonLd, SITE_URL } from '../lib/site';
@@ -198,7 +199,7 @@ export default function Home() {
             </div>
             {/* TODO(owner) VAT-1 */}
             <p className="small hero__price">
-              {PRICE_AND_FEE} No long-term contract.
+              {PRICE_AND_FEE} No <span className="nowrap">long-term</span> contract.
             </p>
           </div>
 
@@ -206,15 +207,19 @@ export default function Home() {
               Slot for the real S1 capture: replace <HomeDashboard /> with a <picture> (priority, sizes). */}
           <figure className="hero__comp" role="img" aria-label={`TruckWys Home for a demo company, showing ${rand(KPIS.owed)} owed to you and five items that need attention, with the cost breakdown of a Johannesburg to Durban load.`}>
             <div className="hero__frame" data-theme="light">
-              <HomeDashboard />
+              <div className="hero__scale">
+                <HomeDashboard />
+              </div>
             </div>
             <div className="hero__float" data-theme="light">
-              <CostBreakdown float hidden />
+              <CostBreakdown float hidden compact />
             </div>
           </figure>
           <div className="hero__phone" data-theme="light" role="img" aria-label={`TruckWys Home on a phone for a demo company, showing ${rand(KPIS.owed)} owed to you.`}>
             <div className="phone">
-              <PhoneHome />
+              <div className="phone__scale">
+                <PhoneApp />
+              </div>
             </div>
           </div>
         </div>

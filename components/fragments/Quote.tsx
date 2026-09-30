@@ -1,63 +1,85 @@
+import type React from 'react';
 import { N3_PLAZAS, N3_TOTAL_EX, N3_TOTAL_INCL, QUOTE } from '../../content/demo-data';
 import { rand, num, date } from '../../lib/format';
 
-function CostLines() {
+function CostLines({ compact }: { compact?: boolean }) {
   const q = QUOTE;
+  const c = (n: number) => rand(n, { cents: true });
+  // Compact (the hero float): the app's rows with their detail folded into one short label.
+  const rows: [React.ReactNode, number][] = compact
+    ? [
+        [<>Fuel · {num(q.litres, 0)}&nbsp;L at {c(q.dieselPerL)}</>, q.fuel],
+        [<>Tolls · {N3_PLAZAS.length} N3 plazas, class {q.tollClass}</>, q.tolls],
+        ['Driver allowance', q.allowance],
+        [<>Base rate · {c(q.ratePerKm)}/km</>, q.base],
+        ['Markup', q.markup],
+      ]
+    : [
+        [
+          <>
+            Fuel: {num(q.burn, 1)} L/100 km at {c(q.dieselPerL)}/L
+            <span className="cost__plazas">
+              {num(q.litres, 0)} L over {num(q.km)} km, inland 50ppm
+            </span>
+          </>,
+          q.fuel,
+        ],
+        [
+          <>
+            Tolls (SA plazas)
+            <span className="cost__plazas">
+              {N3_PLAZAS.map((p) => p.name).join(', ')} · class {q.tollClass}, excl. VAT
+            </span>
+          </>,
+          q.tolls,
+        ],
+        ['Driver allowance', q.allowance],
+        [
+          <>
+            Base rate ({q.vehicle} · {c(q.ratePerKm)}/km)
+            <span className="cost__plazas">Your running cost per km: finance, tyres, maintenance, wages</span>
+          </>,
+          q.base,
+        ],
+        ['Markup (suggested price in use)', q.markup],
+      ];
   return (
     <>
-      <div className="cost__row">
-        <span>
-          Fuel: {num(q.burn, 1)} L/100 km at {rand(q.dieselPerL, { cents: true })}/L
-          <span className="cost__plazas">
-            {num(q.litres, 0)} L over {num(q.km)} km, inland diesel
-          </span>
-        </span>
-        <span>{rand(q.fuel, { cents: true })}</span>
-      </div>
-      <div className="cost__row">
-        <span>
-          Tolls (SA plazas)
-          <span className="cost__plazas">
-            {N3_PLAZAS.map((p) => p.name).join(', ')} · class {q.tollClass}, excl. VAT
-          </span>
-        </span>
-        <span>{rand(q.tolls, { cents: true })}</span>
-      </div>
-      <div className="cost__row">
-        <span>Driver allowance</span>
-        <span>{rand(q.allowance, { cents: true })}</span>
-      </div>
-      <div className="cost__row">
-        <span>
-          Base rate ({q.vehicle} · {rand(q.ratePerKm, { cents: true })}/km)
-        </span>
-        <span>{rand(q.base, { cents: true })}</span>
-      </div>
+      {rows.map(([l, v], i) => (
+        <div className="cost__row" key={i}>
+          <span>{l}</span>
+          <span>{c(v)}</span>
+        </div>
+      ))}
       <div className="cost__price">
         <span>Quote price, excl. VAT</span>
-        <span>{rand(q.quotePrice, { cents: true })}</span>
+        <span>{c(q.quotePrice)}</span>
       </div>
       <div className="cost__foot">
-        VAT 15% {rand(q.vat, { cents: true })} · total {rand(q.totalIncl, { cents: true })} · above your costs of{' '}
-        {rand(q.costFloor, { cents: true })}
+        Costs {c(q.costs)} · margin {num(q.marginPct, 1)}%
+        {compact ? null : (
+          <>
+            {' '}· VAT 15% {c(q.vat)} · total {c(q.totalIncl)}
+          </>
+        )}
       </div>
     </>
   );
 }
 
 /** F1: the quote builder's cost breakdown card (Johannesburg to Durban, class 4 interlink). */
-export function CostBreakdown({ float, hidden }: { float?: boolean; hidden?: boolean }) {
+export function CostBreakdown({ float, hidden, compact }: { float?: boolean; hidden?: boolean; compact?: boolean }) {
   return (
-    <div className={`frag tw-card${float ? ' frag--float' : ''}`} aria-hidden={hidden || undefined}>
+    <div className={`frag tw-card${float ? ' frag--float' : ''}${compact ? ' cost--compact' : ''}`} aria-hidden={hidden || undefined}>
       <div className="tw-card__head" style={{ marginBottom: 4 }}>
         <div>
           <div className="tw-card__title">Cost breakdown</div>
           <div className="tw-card__sub">
-            {QUOTE.from} to {QUOTE.to} · {QUOTE.vehicle} · {num(QUOTE.km)} km one way
+            {QUOTE.from} to {QUOTE.to} · {QUOTE.vehicle} · {num(QUOTE.km)}&nbsp;km{compact ? '' : ' one way'}
           </div>
         </div>
       </div>
-      <CostLines />
+      <CostLines compact={compact} />
     </div>
   );
 }
