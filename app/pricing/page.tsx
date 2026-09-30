@@ -1,209 +1,194 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
-import {
-  APP_LOGIN_URL,
-  CANCELLATION,
-  FACTS,
-  FEE_BASIS,
-  FEE_LABEL,
-  PRICE_LABEL,
-  jsonLd,
-  softwareSchema,
-} from '../../lib/site';
+import { Check, Zap, ShieldCheck } from 'lucide-react';
+import { ButtonLink, TextLink, TwoTone, StatusChip } from '../../components/ui';
+import { Breadcrumbs, PageHero, CTABand } from '../../components/Blocks';
+import Faq, { type QA } from '../../components/Faq';
+import FeeCalc from '../../components/FeeCalc';
+import { FACTS, PRICE, CANCELLATION } from '../../lib/facts';
+import { SITE_URL, signupUrl, demoUrl, jsonLd } from '../../lib/site';
+import { graph, softwareSchema, offerSchema, faqSchema, breadcrumbSchema } from '../../lib/schema';
 
-// TODO(owner): confirm whether R 4 499 is excl. or incl. VAT, then say so on this page.
+const URL = `${SITE_URL}/pricing`;
+const TITLE = 'Pricing: R 4 499 per month, unlimited users';
+const DESCRIPTION =
+  "One plan for South African transporters: R 4 499 per month plus 0,25% of each delivered load's invoice value. Unlimited users, no setup fees.";
 
 export const metadata: Metadata = {
-  title: 'Pricing',
-  description:
-    `TruckWys costs ${PRICE_LABEL} per month per fleet plus ${FEE_LABEL} ${FEE_BASIS}. Unlimited users and quotes, no setup fees, no tiers.`,
-  alternates: {
-    canonical: 'https://www.truckwys.com/pricing',
-  },
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: URL },
   openGraph: {
-    type: 'website',
-    siteName: 'TruckWys',
-    locale: 'en_ZA',
-    title: 'TruckWys pricing',
-    description:
-      `${PRICE_LABEL} per month per fleet plus ${FEE_LABEL} ${FEE_BASIS}. Unlimited users and quotes, no setup fees, no tiers.`,
-    url: 'https://www.truckwys.com/pricing',
-    images: [{ url: 'https://www.truckwys.com/og-image.png', width: 1200, height: 630, alt: 'TruckWys: know what every load really costs, invoice it the moment it delivers' }],
+    url: URL,
+    title: `${TITLE} | TruckWys`,
+    description: DESCRIPTION,
+    images: [{ url: '/og/pricing.png', width: 1200, height: 630, alt: 'TruckWys pricing: one plan, R 4 499 per month' }],
   },
+  twitter: { title: `${TITLE} | TruckWys`, description: DESCRIPTION, images: ['/og/pricing.png'] },
 };
 
-const pricingFaqs = FACTS.faqs.filter((f) =>
-  ['How much does TruckWys cost?', 'What is Fast Pay?', 'How long does setup take?'].includes(f.q),
-);
+// TODO(owner) VAT-1: no "incl." or "excl." VAT anywhere on this page until confirmed.
 
-const pricingFaqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: pricingFaqs.map((f) => ({
-    '@type': 'Question',
-    name: f.q,
-    acceptedAnswer: { '@type': 'Answer', text: f.a },
-  })),
-};
+const INCLUDED = [
+  'Unlimited loads, quotes and invoices',
+  'Unlimited users, with six roles',
+  'Quotes from FIASA diesel, SANRAL tolls and your costs',
+  'Invoice on delivery, debtors and reminders',
+  'Nine reports and insights, CSV export',
+  'Cartrack and CtrlFleet connections, API and webhooks',
+  'iPhone app',
+];
+
+const FAQ: QA[] = [
+  { id: 'trial', q: 'Is there a free trial?', a: 'No. The demo is open to everyone, with a working company in it. Use it as long as you like before you pay.' },
+  { id: 'setup', q: 'Are there setup fees?', a: 'No.' },
+  { id: 'per-user', q: 'Do you charge per user?', a: 'No. Add your whole team.' },
+  // TODO(owner) VAT-1: "Is VAT included?" ships only once answered.
+  // TODO(owner) Q3: align cancellation with the Terms; fallback copy until then.
+  { id: 'cancel', q: 'How do I cancel?', a: 'Month to month, with no long-term contract. See the Terms for notice.' },
+  { id: 'eft', q: 'Can I pay by EFT?', a: 'Your subscription is paid by card through Paystack. Your customers pay you by EFT, straight into your own account.' },
+  { id: 'fleet-50', q: 'Running 50 or more trucks?', a: 'Talk to us about onboarding, integrations and security. Use the Talk to us page and a person will reply by email.' },
+];
+
+const CRUMBS = [
+  { name: 'Home', path: '/' },
+  { name: 'Pricing', path: '/pricing' },
+];
 
 export default function PricingPage() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(softwareSchema)} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(pricingFaqSchema)} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLd(graph(softwareSchema, offerSchema, faqSchema(FAQ), breadcrumbSchema(CRUMBS)))}
+      />
 
-      {/* Hero */}
-      <section className="hero-wash">
-        <div className="mx-auto max-w-6xl px-5 pb-16 pt-20 text-center md:pt-28">
-          <div className="eyebrow eyebrow-accent mb-5">Pricing</div>
-          <h1 className="text-hero mx-auto max-w-4xl text-ink">
-            TruckWys pricing: {PRICE_LABEL} a month, everything included
-          </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-[16px] leading-relaxed text-ink-2">
-            No per-user fees, no tiers, no surprises at month end. Every fleet gets
-            the whole product.
-          </p>
+      <PageHero
+        crumbs={<Breadcrumbs trail={CRUMBS} />}
+        a="One plan. One price."
+        b={<>No <span className="nowrap">long-term</span> contract.</>}
+        lead="Everything TruckWys does, for your whole team, month to month."
+      />
+
+      {/* Plan card + how the fee works */}
+      <section className="sec" style={{ paddingTop: 0 }} aria-label="The plan">
+        <div className="wrap plan">
+          <div className="plan__card">
+            <p className="plan__name">TruckWys Fleet</p>
+            <div className="plan__fig">
+              <span className="figure-big" style={{ color: 'var(--text-primary)' }}>{PRICE}</span>
+              <span>per month</span>
+            </div>
+            <p className="plan__sub">plus 0,25% of each delivered load&apos;s invoice value</p>
+            <ul className="plan__list list-reset">
+              {INCLUDED.map((t) => (
+                <li key={t}>
+                  <Check strokeWidth={1.75} aria-hidden="true" />
+                  {t}
+                </li>
+              ))}
+            </ul>
+            <ButtonLink href={signupUrl('pricing-card')} cta="get_started" loc="pricing_card" className="btn--block">
+              Get started
+            </ButtonLink>
+            <p className="small plan__note">Paid by card through Paystack. You are live once the payment clears.</p>
+            <div className="plan__alt">
+              <TextLink href={demoUrl('pricing-card')} cta="open_demo" loc="pricing_card">
+                Or open the demo first
+              </TextLink>
+            </div>
+          </div>
+
+          <div className="plan__how">
+            <h2 className="h3">How the 0,25% works</h2>
+            <dl className="dl">
+              <div>
+                <dt>When</dt>
+                <dd>Charged when a delivered load is invoiced.</dd>
+              </div>
+              <div>
+                {/* VERIFY Q2: add the incl. or excl. VAT basis here once confirmed. */}
+                <dt>On what</dt>
+                <dd>The invoice value. A load invoiced at R&nbsp;34&nbsp;500 adds R&nbsp;86,25.</dd>
+              </div>
+              <div>
+                <dt>Not charged on</dt>
+                <dd>Quotes you lose, drafts and cancelled loads.</dd>
+              </div>
+              <div>
+                <dt>Where you see it</dt>
+                <dd>Every charge is listed in Billing history.</dd>
+              </div>
+              <div>
+                <dt>Contract</dt>
+                <dd>{CANCELLATION}</dd>
+              </div>
+            </dl>
+          </div>
         </div>
       </section>
 
-      {/* Cards */}
-      <section className="border-t border-line bg-surface">
-        <div className="mx-auto max-w-6xl px-5 py-20">
-          <div className="mx-auto grid max-w-4xl gap-6 md:grid-cols-2">
-            <div className="card flex flex-col p-8">
-              <div className="eyebrow mb-2">Platform</div>
-              <div className="flex items-baseline gap-2">
-                <span className="mono-stat text-[44px] font-semibold text-ink">{PRICE_LABEL}</span>
-                <span className="text-[15px] text-ink-2">per month, per fleet</span>
-              </div>
-              <ul className="mt-6 space-y-3">
-                {[
-                  'Unlimited users, quotes and invoices',
-                  'Quote builder with live diesel and SANRAL tolls',
-                  'Cross-border pricing for Southern Africa',
-                  'Automatic invoicing with POD attached',
-                  'Debtors by age and one-click payment reminders',
-                  'Fleet insights: margin, cost per km, utilisation',
-                  'Xero and Cartrack integrations',
-                  'Email and phone support',
-                ].map((f) => (
-                  <li key={f} className="flex gap-3 text-[14px] text-ink-2">
-                    <span className="mt-0.5 text-accent" aria-hidden="true">✓</span>
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-auto pt-8">
-                <a href={APP_LOGIN_URL} className="btn-primary w-full">
-                  Get started
-                </a>
-              </div>
-            </div>
-
-            <div className="card flex flex-col p-8">
-              <div className="eyebrow mb-2">Per delivered load</div>
-              <div className="flex items-baseline gap-2">
-                <span className="mono-stat text-[44px] font-semibold text-ink">{FEE_LABEL}</span>
-                <span className="text-[15px] text-ink-2">{FEE_BASIS}</span>
-              </div>
-              <ul className="mt-6 space-y-3">
-                {[
-                  'Charged when a delivered load is invoiced',
-                  'Nothing on quotes you lose',
-                  'No per-user charges, no minimums',
-                  CANCELLATION,
-                ].map((f) => (
-                  <li key={f} className="flex gap-3 text-[14px] text-ink-2">
-                    <span className="mt-0.5 text-accent" aria-hidden="true">✓</span>
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-6 rounded-md border border-line bg-accent-soft p-4">
-                <div className="eyebrow eyebrow-accent mb-1.5">Coming soon</div>
-                <p className="text-[13px] leading-relaxed text-ink-2">
-                  Fast Pay is not live yet and is not part of this price. Its
-                  pricing will be published when it launches.
-                </p>
-              </div>
-              <p className="mt-auto pt-6 text-[13px] text-ink-3">
-                You pay for outcomes: a delivered load is money on its way in.
-              </p>
-            </div>
+      {/* Fee calculator (G) */}
+      <section className="sec sec--grey" aria-labelledby="calc-h">
+        <div className="wrap calc">
+          <div className="calc__head">
+            <TwoTone id="calc-h" a="What you would pay" b="in a month." />
+            <p className="body">
+              Load fees are 0,25% of each delivered load&apos;s invoice value. Arithmetic only; your real fees are listed in Billing history.
+            </p>
           </div>
+          <FeeCalc monthly={FACTS.price.monthly} feePct={FACTS.fee.pct} />
+        </div>
+      </section>
 
-          {/* Comparison strip */}
-          <div className="mx-auto mt-14 max-w-4xl">
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-              {[
-                { v: 'R0', l: 'setup fees' },
-                { v: 'R0', l: 'per-user charges' },
-                { v: '30 days', l: "notice to cancel, month to month" },
-              ].map((s) => (
-                <div key={s.l} className="card p-6 text-center">
-                  <div className="mono-stat text-[24px] font-semibold text-ink">{s.v}</div>
-                  <div className="mt-1 text-[13px] text-ink-2">{s.l}</div>
-                </div>
-              ))}
-            </div>
+      {/* Coming soon */}
+      <section className="sec" aria-labelledby="soon-h">
+        <div className="wrap">
+          <div className="shead">
+            <TwoTone id="soon-h" a="Coming soon." b="Not in the price." />
+            <p>Neither is live yet, and neither is part of the plan above.</p>
           </div>
+          <ul className="soon list-reset">
+            <li className="pcard">
+              <Zap className="pcard__icon" strokeWidth={1.75} aria-hidden="true" />
+              <span className="pcard__name">Fast Pay</span>
+              <span className="pcard__line">Payment on invoices before your customer pays. Not live yet. Pricing will be published when it is.</span>
+              <span className="pcard__foot">
+                <StatusChip />
+                <TextLink href="/contact?topic=fast-pay" cta="notify" loc="pricing_soon" quiet>
+                  Get notified<span className="sr-only"> about Fast Pay</span>
+                </TextLink>
+              </span>
+            </li>
+            <li className="pcard">
+              <ShieldCheck className="pcard__icon" strokeWidth={1.75} aria-hidden="true" />
+              <span className="pcard__name">Insurance</span>
+              <span className="pcard__line">Not live yet.</span>
+              <span className="pcard__foot">
+                <StatusChip />
+                <TextLink href="/contact?topic=insurance" cta="notify" loc="pricing_soon" quiet>
+                  Get notified<span className="sr-only"> about Insurance</span>
+                </TextLink>
+              </span>
+            </li>
+          </ul>
         </div>
       </section>
 
       {/* Pricing FAQ */}
-      <section className="bg-page">
-        <div className="mx-auto max-w-3xl px-5 py-20">
-          <div className="text-center">
-            <div className="eyebrow eyebrow-accent mb-4">FAQ</div>
-            <h2 className="text-display text-ink">Pricing questions</h2>
+      <section className="sec" style={{ paddingTop: 0 }} aria-label="Pricing questions">
+        <div className="wrap">
+          <Faq a="Pricing" b="questions." line="What people ask before they pay." items={FAQ} />
+          <div className="faq" style={{ marginTop: 24 }}>
+            <div className="faq__more">
+              <TextLink href="/contact?topic=fleet-50" cta="talk_to_us" loc="pricing_faq">
+                Talk to us
+              </TextLink>
+            </div>
           </div>
-          <div className="mt-10 space-y-3">
-            {pricingFaqs.map((f) => (
-              <details key={f.q} className="card group px-6 py-4">
-                <summary className="cursor-pointer list-none text-[15px] font-medium text-ink marker:content-none">
-                  <span className="flex items-center justify-between gap-4">
-                    {f.q}
-                    <span className="text-ink-3 transition-transform group-open:rotate-45" aria-hidden="true">+</span>
-                  </span>
-                </summary>
-                <p className="mt-3 text-[14px] leading-relaxed text-ink-2">{f.a}</p>
-              </details>
-            ))}
-          </div>
-          <p className="mt-8 text-center text-[14px] text-ink-2">
-            More questions on the{' '}
-            <Link href="/#faq" className="font-medium text-accent underline-offset-4 hover:underline">
-              full FAQ
-            </Link>{' '}
-            or email{' '}
-            <a href="mailto:grant@truckwys.com" className="font-medium text-accent underline-offset-4 hover:underline">
-              grant@truckwys.com
-            </a>
-            .
-          </p>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="panel-accent">
-        <div className="mx-auto max-w-6xl px-5 py-24 text-center">
-          <h2 className="text-display mx-auto max-w-2xl text-ink">
-            {PRICE_LABEL} gets your whole fleet on board
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-[16px] text-ink-2">
-            Sign in and send your first properly costed quote before the diesel
-            price changes again.
-          </p>
-          <div className="mt-8 flex flex-col items-center justify-center gap-3 px-6 sm:flex-row sm:px-0">
-            <a href={APP_LOGIN_URL} className="btn-primary w-full !border-white !bg-white !text-accent sm:w-auto">
-              See the demo
-            </a>
-            <Link href="/contact" className="btn-secondary w-full !border-white/40 !bg-transparent !text-white sm:w-auto">
-              Talk to us
-            </Link>
-          </div>
-        </div>
-      </section>
+      <CTABand page="pricing" />
     </>
   );
 }
