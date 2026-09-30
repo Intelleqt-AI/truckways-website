@@ -180,7 +180,7 @@
 .inv__th { display: grid; grid-template-columns: minmax(0, 1.6fr) 1fr 1fr auto; gap: 12px; padding: 12px 20px; border-bottom: 1px solid var(--border-subtle); font: 500 12px/16px var(--font-sans); color: var(--text-tertiary); }
 .inv__tr { display: grid; grid-template-columns: minmax(0, 1.6fr) 1fr 1fr auto; gap: 12px; align-items: center; padding: 12px 20px; border-bottom: 1px solid var(--border-row); }
 .inv__tr > :last-child, .inv__th > :last-child { text-align: right; }
-.inv__cust { font: 500 14px/20px var(--font-sans); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.inv__cust { font: 500 14px/20px var(--font-sans); }
 .inv__no { font: 400 12px/16px var(--font-sans); color: var(--text-tertiary); }
 .inv__open { background: var(--bg-surface-hover); }
 .inv__detail { padding: 4px 20px 20px; border-bottom: 1px solid var(--border-row); background: var(--bg-surface-hover); display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 20px; }
@@ -202,7 +202,7 @@
 /* ------------------------------------------------------ lanes (F5) */
 .lane { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr) 72px 60px; gap: 14px; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--border-row); }
 .lane:last-child { border-bottom: 0; }
-.lane__name { font: 500 14px/20px var(--font-sans); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+.lane__name { font: 500 14px/20px var(--font-sans); }
 .lane__track { height: 6px; border-radius: 3px; background: var(--bg-raised); overflow: hidden; }
 .lane__fill { height: 100%; border-radius: 3px; background: var(--chart-muted); transform-origin: left center; }
 .lane:first-child .lane__fill { background: var(--text-primary); }

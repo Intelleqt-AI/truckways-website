@@ -233,7 +233,7 @@ export default function Home() {
                   width={390}
                   height={844}
                   alt={`TruckWys Home on a phone for the demo company: ${rand(KPIS.owed)} owed to you, ${rand(KPIS.revenue12m)} received over 12 months, a ${String(KPIS.netMargin12m).replace('.', ',')}% margin and ${KPIS.activeLoads} active loads.`}
-                  fetchPriority="high"
+                  fetchPriority="low"
                   decoding="async"
                 />
               </picture>
@@ -583,7 +583,7 @@ export default function Home() {
           <div className="ctap__visual" aria-hidden="true">
             <div className="ctap__crop">
               <div className="ctap__scale">
-                <HomeDashboard />
+                <HomeDashboard short />
               </div>
             </div>
             <div className="ctap__float">

@@ -217,7 +217,8 @@ function Pipeline() {
   );
 }
 
-export default function HomeDashboard() {
+/** `short` drops the lower row (Latest work, Quote pipeline) where the crop never shows it. */
+export default function HomeDashboard({ short }: { short?: boolean } = {}) {
   return (
     <div className="frag appc" aria-hidden="true">
      <div className="app">
@@ -261,10 +262,12 @@ export default function HomeDashboard() {
               <NeedsYou variant="home" />
             </div>
           </div>
-          <div className="app__grid">
-            <LatestWork />
-            <Pipeline />
-          </div>
+          {short ? null : (
+            <div className="app__grid">
+              <LatestWork />
+              <Pipeline />
+            </div>
+          )}
         </div>
       </div>
      </div>
