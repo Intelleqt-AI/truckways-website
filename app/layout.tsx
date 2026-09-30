@@ -35,7 +35,7 @@ export const metadata: Metadata = {
     template: '%s | TruckWys',
   },
   description:
-    'Quote loads with live diesel and toll prices, invoice on delivery, and get paid in 48 hours with FastPay. Built for South African fleets. R4,500 per month.',
+    'Quote loads with live diesel and toll prices, invoice on delivery, and see who owes you. Built for South African fleets. R 4 499 per month.',
   authors: [{ name: 'TruckWys' }],
   creator: 'TruckWys',
   publisher: 'TruckWys',
@@ -57,13 +57,13 @@ export const metadata: Metadata = {
     siteName: 'TruckWys',
     title: 'TruckWys | Fleet finance software for South African transporters',
     description:
-      'Quote loads with live diesel and toll prices, invoice on delivery, and get paid in 48 hours with FastPay. Built for South African fleets.',
+      'Quote loads with live diesel and toll prices, invoice on delivery, and see who owes you. Built for South African fleets.',
     images: [
       {
         url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: 'The TruckWys quote builder pricing a Johannesburg to Cape Town load',
+        alt: 'TruckWys: know what every load really costs, invoice it the moment it delivers',
       },
     ],
   },
@@ -71,7 +71,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'TruckWys | Fleet finance software for South African transporters',
     description:
-      'Quote loads with live diesel and toll prices, invoice on delivery, and get paid in 48 hours with FastPay.',
+      'Quote loads with live diesel and toll prices, invoice on delivery, and see who owes you.',
     images: ['/og-image.png'],
     creator: '@truckwys',
     site: '@truckwys',

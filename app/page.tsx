@@ -3,7 +3,11 @@ import Link from 'next/link';
 import {
   APP_LOGIN_URL,
   APP_STORE_URL,
+  CANCELLATION,
   FACTS,
+  FEE_BASIS,
+  FEE_LABEL,
+  PRICE_LABEL,
   jsonLd,
   organizationSchema,
   websiteSchema,
@@ -28,13 +32,12 @@ export default function HomePage() {
             style={{ fontSize: 'clamp(36px, 4.6vw, 58px)' }}
           >
             <span className="block">Know what every load really costs.</span>
-            <span className="block">Get paid in 48 hours.</span>
+            <span className="block">Invoice it the moment it delivers.</span>
           </h1>
           <p className="mx-auto mt-6 max-w-2xl text-[16px] leading-relaxed text-ink-2">
             TruckWys prices every quote with the live diesel price, the actual SANRAL
             tolls on the route and your own running costs. It invoices the moment you
-            deliver, and FastPay can settle the money early while your client takes
-            their time. Built for South African fleets.
+            deliver and shows you who still owes you. Built for South African fleets.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 px-6 sm:flex-row sm:px-0">
             <a href={APP_LOGIN_URL} className="btn-primary w-full sm:w-auto">
@@ -46,26 +49,12 @@ export default function HomePage() {
           </div>
         </div>
 
-        {/* Hero product shot */}
-        <div className="mx-auto mt-14 max-w-6xl px-5">
-          <div className="shot-frame">
-            <Image
-              src="/images/product/overview-dark.png"
-              alt="The TruckWys command centre: live revenue, net margin, outstanding invoices, fleet utilisation and the agent activity stream"
-              width={1440}
-              height={900}
-              priority
-              className="w-full"
-            />
-          </div>
-        </div>
-
         {/* Stat strip */}
         <div className="mx-auto max-w-6xl px-5 pb-14 pt-14">
           <div className="grid grid-cols-2 gap-8 border-y border-line py-8 md:grid-cols-4">
             {[
-              { v: '60 sec', l: 'to price a load' },
-              { v: '48 hrs', l: 'to money in the bank' },
+              { v: PRICE_LABEL, l: 'per month, whole team' },
+              { v: FEE_LABEL, l: 'per delivered load' },
               { v: 'R0', l: 'setup fees' },
               { v: '31', l: 'SANRAL toll plazas priced' },
             ].map((s) => (
@@ -117,10 +106,10 @@ export default function HomePage() {
             </div>
             <div className="shot-frame">
               <Image
-                src="/images/product/quote-builder-light.png"
-                alt="The TruckWys quote builder with route options, cost breakdown and the AI recommended price"
-                width={1440}
-                height={900}
+                src="/images/product/frag-cost-card.png"
+                alt="The TruckWys cost breakdown for a Johannesburg to Cape Town load: fuel, tolls, surcharge and base rate"
+                width={446}
+                height={370}
                 className="w-full"
               />
             </div>
@@ -131,34 +120,22 @@ export default function HomePage() {
       {/* Pillar 2: Get paid */}
       <section id="paid" className="bg-page">
         <div className="mx-auto max-w-6xl px-5 py-24">
-          <div className="grid items-center gap-12 lg:grid-cols-2">
-            <div className="order-2 lg:order-1">
-              <div className="shot-frame">
-                <Image
-                  src="/images/product/invoices-light.png"
-                  alt="The TruckWys invoice pipeline with statuses, due dates and overdue flags"
-                  width={1440}
-                  height={834}
-                  className="w-full"
-                />
-              </div>
-            </div>
-            <div className="order-1 lg:order-2">
+          <div className="max-w-3xl">
+            <div>
               <div className="eyebrow eyebrow-accent mb-4">Step 02 · Get paid</div>
               <h2 className="text-display text-ink">
-                The invoice sends itself. The money can arrive in 48 hours.
+                Deliver the load. The invoice is already done.
               </h2>
               <p className="mt-5 text-[16px] leading-relaxed text-ink-2">
                 Mark a load delivered and the invoice already exists: right amounts,
-                right client, right terms. TruckWys chases what is overdue so you do
-                not have to, and when the wait is too long, FastPay can settle the
-                invoice into your account in 48 hours.
+                right client, right terms. Debtors are sorted by age, and you can
+                remind a client, or everyone overdue, in one click.
               </p>
               <ul className="mt-7 space-y-3.5">
                 {[
                   'Invoices created automatically on delivery, with POD attached',
-                  'Overdue follow-ups written and sent for you',
-                  'FastPay: optional 48-hour settlement when you need the cash',
+                  'One-click payment reminders that get firmer as invoices age',
+                  'Debtors by age, so you know who owes you and for how long',
                   'Xero sync so your books stay right',
                 ].map((f) => (
                   <li key={f} className="flex gap-3 text-[15px] text-ink-2">
@@ -186,52 +163,20 @@ export default function HomePage() {
               loads and invoices.
             </p>
           </div>
-          <div className="shot-frame mt-12">
-            <Image
-              src="/images/product/insights-light.png"
-              alt="TruckWys fleet insights with margin analysis, cost per kilometre and vehicle performance"
-              width={1440}
-              height={834}
-              className="w-full"
-            />
-          </div>
         </div>
       </section>
 
-      {/* Pillar 4: Capital */}
+      {/* Coming soon: Fast Pay is not live (CAPITAL_LAUNCHED = false in the app) */}
       <section id="capital" className="bg-page">
         <div className="mx-auto max-w-6xl px-5 py-24">
-          <div className="grid items-center gap-12 lg:grid-cols-2">
-            <div>
-              <div className="eyebrow eyebrow-accent mb-4">Step 04 · Capital</div>
-              <h2 className="text-display text-ink">
-                Cash advances against your outstanding invoices
-              </h2>
-              <p className="mt-5 text-[16px] leading-relaxed text-ink-2">
-                Cash flow kills more fleets than competition does. TruckWys gives you
-                advances against your outstanding invoices, sized by your own payment
-                history, so a slow-paying client never parks your trucks.
-              </p>
-              <div className="mt-8 grid grid-cols-2 gap-6">
-                <div className="card p-6">
-                  <div className="mono-stat text-[24px] font-semibold text-ink">R4,500</div>
-                  <div className="mt-1 text-[13px] text-ink-2">flat monthly price</div>
-                </div>
-                <div className="card p-6">
-                  <div className="mono-stat text-[24px] font-semibold text-ink">48 hrs</div>
-                  <div className="mt-1 text-[13px] text-ink-2">from request to money</div>
-                </div>
-              </div>
-            </div>
-            <div className="shot-frame">
-              <Image
-                src="/images/product/capital-light.png"
-                alt="The TruckWys capital view showing R1,000,000 of available capital against outstanding invoices"
-                width={1440}
-                height={560}
-                className="w-full"
-              />
-            </div>
+          <div className="max-w-3xl">
+            <div className="eyebrow eyebrow-accent mb-4">Coming soon</div>
+            <h2 className="text-display text-ink">Fast Pay is not live yet</h2>
+            <p className="mt-5 text-[16px] leading-relaxed text-ink-2">
+              Fast Pay is planned as a way to get paid on an invoice before your
+              client pays. It is not available today, and there are no rates or
+              limits yet. We will publish them when it launches.
+            </p>
           </div>
         </div>
       </section>
@@ -241,7 +186,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-6xl px-5 py-24">
           <div className="grid items-center gap-12 lg:grid-cols-2">
             <div>
-              <div className="eyebrow eyebrow-accent mb-4">iOS and Android</div>
+              <div className="eyebrow eyebrow-accent mb-4">iPhone app</div>
               <h2 className="text-display text-ink">
                 The mobile app: quote and invoice from the roadside
               </h2>
@@ -255,7 +200,7 @@ export default function HomePage() {
                   'Quote with live diesel and tolls from anywhere',
                   'Capture and attach POD at the point of delivery',
                   'See cash, overdue invoices and fleet status on the move',
-                  'One account across web, iOS and Android',
+                  'One account across the web and the iPhone app',
                 ].map((f) => (
                   <li key={f} className="flex gap-3 text-[15px] text-ink-2">
                     <span className="mt-1 h-1.5 w-1.5 flex-none rounded-full bg-accent" aria-hidden="true" />
@@ -304,7 +249,7 @@ export default function HomePage() {
                 */}
               </div>
               <p className="mt-4 text-[13px] text-ink-3">
-                On the App Store now. The Android app is on its way to Google Play.
+                On the App Store now. Android coming soon.
               </p>
             </div>
 
@@ -375,7 +320,7 @@ export default function HomePage() {
             <div className="mx-auto max-w-2xl text-center">
               <div className="eyebrow mb-4" style={{ color: 'var(--accent)' }}>The AI inside</div>
               <h2 className="text-display text-ink">
-                AI that prices loads, chases invoices and watches your margins
+                AI that reads your loads, learns your prices and answers your questions
               </h2>
               <p className="mt-4 text-[16px] leading-relaxed text-ink-2">
                 No black box. It works from your live data, shows its working, and
@@ -397,7 +342,7 @@ export default function HomePage() {
                   <p className="mono-stat ai-cursor text-[15px] text-ink">
                     &ldquo;20 tons of steel, JHB to Cape Town, flatbed, Tuesday&rdquo;
                   </p>
-                  <div className="eyebrow mb-3 mt-7">The AI prices it from live data</div>
+                  <div className="eyebrow mb-3 mt-7">The price comes from live costs</div>
                   <div className="flex flex-wrap gap-2.5">
                     {[
                       'Route drawn · 1,501 km',
@@ -424,9 +369,8 @@ export default function HomePage() {
               <div className="flex flex-col justify-between gap-3">
                 {[
                   { n: '01', t: 'Prices that learn from your wins', d: 'Recommendations and win probability from your own quote history.' },
-                  { n: '02', t: 'Collections written for you', d: 'Overdue follow-ups drafted and sent, timed to each client.' },
-                  { n: '03', t: 'Risk scores on every client', d: 'Who pays late, who is slipping, how much credit they deserve.' },
-                  { n: '04', t: 'A copilot on your live numbers', d: 'Ask about cash, quotes or fleet status in plain words.' },
+                  { n: '02', t: 'Quotes from a sentence', d: 'Type the load the way you would say it and the quote form fills itself.' },
+                  { n: '03', t: 'A copilot on your live numbers', d: 'Ask about cash, quotes or fleet status in plain words.' },
                 ].map((f) => (
                   <div key={f.n} className="flex gap-4 rounded-[10px] border border-line bg-white/[0.04] p-5">
                     <span className="mono-stat text-[13px] font-medium" style={{ color: 'var(--accent)' }}>{f.n}</span>
@@ -463,10 +407,9 @@ export default function HomePage() {
             {[
               { name: 'xero', style: { fontWeight: 700, letterSpacing: '-0.02em', textTransform: 'lowercase' as const }, note: 'Accounting sync' },
               { name: 'Cartrack', style: { fontWeight: 700, letterSpacing: '-0.01em' }, note: 'Vehicle tracking' },
-              { name: 'CtrlFleet', style: { fontWeight: 600, letterSpacing: '-0.01em' }, note: 'Fleet management' },
+              { name: 'CtrlFleet', style: { fontWeight: 600, letterSpacing: '-0.01em' }, note: 'Vehicle positions' },
               { name: 'Email', style: { fontWeight: 600 }, note: 'One-click quote acceptance' },
               { name: 'PDF', style: { fontWeight: 700 }, note: 'Branded invoices' },
-              { name: 'WhatsApp', style: { fontWeight: 600 }, note: 'Describe a load in a message' },
             ].map((l) => (
               <div key={l.name} className="card flex flex-col items-center justify-center gap-1 px-4 py-7">
                 <span className="text-[22px] leading-none text-ink" style={l.style}>
@@ -484,7 +427,7 @@ export default function HomePage() {
         <div className="mx-auto max-w-6xl px-5 py-24">
           <div className="mx-auto max-w-2xl text-center">
             <div className="eyebrow eyebrow-accent mb-4">Pricing</div>
-            <h2 className="text-display text-ink">Simple pricing: R4,500 a month, everything included</h2>
+            <h2 className="text-display text-ink">Simple pricing: {PRICE_LABEL} a month, everything included</h2>
             <p className="mt-4 text-[16px] text-ink-2">
               No per-user fees, no tiers, no surprises at month end.{' '}
               <Link href="/pricing" className="font-medium text-accent underline-offset-4 hover:underline">
@@ -497,14 +440,15 @@ export default function HomePage() {
             <div className="card flex flex-col p-8">
               <div className="eyebrow mb-2">Platform</div>
               <div className="flex items-baseline gap-2">
-                <span className="mono-stat text-[44px] font-semibold text-ink">R4,500</span>
+                {/* TODO(owner): confirm VAT basis of the monthly price before adding excl./incl. VAT. */}
+                <span className="mono-stat text-[44px] font-semibold text-ink">{PRICE_LABEL}</span>
                 <span className="text-[15px] text-ink-2">per month</span>
               </div>
               <ul className="mt-6 space-y-3">
                 {[
                   'Unlimited users, quotes and invoices',
                   'AI quote builder with live diesel and tolls',
-                  'Automatic invoicing and collections',
+                  'Automatic invoicing and one-click reminders',
                   'Fleet insights and reporting',
                   'Xero and Cartrack integrations',
                   'Email and phone support',
@@ -523,17 +467,17 @@ export default function HomePage() {
             </div>
 
             <div className="card flex flex-col p-8">
-              <div className="eyebrow mb-2">Per booking</div>
+              <div className="eyebrow mb-2">Per delivered load</div>
               <div className="flex items-baseline gap-2">
-                <span className="mono-stat text-[44px] font-semibold text-ink">0.25%</span>
-                <span className="text-[15px] text-ink-2">per confirmed booking</span>
+                <span className="mono-stat text-[44px] font-semibold text-ink">{FEE_LABEL}</span>
+                <span className="text-[15px] text-ink-2">{FEE_BASIS}</span>
               </div>
               <ul className="mt-6 space-y-3">
                 {[
-                  'Charged only when a quote becomes a booking',
+                  'Charged when a delivered load is invoiced',
                   'Nothing on quotes you lose',
                   'No per-user charges, no minimums',
-                  'FastPay early settlement is optional, priced when you switch it on',
+                  CANCELLATION,
                 ].map((f) => (
                   <li key={f} className="flex gap-3 text-[14px] text-ink-2">
                     <span className="mt-0.5 text-accent" aria-hidden="true">✓</span>
@@ -542,7 +486,7 @@ export default function HomePage() {
                 ))}
               </ul>
               <p className="mt-auto pt-8 text-[13px] leading-relaxed text-ink-3">
-                You pay for outcomes: a confirmed booking is money on its way in.
+                You pay for outcomes: a delivered load is money on its way in.
               </p>
             </div>
           </div>

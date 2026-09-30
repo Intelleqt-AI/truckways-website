@@ -13,8 +13,9 @@ export const SITE_URL = 'https://www.truckwys.com';
  */
 export const APP_LOGIN_URL = 'https://app.truckwys.com/login';
 
-/** The live iOS listing. */
-export const APP_STORE_URL = 'https://apps.apple.com/app/truckwys/id6796449044';
+/** The live iOS listing. The app is South Africa only, so the storefront-less
+ * URL 404s outside ZA; the /za/ storefront URL works everywhere. */
+export const APP_STORE_URL = 'https://apps.apple.com/za/app/truckwys/id6796449044';
 
 /**
  * The Android app is not on the Play Store yet. When it is, set this and
@@ -22,35 +23,46 @@ export const APP_STORE_URL = 'https://apps.apple.com/app/truckwys/id6796449044';
  */
 // export const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=';
 
+/**
+ * Price and fee, matching the app (Signup, Paystack MONTHLY_FEE = 4499) and
+ * terms clauses 5.1, 5.2 and 6.
+ * TODO(owner): confirm whether R 4 499 is excl. or incl. VAT before stating
+ * either on the site. Terms 5.5 say fees exclude VAT; signup does not say.
+ */
+export const PRICE_PER_MONTH = 4499;
+export const PRICE_LABEL = 'R 4 499';
+export const FEE_LABEL = '0,25%';
+export const FEE_BASIS = "of each delivered load's invoice value";
+export const CANCELLATION = "Month to month. Cancel on 30 days' notice.";
+
 export const FACTS = {
   name: 'TruckWys',
   oneLiner:
-    'TruckWys is fleet finance software for South African transporters: AI quoting with live diesel and toll prices, automatic invoicing on delivery, collections, and FastPay that settles invoices in 48 hours.',
+    'TruckWys is fleet finance software for South African transporters: quoting with live diesel and toll prices, automatic invoicing on delivery, debtors and one-click payment reminders, and reports. Fast Pay is coming soon.',
   audience:
     'South African fleet owners and transport operators running 3 to 200 trucks, including cross-border work into Botswana, Namibia, Zimbabwe, Zambia and Mozambique.',
-  pricePerMonth: 4500,
-  bookingFeePct: 0.25,
+  pricePerMonth: PRICE_PER_MONTH,
+  deliveredLoadFeePct: 0.25,
   email: 'grant@truckwys.com',
   features: [
-    'AI quote builder: price a load in about 60 seconds with live diesel prices, SANRAL toll plaza fees per route, cross-border and weighbridge charges, and your own vehicle running costs',
+    'Quote builder: price a load with live diesel prices, SANRAL toll plaza fees per route, cross-border and weighbridge charges, and your own vehicle running costs',
     'Route options on a live map with per-route distance, tolls and fuel burn',
     'Win probability and margin recommendations learned from your own quote history',
     'Automatic invoice creation the moment a load is delivered',
-    'Collections agent that follows up overdue invoices',
-    'FastPay: optional 48-hour invoice settlement',
-    'Capital advances against outstanding invoices',
-    'Fleet insights: cost per kilometre, margin per route, utilisation, driver and vehicle performance',
+    'Debtors ageing and one-click payment reminders that get firmer as invoices age',
+    'Fleet insights: margin per route, revenue by truck, who pays late',
     'Integrations with Xero and Cartrack',
-    'Mobile app for iOS and Android with the same account and data as the web app',
+    'iPhone app with the same account and data as the web app (Android coming soon)',
+    'Coming soon, not live yet: Fast Pay (getting paid on an invoice before your client pays)',
   ],
   faqs: [
     {
       q: 'What is TruckWys?',
-      a: 'TruckWys is fleet finance software for South African transporters. It prices loads with live diesel and toll costs, creates invoices automatically on delivery, chases payment, and can settle invoices in 48 hours through FastPay.',
+      a: 'TruckWys is fleet finance software for South African transporters. It prices loads with live diesel and toll costs, creates invoices automatically on delivery, shows who owes you and lets you send payment reminders in one click.',
     },
     {
       q: 'How much does TruckWys cost?',
-      a: 'R4,500 per month per fleet with unlimited users and quotes, plus 0.25% on confirmed bookings. There are no setup fees. FastPay early settlement is optional and priced separately.',
+      a: `${PRICE_LABEL} per month per fleet with unlimited users and quotes, plus ${FEE_LABEL} ${FEE_BASIS}. There are no setup fees. ${CANCELLATION}`,
     },
     {
       q: 'How does the AI quote builder work?',
@@ -61,16 +73,12 @@ export const FACTS = {
       a: 'Yes. Quotes into Botswana, Namibia, Zimbabwe, Zambia and Mozambique include border fees, weighbridge charges and non-SA toll costs automatically.',
     },
     {
-      q: 'What is FastPay?',
-      a: 'FastPay settles an approved invoice into your account within 48 hours instead of waiting 30 to 60 days for the client to pay. It is optional: you choose it invoice by invoice, and pricing is agreed when you switch it on.',
-    },
-    {
-      q: 'Is FastPay invoice factoring?',
-      a: 'It works like invoice factoring or invoice discounting for transporters, without the paperwork. You choose an approved invoice, TruckWys settles it into your account within 48 hours, and the balance clears when your client pays. No lock-in contracts, no bridging finance rates.',
+      q: 'What is Fast Pay?',
+      a: 'Fast Pay is coming soon and is not live yet. It is planned as a way to get paid on an invoice before your client pays. There are no rates or limits yet; we will publish them when it launches.',
     },
     {
       q: 'Does TruckWys replace my transport management system?',
-      a: 'No. TruckWys handles the money side: quoting, invoicing, collections and cash flow. It works alongside your TMS and tracking, and integrates with Xero and Cartrack.',
+      a: 'No. TruckWys handles the money side: quoting, invoicing, debtors and cash flow. It works alongside your TMS and tracking, and integrates with Xero and Cartrack.',
     },
     {
       q: 'Is TruckWys fleet management software?',
@@ -82,7 +90,7 @@ export const FACTS = {
     },
     {
       q: 'Is my data safe?',
-      a: 'Yes. Your data is encrypted in transit and at rest, hosted securely, and never shared with other fleets. You can export it at any time.',
+      a: 'Your data is encrypted in transit, and your prices and client details are never shown to another fleet. To estimate win probability when your own history is still short, TruckWys can use anonymised quote outcomes pooled across fleets, and lane benchmarks only appear once at least five won quotes from at least two operators exist for that lane. You can export your data at any time.',
     },
   ],
 };
@@ -127,16 +135,22 @@ export const softwareSchema = {
   description: FACTS.oneLiner,
   offers: {
     '@type': 'Offer',
-    price: String(FACTS.pricePerMonth),
+    price: String(PRICE_PER_MONTH),
     priceCurrency: 'ZAR',
-    description: 'R4,500 per month per fleet plus 0.25% per confirmed booking. No setup fees.',
+    priceSpecification: {
+      '@type': 'UnitPriceSpecification',
+      price: String(PRICE_PER_MONTH),
+      priceCurrency: 'ZAR',
+      billingDuration: 'P1M',
+      unitCode: 'MON',
+      referenceQuantity: { '@type': 'QuantitativeValue', value: 1, unitCode: 'MON' },
+    },
+    description: `${PRICE_LABEL} per month per fleet plus ${FEE_LABEL} ${FEE_BASIS}. No setup fees. ${CANCELLATION}`,
   },
   featureList: [
-    'AI quote builder with live diesel and SANRAL toll prices',
+    'Quote builder with live diesel and SANRAL toll prices',
     'Automatic invoicing on delivery',
-    'Collections follow-up',
-    'FastPay 48-hour invoice settlement',
-    'Capital advances against invoices',
+    'Debtors ageing and one-click payment reminders',
     'Fleet profitability insights',
     'Xero and Cartrack integrations',
   ],

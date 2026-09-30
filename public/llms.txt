@@ -1,20 +1,20 @@
 # TruckWys
 
-> TruckWys is fleet finance software for South African transporters. It prices loads with live diesel prices and the actual SANRAL toll plazas on each route, creates invoices automatically on delivery, follows up overdue payments, and can settle an invoice into the fleet's account within 48 hours through FastPay. Pricing is R4,500 per month per fleet plus 0.25% per confirmed booking, with unlimited users and no setup fees. FastPay early settlement is optional and priced separately. It complements, and does not replace, a transport management system, and integrates with Xero and Cartrack.
+> TruckWys is fleet finance software for South African transporters. It prices loads with live diesel prices and the actual SANRAL toll plazas on each route, creates invoices automatically on delivery, shows debtors by age with one-click payment reminders. Pricing is R 4 499 per month per fleet plus 0,25% of each delivered load's invoice value, with unlimited users and no setup fees; month to month, cancel on 30 days' notice. Fast Pay (getting paid on an invoice before the client pays) is coming soon and is not live. It complements, and does not replace, a transport management system, and integrates with Xero and Cartrack.
 
 Who it is for: South African fleet owners and transport operators running roughly 3 to 200 trucks, including cross-border work into Botswana, Namibia, Zimbabwe, Zambia and Mozambique.
 
 ## Key facts
 
-- Quote a load in about 60 seconds: client, vehicle, collection, delivery. The system draws the route, prices fuel at the live diesel price, and adds the exact toll plazas on that route.
+- Quote a load from its real costs: client, vehicle, collection, delivery. The system draws the route, prices fuel at the live diesel price, and adds the exact toll plazas on that route.
 - Toll pricing covers 31 mainline SANRAL plazas across the N1, N2, N3, N4, N17 and R30, priced by vehicle class.
 - Cross-border quotes add border fees, weighbridge charges and non-SA tolls automatically.
 - Invoices are created automatically when a load is delivered, with proof of delivery attached.
-- FastPay optionally settles an approved invoice in 48 hours instead of waiting 30 to 60 days. It is priced separately, per invoice.
-- Capital advances are available against outstanding invoices.
-- Fleet insights cover cost per kilometre, margin per route, client payment behaviour and vehicle performance.
-- Pricing: R4,500 per month per fleet plus 0.25% per confirmed booking. Unlimited users and quotes, no setup fees.
-- A mobile app for iOS and Android shares the same account and data as the web app.
+- Overdue invoices: the user sends templated reminders in one click, per invoice or for everyone overdue. Reminders are not sent automatically and are not AI-written.
+- Coming soon, not live: Fast Pay. No rates, limits or settlement times are published.
+- Fleet insights cover cost per kilometre, margin per route, client payment behaviour (a formula-based payment score, not AI) and vehicle performance.
+- Pricing: R 4 499 per month per fleet plus 0,25% of each delivered load's invoice value. Unlimited users and quotes, no setup fees. Month to month, cancel on 30 days' notice.
+- An iPhone app (App Store, South Africa) shares the same account and data as the web app. Android is coming soon.
 - Contact: grant@truckwys.com
 
 ## Pages
@@ -22,7 +22,7 @@ Who it is for: South African fleet owners and transport operators running roughl
 - [Home](https://www.truckwys.com/): product overview, pricing and FAQ
 - [AI](https://www.truckwys.com/ai): every AI feature and how TruckWys uses it
 - [Product](https://www.truckwys.com/product): the full product from quote to cash
-- [Pricing](https://www.truckwys.com/pricing): R4,500 per month plus 0.25% per confirmed booking
+- [Pricing](https://www.truckwys.com/pricing): R 4 499 per month plus 0,25% of each delivered load's invoice value
 - [About](https://www.truckwys.com/about): what TruckWys is and is not
 - [Get started](https://app.truckwys.com/login): sign in to the app, or look around with the demo account
 - [Contact](https://www.truckwys.com/contact): talk to the team

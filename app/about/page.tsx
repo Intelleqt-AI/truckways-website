@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
 import Link from 'next/link';
-import { APP_LOGIN_URL, jsonLd, organizationSchema, SITE_URL } from '../../lib/site';
+import { APP_LOGIN_URL, PRICE_LABEL, jsonLd, organizationSchema, SITE_URL } from '../../lib/site';
 
 export const metadata: Metadata = {
   title: 'About',
@@ -18,7 +17,7 @@ export const metadata: Metadata = {
     description:
       'Why TruckWys exists: South African fleets quote below cost and wait 30 to 60 days to be paid. TruckWys fixes the money side of running trucks.',
     url: 'https://www.truckwys.com/about',
-    images: [{ url: 'https://www.truckwys.com/og-image.png', width: 1200, height: 630, alt: 'The TruckWys quote builder pricing a Johannesburg to Cape Town load' }],
+    images: [{ url: 'https://www.truckwys.com/og-image.png', width: 1200, height: 630, alt: 'TruckWys: know what every load really costs, invoice it the moment it delivers' }],
   },
 };
 
@@ -28,7 +27,7 @@ const aboutPageSchema = {
   name: 'About TruckWys',
   url: `${SITE_URL}/about`,
   description:
-    'TruckWys is fleet finance software for South African transporters: quoting with live diesel and toll prices, automatic invoicing, collections and FastPay.',
+    'TruckWys is fleet finance software for South African transporters: quoting with live diesel and toll prices, automatic invoicing, debtors and payment reminders.',
 };
 
 export default function AboutPage() {
@@ -50,7 +49,7 @@ export default function AboutPage() {
               month and tolls differ route by route. Too many loads get priced below
               cost, and the money for the good ones arrives 30 to 60 days after the
               truck gets home. TruckWys exists to fix both: price every load on its
-              real costs, then get the money in faster.
+              real costs, then invoice on delivery and chase what is owed.
             </p>
           </div>
         </div>
@@ -77,9 +76,8 @@ export default function AboutPage() {
                 {[
                   'Quotes priced on live diesel, the actual SANRAL tolls on the route, and your own running costs',
                   'Invoices created automatically the moment a load is delivered',
-                  'Collections that chase overdue invoices so you do not have to',
-                  'FastPay: optional settlement, money in your account within 48 hours',
-                  'Capital advances against outstanding invoices, sized by your payment history',
+                  'Debtors by age and one-click reminders for overdue invoices',
+                  'Coming soon, not live yet: Fast Pay, to get paid on an invoice before your client pays',
                 ].map((f) => (
                   <li key={f} className="flex gap-3 text-[14px] leading-relaxed text-ink-2">
                     <span className="mt-[7px] h-1.5 w-1.5 flex-none rounded-full bg-accent" />
@@ -127,15 +125,6 @@ export default function AboutPage() {
               a client still owes.
             </p>
           </div>
-          <div className="shot-frame mt-12">
-            <Image
-              src="/images/product/overview-light.png"
-              alt="The TruckWys overview dashboard showing active quotes, invoices awaiting payment and available FastPay settlement in one screen"
-              width={1440}
-              height={834}
-              className="w-full"
-            />
-          </div>
         </div>
       </section>
 
@@ -147,7 +136,7 @@ export default function AboutPage() {
             See what your next load really costs
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-[16px] text-ink-2">
-            R4,500 per month, unlimited users and quotes. Or write to us first and
+            {PRICE_LABEL} per month, unlimited users and quotes. Or write to us first and
             ask anything.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 px-6 sm:flex-row sm:px-0">

@@ -1,12 +1,12 @@
 import type { Metadata } from 'next';
 import Image from 'next/image';
 import Link from 'next/link';
-import { APP_LOGIN_URL, jsonLd, softwareSchema, SITE_URL } from '../../lib/site';
+import { APP_LOGIN_URL, PRICE_LABEL, jsonLd, softwareSchema, SITE_URL } from '../../lib/site';
 
 export const metadata: Metadata = {
-  title: 'Product: AI load quoting, invoicing and FastPay',
+  title: 'Product: load quoting, invoicing and debtors',
   description:
-    'Inside TruckWys: the AI quote builder with live diesel and SANRAL tolls, automatic invoicing, collections, FastPay and capital for South African fleets.',
+    'Inside TruckWys: the quote builder with live diesel and SANRAL tolls, automatic invoicing on delivery, debtors and one-click reminders for South African fleets.',
   alternates: {
     canonical: 'https://www.truckwys.com/product',
   },
@@ -16,9 +16,9 @@ export const metadata: Metadata = {
     locale: 'en_ZA',
     title: 'The TruckWys product',
     description:
-      'The AI quote builder with live diesel and SANRAL tolls, automatic invoicing, collections, FastPay and capital for South African fleets.',
+      'The quote builder with live diesel and SANRAL tolls, automatic invoicing on delivery, debtors and one-click reminders for South African fleets.',
     url: 'https://www.truckwys.com/product',
-    images: [{ url: 'https://www.truckwys.com/og-image.png', width: 1200, height: 630, alt: 'The TruckWys quote builder pricing a Johannesburg to Cape Town load' }],
+    images: [{ url: 'https://www.truckwys.com/og-image.png', width: 1200, height: 630, alt: 'TruckWys: know what every load really costs, invoice it the moment it delivers' }],
   },
 };
 
@@ -41,7 +41,7 @@ const quoteFeatures = [
   },
   {
     t: 'A price that learns',
-    d: 'After about 40 completed loads, TruckWys recommends prices from what has actually won you work, with a win probability on each quote.',
+    d: 'After about 40 quote outcomes, wins and losses both, TruckWys shows a win probability learned from them on each quote.',
   },
   {
     t: 'Round trip by default',
@@ -61,7 +61,7 @@ export default function ProductPage() {
           name: 'The TruckWys product',
           url: `${SITE_URL}/product`,
           description:
-            'The AI quote builder, automatic invoicing, collections, FastPay and capital for South African fleets.',
+            'The quote builder, automatic invoicing on delivery, debtors and one-click reminders for South African fleets.',
         })}
       />
 
@@ -85,47 +85,17 @@ export default function ProductPage() {
             </Link>
           </div>
         </div>
-        {/* Fragment collage: real pieces of the product, composed */}
+        {/* Single product fragment: the cost breakdown (no client names). */}
         <div className="mx-auto mt-14 max-w-6xl px-5 pb-16">
-          <div className="relative mx-auto hidden h-[440px] max-w-5xl md:block">
-            <div className="absolute left-0 top-10 w-[58%] -rotate-1 overflow-hidden rounded-[12px] border border-line bg-surface shadow-[0_24px_60px_-18px_rgba(17,24,39,0.25)]">
-              <Image
-                src="/images/product/frag-invoice-rows.png"
-                alt="Real TruckWys invoices with statuses, amounts and overdue flags"
-                width={1233}
-                height={250}
-                priority
-                className="w-full"
-              />
-            </div>
-            <div className="absolute right-0 top-0 z-10 w-[34%] rotate-1 overflow-hidden rounded-[12px] border border-line bg-surface shadow-[0_28px_70px_-18px_rgba(17,24,39,0.32)]">
-              <Image
-                src="/images/product/frag-cost-card.png"
-                alt="The TruckWys cost breakdown: fuel, tolls, surcharges and a quote total of R31,636"
-                width={446}
-                height={370}
-                priority
-                className="w-full"
-              />
-            </div>
-            <div className="absolute left-[22%] top-[52%] z-20 w-[52%] -rotate-1 overflow-hidden rounded-[12px] border border-line bg-surface shadow-[0_24px_60px_-18px_rgba(17,24,39,0.28)]">
-              <Image
-                src="/images/product/frag-copilot.png"
-                alt="TruckWys copilot prompts: what is overdue, fast-pay capacity, quotes pipeline and fleet status"
-                width={1045}
-                height={195}
-                className="w-full"
-              />
-            </div>
-          </div>
-          {/* Mobile: simple stack */}
-          <div className="space-y-4 md:hidden">
-            <div className="overflow-hidden rounded-[12px] border border-line bg-surface shadow-[0_16px_44px_-16px_rgba(17,24,39,0.2)]">
-              <Image src="/images/product/frag-cost-card.png" alt="The TruckWys cost breakdown with a quote total of R31,636" width={446} height={370} priority className="w-full" />
-            </div>
-            <div className="overflow-hidden rounded-[12px] border border-line bg-surface shadow-[0_16px_44px_-16px_rgba(17,24,39,0.2)]">
-              <Image src="/images/product/frag-invoice-rows.png" alt="Real TruckWys invoices with statuses and overdue flags" width={1233} height={250} className="w-full" />
-            </div>
+          <div className="mx-auto max-w-md overflow-hidden rounded-[12px] border border-line bg-surface shadow-[0_16px_44px_-16px_rgba(17,24,39,0.2)]">
+            <Image
+              src="/images/product/frag-cost-card.png"
+              alt="The TruckWys cost breakdown: fuel, tolls, surcharges and a quote total of R 31 636"
+              width={446}
+              height={370}
+              priority
+              className="w-full"
+            />
           </div>
         </div>
       </section>
@@ -136,7 +106,7 @@ export default function ProductPage() {
           <div className="mx-auto max-w-2xl text-center">
             <div className="eyebrow eyebrow-accent mb-4">The quote builder</div>
             <h2 className="text-display text-ink">
-              A load priced in about 60 seconds
+              A load priced from its real costs
             </h2>
             <p className="mt-4 text-[16px] text-ink-2">
               Client, vehicle, collection, delivery. The system does the rest.
@@ -156,33 +126,23 @@ export default function ProductPage() {
       {/* Get paid deep-dive */}
       <section id="paid" className="bg-page">
         <div className="mx-auto max-w-6xl px-5 py-24">
-          <div className="grid items-center gap-12 lg:grid-cols-2">
+          <div className="max-w-3xl">
             <div>
-              <div className="eyebrow eyebrow-accent mb-4">Invoicing and collections</div>
+              <div className="eyebrow eyebrow-accent mb-4">Invoicing and debtors</div>
               <h2 className="text-display text-ink">
                 Deliver the load. The invoice is already done.
               </h2>
               <p className="mt-5 text-[16px] leading-relaxed text-ink-2">
                 The moment a load is marked delivered, its invoice exists: correct
                 amounts, correct client, proof of delivery attached, synced to Xero.
-                When an invoice goes overdue, the follow-up is written and sent
-                without you lifting a finger.
+                When an invoice goes overdue, send a reminder in one click, or
+                remind everyone overdue at once. Reminders get firmer as the days
+                pass.
               </p>
               <p className="mt-4 text-[16px] leading-relaxed text-ink-2">
-                And when 45-day terms are strangling your diesel budget, FastPay can
-                settle an approved invoice into your account within 48 hours.
-                Optional, invoice by invoice, for when the timing matters more
-                than the wait.
+                Fast Pay, for getting paid on an invoice before your client pays,
+                is coming soon. It is not live yet.
               </p>
-            </div>
-            <div className="shot-frame">
-              <Image
-                src="/images/product/invoices-light.png"
-                alt="The TruckWys invoice list with statuses, overdue flags and collection follow-ups"
-                width={1440}
-                height={834}
-                className="w-full"
-              />
             </div>
           </div>
         </div>
@@ -191,19 +151,8 @@ export default function ProductPage() {
       {/* Insights deep-dive */}
       <section id="numbers" className="bg-surface">
         <div className="mx-auto max-w-6xl px-5 py-24">
-          <div className="grid items-center gap-12 lg:grid-cols-2">
-            <div className="order-2 lg:order-1">
-              <div className="shot-frame">
-                <Image
-                  src="/images/product/insights-light.png"
-                  alt="TruckWys insights showing the daily briefing, margins and fleet performance"
-                  width={1440}
-                  height={834}
-                  className="w-full"
-                />
-              </div>
-            </div>
-            <div className="order-1 lg:order-2">
+          <div className="max-w-3xl">
+            <div>
               <div className="eyebrow eyebrow-accent mb-4">Insights</div>
               <h2 className="text-display text-ink">
                 Know your cost per kilometre. Actually.
@@ -232,41 +181,17 @@ export default function ProductPage() {
         </div>
       </section>
 
-      {/* Capital deep-dive */}
+      {/* Coming soon: Fast Pay is not live (CAPITAL_LAUNCHED = false in the app) */}
       <section id="capital" className="bg-page">
         <div className="mx-auto max-w-6xl px-5 py-24">
-          <div className="grid items-center gap-12 lg:grid-cols-2">
-            <div>
-              <div className="eyebrow eyebrow-accent mb-4">Capital</div>
-              <h2 className="text-display text-ink">
-                Working capital against your outstanding invoices
-              </h2>
-              <p className="mt-5 text-[16px] leading-relaxed text-ink-2">
-                Advances against your outstanding invoices, with limits sized by your
-                own payment history rather than a bank&apos;s form. Draw what you
-                need for diesel, tyres or a new contract, and settle as your clients
-                pay.
-              </p>
-              <div className="mt-8 grid grid-cols-2 gap-6">
-                <div className="card p-6">
-                  <div className="mono-stat text-[24px] font-semibold text-ink">48 hrs</div>
-                  <div className="mt-1 text-[13px] text-ink-2">from request to money</div>
-                </div>
-                <div className="card p-6">
-                  <div className="mono-stat text-[24px] font-semibold text-ink">R0</div>
-                  <div className="mt-1 text-[13px] text-ink-2">cost until you draw</div>
-                </div>
-              </div>
-            </div>
-            <div className="shot-frame">
-              <Image
-                src="/images/product/capital-light.png"
-                alt="The TruckWys capital facility with R1,000,000 available against outstanding invoices"
-                width={1440}
-                height={560}
-                className="w-full"
-              />
-            </div>
+          <div className="max-w-3xl">
+            <div className="eyebrow eyebrow-accent mb-4">Coming soon</div>
+            <h2 className="text-display text-ink">Fast Pay is not live yet</h2>
+            <p className="mt-5 text-[16px] leading-relaxed text-ink-2">
+              Fast Pay is planned as a way to get paid on an invoice before your
+              client pays. It is not available today, and there are no rates or
+              limits yet. We will publish them when it launches.
+            </p>
           </div>
         </div>
       </section>
@@ -297,9 +222,9 @@ export default function ProductPage() {
         <div className="mx-auto max-w-6xl px-5 py-24">
           <div className="mx-auto max-w-2xl text-center">
             <div className="eyebrow eyebrow-accent mb-4">Everything inside</div>
-            <h2 className="text-display text-ink">Every feature, in the one R4,500 price</h2>
+            <h2 className="text-display text-ink">Every feature, in the one {PRICE_LABEL} price</h2>
             <p className="mt-4 text-[16px] text-ink-2">
-              The full list. All of it in the R4,500, no add-on tiers, no locked modules.
+              The full list. All of it in the {PRICE_LABEL}, no add-on tiers, no locked modules.
             </p>
           </div>
           <div className="mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
@@ -342,22 +267,20 @@ export default function ProductPage() {
                   'Invoice created on delivery',
                   'Proof of delivery attached',
                   'Xero sync',
-                  'Collections follow-ups, written and sent',
+                  'One-click payment reminders',
                   'Short-pay detection',
                   'Overdue flags and ageing',
-                  'FastPay optional 48-hour settlement',
                   'Payment tracking per invoice',
-                  'Mobile app for iOS and Android',
+                  'iPhone app (Android coming soon)',
                 ],
               },
               {
-                cat: 'Capital and risk',
+                cat: 'Clients and coming soon',
                 items: [
-                  'Capital advances against invoices',
-                  'Client risk scores',
+                  'Payment score per client',
                   'Credit limits per client',
                   'Payment behaviour history',
-                  'FastPay eligibility per invoice',
+                  'Coming soon: Fast Pay (not live yet)',
                 ],
               },
             ].map((col) => (
@@ -384,7 +307,7 @@ export default function ProductPage() {
             See it price your own routes
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-[16px] text-ink-2">
-            Set up your fleet today. R4,500 per month, unlimited users and quotes,
+            Set up your fleet today. {PRICE_LABEL} per month, unlimited users and quotes,
             no setup fees.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 px-6 sm:flex-row sm:px-0">

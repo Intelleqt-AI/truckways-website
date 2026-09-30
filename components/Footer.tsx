@@ -5,9 +5,8 @@ import { APP_LOGIN_URL } from '../lib/site';
 const productLinks = [
   { href: '/product', label: 'Product' },
   { href: '/ai', label: 'The AI inside' },
-  { href: '/product#quote', label: 'AI quote builder' },
-  { href: '/product#paid', label: 'Invoicing and FastPay' },
-  { href: '/product#capital', label: 'Capital' },
+  { href: '/product#quote', label: 'Quote builder' },
+  { href: '/product#paid', label: 'Invoicing and debtors' },
   { href: '/pricing', label: 'Pricing' },
 ];
 
@@ -37,7 +36,7 @@ export default function Footer() {
             />
             <p className="mt-4 max-w-sm text-[14px] leading-relaxed text-ink-2">
               Fleet finance software for South African transporters. Quote with real
-              costs, invoice on delivery, and get paid in 48 hours.
+              costs, invoice on delivery, and see who owes you.
             </p>
             <p className="mt-6 text-[13px] text-ink-3">
               <a href="mailto:grant@truckwys.com" className="hover:text-ink">
