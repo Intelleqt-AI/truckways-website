@@ -29,7 +29,7 @@ const CARDS: Card[] = [
   {
     name: 'Cartrack',
     status: 'Available',
-    line: 'Connect with your Cartrack Fleet API username and password, from Fleetweb, Settings, API Settings. Not your normal Cartrack login.',
+    line: 'Connect with your Cartrack Fleet API username and password, from Fleetweb, Settings, API Settings. These are not the details you use to sign in to Cartrack.',
     points: ['Vehicle location, speed and ignition status', 'Door events', 'Your password is encrypted at rest'],
   },
   {

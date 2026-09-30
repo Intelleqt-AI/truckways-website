@@ -38,7 +38,7 @@ const FAQ: QA[] = [
   },
   {
     id: 'debtors-ai',
-    q: 'Does the payment risk profile use AI?',
+    q: 'Is the payment risk profile worked out by a model?',
     a: 'No. It is a formula: how often a customer pays late, how late, and how much they owe you now. The same history always gives the same result.',
   },
 ];

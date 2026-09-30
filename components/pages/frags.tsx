@@ -11,7 +11,7 @@ import { ChevronRight, ChevronDown, Download, Printer, Search, Info, Check, Mic,
 import { COMPANY, INVOICE, KPIS, QUOTE, AGEING, TODAY, OVERDUE, OVERDUE_TOTAL } from '../../content/demo-data';
 import { rand, date, num } from '../../lib/format';
 import {
-  BOARD, BOARD_COUNT, DEBTORS, DEBTOR_STATS, DEBTORS_TOTAL, STATEMENT, STATEMENT_BALANCE, PNL_MONTHS, PNL_TOTAL, VAT_ROWS, VAT_TOTAL,
+  BOARD, BOARD_COUNT, DEBTORS, DEBTOR_STATS, DEBTORS_TOTAL, DEBTOR_CUSTOMERS, DEBTOR_INVOICES, STATEMENT, STATEMENT_BALANCE, PNL_MONTHS, PNL_TOTAL, VAT_ROWS, VAT_TOTAL,
   REPORTS_INDEX, LANE_POINTS, FLEET_AVG_PER_KM, EXPENSES,
 } from './sample';
 
@@ -320,7 +320,7 @@ export function InvoiceList() {
       <div className="b-tiles">
         {[
           ['Invoiced in September', R0(VAT_ROWS[2].incl), 'By issue date'],
-          ['Overdue', R0(OVERDUE_TOTAL), `${OVERDUE.length} invoices late`],
+          ['Overdue', R0(KPIS.pastDue), 'Past due, incl. VAT'],
           ['Owed to you', R0(KPIS.owed), 'Incl. VAT'],
           ['Time to get paid', '38,6 days', 'Paid invoices, 12 months'],
         ].map(([l, f, n], i) => (
@@ -428,12 +428,15 @@ export function DebtorsAge({ rows = 6 }: { rows?: number }) {
           </div>
         ))}
         <div className="b-age__tr b-age__total">
-          <span>Total</span>
-          <span>{DEBTORS.reduce((s, d) => s + d.invoices, 0)}</span>
+          <span>Total, all customers</span>
+          <span>{DEBTOR_INVOICES}</span>
           {AGEING.map((a) => (
             <span key={a.label}>{R(a.amount)}</span>
           ))}
           <span>{R(DEBTORS_TOTAL)}</span>
+        </div>
+        <div className="b-check">
+          Showing the {rows} largest of {DEBTOR_CUSTOMERS} customers. Total is every customer.
         </div>
       </div>
     </div>
