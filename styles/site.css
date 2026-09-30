@@ -760,14 +760,32 @@ html.js .reveal.is-in { opacity: 1; transform: none; transition: opacity 480ms v
 .ulink::after { content: ""; position: absolute; left: 50%; top: 50%; width: max(100%, 44px); height: 44px; transform: translate(-50%, -50%); }
 .nf-links { margin-top: 32px; display: flex; flex-wrap: wrap; gap: 12px 32px; }
 
-/* Legal pages: 68ch article template */
+/* Legal pages: 68ch article, sticky section index in the right-hand column. */
 .legal { padding: 96px 0 var(--web-section-y); }
-.legal__col { max-width: 68ch; }
+.legal__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--web-col-gap); align-items: start; }
+.legal__head { grid-column: 1 / 9; }
+.legal__body { grid-column: 1 / 9; max-width: 68ch; margin-top: 48px; }
+.legal__toc { grid-column: 9 / 13; grid-row: 1 / span 2; align-self: stretch; }
 .legal__eyebrow { margin-bottom: 16px; }
 .legal__h1 { font-size: clamp(36px, 1.4rem + 2.2vw, 48px); line-height: 1.12; letter-spacing: -0.028em; }
 .legal__date { margin-top: 12px; }
-.legal__body { margin-top: 48px; }
+.legal__body > section { scroll-margin-top: 88px; }
 .legal__body section + section { margin-top: 8px; }
+.legal__toc-sm { display: none; }
+.legal__toc-lg { position: sticky; top: 96px; padding: 20px 0 0 24px; border-left: 1px solid var(--border-subtle); max-height: calc(100vh - 120px); overflow-y: auto; }
+.legal__toc-list { margin-top: 12px; display: flex; flex-direction: column; }
+.legal__toc-list a { position: relative; display: block; padding: 6px 0; font: 400 14px/20px var(--font-sans); color: var(--text-secondary); }
+.legal__toc-list a:hover { color: var(--text-primary); text-decoration: underline; text-underline-offset: 3px; }
+@media (max-width: 1023px) {
+  .legal__head, .legal__body, .legal__toc { grid-column: 1 / -1; grid-row: auto; }
+  .legal__toc { margin-top: 32px; }
+  .legal__toc-lg { display: none; }
+  .legal__toc-sm { display: block; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); background: var(--bg-surface); }
+  .legal__toc-sm summary { display: flex; align-items: center; min-height: 48px; padding: 0 16px; cursor: pointer; font: 500 15px/20px var(--font-sans); }
+  .legal__toc-sm .legal__toc-list { margin: 0; padding: 0 16px 12px; }
+  .legal__toc-list a { padding: 12px 0; border-top: 1px solid var(--border-row); }
+  .legal__body { margin-top: 32px; }
+}
 @media (max-width: 639px) { .legal { padding-top: 56px; } }
 @media (min-width: 640px) { .cards { grid-auto-rows: 1fr; } }
 .cards > li { display: flex; }
