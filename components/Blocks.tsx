@@ -1,7 +1,7 @@
 import type { ReactNode } from 'react';
 import { ButtonLink, TwoTone } from './ui';
 import { demoUrl, signupUrl } from '../lib/site';
-import { PRICE_LINE } from '../lib/facts';
+import { PRICE_SHORT } from '../lib/facts';
 
 /** Breadcrumbs: mirrors the BreadcrumbList JSON-LD on each page below root. */
 export function Breadcrumbs({ trail }: { trail: { name: string; path: string }[] }) {
@@ -48,8 +48,7 @@ export function CTABand({ page }: { page: string }) {
               Get started
             </ButtonLink>
           </div>
-          {/* TODO(owner) VAT-1 */}
-          <p className="small">{PRICE_LINE}, plus 0,25% per delivered load.</p>
+          <p className="small">{PRICE_SHORT}</p>
         </div>
       </div>
     </section>

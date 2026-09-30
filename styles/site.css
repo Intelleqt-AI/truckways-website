@@ -661,15 +661,20 @@ a.pcard:hover .pcard__go { transform: translateX(2px); color: var(--text-primary
 @media (max-width: 639px) { .dl > div { grid-template-columns: 1fr; gap: 2px; } }
 
 .calc { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--web-col-gap); row-gap: 32px; align-items: start; }
-.calc__head { grid-column: 1 / 5; }
+.calc__head { grid-column: 1 / 6; }
 .calc__head p { margin-top: 16px; }
-.calc__box { grid-column: 6 / 13; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); background: var(--bg-surface); padding: 24px; }
+.calc__box { grid-column: 7 / 13; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); background: var(--bg-surface); padding: 24px; }
 .calc__inputs { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
 .calc__out { margin-top: 24px; border-top: 1px solid var(--border-subtle); }
 .calc__out > div { display: flex; justify-content: space-between; gap: 16px; padding: 12px 0; border-bottom: 1px solid var(--border-row); font: 400 15px/22px var(--font-sans); color: var(--text-secondary); }
 .calc__out > div > span:last-child { color: var(--text-primary); font-variant-numeric: tabular-nums; }
 .calc__out > .calc__total { border-bottom: 0; padding-top: 16px; color: var(--text-primary); font-weight: 600; font-size: 17px; }
 .calc__note { margin-top: 12px; }
+.calc__hint { color: var(--text-tertiary); font-size: 13px; }
+.calc__out > .calc__sub { color: var(--text-primary); font-weight: 500; }
+.input-affix { position: relative; }
+.input-affix > span { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-tertiary); font: 400 15px/20px var(--font-sans); pointer-events: none; }
+.input-affix .input { padding-left: 28px; }
 @media (max-width: 1023px) { .calc__head, .calc__box { grid-column: 1 / -1; } }
 @media (max-width: 639px) { .calc__inputs { grid-template-columns: 1fr; } .calc__box { padding: 16px; } }
 

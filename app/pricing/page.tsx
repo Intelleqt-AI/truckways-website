@@ -4,14 +4,16 @@ import { ButtonLink, TextLink, TwoTone, StatusChip } from '../../components/ui';
 import { Breadcrumbs, PageHero, CTABand } from '../../components/Blocks';
 import Faq, { type QA } from '../../components/Faq';
 import FeeCalc from '../../components/FeeCalc';
-import { FACTS, PRICE, CANCELLATION } from '../../lib/facts';
+import { FACTS, PRICE, CANCELLATION, FEE_LINE } from '../../lib/facts';
+import { FEE_EXAMPLE } from '../../content/demo-data';
+import { rand } from '../../lib/format';
 import { SITE_URL, signupUrl, demoUrl, jsonLd } from '../../lib/site';
 import { graph, softwareSchema, offerSchema, faqSchema, breadcrumbSchema } from '../../lib/schema';
 
 const URL = `${SITE_URL}/pricing`;
 const TITLE = 'Pricing: R 4 499 per month, unlimited users';
 const DESCRIPTION =
-  "One plan for South African transporters: R 4 499 per month plus 0,25% of each delivered load's invoice value. Unlimited users, no setup fees.";
+  "One plan for South African transporters: R 4 499 per month excl. VAT, plus 0,25% of each delivered load's invoice value. Unlimited users, no setup fees.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -26,7 +28,7 @@ export const metadata: Metadata = {
   twitter: { title: `${TITLE} | TruckWys`, description: DESCRIPTION, images: ['/og/pricing.png'] },
 };
 
-// TODO(owner) VAT-1: no "incl." or "excl." VAT anywhere on this page until confirmed.
+const EG = `${rand(FEE_EXAMPLE.invoice, { cents: true })} adds ${rand(FEE_EXAMPLE.fee, { cents: true })}`;
 
 const INCLUDED = [
   'Unlimited loads, quotes and invoices',
@@ -42,9 +44,9 @@ const FAQ: QA[] = [
   { id: 'trial', q: 'Is there a free trial?', a: 'No. The demo is open to everyone, with a working company in it. Use it as long as you like before you pay.' },
   { id: 'setup', q: 'Are there setup fees?', a: 'No.' },
   { id: 'per-user', q: 'Do you charge per user?', a: 'No. Add your whole team.' },
-  // TODO(owner) VAT-1: "Is VAT included?" ships only once answered.
-  // TODO(owner) Q3: align cancellation with the Terms; fallback copy until then.
-  { id: 'cancel', q: 'How do I cancel?', a: 'Month to month, with no long-term contract. See the Terms for notice.' },
+  { id: 'vat', q: 'Is VAT included?', a: `No. ${PRICE} per month is excl. VAT, and 15% VAT is added to your TruckWys invoice. The 0,25% is worked out on each delivered load's invoice total including VAT: a load invoiced at ${EG}.` },
+  // Q3 (notice terms) is still open with the owner: say only this.
+  { id: 'cancel', q: 'Is there a contract?', a: CANCELLATION },
   { id: 'eft', q: 'Can I pay by EFT?', a: 'Your subscription is paid by card through Paystack. Your customers pay you by EFT, straight into your own account.' },
   { id: 'fleet-50', q: 'Running 50 or more trucks?', a: 'Talk to us about onboarding, integrations and security. Use the Talk to us page and a person will reply by email.' },
 ];
@@ -76,9 +78,9 @@ export default function PricingPage() {
             <p className="plan__name">TruckWys Fleet</p>
             <div className="plan__fig">
               <span className="figure-big" style={{ color: 'var(--text-primary)' }}>{PRICE}</span>
-              <span>per month</span>
+              <span>per month excl.&nbsp;VAT</span>
             </div>
-            <p className="plan__sub">plus 0,25% of each delivered load&apos;s invoice value</p>
+            <p className="plan__sub">plus {FEE_LINE}</p>
             <ul className="plan__list list-reset">
               {INCLUDED.map((t) => (
                 <li key={t}>
@@ -106,9 +108,8 @@ export default function PricingPage() {
                 <dd>Charged when a delivered load is invoiced.</dd>
               </div>
               <div>
-                {/* VERIFY Q2: add the incl. or excl. VAT basis here once confirmed. */}
                 <dt>On what</dt>
-                <dd>The invoice value. A load invoiced at R&nbsp;34&nbsp;500 adds R&nbsp;86,25.</dd>
+                <dd>The load&apos;s invoice total, including VAT. A load invoiced at {EG}.</dd>
               </div>
               <div>
                 <dt>Not charged on</dt>
@@ -117,6 +118,10 @@ export default function PricingPage() {
               <div>
                 <dt>Where you see it</dt>
                 <dd>Every charge is listed in Billing history.</dd>
+              </div>
+              <div>
+                <dt>VAT</dt>
+                <dd>The subscription and the load fees are excl. VAT. VAT at 15% is added to your TruckWys invoice.</dd>
               </div>
               <div>
                 <dt>Contract</dt>
@@ -131,12 +136,13 @@ export default function PricingPage() {
       <section className="sec sec--grey" aria-labelledby="calc-h">
         <div className="wrap calc">
           <div className="calc__head">
-            <TwoTone id="calc-h" a="What you would pay" b="in a month." />
+            <TwoTone id="calc-h" a="Your month," b="worked out." />
             <p className="body">
-              Load fees are 0,25% of each delivered load&apos;s invoice value. Arithmetic only; your real fees are listed in Billing history.
+              Load fees are 0,25% of each delivered load&apos;s invoice total, including VAT. Arithmetic only; your real fees are listed in
+              Billing history.
             </p>
           </div>
-          <FeeCalc monthly={FACTS.price.monthly} feePct={FACTS.fee.pct} />
+          <FeeCalc monthly={FACTS.price.monthly} feePct={FACTS.fee.pct} vatRate={FACTS.vatRate} defaultValue={Math.round(FEE_EXAMPLE.invoice)} />
         </div>
       </section>
 
@@ -148,28 +154,26 @@ export default function PricingPage() {
             <p>Neither is live yet, and neither is part of the plan above.</p>
           </div>
           <ul className="soon list-reset">
-            <li className="pcard">
-              <Zap className="pcard__icon" strokeWidth={1.75} aria-hidden="true" />
-              <span className="pcard__name">Fast Pay</span>
-              <span className="pcard__line">Payment on invoices before your customer pays. Not live yet. Pricing will be published when it is.</span>
-              <span className="pcard__foot">
-                <StatusChip />
-                <TextLink href="/contact?topic=fast-pay" cta="notify" loc="pricing_soon" quiet>
-                  Get notified<span className="sr-only"> about Fast Pay</span>
-                </TextLink>
-              </span>
-            </li>
-            <li className="pcard">
-              <ShieldCheck className="pcard__icon" strokeWidth={1.75} aria-hidden="true" />
-              <span className="pcard__name">Insurance</span>
-              <span className="pcard__line">Not live yet.</span>
-              <span className="pcard__foot">
-                <StatusChip />
-                <TextLink href="/contact?topic=insurance" cta="notify" loc="pricing_soon" quiet>
-                  Get notified<span className="sr-only"> about Insurance</span>
-                </TextLink>
-              </span>
-            </li>
+            {[
+              { Icon: Zap, name: 'Fast Pay', line: 'Payment on invoices before your customer pays. Pricing will be published when it is live.', topic: 'fast-pay' },
+              { Icon: ShieldCheck, name: 'Insurance', line: 'Being built. What it covers is published before it goes live.', topic: 'insurance' },
+            ].map(({ Icon, name, line, topic }) => (
+              <li className="pcard pcard--soon" key={name}>
+                <span className="pcard__top">
+                  <span className="pcard__tile" aria-hidden="true">
+                    <Icon className="pcard__icon" strokeWidth={1.75} />
+                  </span>
+                  <StatusChip />
+                </span>
+                <span className="pcard__name">{name}</span>
+                <span className="pcard__line">{line}</span>
+                <span className="pcard__foot">
+                  <TextLink href={`/contact?topic=${topic}`} cta="notify" loc="pricing_soon" quiet>
+                    Get notified<span className="sr-only"> about {name}</span>
+                  </TextLink>
+                </span>
+              </li>
+            ))}
           </ul>
         </div>
       </section>
