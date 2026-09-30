@@ -5,6 +5,7 @@ import { createPortal } from 'react-dom';
 
 type Props = {
   links: { href: string; label: string }[];
+  product?: { href: string; label: string }[];
   signIn: string;
   demo: string;
   signup: string;
@@ -16,7 +17,7 @@ type Props = {
  * returns focus, page scroll locked. The sheet is portalled to <body> so no
  * ancestor (the sticky header) can become its containing block and clip it.
  */
-export default function NavSheet({ links, signIn, demo, signup, price }: Props) {
+export default function NavSheet({ links, product = [], signIn, demo, signup, price }: Props) {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
@@ -104,11 +105,26 @@ export default function NavSheet({ links, signIn, demo, signup, price }: Props) 
             </button>
           </div>
           <nav aria-label="Menu" className="sheet__list">
-            {links.map((l) => (
-              <a key={l.href} href={l.href}>
-                {l.label}
-              </a>
-            ))}
+            {links.map((l) =>
+              l.href === '/product' && product.length ? (
+                <div key={l.href} className="sheet__group">
+                  <a href={l.href}>{l.label}</a>
+                  <div className="sheet__sub">
+                    {product
+                      .filter((p) => p.href !== '/product')
+                      .map((p) => (
+                        <a key={p.href} href={p.href}>
+                          {p.label}
+                        </a>
+                      ))}
+                  </div>
+                </div>
+              ) : (
+                <a key={l.href} href={l.href}>
+                  {l.label}
+                </a>
+              ),
+            )}
             <a href="/contact" data-cta="talk_to_us" data-loc="menu">Talk to us</a>
             <a href={signIn} data-cta="sign_in" data-loc="menu">
               Sign in

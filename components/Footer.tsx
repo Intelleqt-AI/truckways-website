@@ -1,13 +1,18 @@
 import { FACTS } from '../lib/facts';
 import { APP_STORE_URL, loginUrl } from '../lib/site';
 
-/* Phase A footer: only pages that exist today. Quoting, Invoicing, Debtors,
-   Reports, Integrations, For TMS partners and the calculators join in B and C. */
+/* Footer (brief §2.4): only pages that exist. For TMS partners and the
+   calculators join when their pages ship. */
 const COLS = [
   {
     title: 'Product',
     links: [
       { href: '/product', label: 'How it works' },
+      { href: '/product/quoting', label: 'Quoting' },
+      { href: '/product/invoicing', label: 'Invoicing' },
+      { href: '/product/debtors', label: 'Debtors' },
+      { href: '/product/reports', label: 'Reports' },
+      { href: '/integrations', label: 'Integrations' },
       { href: '/pricing', label: 'Pricing' },
       { href: APP_STORE_URL, label: 'iPhone app', app: true },
     ],
@@ -22,7 +27,7 @@ const COLS = [
   },
   {
     title: 'Resources',
-    links: [{ href: '/blogs', label: 'Guides' }],
+    links: [{ href: '/guides', label: 'Guides' }],
   },
   {
     title: 'Legal',

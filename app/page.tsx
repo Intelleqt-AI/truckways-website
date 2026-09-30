@@ -43,36 +43,36 @@ const STEPS = [
   {
     title: 'Quote from real costs',
     body: `This month's FIASA diesel, the ${FACTS.tollPlazas} SANRAL mainline plazas at your truck's class, border fees, allowance and your rate, with a warning in rand when a quote is below cost.`,
-    href: '/product#quote',
+    href: '/product/quoting',
     link: 'How quoting works',
   },
   {
     title: 'Delivered means invoiced',
     body: 'Mark a load delivered, in TruckWys or from your TMS, and the invoice is raised with 15% VAT, your terms, your bank details and the invoice number as the EFT reference.',
-    href: '/product#paid',
+    href: '/product/invoicing',
     link: 'How invoicing works',
   },
   {
     title: 'See who owes you',
     body: 'Debtors by age, a statement per customer and reminders that get firmer as the days pass, one customer or everyone overdue at once.',
-    href: '/product#paid',
+    href: '/product/debtors',
     link: 'How debtors work',
   },
   {
     title: 'Know what every lane makes',
     body: 'Profit and loss, net margin by month, revenue per kilometre by lane and a VAT report, with CSV for your accountant.',
-    href: '/product#numbers',
+    href: '/product/reports',
     link: 'See the reports',
   },
 ];
 
 const CARDS = [
-  { icon: Calculator, name: 'Quoting', line: 'Priced from diesel, tolls and your costs', href: '/product#quote', fact: `FIASA diesel · ${FACTS.tollPlazas} toll plazas` },
-  { icon: Receipt, name: 'Invoicing', line: 'Raised when the load delivers', href: '/product#paid', fact: '15% VAT · EFT reference' },
-  { icon: Users, name: 'Debtors', line: 'Who owes you, and one-click reminders', href: '/product#paid', fact: 'By age · statement per customer' },
-  { icon: FileBarChart, name: 'Reports', line: 'P&L, VAT and margin by lane', href: '/product#numbers', fact: `${FACTS.reports} reports · CSV export` },
+  { icon: Calculator, name: 'Quoting', line: 'Priced from diesel, tolls and your costs', href: '/product/quoting', fact: `FIASA diesel · ${FACTS.tollPlazas} toll plazas` },
+  { icon: Receipt, name: 'Invoicing', line: 'Raised when the load delivers', href: '/product/invoicing', fact: '15% VAT · EFT reference' },
+  { icon: Users, name: 'Debtors', line: 'Who owes you, and one-click reminders', href: '/product/debtors', fact: 'By age · statement per customer' },
+  { icon: FileBarChart, name: 'Reports', line: 'P&L, VAT and margin by lane', href: '/product/reports', fact: `${FACTS.reports} reports · CSV export` },
   { icon: MessageSquareText, name: 'Copilot', line: 'Ask your numbers in plain words', href: '/product#models', fact: 'Drafts wait for you to confirm' },
-  { icon: Plug, name: 'Integrations', line: 'Cartrack, CtrlFleet, API and CSV', href: '/product#integrations', fact: 'Nothing to install' },
+  { icon: Plug, name: 'Integrations', line: 'Cartrack, CtrlFleet, API and CSV', href: '/integrations', fact: 'Nothing to install' },
 ];
 
 const SOON = [

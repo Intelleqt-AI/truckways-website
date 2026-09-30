@@ -221,6 +221,19 @@ p, li, dd { text-wrap: pretty; }
   .nav__right .btn { height: 36px; padding: 0 14px; font-size: 14px; }
 }
 
+/* Product menu */
+.pmenu { position: relative; }
+.pmenu__btn { gap: 4px; border: 0; background: transparent; cursor: pointer; }
+.pmenu__btn svg { width: 14px; height: 14px; transition: transform 120ms var(--ease-out); }
+.pmenu__btn[aria-expanded="true"] { color: var(--text-primary); background: var(--nav-hover-bg); }
+.pmenu__btn[aria-expanded="true"] svg { transform: rotate(180deg); }
+.pmenu__panel { position: absolute; left: -8px; top: calc(100% + 10px); width: 340px; padding: 8px; background: var(--bg-surface); border: 1px solid var(--border-overlay); border-radius: var(--radius-card); box-shadow: var(--shadow-pop); z-index: 55; }
+.pmenu__panel[hidden] { display: none; }
+.pmenu__item { display: flex; flex-direction: column; gap: 2px; padding: 10px 12px; border-radius: var(--radius-control); }
+.pmenu__item:hover, .pmenu__item:focus-visible { background: var(--nav-hover-bg); }
+.pmenu__item b { font: 500 15px/20px var(--font-sans); color: var(--text-primary); }
+.pmenu__item span { font: 400 13px/18px var(--font-sans); color: var(--text-tertiary); }
+
 /* Phone sheet */
 .sheet[hidden] { display: none; }
 .sheet {
@@ -248,6 +261,10 @@ p, li, dd { text-wrap: pretty; }
   border-bottom: 1px solid var(--border-subtle);
   font: 500 18px/26px var(--font-sans); letter-spacing: -0.012em; color: var(--text-primary);
 }
+.sheet__group { display: flex; flex-direction: column; border-bottom: 1px solid var(--border-subtle); }
+.sheet__list .sheet__group > a { border-bottom: 0; }
+.sheet__sub { display: grid; grid-template-columns: 1fr 1fr; column-gap: 16px; padding: 0 0 12px 0; }
+.sheet__list .sheet__sub a { min-height: 44px; border-bottom: 0; font: 400 16px/22px var(--font-sans); color: var(--text-secondary); }
 .sheet__foot { margin-top: auto; padding-top: 24px; display: flex; flex-direction: column; gap: 12px; }
 .sheet__foot .btn { width: 100%; height: 48px; }
 .sheet__price { text-align: center; }
