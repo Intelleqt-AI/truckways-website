@@ -1,8 +1,7 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { notFound } from 'next/navigation';
 import { blogPosts } from '../../../lib/blog-data';
-import { APP_LOGIN_URL, SITE_URL, jsonLd } from '../../../lib/site';
+import { demoUrl, SITE_URL, jsonLd } from '../../../lib/site';
 
 type Post = (typeof blogPosts)[number];
 
@@ -123,13 +122,13 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
         <div className="mx-auto max-w-6xl px-5 pb-16 pt-16 md:pt-20">
           <div className="mx-auto max-w-3xl">
             <nav aria-label="Breadcrumb" className="flex items-center gap-2 text-[13px] text-ink-3">
-              <Link href="/" className="inline-block py-1.5 transition-colors hover:text-ink">
+              <a href="/" className="inline-block py-1.5 transition-colors hover:text-ink">
                 Home
-              </Link>
+              </a>
               <span aria-hidden="true">/</span>
-              <Link href="/blogs" className="inline-block py-1.5 transition-colors hover:text-ink">
+              <a href="/blogs" className="inline-block py-1.5 transition-colors hover:text-ink">
                 Blog
-              </Link>
+              </a>
               <span aria-hidden="true">/</span>
               <span aria-current="page" className="line-clamp-1">{post.title}</span>
             </nav>
@@ -157,7 +156,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
               dangerouslySetInnerHTML={{ __html: post.content }}
             />
 
-            <div className="panel-accent mt-16 rounded-[14px] px-8 py-12 text-center">
+            <div data-theme="dark" className="panel-accent mt-16 rounded-[14px] px-8 py-12 text-center">
               <h2 className="text-[20px] font-semibold text-ink">
                 Price your next load with real costs
               </h2>
@@ -165,8 +164,8 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                 TruckWys quotes with live diesel prices, the actual tolls on the route
                 and your own running costs, then invoices the moment you deliver.
               </p>
-              <a href={APP_LOGIN_URL} className="btn-primary mt-6 !border-white !bg-white !text-accent">
-                See the demo
+              <a href={demoUrl("legacy")} data-cta="open_demo" data-loc="cta_band" className="btn-primary mt-6">
+                Open the demo
               </a>
             </div>
           </div>
@@ -176,7 +175,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
               <div className="eyebrow mb-5">Keep reading</div>
               <div className="grid gap-4 sm:grid-cols-3">
                 {related.map((r) => (
-                  <Link
+                  <a
                     key={r.slug}
                     href={`/blogs/${r.slug}`}
                     className="card flex flex-col p-5 transition-colors hover:border-accent"
@@ -189,7 +188,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
                       <span aria-hidden="true">·</span>
                       <span>{r.readingTime} read</span>
                     </div>
-                  </Link>
+                  </a>
                 ))}
               </div>
             </div>

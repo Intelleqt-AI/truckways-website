@@ -24,14 +24,14 @@ export const metadata: Metadata = {
 // exists because the stores ask for a dedicated URL, so keep the two in step.
 export default function DeleteAccountPage() {
   return (
-    <section className="bg-surface">
-      <div className="mx-auto max-w-6xl px-5 pb-20 pt-20 md:pt-28">
-        <div className="mx-auto max-w-3xl">
-          <div className="eyebrow eyebrow-accent mb-5">Legal</div>
-          <h1 className="text-display text-ink">Delete your account</h1>
-          <p className="mt-3 text-[13px] text-ink-3">Last updated: 2 August 2026</p>
+    <section className="legal">
+      <div className="wrap">
+        <div className="legal__col">
+          <p className="label legal__eyebrow">Legal</p>
+          <h1 className="h1 legal__h1">Delete your account</h1>
+          <p className="small legal__date">Last updated: 2 August 2026</p>
 
-          <div className="article-body measure mt-12">
+          <div className="article legal__body">
             <section>
               <h2>Delete it yourself, in the app</h2>
               <p>
@@ -62,7 +62,7 @@ export default function DeleteAccountPage() {
                 <li>Your account is deactivated and you are signed out of every device</li>
                 <li>Your push notification registrations are removed, so the app stops notifying that handset</li>
                 <li>Your name, email address, phone number and profile photo are erased</li>
-                <li>Any voice recordings you made for voice quoting were never stored in the first place — they are transcribed in memory and discarded</li>
+                <li>Any voice recordings you made for voice quoting were never stored in the first place: they are transcribed in memory and discarded</li>
               </ul>
             </section>
 
@@ -77,7 +77,7 @@ export default function DeleteAccountPage() {
                 <li>Records relating to a cash advance or credit facility, where one was used</li>
               </ul>
               <p>
-                Business records belonging to your employer — bookings, quotes, customers and vehicles — stay with that
+                Business records belonging to your employer, bookings, quotes, customers and vehicles, stay with that
                 company&apos;s account. Deleting your own user account removes you, not your company&apos;s operational
                 history.
               </p>

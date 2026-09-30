@@ -31,14 +31,14 @@ export const metadata: Metadata = {
 //      adding it here in the same change.
 export default function PrivacyPage() {
   return (
-    <section className="bg-surface">
-      <div className="mx-auto max-w-6xl px-5 pb-20 pt-20 md:pt-28">
-        <div className="mx-auto max-w-3xl">
-          <div className="eyebrow eyebrow-accent mb-5">Legal</div>
-          <h1 className="text-display text-ink">Privacy policy</h1>
-          <p className="mt-3 text-[13px] text-ink-3">Last updated: 4 August 2026</p>
+    <section className="legal">
+      <div className="wrap">
+        <div className="legal__col">
+          <p className="label legal__eyebrow">Legal</p>
+          <h1 className="h1 legal__h1">Privacy policy</h1>
+          <p className="small legal__date">Last updated: 30 September 2026</p>
 
-          <div className="article-body measure mt-12">
+          <div className="article legal__body">
             <section>
               <h2>1. Who we are</h2>
               <p>
@@ -56,7 +56,7 @@ export default function PrivacyPage() {
                   <strong>Registered address:</strong> 12 Keurboom Road, Claremont, Cape Town, 7800, Western Cape
                 </li>
                 <li>
-                  <strong>Information Officer:</strong> Grant McEvoy —{' '}
+                  <strong>Information Officer:</strong> Grant McEvoy:{' '}
                   <a href="mailto:grant@truckwys.com">grant@truckwys.com</a>, 084 704 1120
                 </li>
               </ul>
@@ -69,7 +69,7 @@ export default function PrivacyPage() {
             <section>
               <h2>2. Who this policy is for</h2>
               <p>
-                TruckWys is a business platform. Accounts are created for staff by their company&apos;s administrator —
+                TruckWys is a business platform. Accounts are created for staff by their company&apos;s administrator:
                 there is no public sign-up in the mobile app. If you are a driver, dispatcher or manager using TruckWys
                 at work, your employer decides what operational information is entered about you, and this policy
                 explains what we do with it.
@@ -99,7 +99,7 @@ export default function PrivacyPage() {
               <ul>
                 <li>Invoice line items, trip profitability data, and customer or shipper billing details</li>
                 <li>
-                  Payment card data, tokenised and processed by our payment gateway, Paystack — TruckWys never receives
+                  Payment card data, tokenised and processed by our payment gateway, Paystack: TruckWys never receives
                   or stores full card numbers. We hold only a token, the card type and its last four digits
                 </li>
                 <li>
@@ -123,7 +123,7 @@ export default function PrivacyPage() {
                 </li>
                 <li>
                   <strong>Voice recordings, if you use voice quoting.</strong> The app asks for microphone access only
-                  when you tap to record. The recording is transcribed into quote details and then discarded — it is
+                  when you tap to record. The recording is transcribed into quote details and then discarded: it is
                   never written to our storage, never used to identify you, and never used to train any model. See
                   section 6.
                 </li>
@@ -181,36 +181,45 @@ export default function PrivacyPage() {
               </p>
               <ul>
                 <li>
-                  <strong>Paystack</strong> — subscription payment processing and card tokenisation
+                  <strong>Paystack</strong>: subscription payment processing and card tokenisation
                 </li>
                 <li>
-                  <strong>Merchant Capital</strong> — invoice financing, only where a customer opts in to factoring
+                  <strong>Merchant Capital</strong>: invoice financing, only where a customer opts in to factoring
                 </li>
                 <li>
-                  <strong>Xero</strong> — accounting sync, only where a customer connects their account
+                  <strong>Xero</strong>: accounting sync, only where a customer connects their account
                 </li>
                 <li>
-                  <strong>TomTom</strong> — route, distance and travel-time data
+                  <strong>TomTom</strong>: route, distance and travel-time data
                 </li>
                 <li>
-                  <strong>MapTiler</strong>, using OpenStreetMap data — supplies the map imagery on route previews.
+                  <strong>MapTiler</strong>, using OpenStreetMap data: supplies the map imagery on route previews.
                   Loading map tiles reveals your IP address and the approximate map area to the tile provider, as with
                   any web map
                 </li>
                 <li>
-                  <strong>Anthropic</strong> and <strong>OpenAI</strong> — power quote analysis, the AI assistant and
+                  <strong>Anthropic</strong> and <strong>OpenAI</strong>: power quote analysis, the AI assistant and
                   voice transcription. See section 6
                 </li>
                 <li>
-                  <strong>Google Firebase Cloud Messaging</strong> and <strong>Apple Push Notification service</strong> —
+                  <strong>Google Firebase Cloud Messaging</strong> and <strong>Apple Push Notification service</strong>:
                   deliver push notifications to the mobile app. The notification title and body pass through their
                   infrastructure, which is why we keep notification text to a short summary
                 </li>
                 <li>
-                  <strong>Resend</strong> — sends transactional email such as quotes, invoices and password resets
+                  <strong>Resend</strong>: sends transactional email such as quotes, invoices and password resets
                 </li>
                 <li>
-                  <strong>Amazon Web Services</strong> — hosting and infrastructure
+                  <strong>Amazon Web Services</strong>: hosting and infrastructure
+                </li>
+                {/* Website (www.truckwys.com) processors, added with the v3 website. Owner review pending. */}
+                <li>
+                  <strong>Vercel</strong>: hosts this website and provides its Web Analytics, which counts page views
+                  and button clicks without cookies and without identifying you. See section 14
+                </li>
+                <li>
+                  <strong>FormSubmit</strong> (formsubmit.co): delivers messages sent through the Talk to us form on
+                  this website to our mailbox, after a check that the sender is not a robot. See section 14
                 </li>
               </ul>
               <p>
@@ -228,7 +237,7 @@ export default function PrivacyPage() {
               </p>
               <ul>
                 <li>
-                  We send only the data needed for the request — for example route, weight, vehicle type and cost inputs
+                  We send only the data needed for the request, for example route, weight, vehicle type and cost inputs
                   for a pricing analysis, or the audio clip for a transcription
                 </li>
                 <li>
@@ -264,8 +273,8 @@ export default function PrivacyPage() {
                 your platform data is stored locally by default.
               </p>
               <p>
-                Some of the providers listed in section 5 — including our AI providers, push notification services, email
-                delivery, mapping and accounting integrations — process information outside South Africa. Before any such
+                Some of the providers listed in section 5, including our AI providers, push notification services, email
+                delivery, mapping and accounting integrations, process information outside South Africa. Before any such
                 transfer we take reasonable steps to ensure the recipient is subject to data protection terms that
                 provide an adequate level of protection, consistent with section 72 of POPIA.
               </p>
@@ -295,7 +304,7 @@ export default function PrivacyPage() {
               <p>
                 We retain personal information for as long as necessary to provide the service and to meet our legal, tax
                 and accounting obligations. Financial, invoicing and company records are retained for 7 years, in line
-                with the Companies Act 71 of 2008, which sets the longer of the applicable statutory retention periods —
+                with the Companies Act 71 of 2008, which sets the longer of the applicable statutory retention periods:
                 the Tax Administration Act separately requires 5 years for tax-related records.
               </p>
               <p>
@@ -318,8 +327,8 @@ export default function PrivacyPage() {
               </ul>
               <p>
                 Deleting your account deactivates it immediately, signs you out of every device, and removes your push
-                notification registrations. Records we are legally required to keep — such as invoices and financial
-                transactions needed for tax and audit purposes — are retained for the statutory period set out in
+                notification registrations. Records we are legally required to keep, such as invoices and financial
+                transactions needed for tax and audit purposes, are retained for the statutory period set out in
                 section 10 and then deleted.
               </p>
               <p>
@@ -362,6 +371,21 @@ export default function PrivacyPage() {
                 The web dashboard uses cookies and similar storage that are necessary to keep you signed in and to
                 remember your preferences. We do not use advertising cookies or cross-site tracking. The mobile app uses
                 no cookies and contains no advertising or analytics tracking SDK.
+              </p>
+              <p>
+                <strong>This website.</strong> www.truckwys.com sets no cookies. We measure how the site is used with
+                Vercel Web Analytics, which records aggregate page views and clicks on buttons such as Get started,
+                without cookies, without identifying you and without following you to other sites. Vercel
+                processes this data outside South Africa; we rely on section 72 of POPIA for that transfer, as
+                described in section 8.
+              </p>
+              <p>
+                <strong>The Talk to us form.</strong> When you send the form, your name, work email, company, fleet
+                size, topic and message go to FormSubmit (formsubmit.co), which emails them to us. FormSubmit shows a
+                check that you are not a robot before it sends, and the form has a hidden field that catches automated
+                spam. FormSubmit processes the message outside South Africa. We use these details only to reply to
+                you.
+                {/* TODO(owner): state how long website enquiries are kept (brief §12). */}
               </p>
             </section>
 

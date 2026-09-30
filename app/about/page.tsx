@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
-import { APP_LOGIN_URL, PRICE_LABEL, jsonLd, organizationSchema, SITE_URL } from '../../lib/site';
+import { demoUrl, PRICE_LABEL, SITE_URL, jsonLd } from '../../lib/site';
 
 export const metadata: Metadata = {
   title: 'About',
@@ -27,14 +26,13 @@ const aboutPageSchema = {
   name: 'About TruckWys',
   url: `${SITE_URL}/about`,
   description:
-    'TruckWys is fleet finance software for South African transporters: quoting with live diesel and toll prices, automatic invoicing, debtors and payment reminders.',
+    'TruckWys is load-to-cash software for South African transporters: quoting with live diesel and toll prices, automatic invoicing, debtors and payment reminders.',
 };
 
 export default function AboutPage() {
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(aboutPageSchema)} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(organizationSchema)} />
 
       {/* Hero */}
       <section className="bg-surface">
@@ -70,7 +68,7 @@ export default function AboutPage() {
             <div className="card p-8">
               <div className="eyebrow mb-3">What TruckWys is</div>
               <h3 className="text-[20px] font-semibold text-ink">
-                Fleet finance software
+                Load-to-cash software
               </h3>
               <ul className="mt-5 space-y-3.5">
                 {[
@@ -96,7 +94,7 @@ export default function AboutPage() {
                 {[
                   'It does not replace your transport management system or your tracking',
                   'It works alongside the tools you already run and stays out of dispatch',
-                  'Xero keeps your books right through a direct sync',
+                  'Reports and a VAT report your accountant can use, with CSV export',
                   'Cartrack connects your vehicle data in a few minutes',
                   'If your TMS runs the trucks, TruckWys runs the money',
                 ].map((f) => (
@@ -129,7 +127,7 @@ export default function AboutPage() {
       </section>
 
       {/* CTA */}
-      <section className="panel-accent">
+      <section data-theme="dark" className="panel-accent">
         <div className="mx-auto max-w-6xl px-5 py-24 text-center">
           <div className="eyebrow mb-4" style={{color: "rgba(255,255,255,0.7)"}}>Get started</div>
           <h2 className="text-display mx-auto max-w-2xl text-ink">
@@ -140,12 +138,12 @@ export default function AboutPage() {
             ask anything.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 px-6 sm:flex-row sm:px-0">
-            <a href={APP_LOGIN_URL} className="btn-primary w-full !border-white !bg-white !text-accent sm:w-auto">
-              See the demo
+            <a href={demoUrl("legacy")} data-cta="open_demo" data-loc="cta_band" className="btn-primary w-full sm:w-auto">
+              Open the demo
             </a>
-            <Link href="/contact" className="btn-secondary w-full !border-white/40 !bg-transparent !text-white sm:w-auto">
+            <a href="/contact" className="btn-secondary w-full sm:w-auto">
               Talk to us
-            </Link>
+            </a>
           </div>
         </div>
       </section>

@@ -1,7 +1,6 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 import { blogPosts } from '../../lib/blog-data';
-import { APP_LOGIN_URL } from '../../lib/site';
+import { demoUrl } from '../../lib/site';
 
 export const metadata: Metadata = {
   title: 'Blog',
@@ -52,7 +51,7 @@ export default function BlogIndexPage() {
         <div className="mx-auto max-w-6xl px-5 py-20">
           <div className="grid gap-6 md:grid-cols-2">
             {posts.map((post) => (
-              <Link
+              <a
                 key={post.slug}
                 href={`/blogs/${post.slug}`}
                 className="card flex flex-col p-6 transition-colors hover:border-accent"
@@ -78,11 +77,11 @@ export default function BlogIndexPage() {
                   <span aria-hidden="true">·</span>
                   <span>{post.readingTime} read</span>
                 </div>
-              </Link>
+              </a>
             ))}
           </div>
 
-          <div className="panel-accent mt-16 rounded-[14px] px-8 py-12 text-center">
+          <div data-theme="dark" className="panel-accent mt-16 rounded-[14px] px-8 py-12 text-center">
             <h2 className="text-[20px] font-semibold text-ink">
               Put the numbers to work on your own fleet
             </h2>
@@ -90,8 +89,8 @@ export default function BlogIndexPage() {
               TruckWys prices your loads with live diesel, real tolls and your own
               running costs, then gets the invoices paid.
             </p>
-            <a href={APP_LOGIN_URL} className="btn-primary mt-6 !border-white !bg-white !text-accent">
-              See the demo
+            <a href={demoUrl("legacy")} data-cta="open_demo" data-loc="cta_band" className="btn-primary mt-6">
+              Open the demo
             </a>
           </div>
         </div>

@@ -24,14 +24,14 @@ export const metadata: Metadata = {
 // is the kind of thing the Information Regulator would query.
 export default function PaiaManualPage() {
   return (
-    <section className="bg-surface">
-      <div className="mx-auto max-w-6xl px-5 pb-20 pt-20 md:pt-28">
-        <div className="mx-auto max-w-3xl">
-          <div className="eyebrow eyebrow-accent mb-5">Legal</div>
-          <h1 className="text-display text-ink">PAIA Manual</h1>
-          <p className="mt-3 text-[13px] text-ink-3">Last updated: 4 August 2026</p>
+    <section className="legal">
+      <div className="wrap">
+        <div className="legal__col">
+          <p className="label legal__eyebrow">Legal</p>
+          <h1 className="h1 legal__h1">PAIA Manual</h1>
+          <p className="small legal__date">Last updated: 4 August 2026</p>
 
-          <div className="article-body measure mt-12">
+          <div className="article legal__body">
             <p>
               Prepared in terms of section 51 of the Promotion of Access to Information Act 2 of 2000 (as amended), read
               with section 17 of the Protection of Personal Information Act 4 of 2013.
@@ -113,7 +113,7 @@ export default function PaiaManualPage() {
               <h3>5.1 Purpose of processing</h3>
               <p>
                 TruckWys processes personal information to provide its fleet quoting, invoicing and trip profitability
-                platform, to process subscription and invoice fee billing, and — where a customer opts in — to facilitate
+                platform, to process subscription and invoice fee billing, and, where a customer opts in, to facilitate
                 an invoice financing referral and accounting sync.
               </p>
 
@@ -138,25 +138,25 @@ export default function PaiaManualPage() {
 
               <h3>5.4 Recipients</h3>
               <ul>
-                <li>Paystack — payment processing and card tokenisation</li>
-                <li>Merchant Capital — invoice financing, where opted in</li>
-                <li>Xero — accounting sync, where connected</li>
-                <li>TomTom — route, distance and travel-time data</li>
-                <li>MapTiler, using OpenStreetMap data — map imagery on route previews</li>
-                <li>Anthropic and OpenAI — quote analysis, the AI assistant and voice transcription</li>
+                <li>Paystack: payment processing and card tokenisation</li>
+                <li>Merchant Capital: invoice financing, where opted in</li>
+                <li>Xero: accounting sync, where connected</li>
+                <li>TomTom: route, distance and travel-time data</li>
+                <li>MapTiler, using OpenStreetMap data: map imagery on route previews</li>
+                <li>Anthropic and OpenAI: quote analysis, the AI assistant and voice transcription</li>
                 <li>
-                  Google Firebase Cloud Messaging and Apple Push Notification service — delivery of push notifications
+                  Google Firebase Cloud Messaging and Apple Push Notification service: delivery of push notifications
                   to the mobile app
                 </li>
-                <li>Resend — transactional email</li>
-                <li>Amazon Web Services — hosting and infrastructure</li>
+                <li>Resend: transactional email</li>
+                <li>Amazon Web Services: hosting and infrastructure</li>
               </ul>
 
               <h3>5.5 Cross-border transfers</h3>
               <p>
                 Our primary infrastructure is hosted in South Africa, in Amazon Web Services&apos; Cape Town region, so
-                platform data is stored locally by default. Some of the recipients listed in 5.4 — including our AI
-                providers, push notification services, email delivery, mapping and accounting integrations — process
+                platform data is stored locally by default. Some of the recipients listed in 5.4, including our AI
+                providers, push notification services, email delivery, mapping and accounting integrations, process
                 information outside South Africa. Before any such transfer we take reasonable steps to ensure the
                 recipient is subject to data protection terms that provide an adequate level of protection, consistent
                 with section 72 of POPIA.
@@ -181,7 +181,7 @@ export default function PaiaManualPage() {
               </p>
               <p>
                 If you only want a copy of your own personal information, or want it corrected or deleted, you do not
-                need the PAIA form — see section 12 of our <a href="/privacy">Privacy Policy</a>, or delete your account
+                need the PAIA form: see section 12 of our <a href="/privacy">Privacy Policy</a>, or delete your account
                 yourself from the <a href="/delete-account">account deletion page</a>.
               </p>
             </section>

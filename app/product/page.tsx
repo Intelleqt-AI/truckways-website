@@ -1,7 +1,9 @@
 import type { Metadata } from 'next';
-import Image from 'next/image';
-import Link from 'next/link';
-import { APP_LOGIN_URL, PRICE_LABEL, jsonLd, softwareSchema, SITE_URL } from '../../lib/site';
+import { PRICE_LABEL, jsonLd, SITE_URL, signupUrl } from '../../lib/site';
+import { CostBreakdown } from '../../components/fragments/Quote';
+import { CTABand } from '../../components/Blocks';
+import { SAMPLE_CAPTION } from '../../components/ui';
+import { graph, softwareSchema, offerSchema } from '../../lib/schema';
 
 export const metadata: Metadata = {
   title: 'Product: load quoting, invoicing and debtors',
@@ -52,7 +54,7 @@ const quoteFeatures = [
 export default function ProductPage() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(softwareSchema)} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(graph(softwareSchema, offerSchema))} />
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={jsonLd({
@@ -77,26 +79,20 @@ export default function ProductPage() {
             and the money clearing in your account. No spreadsheets in between.
           </p>
           <div className="mt-8 flex flex-col items-center justify-center gap-3 px-6 sm:flex-row sm:px-0">
-            <a href={APP_LOGIN_URL} className="btn-primary w-full sm:w-auto">
+            <a href={signupUrl('product-hero')} className="btn-primary w-full sm:w-auto" data-cta="get_started" data-loc="hero">
               Get started
             </a>
-            <Link href="/pricing" className="btn-secondary w-full sm:w-auto">
+            <a href="/pricing" className="btn-secondary w-full sm:w-auto">
               See pricing
-            </Link>
+            </a>
           </div>
         </div>
         {/* Single product fragment: the cost breakdown (no client names). */}
         <div className="mx-auto mt-14 max-w-6xl px-5 pb-16">
-          <div className="mx-auto max-w-md overflow-hidden rounded-[12px] border border-line bg-surface shadow-[0_16px_44px_-16px_rgba(17,24,39,0.2)]">
-            <Image
-              src="/images/product/frag-cost-card.png"
-              alt="The TruckWys cost breakdown: fuel, tolls, surcharges and a quote total of R 31 636"
-              width={446}
-              height={370}
-              priority
-              className="w-full"
-            />
-          </div>
+          <figure className="mx-auto max-w-md" data-theme="light">
+            <CostBreakdown />
+            <figcaption className="caption">{SAMPLE_CAPTION}</figcaption>
+          </figure>
         </div>
       </section>
 
@@ -134,7 +130,7 @@ export default function ProductPage() {
               </h2>
               <p className="mt-5 text-[16px] leading-relaxed text-ink-2">
                 The moment a load is marked delivered, its invoice exists: correct
-                amounts, correct client, proof of delivery attached, synced to Xero.
+                amounts, correct client, proof of delivery attached.
                 When an invoice goes overdue, send a reminder in one click, or
                 remind everyone overdue at once. Reminders get firmer as the days
                 pass.
@@ -197,7 +193,7 @@ export default function ProductPage() {
       </section>
 
       {/* Integrations */}
-      <section className="border-t border-line bg-surface">
+      <section id="integrations" className="border-t border-line bg-surface">
         <div className="mx-auto max-w-6xl px-5 py-24 text-center">
           <div className="eyebrow eyebrow-accent mb-4">Integrations</div>
           <h2 className="text-display mx-auto max-w-2xl text-ink">
@@ -205,10 +201,11 @@ export default function ProductPage() {
           </h2>
           <p className="mx-auto mt-4 max-w-xl text-[15px] text-ink-2">
             TruckWys is not a transport management system and does not want to be.
-            It runs the money and connects to Xero, Cartrack and your email.
+            It runs the money and connects to Cartrack, CtrlFleet, your TMS by API, and Excel or CSV.
+            Xero is coming soon.
           </p>
           <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-            {['Xero', 'Cartrack', 'Email quoting', 'PDF invoices'].map((n) => (
+            {['Cartrack', 'CtrlFleet', 'API and webhooks', 'Excel and CSV'].map((n) => (
               <span key={n} className="card px-5 py-2.5 text-[14px] font-medium text-ink-2">
                 {n}
               </span>
@@ -266,7 +263,6 @@ export default function ProductPage() {
                 items: [
                   'Invoice created on delivery',
                   'Proof of delivery attached',
-                  'Xero sync',
                   'One-click payment reminders',
                   'Short-pay detection',
                   'Overdue flags and ageing',
@@ -300,26 +296,32 @@ export default function ProductPage() {
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="panel-accent">
-        <div className="mx-auto max-w-6xl px-5 py-24 text-center">
-          <h2 className="text-display mx-auto max-w-2xl text-ink">
-            See it price your own routes
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-[16px] text-ink-2">
-            Set up your fleet today. {PRICE_LABEL} per month, unlimited users and quotes,
-            no setup fees.
-          </p>
-          <div className="mt-8 flex flex-col items-center justify-center gap-3 px-6 sm:flex-row sm:px-0">
-            <a href={APP_LOGIN_URL} className="btn-primary w-full !border-white !bg-white !text-accent sm:w-auto">
-              See the demo
-            </a>
-            <Link href="/pricing" className="btn-secondary w-full !border-white/40 !bg-transparent !text-white sm:w-auto">
-              See pricing
-            </Link>
+      {/* Where we use a model (target of the /ai redirect) */}
+      <section id="models" className="border-t border-line bg-surface">
+        <div className="mx-auto max-w-6xl px-5 py-24">
+          <div className="max-w-2xl">
+            <h2 className="text-display text-ink">Where we use a model</h2>
+            <p className="mt-4 text-[16px] text-ink-2">
+              Only where it helps, and never on the numbers you send a customer.
+            </p>
           </div>
+          <ul className="mt-10 grid gap-4 sm:grid-cols-2">
+            {[
+              ['Reading a typed load', 'A language model reads a typed load description and fills in the quote form for you to check.'],
+              ['Copilot', 'Ask about cash, quotes or your fleet in plain words. A language model answers from your own data and drafts records that you confirm.'],
+              ['Win probability', 'After about 40 of your quote outcomes, wins and losses both, a trained model estimates the chance of winning at a given price. Before that, it says it is still learning.'],
+              ['Not a model', 'Tolls, diesel, VAT, the below-cost warning, reminders and the payment score are rules you can read.'],
+            ].map(([t, d]) => (
+              <li key={t} className="card p-6">
+                <h3 className="text-[16px] font-semibold text-ink">{t}</h3>
+                <p className="mt-2 text-[14px] leading-relaxed text-ink-2">{d}</p>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
+
+      <CTABand page="product" />
     </>
   );
 }

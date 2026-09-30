@@ -1,5 +1,4 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
 
 export const metadata: Metadata = {
   title: 'Terms and conditions',
@@ -31,14 +30,14 @@ export const metadata: Metadata = {
 // changing it here in the same release.
 export default function TermsPage() {
   return (
-    <section className="bg-surface">
-      <div className="mx-auto max-w-6xl px-5 pb-20 pt-20 md:pt-28">
-        <div className="mx-auto max-w-3xl">
-          <div className="eyebrow eyebrow-accent mb-5">Legal</div>
-          <h1 className="text-display text-ink">Terms and conditions</h1>
-          <p className="mt-3 text-[13px] text-ink-3">Last updated: 4 August 2026</p>
+    <section className="legal">
+      <div className="wrap">
+        <div className="legal__col">
+          <p className="label legal__eyebrow">Legal</p>
+          <h1 className="h1 legal__h1">Terms and conditions</h1>
+          <p className="small legal__date">Last updated: 4 August 2026</p>
 
-          <div className="article-body measure mt-12">
+          <div className="article legal__body">
             <section>
               <h2>1. Who this agreement is between</h2>
               <p>
@@ -149,7 +148,7 @@ export default function TermsPage() {
               <p>
                 On termination, the Customer&apos;s right to access the Platform ends, and TruckWys will make Customer
                 Data available for export for a period of 30 days, after which it may be deleted in accordance with our{' '}
-                <Link href="/privacy">Privacy Policy</Link> and Data Processing Agreement. Records we are required by law
+                <a href="/privacy">Privacy Policy</a> and Data Processing Agreement. Records we are required by law
                 to retain are kept for the statutory period described in section 10 of the Privacy Policy.
               </p>
             </section>
@@ -171,18 +170,18 @@ export default function TermsPage() {
 
               <h3>Device permissions</h3>
               <p>
-                The app asks for the following, each only when you use the related feature, and each declinable — the rest
+                The app asks for the following, each only when you use the related feature, and each declinable: the rest
                 of the app keeps working if you say no:
               </p>
               <ul>
                 <li>
-                  <strong>Microphone</strong> — to record a voice quote
+                  <strong>Microphone</strong>: to record a voice quote
                 </li>
                 <li>
-                  <strong>Photo library</strong> — to attach a proof of delivery, profile picture, or company logo
+                  <strong>Photo library</strong>: to attach a proof of delivery, profile picture, or company logo
                 </li>
                 <li>
-                  <strong>Notifications</strong> — to receive operational alerts about your bookings and invoices
+                  <strong>Notifications</strong>: to receive operational alerts about your bookings and invoices
                 </li>
               </ul>
 
@@ -212,7 +211,7 @@ export default function TermsPage() {
                   purchase price, if any. To the maximum extent permitted by law, Apple has no other warranty obligation.
                 </li>
                 <li>
-                  TruckWys, not Apple, is responsible for addressing any claim relating to the app — including product
+                  TruckWys, not Apple, is responsible for addressing any claim relating to the app, including product
                   liability, legal or regulatory non-compliance, and consumer protection claims.
                 </li>
                 <li>
@@ -240,7 +239,7 @@ export default function TermsPage() {
                 <li>Provide accurate account, billing and payment information, and keep it up to date</li>
                 <li>Use the Platform only for lawful purposes related to freight quoting, invoicing and fleet management</li>
                 <li>
-                  Ensure that any personal information uploaded to the Platform — for example driver details — is uploaded
+                  Ensure that any personal information uploaded to the Platform, for example driver details, is uploaded
                   lawfully, and that the Customer has the necessary rights and consents to do so
                 </li>
                 <li>Not attempt to reverse-engineer, resell, or provide unauthorised third parties access to the Platform</li>
@@ -250,15 +249,15 @@ export default function TermsPage() {
             <section>
               <h2>9. AI features</h2>
               <p>
-                Our AI features — pricing and margin analysis, the AI assistant, natural-language quote creation and
-                voice-to-quote transcription — are decision-support tools. They do not constitute financial, legal or
+                Our AI features, pricing and margin analysis, the AI assistant, natural-language quote creation and
+                voice-to-quote transcription, are decision-support tools. They do not constitute financial, legal or
                 professional advice.
               </p>
               <p>
                 You remain responsible for all business decisions. TruckWys does not warrant that quotes, toll calculations
                 or profitability figures generated by the Platform will be error-free, and you remain responsible for
                 verifying figures before relying on them commercially. How these features process your data is described in
-                section 6 of our <Link href="/privacy">Privacy Policy</Link>.
+                section 6 of our <a href="/privacy">Privacy Policy</a>.
               </p>
             </section>
 
@@ -272,7 +271,7 @@ export default function TermsPage() {
                 TruckWys is not a credit provider and does not itself provide, underwrite or guarantee any factoring or
                 financing arrangement. Any factoring agreement is entered into directly between the Customer and Merchant
                 Capital, on Merchant Capital&apos;s own terms, and is subject to Merchant Capital&apos;s own credit
-                assessment and approval — including its own fees and interest rates. TruckWys accepts no liability for the
+                assessment and approval, including its own fees and interest rates. TruckWys accepts no liability for the
                 terms, approval, performance or outcome of any such arrangement.
               </p>
             </section>
@@ -289,7 +288,7 @@ export default function TermsPage() {
                 Use of these integrations may be subject to the relevant third party&apos;s own terms. TruckWys is not
                 responsible for the availability or performance of third-party services outside its reasonable control. The
                 full list of providers that process personal information is in section 5 of our{' '}
-                <Link href="/privacy">Privacy Policy</Link>.
+                <a href="/privacy">Privacy Policy</a>.
               </p>
             </section>
 
@@ -297,10 +296,10 @@ export default function TermsPage() {
               <h2>12. Data protection</h2>
               <p>
                 TruckWys will process personal information in accordance with POPIA, our{' '}
-                <Link href="/privacy">Privacy Policy</Link>, and — where TruckWys acts as an operator on the
-                Customer&apos;s behalf — the Data Processing Agreement incorporated by reference into this Agreement.
+                <a href="/privacy">Privacy Policy</a>, and, where TruckWys acts as an operator on the
+                Customer&apos;s behalf, the Data Processing Agreement incorporated by reference into this Agreement.
                 Information about how to request access to records we hold is in our{' '}
-                <Link href="/paia-manual">PAIA Manual</Link>.
+                <a href="/paia-manual">PAIA Manual</a>.
               </p>
             </section>
 
@@ -379,7 +378,7 @@ export default function TermsPage() {
               <h2>20. General</h2>
               <ul>
                 <li>
-                  This Agreement, together with the <Link href="/privacy">Privacy Policy</Link> and the Data Processing
+                  This Agreement, together with the <a href="/privacy">Privacy Policy</a> and the Data Processing
                   Agreement, constitutes the entire agreement between the parties regarding its subject matter.
                 </li>
                 <li>
