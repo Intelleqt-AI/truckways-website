@@ -631,6 +631,7 @@ a.pcard:hover .pcard__go { transform: translateX(2px); color: var(--text-primary
 /* Below the KPI row (native y 268 -> 64 + 193 = 257), so it never covers a figure. */
 .ctap__float { position: absolute; left: -56px; top: 288px; width: 380px; z-index: 2; }
 .ctap__cap { position: absolute; left: 64px; bottom: 28px; margin: 0; z-index: 3; }
+@media (max-width: 1279px) { .ctap__float { left: 24px; width: 340px; top: 300px; } }
 @media (max-width: 1023px) {
   .ctap { grid-template-columns: 1fr; min-height: 0; }
   .ctap__text { grid-column: 1; padding: 56px 32px 32px; }

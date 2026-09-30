@@ -346,12 +346,16 @@ export default function Home() {
                   <ul className="chain list-reset">
                     <li>
                       <span>Quote</span>
-                      <span>{QUOTE.number}, accepted</span>
+                      <span>
+                        <span className="nowrap">{QUOTE.number}</span>, accepted
+                      </span>
                       <span>{rand(QUOTE.quotePrice, { cents: true })}</span>
                     </li>
                     <li>
                       <span>Invoice</span>
-                      <span>{INVOICE.number}, due {date(INVOICE.due)}</span>
+                      <span>
+                        <span className="nowrap">{INVOICE.number}</span>, due {date(INVOICE.due)}
+                      </span>
                       <span>{rand(INVOICE.total, { cents: true })}</span>
                     </li>
                     <li>
