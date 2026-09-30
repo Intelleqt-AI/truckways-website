@@ -42,18 +42,32 @@ export const N3_TOTAL_INCL = N3_PLAZAS.reduce((s, p) => s + p.tariffIncl, 0); //
 export const N3_TOTAL_EX = Math.round(N3_PLAZAS.reduce((s, p) => s + p.exVat, 0) * 100) / 100; // 1 107,83
 
 /* ------------------------------------------------------ the quoted load (F1, F2) */
+/*
+ * Mirrors the app's quote builder (truckwyas-frontend QuoteBuilder.tsx): cost
+ * rows are fuel, SA tolls, driver allowance and the base rate per km (which
+ * covers the truck's running costs: finance, tyres, maintenance, wages,
+ * insurance). The markup is the only margin. Costs = everything but the markup.
+ * Change dieselPerL and every figure below re-derives, including the invoice,
+ * the lane ranking's R/km for Johannesburg to Durban and the fee example.
+ */
 const km = 568;
 const burn = 46.0; // L/100 km, interlink at this load's weight
-const dieselPerL = 21.62; // sample price, not a live FIASA figure
-const litres = Math.round(((km * burn) / 100) * 100) / 100; // 261,28
-const fuel = Math.round(litres * dieselPerL * 100) / 100; // 5 648,87
+/** Sample 50ppm inland diesel, Sep 2026 (about R 30/L wholesale). Not a live FIASA figure. */
+const dieselPerL = 30.05;
+const r2 = (n: number) => Math.round(n * 100) / 100;
+const litres = r2((km * burn) / 100); // 261,28
+const fuel = r2(litres * dieselPerL); // 7 851,46
 const allowance = 850;
-const ratePerKm = 39;
-const base = km * ratePerKm; // 22 152
-const quotePrice = Math.round((fuel + N3_TOTAL_EX + allowance + base) * 100) / 100; // 29 758,70
-const vat = Math.round(quotePrice * 0.15 * 100) / 100;
-const totalIncl = Math.round((quotePrice + vat) * 100) / 100;
-const costFloor = Math.round((fuel + N3_TOTAL_EX + allowance) * 100) / 100;
+const ratePerKm = 24; // base rate: the interlink's running cost per km, excl. fuel and tolls
+const base = km * ratePerKm; // 13 632
+const costs = r2(fuel + N3_TOTAL_EX + allowance + base); // 23 441,29
+const markup = 5150; // the suggested price in use
+const quotePrice = r2(costs + markup); // 28 591,29
+const marginPct = Math.round((markup / quotePrice) * 1000) / 10; // 18,0
+const vat = r2(quotePrice * 0.15); // 4 288,69
+const totalIncl = r2(quotePrice + vat); // 32 879,98
+/** Kept for older callers: the quote's cost floor is its full direct cost. */
+const costFloor = costs;
 
 export const QUOTE = {
   number: 'QT-20260921-4418',
@@ -71,13 +85,20 @@ export const QUOTE = {
   allowance,
   ratePerKm,
   base,
+  costs,
+  markup,
+  marginPct,
   quotePrice,
   vat,
   totalIncl,
   costFloor,
+  perKm: r2(quotePrice / km),
   validUntil: '2026-10-05',
   status: 'Accepted',
 };
+
+/** 0,25% of the delivered load's invoice total incl. VAT (what the app charges). */
+export const FEE_EXAMPLE = { invoice: totalIncl, fee: r2(totalIncl * 0.0025) }; // R 32 879,98 -> R 82,20
 
 /* ------------------------------------------------------- the invoice (F3) */
 const invIssued = '2026-09-29';
@@ -146,13 +167,22 @@ export const AGEING = [
 
 /* ------------------------------------------------------- lanes (F5) */
 export const LANES = [
-  { lane: 'Johannesburg to Durban', perKm: 52.39, trips: 46 },
+  { lane: 'Johannesburg to Durban', perKm: QUOTE.perKm, trips: 46 }, // 50,34: the quoted load's price per km
   { lane: 'Johannesburg to Cape Town', perKm: 44.1, trips: 21 },
   { lane: 'Pretoria to Lebombo border', perKm: 41.8, trips: 17 },
   { lane: 'Durban to Richards Bay', perKm: 38.2, trips: 29 },
   { lane: 'Cape Town to Gqeberha', perKm: 35.6, trips: 12 },
 ];
 export const LANE_THIN = { lane: 'Johannesburg to Gaborone', trips: 3 };
+
+/** Home "Latest work": the quoted load plus two others priced at their lane's R/km (excl. VAT). */
+export const LATEST_QUOTES = [
+  { number: QUOTE.number, customer: CUSTOMERS.suikerbos, route: 'Johannesburg to Durban', total: QUOTE.quotePrice, status: 'Accepted' },
+  { number: 'QT-20260926-4437', customer: CUSTOMERS.vaalkop, route: 'Johannesburg to Cape Town', total: Math.round(1398 * 44.1), status: 'Sent' },
+  { number: 'QT-20260928-4442', customer: CUSTOMERS.sandveld, route: 'Durban to Richards Bay', total: Math.round(178 * 38.2), status: 'Draft' },
+];
+/** Home "Quote pipeline" counts. "On the road" equals KPIS.activeLoads. */
+export const PIPELINE = { draft: 3, sent: 5, accepted: 9 };
 
 /* ---------------------------------------------------- Insights (F7, F8) */
 const sandveld = OVERDUE[0];

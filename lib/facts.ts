@@ -10,15 +10,17 @@ export const FACTS = {
   price: {
     monthly: 4499,
     currency: 'ZAR',
-    // TODO(owner) VAT-1: is R 4 499 incl. or excl. VAT? Until answered the
-    // site never writes "incl." or "excl." VAT next to the price.
-    vatBasis: null as null | 'incl' | 'excl',
+    // VAT-1 answered by the owner (30 Sep 2026): the subscription is quoted
+    // excl. VAT, matching Terms 5.5 ("All fees are exclusive of VAT").
+    vatBasis: 'excl' as 'incl' | 'excl',
   },
   fee: {
     pct: 0.25,
-    // VERIFY Q2: the code charges on the invoice total (incl. VAT). The site
-    // says "invoice value" and states no basis until the owner confirms.
-    basis: 'delivered load invoice value',
+    // Q2 answered by the owner: the fee is charged on the delivered load's
+    // invoice total incl. VAT (truckwys-backend delivery_fee_billing.py uses
+    // invoice.total_amount, which includes VAT).
+    basis: 'delivered load invoice value, incl. VAT',
+    onVatInclusiveTotal: true,
   },
   tollPlazas: 31,
   tollTariffEffective: '2026-03-01',
@@ -60,11 +62,17 @@ export const FACTS = {
   hosting: null as null | string /* TODO(owner) Q5 */,
 } as const;
 
-/* Rendered strings. Keep all price wording here. */
-// TODO(owner) VAT-1: add "excl. VAT" or "incl. VAT" once confirmed.
-export const PRICE = 'R 4 499';
-export const PRICE_LINE = `${PRICE} per month`;
+/* Rendered strings. Keep all price wording here. The spaces inside money are
+   non-breaking (U+00A0) so "R" never wraps away from its figure. */
+const NB = '\u00a0';
+export const PRICE = `R${NB}4${NB}499`;
+/** "R 4 499 per month excl. VAT" (owner decision 30 Sep 2026, matches Terms 5.5). */
+export const PRICE_LINE = `${PRICE} per month excl.${NB}VAT`;
 export const FEE = '0,25%';
-export const FEE_LINE = "0,25% of each delivered load's invoice value";
+/** The fee is worked out on the invoice total including VAT (owner decision; matches the code). */
+export const FEE_LINE = `0,25% of each delivered load's invoice value (incl.${NB}VAT)`;
 export const PRICE_AND_FEE = `${PRICE_LINE}, plus ${FEE_LINE}.`;
+/** Short form for tight spots (CTA bands, the phone menu). */
+export const PRICE_SHORT = `${PRICE_LINE}, plus 0,25% per delivered load.`;
+/** Owner is still deciding notice terms: say only this. Never point to the Terms for notice. */
 export const CANCELLATION = 'Month to month. No long-term contract.';

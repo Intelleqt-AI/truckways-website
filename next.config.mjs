@@ -11,8 +11,9 @@ const nextConfig = {
       { source: '/get-started', destination: `${APP}/signup?ref=site-redirect`, permanent: false },
       { source: '/signup', destination: `${APP}/signup?ref=site-redirect`, permanent: false },
       { source: '/login', destination: `${APP}/login`, permanent: false },
-      // No demo deep link in the app yet (owner question Q10): the login page's
-      // "View demo" button opens the demo company with no form.
+      // TODO: point at `${APP}/demo?ref=website` once truckwyas-frontend #123 is
+      // deployed (flip DEMO_DEEP_LINK_LIVE in lib/site.ts at the same time).
+      // Until then the login page's "View demo" button opens the demo company.
       { source: '/demo', destination: `${APP}/login?ref=site-redirect`, permanent: false },
       // Legacy v0 routes
       { source: '/dashboard', destination: '/', permanent: true },

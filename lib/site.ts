@@ -11,11 +11,18 @@ export const APP_SIGNUP_URL = `${APP_URL}/signup`;
 /** "Sign in". */
 export const APP_LOGIN_URL = `${APP_URL}/login`;
 /**
- * "Open the demo". The app has no demo deep link yet (owner question Q10), so
- * this is the login page, whose "View demo" button signs straight into the
- * shared demo company with no form. Change here once /demo exists in the app.
+ * Direct demo entry: the app route that signs straight into the public demo
+ * company with no form (truckwyas-frontend PR #123 adds /demo).
  */
-export const APP_DEMO_URL = `${APP_URL}/login`;
+export const DEMO_URL = `${APP_URL}/demo?ref=website`;
+/**
+ * TODO: flip to true once truckwyas-frontend #123 is deployed.
+ * Until then /demo would 404 in production, so "Open the demo" stays on the
+ * login page, whose "View demo" button signs into the demo company with no form.
+ */
+export const DEMO_DEEP_LINK_LIVE = false;
+/** Where every "Open the demo" button points today. */
+export const APP_DEMO_URL = DEMO_DEEP_LINK_LIVE ? DEMO_URL : APP_LOGIN_URL;
 
 export const APP_STORE_URL = FACTS.appStore;
 
@@ -23,14 +30,16 @@ export const APP_STORE_URL = FACTS.appStore;
 export const CONTACT_EMAIL = 'grant@truckwys.com';
 
 /**
- * Outbound app links carry ?ref=site-{page}-{location} (no personal data) so
- * signups and demo sessions can be attributed in the app.
+ * Outbound app links carry ?ref=site-{page}-{location} (no personal data).
+ * NOTE: the app does not read `ref` yet (no code in Login.tsx or Signup.tsx on
+ * 30 Sep 2026), so the tags are kept for when signup attribution is added.
  */
 function withRef(url: string, ref?: string) {
   return ref ? `${url}?ref=site-${ref}` : url;
 }
 export const signupUrl = (ref?: string) => withRef(APP_SIGNUP_URL, ref);
-export const demoUrl = (ref?: string) => withRef(APP_DEMO_URL, ref);
+/** "Open the demo": DEMO_URL (already tagged ?ref=website) once live, else login with a per-button ref. */
+export const demoUrl = (ref?: string) => (DEMO_DEEP_LINK_LIVE ? DEMO_URL : withRef(APP_LOGIN_URL, ref));
 export const loginUrl = (ref?: string) => withRef(APP_LOGIN_URL, ref);
 
 /* Legacy names still used by the phase B pages (/product, /about, /blogs). */
