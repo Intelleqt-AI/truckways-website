@@ -1,320 +1,266 @@
 import type { Metadata } from 'next';
-import { PRICE_LABEL, jsonLd, SITE_URL, signupUrl } from '../../lib/site';
-import { CostBreakdown } from '../../components/fragments/Quote';
+import { ArrowRight, Zap, ShieldCheck } from 'lucide-react';
+import '../../components/pages/pages-b.css';
+import { SectionHeader, StatusChip, TextLink, TwoTone, SAMPLE_CAPTION } from '../../components/ui';
 import { CTABand } from '../../components/Blocks';
-import { SAMPLE_CAPTION } from '../../components/ui';
-import { graph, softwareSchema, offerSchema } from '../../lib/schema';
+import { CopilotPanel } from '../../components/fragments/Money';
+import { FeatureHero, Stage, DL } from '../../components/pages/blocks';
+import { QuotesBoard, QuoteForm, MiniCost, MiniInvoice, MiniAge, MiniLanes } from '../../components/pages/frags';
+import { FACTS } from '../../lib/facts';
+import { APP_STORE_URL, SITE_URL, jsonLd } from '../../lib/site';
+import { graph, softwareSchema, offerSchema, breadcrumbSchema, ids } from '../../lib/schema';
+
+const PATH = '/product';
+const TITLE = 'How it works: from booked load to paid invoice';
+const DESCRIPTION =
+  'Quote from real costs, invoice on delivery, chase debtors and see margin by lane. How TruckWys runs the money side of every load, next to your TMS.';
 
 export const metadata: Metadata = {
-  title: 'Product: load quoting, invoicing and debtors',
-  description:
-    'Inside TruckWys: the quote builder with live diesel and SANRAL tolls, automatic invoicing on delivery, debtors and one-click reminders for South African fleets.',
-  alternates: {
-    canonical: 'https://www.truckwys.com/product',
-  },
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: `${SITE_URL}${PATH}` },
   openGraph: {
-    type: 'website',
-    siteName: 'TruckWys',
-    locale: 'en_ZA',
-    title: 'The TruckWys product',
-    description:
-      'The quote builder with live diesel and SANRAL tolls, automatic invoicing on delivery, debtors and one-click reminders for South African fleets.',
-    url: 'https://www.truckwys.com/product',
-    images: [{ url: 'https://www.truckwys.com/og-image.png', width: 1200, height: 630, alt: 'TruckWys: know what every load really costs, invoice it the moment it delivers' }],
+    url: `${SITE_URL}${PATH}`,
+    title: `${TITLE} | TruckWys`,
+    description: DESCRIPTION,
+    images: [{ url: '/og/product.png', width: 1200, height: 630, alt: 'TruckWys: from booked load to paid invoice.' }],
   },
+  twitter: { title: `${TITLE} | TruckWys`, description: DESCRIPTION, images: ['/og/product.png'] },
 };
 
-const quoteFeatures = [
+const CRUMBS = [
+  { name: 'Home', path: '/' },
+  { name: 'How it works', path: PATH },
+];
+
+const STEPS = [
   {
-    t: 'Live diesel, every quote',
-    d: 'The current diesel price and your vehicle’s real consumption go into every kilometre, so a price rise never eats a margin you did not know you had.',
+    id: 'quote',
+    name: 'Quote',
+    line: 'Build the price from the route: diesel, tolls, allowance and your rate, line by line.',
+    href: '/product/quoting',
+    crop: <MiniCost />,
   },
   {
-    t: 'The actual tolls, per route',
-    d: 'SANRAL plaza fees are matched to the exact road each route takes, priced by vehicle class. The N1 route and the alternative are costed separately.',
+    id: 'invoice',
+    name: 'Invoice',
+    line: 'Delivered means invoiced, with 15% VAT, your terms and your bank details.',
+    href: '/product/invoicing',
+    crop: <MiniInvoice />,
   },
   {
-    t: 'Cross-border ready',
-    d: 'Botswana, Namibia, Zimbabwe, Zambia and Mozambique loads pick up border fees, weighbridge charges and non-SA tolls automatically.',
+    id: 'paid',
+    name: 'Collect',
+    line: 'Debtors by age, a statement per customer and a reminder from any overdue invoice.',
+    href: '/product/debtors',
+    crop: <MiniAge />,
   },
   {
-    t: 'Plain-language fill',
-    d: 'Type "20 tons of steel, JHB to Cape Town, flatbed, Tuesday" and the form fills itself: client, route, cargo and weight.',
-  },
-  {
-    t: 'A price that learns',
-    d: 'After about 40 quote outcomes, wins and losses both, TruckWys shows a win probability learned from them on each quote.',
-  },
-  {
-    t: 'Round trip by default',
-    d: 'Return legs are priced properly: distance costs double, labelled clearly, so the empty drive home never comes out of your pocket.',
+    id: 'numbers',
+    name: 'Know',
+    line: 'Profit and loss, revenue per kilometre by lane and output VAT, from the same numbers.',
+    href: '/product/reports',
+    crop: <MiniLanes />,
   },
 ];
+
+const mobileSchema = {
+  '@type': 'MobileApplication',
+  '@id': `${SITE_URL}/#ios`,
+  name: 'TruckWys',
+  operatingSystem: 'iOS',
+  applicationCategory: 'BusinessApplication',
+  installUrl: APP_STORE_URL,
+  publisher: { '@id': ids.org },
+};
 
 export default function ProductPage() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(graph(softwareSchema, offerSchema))} />
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={jsonLd({
-          '@context': 'https://schema.org',
-          '@type': 'WebPage',
-          name: 'The TruckWys product',
-          url: `${SITE_URL}/product`,
-          description:
-            'The quote builder, automatic invoicing on delivery, debtors and one-click reminders for South African fleets.',
-        })}
+        dangerouslySetInnerHTML={jsonLd(graph(softwareSchema, offerSchema, mobileSchema, breadcrumbSchema(CRUMBS)))}
       />
 
-      {/* Hero */}
-      <section className="hero-wash">
-        <div className="mx-auto max-w-6xl px-5 pb-0 pt-10 text-center md:pt-16">
-          <div className="eyebrow eyebrow-accent mb-5">Product</div>
-          <h1 className="text-hero mx-auto max-w-3xl text-ink">
-            From quote to cash, one system
-          </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-[16px] leading-relaxed text-ink-2">
-            Everything between a client asking &ldquo;what will this load cost?&rdquo;
-            and the money clearing in your account. No spreadsheets in between.
-          </p>
-          <div className="mt-8 flex flex-col items-center justify-center gap-3 px-6 sm:flex-row sm:px-0">
-            <a href={signupUrl('product-hero')} className="btn-primary w-full sm:w-auto" data-cta="get_started" data-loc="hero">
-              Get started
-            </a>
-            <a href="/pricing" className="btn-secondary w-full sm:w-auto">
-              See pricing
-            </a>
+      {/* 1. Hero (W). Flott calm hero with one large rebuilt screen: the quotes board (S4). */}
+      <FeatureHero
+        crumbs={CRUMBS}
+        page="product"
+        eyebrow="How it works"
+        a="From booked load"
+        b="to paid invoice."
+        lead="Four steps, one record per load, and every number traceable to a cost you can see."
+        frame={
+          <Stage label="The TruckWys quotes board for a demo company, with draft, sent, accepted and declined quotes and the value in each column.">
+            <QuotesBoard />
+          </Stage>
+        }
+      />
+
+      {/* 2. The four steps (W). Hemut product row, 2 x 2, a small crop in each card. */}
+      <section className="sec" aria-labelledby="steps-h">
+        <div className="wrap">
+          <SectionHeader
+            id="steps-h"
+            a="Four steps."
+            b="One record per load."
+            line="The quote becomes the load, the load becomes the invoice, and the payment closes it. Nothing is typed twice."
+          />
+          <ol className="b-hub list-reset">
+            {STEPS.map((s, i) => (
+              <li key={s.id} id={s.id} className="reveal">
+                <a className="b-hubcard" href={s.href}>
+                  <span className="b-hubcard__num">0{i + 1}</span>
+                  <span className="b-hubcard__name">{s.name}</span>
+                  <span className="b-hubcard__line">{s.line}</span>
+                  <span className="b-hubcard__crop">{s.crop}</span>
+                  <span className="b-hubcard__more">
+                    Learn more<span className="sr-only"> about {s.name.toLowerCase()}</span>
+                    <ArrowRight strokeWidth={1.75} aria-hidden="true" />
+                  </span>
+                </a>
+              </li>
+            ))}
+          </ol>
+          <div className="b-hubfoot" id="integrations">
+            <p className="b-cap" style={{ marginTop: 0 }}>{SAMPLE_CAPTION}</p>
+            <TextLink href="/integrations">Works with Cartrack, CtrlFleet, your TMS and Excel</TextLink>
           </div>
         </div>
-        {/* Single product fragment: the cost breakdown (no client names). */}
-        <div className="mx-auto mt-14 max-w-6xl px-5 pb-16">
-          <figure className="mx-auto max-w-md" data-theme="light">
-            <CostBreakdown />
-            <figcaption className="caption">{SAMPLE_CAPTION}</figcaption>
+      </section>
+
+      {/* 3. Where we use a model (G). The honest section that replaced the /ai page. */}
+      <section className="sec sec--grey" id="models" aria-labelledby="models-h">
+        <div className="wrap">
+          <SectionHeader
+            id="models-h"
+            a="Where we use a model."
+            b="And where we don't."
+            line="Only where it helps, and never on the numbers you send a customer."
+          />
+          <div className="b-models">
+            <div className="b-models__uses reveal">
+              <h3>Uses a model</h3>
+              <ul className="list-reset">
+                <li>
+                  <b>Type it the way you&apos;d say it.</b>
+                  <span>
+                    &ldquo;20 t steel, JHB to Cape Town, flatbed, Tuesday&rdquo; fills the quote form. A language model reads the words; the
+                    price still comes from your costs.
+                  </span>
+                </li>
+                <li>
+                  <b>Copilot.</b>
+                  <span>Answers questions about cash, quotes and your fleet from your own data, and drafts records you confirm.</span>
+                </li>
+                <li>
+                  <b>Win chance.</b>
+                  <span>
+                    After about 40 quote outcomes, with both wins and losses, a trained model estimates your chance of winning at the suggested
+                    price. Until then, it shows how many outcomes it still needs.
+                  </span>
+                </li>
+              </ul>
+            </div>
+            <div className="b-models__not reveal">
+              <h3>Does not use a model</h3>
+              <p>
+                Tolls, diesel, VAT, the margin warning, reminders and the payment risk profile. These are rules and formulas, and they give the
+                same answer every time.
+              </p>
+            </div>
+            <div className="b-models__vis">
+              <Stage label="The quote builder with a typed load description, and the form filled in: customer, weight, collection and delivery, dates, vehicle type and a one-way trip.">
+                <QuoteForm />
+              </Stage>
+            </div>
+          </div>
+          {/* TODO(owner) Q11: the data-pooling wording ("Your pricing is never shown to another operator ...") is held until approved. */}
+        </div>
+      </section>
+
+      {/* 4. Copilot (I). */}
+      <section className="sec sec--ink" data-theme="dark" aria-labelledby="copilot-h">
+        <div className="wrap b-cop">
+          <div className="b-cop__text reveal">
+            <TwoTone id="copilot-h" a="Ask your numbers in plain words." b="You approve every change." />
+            <ul className="band__lines list-reset">
+              <li>Answers come from your own company&apos;s data.</li>
+              <li>Drafts quotes and customers for you to confirm. Nothing is sent on its own.</li>
+              <li>Uses a language model. Prices, tolls, VAT and reminders do not.</li>
+            </ul>
+          </div>
+          <figure className="b-cop__vis reveal">
+            <CopilotPanel />
+            <figcaption className="b-cap">{SAMPLE_CAPTION}</figcaption>
           </figure>
         </div>
       </section>
 
-      {/* Quote deep-dive */}
-      <section id="quote" className="border-t border-line bg-surface">
-        <div className="mx-auto max-w-6xl px-5 py-24">
-          <div className="mx-auto max-w-2xl text-center">
-            <div className="eyebrow eyebrow-accent mb-4">The quote builder</div>
-            <h2 className="text-display text-ink">
-              A load priced from its real costs
+      {/* 5. Mobile, and team and control (W). */}
+      <section className="sec" aria-labelledby="mobile-h">
+        <div className="wrap b-duo">
+          <div className="b-duo__a reveal">
+            <h2 className="h3" id="mobile-h">
+              The same numbers on your phone
             </h2>
-            <p className="mt-4 text-[16px] text-ink-2">
-              Client, vehicle, collection, delivery. The system does the rest.
+            {/* VERIFY Q16: the iPhone app's exact feature list before adding more. */}
+            <p>
+              See cash, overdue invoices and quotes on the move, on the same account. The web app works in any phone browser too.
             </p>
-          </div>
-          <div className="mt-14 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-            {quoteFeatures.map((f) => (
-              <div key={f.t} className="card p-6">
-                <h3 className="text-[16px] font-semibold text-ink">{f.t}</h3>
-                <p className="mt-2 text-[14px] leading-relaxed text-ink-2">{f.d}</p>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Get paid deep-dive */}
-      <section id="paid" className="bg-page">
-        <div className="mx-auto max-w-6xl px-5 py-24">
-          <div className="max-w-3xl">
-            <div>
-              <div className="eyebrow eyebrow-accent mb-4">Invoicing and debtors</div>
-              <h2 className="text-display text-ink">
-                Deliver the load. The invoice is already done.
-              </h2>
-              <p className="mt-5 text-[16px] leading-relaxed text-ink-2">
-                The moment a load is marked delivered, its invoice exists: correct
-                amounts, correct client, proof of delivery attached.
-                When an invoice goes overdue, send a reminder in one click, or
-                remind everyone overdue at once. Reminders get firmer as the days
-                pass.
-              </p>
-              <p className="mt-4 text-[16px] leading-relaxed text-ink-2">
-                Fast Pay, for getting paid on an invoice before your client pays,
-                is coming soon. It is not live yet.
-              </p>
+            <div className="b-app-row">
+              <a href={APP_STORE_URL} className="btn btn--secondary" data-appstore="product">
+                iPhone app on the App Store
+              </a>
+              <span className="small">Android coming soon</span>
             </div>
           </div>
-        </div>
-      </section>
-
-      {/* Insights deep-dive */}
-      <section id="numbers" className="bg-surface">
-        <div className="mx-auto max-w-6xl px-5 py-24">
-          <div className="max-w-3xl">
-            <div>
-              <div className="eyebrow eyebrow-accent mb-4">Insights</div>
-              <h2 className="text-display text-ink">
-                Know your cost per kilometre. Actually.
-              </h2>
-              <p className="mt-5 text-[16px] leading-relaxed text-ink-2">
-                Margin per route, cost per kilometre per vehicle, which clients pay
-                on time and which quietly cost you money. The numbers build
-                themselves from your own quotes, loads and invoices, so they reflect
-                your fleet, not an industry average.
-              </p>
-              <ul className="mt-7 space-y-3.5">
-                {[
-                  'Margin and win rate per lane, client and vehicle',
-                  'Fuel spend against revenue, week by week',
-                  'Client payment behaviour before it becomes a problem',
-                  'Fleet utilisation and idle vehicle alerts',
-                ].map((f) => (
-                  <li key={f} className="flex gap-3 text-[15px] text-ink-2">
-                    <span className="mt-1 h-1.5 w-1.5 flex-none rounded-full bg-accent" aria-hidden="true" />
-                    {f}
-                  </li>
-                ))}
-              </ul>
-            </div>
+          <div className="b-duo__b reveal">
+            <h2 className="h3">Team and control</h2>
+            <DL
+              rows={[
+                ['Roles', FACTS.roles.join(', ')],
+                ['Sign-in', 'A login code by email, and a list of signed-in sessions you can log out.'],
+                ['Integrations', 'Passwords and keys for connected systems are encrypted at rest. All traffic is over TLS.'],
+                [
+                  'Your data',
+                  <>
+                    Delete your account in Settings, or{' '}
+                    <a className="ulink" href="/delete-account">
+                      on our website
+                    </a>
+                    .
+                  </>,
+                ],
+                // TODO(owner) Q5: add a Hosting row once the production region is confirmed.
+              ]}
+            />
           </div>
         </div>
       </section>
 
-      {/* Coming soon: Fast Pay is not live (CAPITAL_LAUNCHED = false in the app) */}
-      <section id="capital" className="bg-page">
-        <div className="mx-auto max-w-6xl px-5 py-24">
-          <div className="max-w-3xl">
-            <div className="eyebrow eyebrow-accent mb-4">Coming soon</div>
-            <h2 className="text-display text-ink">Fast Pay is not live yet</h2>
-            <p className="mt-5 text-[16px] leading-relaxed text-ink-2">
-              Fast Pay is planned as a way to get paid on an invoice before your
-              client pays. It is not available today, and there are no rates or
-              limits yet. We will publish them when it launches.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Integrations */}
-      <section id="integrations" className="border-t border-line bg-surface">
-        <div className="mx-auto max-w-6xl px-5 py-24 text-center">
-          <div className="eyebrow eyebrow-accent mb-4">Integrations</div>
-          <h2 className="text-display mx-auto max-w-2xl text-ink">
-            Plays well with your TMS, tracking and books
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-[15px] text-ink-2">
-            TruckWys is not a transport management system and does not want to be.
-            It runs the money and connects to Cartrack, CtrlFleet, your TMS by API, and Excel or CSV.
-            Xero is coming soon.
-          </p>
-          <div className="mt-8 flex flex-wrap items-center justify-center gap-4">
-            {['Cartrack', 'CtrlFleet', 'API and webhooks', 'Excel and CSV'].map((n) => (
-              <span key={n} className="card px-5 py-2.5 text-[14px] font-medium text-ink-2">
-                {n}
-              </span>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Everything inside: the granular layer */}
-      <section className="border-t border-line bg-page">
-        <div className="mx-auto max-w-6xl px-5 py-24">
-          <div className="mx-auto max-w-2xl text-center">
-            <div className="eyebrow eyebrow-accent mb-4">Everything inside</div>
-            <h2 className="text-display text-ink">Every feature, in the one {PRICE_LABEL} price</h2>
-            <p className="mt-4 text-[16px] text-ink-2">
-              The full list. All of it in the {PRICE_LABEL}, no add-on tiers, no locked modules.
-            </p>
-          </div>
-          <div className="mt-14 grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+      {/* 6. Coming soon (G). */}
+      <section className="sec sec--grey" aria-labelledby="soon-h">
+        <div className="wrap">
+          <SectionHeader id="soon-h" a="Coming soon." b="Not in the price, not live yet." line="We will publish what each one costs and does when it is live. Not before." />
+          <ul className="soon list-reset">
             {[
-              {
-                cat: 'Quoting',
-                items: [
-                  'Plain-language quote fill',
-                  'Live diesel pricing per vehicle',
-                  'SANRAL tolls per route, by vehicle class',
-                  'Cross-border, border and weighbridge fees',
-                  'Route options on a live map',
-                  'Round-trip pricing',
-                  'Editable tolls, driver allowance and R/km',
-                  'Weight surcharges',
-                  'Quote validity dates',
-                  'One-click client acceptance links',
-                  'PDF quotes on your letterhead',
-                  'Draft autosave, park and resume',
-                ],
-              },
-              {
-                cat: 'Intelligence',
-                items: [
-                  'Copilot on your live data',
-                  'Daily executive briefing',
-                  'Win probability per quote',
-                  'Profit sweet-spot curve',
-                  'Revenue guard on every quote',
-                  'Cost per kilometre, per vehicle',
-                  'Margin per lane and per client',
-                  'Fleet utilisation and idle alerts',
-                  'Driver and vehicle performance',
-                  'Cartrack telemetry connection',
-                ],
-              },
-              {
-                cat: 'Getting paid',
-                items: [
-                  'Invoice created on delivery',
-                  'Proof of delivery attached',
-                  'One-click payment reminders',
-                  'Short-pay detection',
-                  'Overdue flags and ageing',
-                  'Payment tracking per invoice',
-                  'iPhone app (Android coming soon)',
-                ],
-              },
-              {
-                cat: 'Clients and coming soon',
-                items: [
-                  'Payment score per client',
-                  'Credit limits per client',
-                  'Payment behaviour history',
-                  'Coming soon: Fast Pay (not live yet)',
-                ],
-              },
-            ].map((col) => (
-              <div key={col.cat}>
-                <div className="eyebrow eyebrow-accent mb-4">{col.cat}</div>
-                <ul className="space-y-2.5">
-                  {col.items.map((it) => (
-                    <li key={it} className="flex gap-2.5 text-[14px] leading-snug text-ink-2">
-                      <span className="mt-[7px] h-1 w-1 flex-none rounded-full bg-accent" aria-hidden="true" />
-                      {it}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* Where we use a model (target of the /ai redirect) */}
-      <section id="models" className="border-t border-line bg-surface">
-        <div className="mx-auto max-w-6xl px-5 py-24">
-          <div className="max-w-2xl">
-            <h2 className="text-display text-ink">Where we use a model</h2>
-            <p className="mt-4 text-[16px] text-ink-2">
-              Only where it helps, and never on the numbers you send a customer.
-            </p>
-          </div>
-          <ul className="mt-10 grid gap-4 sm:grid-cols-2">
-            {[
-              ['Reading a typed load', 'A language model reads a typed load description and fills in the quote form for you to check.'],
-              ['Copilot', 'Ask about cash, quotes or your fleet in plain words. A language model answers from your own data and drafts records that you confirm.'],
-              ['Win probability', 'After about 40 of your quote outcomes, wins and losses both, a trained model estimates the chance of winning at a given price. Before that, it says it is still learning.'],
-              ['Not a model', 'Tolls, diesel, VAT, the below-cost warning, reminders and the payment score are rules you can read.'],
-            ].map(([t, d]) => (
-              <li key={t} className="card p-6">
-                <h3 className="text-[16px] font-semibold text-ink">{t}</h3>
-                <p className="mt-2 text-[14px] leading-relaxed text-ink-2">{d}</p>
+              { icon: Zap, name: 'Fast Pay', line: 'Get paid on an invoice before your customer pays.', topic: 'fast-pay' },
+              // Q12: one-line description of Insurance pending.
+              { icon: ShieldCheck, name: 'Insurance', line: 'Not live yet. We will describe it when it is.', topic: 'insurance' },
+            ].map(({ icon: Icon, name, line, topic }) => (
+              <li key={name} className="reveal" style={{ display: 'flex' }}>
+                <div className="pcard" style={{ flex: 1 }}>
+                  <Icon className="pcard__icon" strokeWidth={1.75} aria-hidden="true" />
+                  <span className="pcard__name">{name}</span>
+                  <span className="pcard__line">{line}</span>
+                  <span className="pcard__foot">
+                    <StatusChip />
+                    <TextLink href={`/contact?topic=${topic}`} cta="notify" loc="product_soon" quiet>
+                      Get notified<span className="sr-only"> about {name}</span>
+                    </TextLink>
+                  </span>
+                </div>
               </li>
             ))}
           </ul>
