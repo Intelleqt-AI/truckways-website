@@ -11,7 +11,7 @@ import { SITE_URL, signupUrl, demoUrl, jsonLd } from '../../lib/site';
 import { graph, softwareSchema, offerSchema, faqSchema, breadcrumbSchema } from '../../lib/schema';
 
 const URL = `${SITE_URL}/pricing`;
-const TITLE = 'Pricing: R 4 499 per month, unlimited users';
+const TITLE = 'Pricing: R 4 499 per month excl. VAT';
 const DESCRIPTION =
   "One plan for South African transporters: R 4 499 per month excl. VAT, plus 0,25% of each delivered load's invoice value. Unlimited users, no setup fees.";
 
