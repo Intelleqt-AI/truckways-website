@@ -1,6 +1,6 @@
 import { CircleCheck, Info, ChevronRight, Paperclip, MessageSquareText, Database, Bell, Menu } from 'lucide-react';
 import {
-  INVOICE, OVERDUE, LANES, LANE_THIN, FINDINGS, KPIS, OVERDUE_OVER_60, OVERDUE_MAX_DAYS, COPILOT, COMPANY, COMPANY_INITIAL, AGEING,
+  INVOICE, OVERDUE, LANES, LANE_THIN, FINDINGS, KPIS, OVER_60, COPILOT, COMPANY, COMPANY_INITIAL, AGEING,
 } from '../../content/demo-data';
 import { rand, date, num } from '../../lib/format';
 import { Kpis } from './HomeDashboard';
@@ -228,8 +228,8 @@ export function Stats() {
       </div>
       <div className="stat">
         <span className="stat__label">Over 60 days</span>
-        <span className="stat__fig">{rand(OVERDUE_OVER_60)}</span>
-        <span className="stat__note">1 invoice, {OVERDUE_MAX_DAYS} days late</span>
+        <span className="stat__fig">{rand(OVER_60)}</span>
+        <span className="stat__note">{Math.round((OVER_60 / KPIS.owed) * 100)}% of what you are owed</span>
       </div>
       <div className="stat">
         <span className="stat__label">Net margin, 12 months</span>
@@ -242,14 +242,14 @@ export function Stats() {
           {AGEING.filter((a) => a.amount > 0).map((a, i) => (
             <span
               key={a.label}
-              style={{ width: `${(a.amount / KPIS.owed) * 100}%`, background: ['var(--chart-muted)', 'var(--chart-axis)', 'var(--chart-hatch)', 'var(--text-secondary)'][i] }}
+              style={{ width: `${(a.amount / KPIS.owed) * 100}%`, background: ['var(--chart-muted)', 'var(--chart-axis)', 'var(--chart-hatch)', 'var(--text-secondary)', 'var(--text-primary)'][i] }}
             />
           ))}
         </div>
         <div className="stat__ages">
           {AGEING.filter((a) => a.amount > 0).map((a) => (
             <div key={a.label}>
-              <span>{a.label === 'Current' ? 'Not due' : `${a.label} days`}</span>
+              <span>{a.label === 'Current' ? 'Not due yet' : a.label === '90+' ? 'Over 90 days' : `${a.label} days`}</span>
               <b>{rand(a.amount)}</b>
             </div>
           ))}

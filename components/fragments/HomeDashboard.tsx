@@ -103,7 +103,7 @@ export function Kpis() {
 }
 
 function Chart() {
-  const max = 700;
+  const max = 2000;
   return (
     <div className="tw-card chart-card">
       <div className="tw-card__head">
@@ -111,7 +111,7 @@ function Chart() {
           <div className="tw-card__title">
             Revenue vs costs <Info strokeWidth={S} width={14} height={14} color="var(--text-tertiary)" />
           </div>
-          <div className="tw-card__sub">Excl. VAT, cash basis, Apr to Sep 2026</div>
+          <div className="tw-card__sub">Excl. VAT, cash basis, Oct 2025 to Sep 2026</div>
         </div>
         <div className="legend">
           <span>
@@ -124,11 +124,12 @@ function Chart() {
           </span>
         </div>
       </div>
-      <div className="chart">
+      <div className="chart chart--12">
         <div className="chart__y">
-          <span>R 600k</span>
-          <span>R 400k</span>
-          <span>R 200k</span>
+          <span>R 2m</span>
+          <span>R 1,5m</span>
+          <span>R 1m</span>
+          <span>R 500k</span>
           <span>R 0</span>
         </div>
         <div className="chart__plot">
@@ -231,7 +232,7 @@ export default function HomeDashboard() {
           <div className="app__tools">
             <Bell strokeWidth={S} />
             <Sun strokeWidth={S} />
-            <span className="app__avatar">NM</span>
+            <span className="app__avatar">ND</span>
           </div>
         </div>
         <div className="app__page">

@@ -4,7 +4,6 @@ import { ButtonLink, TextLink, SectionHeader, TwoTone, StatusChip, Caption, SAMP
 import StepSwitcher from '../components/StepSwitcher';
 import Faq, { type QA } from '../components/Faq';
 import HomeDashboard from '../components/fragments/HomeDashboard';
-import PhoneApp from '../components/fragments/PhoneApp';
 import { CostBreakdown, QuoteCard, N3Tolls } from '../components/fragments/Quote';
 import {
   InvoiceRow, NeedsYouCard, LaneRanking, CopilotPanel, Findings, Stats,
@@ -12,7 +11,7 @@ import {
 import { FACTS, PRICE, PRICE_AND_FEE, PRICE_SHORT, FEE_LINE, CANCELLATION } from '../lib/facts';
 import { signupUrl, demoUrl, jsonLd, SITE_URL } from '../lib/site';
 import { graph, softwareSchema, offerSchema, faqSchema } from '../lib/schema';
-import { INVOICE, KPIS, QUOTE, FEE_EXAMPLE } from '../content/demo-data';
+import { INVOICE, KPIS, QUOTE, FEE_EXAMPLE, AGEING } from '../content/demo-data';
 import { rand, date } from '../lib/format';
 
 const TITLE = 'TruckWys: quoting, invoicing and debtors for SA transporters';
@@ -124,8 +123,7 @@ function MiniInvoice() {
   );
 }
 function MiniAge() {
-  const parts = [76, 8, 13, 3];
-  const tones = ['var(--chart-muted)', 'var(--chart-axis)', 'var(--chart-hatch)', 'var(--text-secondary)'];
+  const tones = ['var(--chart-muted)', 'var(--chart-axis)', 'var(--chart-hatch)', 'var(--text-secondary)', 'var(--text-primary)'];
   return (
     <div className="frag tw-card" style={{ padding: 14 }} aria-hidden="true">
       <div className="tw-row" style={{ paddingTop: 0, borderBottom: 0 }}>
@@ -133,11 +131,11 @@ function MiniAge() {
         <span className="tw-13 tw-600">{rand(KPIS.owed)}</span>
       </div>
       <div className="age__bar" style={{ margin: '4px 0 8px' }}>
-        {parts.map((p, i) => (
-          <span key={i} style={{ width: `${p}%`, background: tones[i] }} />
+        {AGEING.map((a, i) => (
+          <span key={a.label} style={{ width: `${(a.amount / KPIS.owed) * 100}%`, background: tones[i] }} />
         ))}
       </div>
-      <div className="tw-12 tw-muted">Current · 1 to 30 · 31 to 60 · 61 to 90</div>
+      <div className="tw-12 tw-muted">Not due · 30 · 60 · 90 · 90+ days</div>
     </div>
   );
 }
@@ -215,11 +213,30 @@ export default function Home() {
               <CostBreakdown float hidden compact />
             </div>
           </figure>
-          <div className="hero__phone" data-theme="light" role="img" aria-label={`TruckWys Home on a phone for a demo company, showing ${rand(KPIS.owed)} owed to you.`}>
+          {/* S2: the real phone Home of the demo company (run 2, 30 Sep 2026). Sources only match below 1024px,
+              so desktops load a 1x1 placeholder instead of the screenshot. */}
+          <div className="hero__phone" data-theme="light">
             <div className="phone">
-              <div className="phone__scale">
-                <PhoneApp />
-              </div>
+              <picture>
+                <source
+                  media="(max-width: 1023px)"
+                  type="image/avif"
+                  srcSet="/product/s02-home-phone-light-390.avif 1x, /product/s02-home-phone-light-780.avif 2x"
+                />
+                <source
+                  media="(max-width: 1023px)"
+                  type="image/webp"
+                  srcSet="/product/s02-home-phone-light-390.webp 1x, /product/s02-home-phone-light-780.webp 2x"
+                />
+                <img
+                  src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
+                  width={390}
+                  height={844}
+                  alt={`TruckWys Home on a phone for the demo company: ${rand(KPIS.owed)} owed to you, ${rand(KPIS.revenue12m)} received over 12 months, a ${String(KPIS.netMargin12m).replace('.', ',')}% margin and ${KPIS.activeLoads} active loads.`}
+                  fetchPriority="high"
+                  decoding="async"
+                />
+              </picture>
             </div>
           </div>
         </div>

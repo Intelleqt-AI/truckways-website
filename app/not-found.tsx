@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { TwoTone } from '../components/ui';
 
 export const metadata: Metadata = {
   title: 'Page not found',
@@ -6,33 +7,37 @@ export const metadata: Metadata = {
 };
 
 const LINKS = [
-  { href: '/', label: 'Home' },
-  { href: '/product', label: 'How it works' },
-  { href: '/pricing', label: 'Pricing' },
-  { href: '/blogs', label: 'Guides' },
+  { href: '/', label: 'Home', line: 'Price it right. Invoice on delivery. Get paid.' },
+  { href: '/product', label: 'How it works', line: 'From the first price to the last rand.' },
+  { href: '/pricing', label: 'Pricing', line: 'One plan, excl. VAT, month to month.' },
+  { href: '/blogs', label: 'Guides', line: 'Costs, quoting and getting paid in SA freight.' },
 ];
 
 export default function NotFound() {
   return (
-    <section className="phero" style={{ minHeight: '60vh' }}>
+    <section className="phero status-page">
       <div className="wrap">
-        <p className="label" style={{ marginBottom: 16 }}>404</p>
-        <h1 className="h1" style={{ maxWidth: '16ch' }}>
-          This page moved or never existed
-        </h1>
-        <p className="lead">Try one of these instead.</p>
-        <ul className="list-reset nf-links">
+        <p className="label status__eyebrow">Error 404</p>
+        <TwoTone as="h1" className="h1" a="This page moved." b="Or it never existed." />
+        <p className="lead">The link may be old or mistyped. Try one of these instead.</p>
+        <ul className="list-reset nf-cards">
           {LINKS.map((l) => (
             <li key={l.href}>
-              <a className="tlink tlink--quiet" href={l.href}>
-                {l.label}
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
-                  <path d="M5 12h14M12 5l7 7-7 7" />
-                </svg>
+              <a className="pcard nf-card" href={l.href}>
+                <span className="pcard__name">
+                  {l.label}
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </span>
+                <span className="pcard__line">{l.line}</span>
               </a>
             </li>
           ))}
         </ul>
+        <p className="small nf-help">
+          Still stuck? <a className="ulink" href="/contact">Talk to us</a>.
+        </p>
       </div>
     </section>
   );

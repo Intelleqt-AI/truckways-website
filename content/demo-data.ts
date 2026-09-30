@@ -137,33 +137,48 @@ export const OVERDUE_OVER_60 = OVERDUE.filter((i) => i.daysLate > 60).reduce((s,
 export const OVERDUE_MAX_DAYS = Math.max(...OVERDUE.map((i) => i.daysLate));
 
 /* ------------------------------------------------------------- Home KPIs */
+/*
+ * Headline figures match the seeded demo company behind "Open the demo" and the
+ * real screenshots in public/product (S2 phone Home, run 2, 30 Sep 2026):
+ * owed R 1 842 942 (R 599 361 past due), received 12 months R 19 651 738,
+ * net margin 14,1% cash basis, 9 active loads. The invoice-level rows below
+ * (Needs you, Insights) are a sample subset and are not in the screenshots.
+ */
 export const KPIS = {
-  owed: 612_480,
-  owedNote: 'R 148 920 past due',
-  revenue12m: 7_846_310,
-  netMargin12m: 11.4,
-  activeLoads: 14,
-  activeNote: '3 delivering today',
+  owed: 1_842_942,
+  pastDue: 599_361,
+  owedNote: 'R\u00a0599\u00a0361 past due',
+  revenue12m: 19_651_738,
+  netMargin12m: 14.1,
+  activeLoads: 9,
+  activeNote: '1 left open',
 };
 
-/** Revenue vs costs, excl. VAT, cash basis, R thousands. Apr to Sep 2026. */
+/** Revenue vs costs, excl. VAT, cash basis, R thousands, Oct 2025 to Sep 2026 (read off the seeded Home chart). */
 export const REVENUE_VS_COSTS = [
-  { m: 'Apr', revenue: 512, costs: 441 },
-  { m: 'May', revenue: 548, costs: 486 },
-  { m: 'Jun', revenue: 531, costs: 472 },
-  { m: 'Jul', revenue: 587, costs: 514 },
-  { m: 'Aug', revenue: 604, costs: 529 },
-  { m: 'Sep', revenue: 626, costs: 551 },
+  { m: 'Oct', revenue: 1273, costs: 1155 },
+  { m: 'Nov', revenue: 1348, costs: 1186 },
+  { m: 'Dec', revenue: 1451, costs: 1333 },
+  { m: 'Jan', revenue: 1250, costs: 1186 },
+  { m: 'Feb', revenue: 1330, costs: 1235 },
+  { m: 'Mar', revenue: 1322, costs: 1242 },
+  { m: 'Apr', revenue: 1443, costs: 1148 },
+  { m: 'May', revenue: 1398, costs: 1239 },
+  { m: 'Jun', revenue: 1682, costs: 1326 },
+  { m: 'Jul', revenue: 1553, costs: 1216 },
+  { m: 'Aug', revenue: 1364, costs: 1080 },
+  { m: 'Sep', revenue: 1614, costs: 1307 },
 ];
 
-/** Debtors age strip (sums to KPIS.owed). */
+/** Debtors age strip. Sums to KPIS.owed; everything but Current sums to KPIS.pastDue; over 60 is 8% (seeded Debtors report, S8). */
 export const AGEING = [
-  { label: 'Current', amount: 463_560 },
-  { label: '1 to 30', amount: 50_515 },
-  { label: '31 to 60', amount: 79_975 },
-  { label: '61 to 90', amount: 18_430 },
-  { label: '90+', amount: 0 },
+  { label: 'Current', amount: 1_243_581 },
+  { label: '1 to 30', amount: 312_000 },
+  { label: '31 to 60', amount: 139_926 },
+  { label: '61 to 90', amount: 98_610 },
+  { label: '90+', amount: 48_825 },
 ];
+export const OVER_60 = AGEING[3].amount + AGEING[4].amount; // 147 435
 
 /* ------------------------------------------------------- lanes (F5) */
 export const LANES = [
