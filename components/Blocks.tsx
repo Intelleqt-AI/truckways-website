@@ -1,6 +1,7 @@
 import type { ReactNode } from 'react';
-import { ButtonLink, TwoTone } from './ui';
-import { demoUrl, signupUrl } from '../lib/site';
+import { ButtonLink, TwoTone, SAMPLE_CAPTION } from './ui';
+import { InvoiceRow } from './fragments/Money';
+import { demoUrl, signupUrl, DEMO_LINE } from '../lib/site';
 import { PRICE_SHORT } from '../lib/facts';
 
 /** Breadcrumbs: mirrors the BreadcrumbList JSON-LD on each page below root. */
@@ -32,14 +33,17 @@ export function PageHero({ a, b, lead, children, crumbs }: { a: ReactNode; b?: R
   );
 }
 
-/** Inner pages' closing band (I): two-tone H2 left, one line, primary + secondary, price line. */
+/**
+ * Inner pages' closing band (I): two-tone H2, one line, primary + secondary and the price line on the
+ * left; on the right, the delivered invoice floating on the ink (F1), as in the Home CTA panel.
+ */
 export function CTABand({ page }: { page: string }) {
   return (
     <section className="sec sec--ink ctab" data-theme="dark" aria-labelledby="ctab-h">
-      <div className="wrap grid12">
-        <TwoTone id="ctab-h" a="Look around a working company." b="Then decide." />
-        <div className="ctab__side">
-          <p className="body">The demo is open. No form, no sales call.</p>
+      <div className="wrap ctab__grid">
+        <div className="ctab__text">
+          <TwoTone id="ctab-h" a="Look around a working company." b="Then decide." />
+          <p className="body ctab__line">{DEMO_LINE}</p>
           <div className="btn-row btn-row--stack">
             <ButtonLink href={demoUrl(`${page}-cta`)} cta="open_demo" loc="cta_band">
               Open the demo
@@ -48,7 +52,11 @@ export function CTABand({ page }: { page: string }) {
               Get started
             </ButtonLink>
           </div>
-          <p className="small">{PRICE_SHORT}</p>
+          <p className="small ctab__price">{PRICE_SHORT}</p>
+        </div>
+        <div className="ctab__vis" aria-hidden="true">
+          <InvoiceRow compact float />
+          <p className="caption">{SAMPLE_CAPTION}</p>
         </div>
       </div>
     </section>

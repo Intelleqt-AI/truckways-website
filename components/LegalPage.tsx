@@ -55,7 +55,10 @@ export default function LegalPage({ title, updated, children }: { title: string;
       <div className="wrap legal__grid">
         <header className="legal__head">
           <p className="label legal__eyebrow">Legal</p>
-          <h1 className="h1 legal__h1">{title}</h1>
+          {/* Two-tone, with a period, like every other page H1. The document name itself is unchanged. */}
+          <h1 className="h1 legal__h1">
+            {title}. <span className="tone-2">TruckWys (Pty) Ltd.</span>
+          </h1>
           <p className="small legal__date">Last updated: {updated}</p>
         </header>
         {toc.length > 2 ? (

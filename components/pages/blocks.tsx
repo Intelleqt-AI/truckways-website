@@ -15,7 +15,7 @@ type Crumb = { name: string; path: string };
 
 /** Flott calm hero: breadcrumbs, eyebrow, two-tone H1, lead, two buttons, price line, then one large product frame. */
 export function FeatureHero({
-  crumbs, eyebrow, a, b, lead, page, frame, primary = 'signup',
+  crumbs, eyebrow, a, b, lead, page, frame, aside, primary = 'signup',
 }: {
   crumbs: Crumb[];
   eyebrow: string;
@@ -24,12 +24,16 @@ export function FeatureHero({
   lead: ReactNode;
   page: string;
   frame?: ReactNode;
+  /** Optional visual in the right half of the hero (text keeps columns 1 to 7). */
+  aside?: ReactNode;
   primary?: 'signup' | 'none';
 }) {
   return (
     <section className="b-hero" aria-labelledby="page-h1">
       <div className="wrap">
         <Breadcrumbs trail={crumbs} />
+        <div className={aside ? 'b-hero__split' : undefined}>
+        <div>
         <p className="label b-hero__eyebrow">{eyebrow}</p>
         <TwoTone as="h1" className="h1" id="page-h1" a={a} b={b} />
         <p className="lead b-hero__lead">{lead}</p>
@@ -47,6 +51,9 @@ export function FeatureHero({
             <p className="small b-hero__price">{PRICE_AND_FEE}</p>
           </>
         ) : null}
+        </div>
+        {aside ? <div className="b-hero__aside">{aside}</div> : null}
+        </div>
         {frame ? <div className="b-hero__frame">{frame}</div> : null}
       </div>
     </section>

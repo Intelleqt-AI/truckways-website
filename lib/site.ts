@@ -21,6 +21,10 @@ export const DEMO_URL = `${APP_URL}/demo?ref=website`;
  * login page, whose "View demo" button signs into the demo company with no form.
  */
 export const DEMO_DEEP_LINK_LIVE = false;
+/** What "Open the demo" does, said truthfully for where the button lands today. */
+export const DEMO_LINE = DEMO_DEEP_LINK_LIVE
+  ? 'The demo is open. No form, no sales call.'
+  : 'The demo is open: press View demo on the sign-in page. No sign-up, no sales call.';
 /** Where every "Open the demo" button points today. */
 export const APP_DEMO_URL = DEMO_DEEP_LINK_LIVE ? DEMO_URL : APP_LOGIN_URL;
 

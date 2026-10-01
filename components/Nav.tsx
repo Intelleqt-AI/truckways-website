@@ -7,7 +7,7 @@ import ProductMenu from './ProductMenu';
 export const PRODUCT_MENU = [
   { href: '/product/quoting', label: 'Quoting', line: "Priced from this month's diesel and real tolls" },
   { href: '/product/invoicing', label: 'Invoicing', line: 'Raised when the load delivers' },
-  { href: '/product/debtors', label: 'Debtors', line: 'Who owes you, and one-click reminders' },
+  { href: '/product/debtors', label: 'Debtors', line: 'Who owes you, and reminders per invoice' },
   { href: '/product/reports', label: 'Reports', line: 'Profit, VAT and margin by lane' },
   { href: '/integrations', label: 'Integrations', line: 'Cartrack, CtrlFleet, API and CSV' },
   { href: '/product', label: 'How it works', line: 'From the first price to the last rand' },
