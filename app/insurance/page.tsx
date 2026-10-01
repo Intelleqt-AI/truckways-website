@@ -39,7 +39,11 @@ export default function InsurancePage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(graph(breadcrumbSchema(CRUMBS)))} />
 
       <PhotoHero
-        photo="n1-midrand"
+        // "A truck in Cape Town" (Franschhoek Pass), by Aaron Jones (https://unsplash.com/@ajonesyyyyy),
+        // https://unsplash.com/photos/a-car-driving-down-a-road-with-mountains-in-the-background-bMUV5oK_rP8, Unsplash Licence.
+        // Landscape crop of the pass and the tanker, desaturated and darkened.
+        src="/bands/insurance-franschhoek-pass.jpg"
+        position="60% 60%"
         eyebrow={<StatusChip>Insurance · coming soon</StatusChip>}
         a="Insurance."
         b="Coming soon."
@@ -49,7 +53,7 @@ export default function InsurancePage() {
             Get notified
           </ButtonLink>
         }
-        place="N1 at Midrand, Gauteng"
+        place="Franschhoek Pass, Western Cape"
       />
 
       <section className="sec" aria-labelledby="publish-h">

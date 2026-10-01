@@ -10,6 +10,7 @@ import { Breadcrumbs } from '../Blocks';
 import { demoUrl, signupUrl } from '../../lib/site';
 import Backdrop, { type BackdropPhoto } from '../Backdrop';
 import { getPost } from '../../content/blog';
+import { getImageProps } from 'next/image';
 
 type Crumb = { name: string; path: string };
 
@@ -260,14 +261,18 @@ export function NextCards({ next, read }: { next: { href: string; title: string;
 }
 
 /**
- * R7 photo-led hero (/insurance, /about): the page's H1 on a blurred South African road photo
- * (components/Backdrop.tsx), in an inset rounded frame like the closing band. Dark in both themes;
- * a scrim keeps every line of text at 4.5:1 or better.
+ * R7 photo-led hero (/insurance, /about): the page's H1 on a SHARP, graded South African photo (owner rule:
+ * full-width photo bands use sharp photos; the blurred Backdrop is only for behind product frames), in an inset
+ * rounded frame like the closing band. A left-side scrim darkens only behind the text (4.5:1 or better, measured).
+ * Photos: public/bands/*.jpg, each credited where it is used.
  */
 export function PhotoHero({
-  photo, eyebrow, a, b, lead, actions, note, place,
+  src, position = '50% 50%', eyebrow, a, b, lead, actions, note, place,
 }: {
-  photo: BackdropPhoto;
+  /** A file in public/bands. */
+  src: string;
+  /** object-position for the crop. */
+  position?: string;
   eyebrow: ReactNode;
   a: ReactNode;
   b?: ReactNode;
@@ -277,10 +282,12 @@ export function PhotoHero({
   /** Where the photo was taken, shown small top right. */
   place?: string;
 }) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { props: { style: _style, ...img } } = getImageProps({ src, alt: '', fill: true, quality: 70, sizes: 'calc(100vw - 16px)', priority: true });
   return (
     <section className="b-phero" aria-labelledby="page-h1">
       <div className="b-phero__frame" data-theme="dark">
-        <Backdrop photo={photo} sizes="100vw" priority />
+        <img {...img} className="b-phero__img" alt="" style={{ objectPosition: position }} />
         <div className="b-phero__scrim" aria-hidden="true" />
         <div className="b-phero__text">
           <div className="label b-hero__eyebrow">{eyebrow}</div>

@@ -58,12 +58,16 @@ export default function AboutPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(graph(aboutPage, breadcrumbSchema(CRUMBS)))} />
 
       <PhotoHero
-        photo="durban-port"
+        // "N1 route just passing Midrand", by Clayton Majona (https://unsplash.com/@phathisile),
+        // https://unsplash.com/photos/a-highway-filled-with-lots-of-traffic-under-a-cloudy-sky-VUEaEIZn4U4, Unsplash Licence.
+        // Cropped to the road and sky (no plates or brand boards), desaturated and darkened.
+        src="/bands/about-n1-midrand.jpg"
+        position="50% 60%"
         eyebrow="About TruckWys"
         a="The money side"
         b="of running trucks."
         lead="TruckWys is South African software for the part of trucking that decides whether a year was good: price, invoice, collect. Founded in Cape Town in 2025."
-        place="Port of Durban, KwaZulu-Natal"
+        place="N1 at Midrand, Gauteng"
       />
 
       <section className="sec" aria-labelledby="believe-h">

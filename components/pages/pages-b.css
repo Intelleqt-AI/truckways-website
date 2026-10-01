@@ -737,3 +737,13 @@ a.b-hubcard:hover .b-hubcard__more svg { transform: translateX(2px); }
 /* The note beside a signature figure wraps inside the band at 390 (it could push the page wide). */
 .sig__total > span:last-child, .sig-age__top > span:last-child, .sig-pnl__top > span:last-child { flex: 1 1 240px; min-width: 0; }
 .b-phero__text .h1 > .tone-2 { color: rgba(255, 255, 255, 0.76); }
+/* R7 /pricing: the calculator total is ink, not blue (blue only for buttons, links and one chart highlight). */
+.calc .calc__out > .calc__total > span:last-child { color: var(--text-primary); }
+/* R7b: sharp photo in the photo hero (replaces the blurred backdrop there). */
+.b-phero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; color: transparent; }
+.b-phero__scrim { background: linear-gradient(90deg, rgba(11, 12, 14, 0.78) 0%, rgba(11, 12, 14, 0.55) 45%, rgba(11, 12, 14, 0.12) 80%, rgba(11, 12, 14, 0) 100%), linear-gradient(180deg, rgba(11, 12, 14, 0.25) 0%, rgba(11, 12, 14, 0) 25%, rgba(11, 12, 14, 0) 55%, rgba(11, 12, 14, 0.45) 100%); }
+@media (max-width: 767px) { .b-phero__scrim { background: linear-gradient(180deg, rgba(11, 12, 14, 0.45) 0%, rgba(11, 12, 14, 0.62) 40%, rgba(11, 12, 14, 0.8) 100%); } }
+.b-phero__scrim { background: linear-gradient(90deg, rgba(11, 12, 14, 0.8) 0%, rgba(11, 12, 14, 0.66) 50%, rgba(11, 12, 14, 0.25) 80%, rgba(11, 12, 14, 0.05) 100%), linear-gradient(180deg, rgba(11, 12, 14, 0.25) 0%, rgba(11, 12, 14, 0) 25%, rgba(11, 12, 14, 0) 55%, rgba(11, 12, 14, 0.45) 100%); }
+@media (max-width: 767px) { .b-phero__scrim { background: linear-gradient(180deg, rgba(11, 12, 14, 0.45) 0%, rgba(11, 12, 14, 0.62) 40%, rgba(11, 12, 14, 0.8) 100%); } }
+.b-phero__text .lead { color: rgba(255, 255, 255, 0.92); }
+.b-phero__place { padding: 2px 10px; border-radius: 999px; background: rgba(11, 12, 14, 0.6); color: rgba(255, 255, 255, 0.9); }
