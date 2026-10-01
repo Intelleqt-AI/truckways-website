@@ -1068,12 +1068,12 @@ html.js .reveal.is-in { opacity: 1; transform: none; transition: opacity 900ms c
 
 /* ----------------------------------------------------- Fast Pay band (Home, /product, /pricing) */
 .fpb { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--web-col-gap); row-gap: 48px; align-items: start; }
-.fpb__text { grid-column: 1 / 6; }
+.fpb__text { grid-column: 1 / 8; }
 .fpb__text .chip { margin-bottom: 20px; }
 .fpb__text .h2 > .tone-2 { display: block; }
 .fpb__text .body { margin-top: 20px; max-width: 44ch; }
 .fpb__cta { margin-top: 32px; }
-.fpb__how { grid-column: 7 / 13; }
+.fpb__how { grid-column: 9 / 13; }
 .fpb__how h3 { font: 600 15px/22px var(--font-sans); color: var(--text-tertiary); letter-spacing: -0.006em; margin-bottom: 12px; }
 .fpb__how ol { border-top: 1px solid var(--border-default); }
 .fpb__how li { display: grid; grid-template-columns: 40px minmax(0, 1fr); padding: 20px 0; border-bottom: 1px solid var(--border-default); }
@@ -1091,3 +1091,39 @@ html.js .reveal.is-in { opacity: 1; transform: none; transition: opacity 900ms c
 .sheet__soon { display: block; font: 400 12px/16px var(--font-sans); color: var(--text-tertiary); }
 .pcard__more { font: 500 14px/20px var(--font-sans); color: var(--text-secondary); text-decoration: underline; text-decoration-color: var(--border-strong); text-underline-offset: 3px; }
 .pcard__more:hover { color: var(--text-primary); }
+
+/* ----------------------------------------------------- phone band (Home): compact, the phone rises from the bottom edge */
+.phs { padding-bottom: 0; overflow: hidden; }
+.phs__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--web-col-gap); align-items: end; }
+.phs__text { grid-column: 1 / 7; padding-bottom: var(--web-section-y); }
+.phs__lines { margin-top: 28px; display: grid; gap: 12px; max-width: 48ch; }
+.phs__lines li { font: 400 16px/24px var(--font-sans); color: var(--text-secondary); }
+.phs__lines b { font-weight: 600; color: var(--text-primary); }
+.phs__stores { margin-top: 32px; }
+.phs__vis { grid-column: 8 / 13; height: 470px; display: flex; justify-content: center; align-items: flex-start; overflow: hidden; }
+@media (max-width: 1023px) {
+  .phs__text { grid-column: 1 / 8; }
+  .phs__vis { grid-column: 8 / 13; height: 400px; }
+  .phs__vis .phoneshot { --ps: 0.6 !important; }
+}
+@media (max-width: 639px) {
+  .phs__text, .phs__vis { grid-column: 1 / -1; }
+  .phs__text { padding-bottom: 40px; }
+  .phs__vis { height: 320px; }
+  .phs__vis .phoneshot { --ps: 0.62 !important; }
+}
+
+/* Home: the facts row folded in under the hero as a compact strip. */
+.facts--strip { padding: 24px 0 var(--web-section-y); }
+.facts--strip .facts__item { padding-block: 20px; gap: 6px; }
+.facts--strip .figure-big { font-size: clamp(28px, 1.2rem + 1.2vw, 36px); line-height: 1.1; }
+.facts--strip .facts__label { font-size: 13px; line-height: 18px; }
+
+/* Home pricing band: demo to first invoice, three steps under the intro. */
+.psteps { margin-top: 40px; border-top: 1px solid var(--border-default); }
+.psteps h3 { margin: 20px 0 4px; font: 600 15px/22px var(--font-sans); color: var(--text-tertiary); letter-spacing: -0.006em; }
+.psteps ol { display: grid; }
+.psteps li { display: grid; grid-template-columns: 40px minmax(0, 1fr); padding: 16px 0; border-bottom: 1px solid var(--border-default); }
+.psteps li:last-child { border-bottom: 0; }
+.psteps b { display: block; font: 600 16px/24px var(--font-sans); letter-spacing: -0.012em; color: var(--text-primary); }
+.psteps li span span { display: block; margin-top: 2px; font: 400 14px/20px var(--font-sans); color: var(--text-secondary); max-width: 44ch; }

@@ -8,12 +8,13 @@ import HeroSections from '../components/hero/HeroSections';
 import FitDiagram from '../components/FitDiagram';
 import { SoonCard, SOON } from '../components/SoonCard';
 import FastPayBand from '../components/FastPayBand';
+import PhoneSection from '../components/PhoneSection';
 import Faq, { type QA } from '../components/Faq';
 import { QuoteCard, N3Tolls } from '../components/fragments/Quote';
 import {
-  InvoiceRow, NeedsYouCard, LaneRanking, CopilotPanel, Findings, Stats,
+  InvoiceRow, NeedsYouCard, LaneRanking, Findings, Stats,
 } from '../components/fragments/Money';
-import { FACTS, PRICE, PRICE_AND_FEE, FEE_LINE, NO_VAT, CANCELLATION } from '../lib/facts';
+import { FACTS, PRICE, FEE_LINE, NO_VAT, CANCELLATION } from '../lib/facts';
 import { signupUrl, jsonLd, SITE_URL, DEMO_LINE } from '../lib/site';
 import { graph, softwareSchema, offerSchema, faqSchema } from '../lib/schema';
 import { FEE_EXAMPLE } from '../content/demo-data';
@@ -80,20 +81,17 @@ const CARDS = [
   { icon: Plug, name: 'Integrations', line: 'Cartrack, CtrlFleet, API and CSV', href: '/integrations', fact: 'Nothing to install' },
 ];
 
-/* Milestones, not durations: nothing here implies a measured setup time. */
-const TIMELINE = [
-  { t: 'Before you pay', h: 'Look around the demo', d: 'A working company with sample data. No sign-up, no call.' },
-  { t: 'Day 0', h: 'Create your account', d: 'Confirm your email with a code and add a card. You are live once the payment clears.' },
-  { t: 'First quote', h: 'Load your lists and rates', d: 'Paste customers and trucks from Excel, set your rates and allowance, and price a load.' },
-  { t: 'First delivery', h: 'The invoice raises itself', d: 'Mark the load delivered, or let your TMS do it. The invoice is raised with 15% VAT, ready to send.' },
-  { t: 'Month end', h: 'Close the month', d: 'Profit and loss, debtors by age and the VAT report, from the same numbers.' },
+/* Demo to first invoice, in three milestones (the full timeline lives on /pricing). Milestones, not durations. */
+const FIRST_STEPS = [
+  { h: 'Look around the demo', d: 'A working company, open to everyone. No sign-up, no call.' },
+  { h: 'Create your account and load your lists', d: 'Paste customers and trucks from Excel and set your rates. You are live once the payment clears.' },
+  { h: 'Deliver the first load', d: 'Mark it delivered and the invoice is raised with 15% VAT, ready to send.' },
 ];
 
+/* Five questions on Home (owner R6); cost and the 0,25% are answered by the pricing band above and on /pricing. */
 const FAQ: QA[] = [
   { id: 'tms', q: 'Is TruckWys a TMS?', a: 'No. It does not dispatch, route or schedule. It works next to your TMS, your spreadsheets and your tracking, and handles the money on each load.' },
-  { id: 'cost', q: 'What does it cost?', a: `${PRICE_AND_FEE} Unlimited users. ${CANCELLATION}` },
-  { id: 'fee', q: 'How is the 0,25% worked out?', a: `On each delivered load's invoice total, including the VAT on your customer's invoice: a load invoiced at ${rand(FEE_EXAMPLE.invoice, { cents: true })} adds ${rand(FEE_EXAMPLE.fee, { cents: true })}. Nothing on quotes you lose.` },
-  { id: 'try', q: 'Can I try it first?', a: `Yes. Open the demo: a working company with sample data. ${DEMO_LINE}` },
+  { id: 'try', q: 'Can I try it first?', a: `Yes. Open the demo: a working company with its quotes, invoices and reports. ${DEMO_LINE}` },
   { id: 'prices', q: 'Where do diesel and toll prices come from?', a: `Diesel from FIASA, inland or coastal. Tolls from the SANRAL tariffs effective 1 March 2026, for ${FACTS.tollPlazas} mainline plazas, by vehicle class.` },
   { id: 'cartrack', q: 'Does it work with Cartrack?', a: 'Yes. Connect with your Cartrack API username and password (in Fleetweb under Settings, API Settings), not your normal login, and vehicle location, speed and ignition status flow in. CtrlFleet connects too.' },
   // Q11 (data pooling wording) is held until the owner approves it.
@@ -126,8 +124,8 @@ export default function Home() {
         <HeroSections />
       </PhotoHero>
 
-      {/* 2. Facts row (W). Ref: Flott "Backed by" line, replacing Hemut's ROI counters */}
-      <section className="facts" aria-label="Product facts">
+      {/* 1b. Facts strip, folded in under the hero (owner R6). SiteScripts counts up `.facts__list`. */}
+      <section className="facts facts--strip" aria-label="Product facts">
         <div className="wrap">
           <ul className="facts__list list-reset">
             {FACTS_ROW.map((f) => (
@@ -140,7 +138,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 3. How it fits (G). Ref: flott-1440-full-2 "Keep your infrastructure. Add the intelligence." */}
+      {/* 2. How it fits (G). Ref: flott-1440-full-2 "Keep your infrastructure. Add the intelligence." */}
       <section className="sec sec--grey" aria-labelledby="fit-h">
         <div className="wrap">
           <SectionHeader
@@ -159,7 +157,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4. From price to paid (I, full-width band). Ref: flott-1440-full-0 bottom, flott-1440-full-1 top */}
+      {/* 3. From price to paid (I, full-width band). Ref: flott-1440-full-0 bottom, flott-1440-full-1 top */}
       <section className="sec sec--ink" data-theme="dark" aria-labelledby="steps-h">
         <div className="wrap">
           <SectionHeader
@@ -177,8 +175,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5. Where the money leaks (W). Ref: flott-1440-full-1 "Target the losses in your operations." */}
-      <section className="sec" aria-labelledby="leaks-h">
+      {/* 4. Capital and Fast Pay (W): the flagship coming-soon section, moved up (owner R6). Never claims it is live. */}
+      <FastPayBand loc="home_fastpay" />
+
+      {/* 5. Where the money leaks (G). Ref: flott-1440-full-1 "Target the losses in your operations." */}
+      <section className="sec sec--grey" aria-labelledby="leaks-h">
         <div className="wrap">
           <SectionHeader
             id="leaks-h"
@@ -199,27 +200,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 5b. Capital and Fast Pay (G): the flagship coming-soon section (owner, 1 Oct 2026). Never claims it is live. */}
-      <FastPayBand loc="home_fastpay" grey />
-
-      {/* 6. You approve every change (I, rounded inset band). Ref: flott-1440-full-1 bottom / -2 top, hemut-1440-full-1 */}
-      <section aria-labelledby="copilot-h">
-        <div className="inset band" data-theme="dark">
-          <div className="band__text reveal">
-            <TwoTone id="copilot-h" a="Ask your numbers in plain words." b="You approve every change." />
-            <ul className="band__lines list-reset">
-              <li>Answers come from your own company&apos;s data.</li>
-              <li>Drafts quotes and customers for you to confirm.</li>
-              <li>Uses a language model. Prices, tolls, VAT and reminders do not.</li>
-            </ul>
-          </div>
-          <div className="band__float reveal">
-            <CopilotPanel float />
-          </div>
-        </div>
-      </section>
-
-      {/* 7. Everything in one plan (W). Ref: hemut-1440-full-1 product cards, flott-1440-full-3 */}
+      {/* 6. Everything in one plan (W). Copilot is one card here; its full band lives on /product and /product/ai. */}
       <section className="sec" aria-labelledby="plan-h">
         <div className="wrap">
           <SectionHeader id="plan-h" a="Everything in one plan." b="And two more on the way." line="One subscription covers every module, for your whole team." />
@@ -248,8 +229,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 8. Built for South Africa (G). Ref: Flott's specific local detail */}
-      <section className="sec sec--grey" aria-labelledby="sa-h">
+      {/* 7. TruckWys on your phone (G): compact band with the real S2 capture and the store badges. */}
+      <PhoneSection loc="home_phone" grey />
+
+      {/* 8. Built for South Africa (W). Ref: Flott's specific local detail */}
+      <section className="sec" aria-labelledby="sa-h">
         <div className="wrap">
           <SectionHeader id="sa-h" a="Rand, VAT and the N3." b="Not dollars and miles." line="Built for South African road freight, down to the toll class." />
           <div className="sa">
@@ -274,43 +258,28 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 9. From demo to first invoice (W). Ref: hemut-1440-full-2 Day 0 / 15 / 30 timeline */}
-      <section className="sec" aria-labelledby="setup-h">
-        <div className="wrap">
-          <SectionHeader
-            id="setup-h"
-            a="No migration project."
-            b="Just your lists and your rates."
-            line="Nothing to install and nothing to rip out. You set it up yourself, and we are a message away."
-          />
-          <ol className="tl list-reset reveal">
-            {TIMELINE.map((s, i) => (
-              <li className="tl__item" key={s.t}>
-                <span className="tl__node" aria-hidden="true">
-                  {i + 1}
-                </span>
-                <span className="tl__when">{s.t}</span>
-                <div className="tl__card">
-                  <h3>{s.h}</h3>
-                  <p>{s.d}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-          <div className="tl__more">
-            <TextLink href="/contact?topic=fleet-50" cta="talk_to_us" loc="setup">
-              Talk to us if you run 50 or more trucks
-            </TextLink>
-          </div>
-        </div>
-      </section>
-
-      {/* 10. Pricing (G). Ref: flott-1440-full-3 "Deploy your first use case." The price is the figure. */}
+      {/* 9. Pricing (G). The price is the figure, one worked example, demo to first invoice in three steps. */}
       <section className="sec sec--grey" aria-labelledby="price-h">
         <div className="wrap psplit">
           <div className="psplit__lead reveal">
             <TwoTone id="price-h" a="One plan. One price." b="Everything in it." />
             <p className="body psplit__intro">One subscription for your whole team, month to month. The only other charge is on loads that deliver.</p>
+            <div className="psteps">
+              <h3>From demo to first invoice</h3>
+              <ol className="list-reset">
+                {FIRST_STEPS.map((s, i) => (
+                  <li key={s.h}>
+                    <span className="fpb__num" aria-hidden="true">
+                      {i + 1}
+                    </span>
+                    <span>
+                      <b>{s.h}</b>
+                      <span>{s.d}</span>
+                    </span>
+                  </li>
+                ))}
+              </ol>
+            </div>
           </div>
           <div className="psplit__offer reveal">
             <p className="psplit__fig">
@@ -335,21 +304,21 @@ export default function Home() {
                 Get started
               </ButtonLink>
               <TextLink href="/pricing" cta="see_pricing" loc="pricing_section">
-                See pricing
+                See full pricing
               </TextLink>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 11. FAQ (W). Ref: flott-1440-full-3 "Before you get started." */}
+      {/* 10. FAQ (W). Ref: flott-1440-full-3 "Before you get started." */}
       <section className="sec" aria-label="Questions">
         <div className="wrap">
           <Faq a="Before you" b="get started." line="The questions fleet owners ask first." items={FAQ} />
         </div>
       </section>
 
-      {/* 12. Closing (W). Owner R4: no panel, no screenshot; the demo is a link only. */}
+      {/* 11. Closing (W). Owner R4: no panel, no screenshot; the demo is a link only. */}
       <Closing page="home" />
     </>
   );

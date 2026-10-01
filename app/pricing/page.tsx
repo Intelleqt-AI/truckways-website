@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Check } from 'lucide-react';
 import FastPayBand from '../../components/FastPayBand';
-import { ButtonLink, TextLink, TwoTone } from '../../components/ui';
+import { ButtonLink, TextLink, TwoTone, SectionHeader } from '../../components/ui';
 import { Breadcrumbs, PageHero, Closing } from '../../components/Blocks';
 import Faq, { type QA } from '../../components/Faq';
 import FeeCalc from '../../components/FeeCalc';
@@ -86,6 +86,15 @@ const FAQ: QA[] = [
   },
   { id: 'eft', q: 'Can I pay by EFT?', a: 'Your subscription is paid by card through Paystack. Your customers pay you by EFT, straight into your own account.' },
   { id: 'fleet-50', q: 'Running 50 or more trucks?', a: 'Talk to us about onboarding, integrations and security. Use the Talk to us page and a person will reply by email.' },
+];
+
+/* From demo to first invoice (moved from Home, owner R6). Milestones, not durations: nothing here implies a measured setup time. */
+const TIMELINE = [
+  { t: 'Before you pay', h: 'Look around the demo', d: 'A working company, open to everyone. No sign-up, no call.' },
+  { t: 'Day 0', h: 'Create your account', d: 'Confirm your email with a code and add a card. You are live once the payment clears.' },
+  { t: 'First quote', h: 'Load your lists and rates', d: 'Paste customers and trucks from Excel, set your rates and allowance, and price a load.' },
+  { t: 'First delivery', h: 'The invoice raises itself', d: 'Mark the load delivered, or let your TMS do it. The invoice is raised with 15% VAT, ready to send.' },
+  { t: 'Month end', h: 'Close the month', d: 'Profit and loss, debtors by age and the VAT report, from the same numbers.' },
 ];
 
 const CRUMBS = [
@@ -179,11 +188,42 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* Coming soon: Capital and Fast Pay (not in the price, not live), Insurance as a link. */}
-      <FastPayBand loc="pricing_fastpay" insurance />
+      {/* From demo to first invoice (W), moved from Home (owner R6). Ref: hemut-1440-full-2 Day 0 / 15 / 30 timeline */}
+      <section className="sec" aria-labelledby="setup-h">
+        <div className="wrap">
+          <SectionHeader
+            id="setup-h"
+            a="No migration project."
+            b="Just your lists and your rates."
+            line="Nothing to install and nothing to rip out. You set it up yourself, and we are a message away."
+          />
+          <ol className="tl list-reset reveal">
+            {TIMELINE.map((s, i) => (
+              <li className="tl__item" key={s.t}>
+                <span className="tl__node" aria-hidden="true">
+                  {i + 1}
+                </span>
+                <span className="tl__when">{s.t}</span>
+                <div className="tl__card">
+                  <h3>{s.h}</h3>
+                  <p>{s.d}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+          <div className="tl__more">
+            <TextLink href="/contact?topic=fleet-50" cta="talk_to_us" loc="pricing_setup">
+              Talk to us if you run 50 or more trucks
+            </TextLink>
+          </div>
+        </div>
+      </section>
+
+      {/* Coming soon (G): Capital and Fast Pay (not in the price, not live), Insurance as a link. */}
+      <FastPayBand loc="pricing_fastpay" grey insurance />
 
       {/* Pricing FAQ */}
-      <section className="sec" style={{ paddingTop: 0 }} aria-label="Pricing questions">
+      <section className="sec" aria-label="Pricing questions">
         <div className="wrap">
           <Faq a="Pricing" b="questions." line="What people ask before they pay." items={FAQ} />
           <div className="faq" style={{ marginTop: 24 }}>
