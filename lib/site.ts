@@ -1,153 +1,68 @@
 /**
- * Single source of truth for site-wide facts.
- * Used by page copy, structured data, and the llms.txt generators so the
- * numbers never drift between surfaces.
+ * Site-wide URLs and constants. Product facts live in lib/facts.ts.
  */
+import { FACTS, PRICE, FEE, FEE_LINE, CANCELLATION as CANCEL } from './facts';
 
 export const SITE_URL = 'https://www.truckwys.com';
 
 /**
- * The product app. Every "Get started" and "See the demo" CTA points here:
- * there is no free trial, so visitors sign in and look around with the demo
- * account rather than filling in a form and waiting for a call.
+ * Spread into every page-level `openGraph`: Next replaces the layout's openGraph object wholesale, so without
+ * this og:type, og:locale and og:site_name go missing on pages that set their own.
  */
-export const APP_LOGIN_URL = 'https://app.truckwys.com/login';
+export const OG_BASE = { type: 'website', locale: 'en_ZA', siteName: 'TruckWys' } as const;
+export const APP_URL = 'https://app.truckwys.com';
 
-/** The live iOS listing. */
-export const APP_STORE_URL = 'https://apps.apple.com/app/truckwys/id6796449044';
+/** "Get started": the app's signup (account, email code, card, live). */
+export const APP_SIGNUP_URL = `${APP_URL}/signup`;
+/** "Sign in". */
+export const APP_LOGIN_URL = `${APP_URL}/login`;
+/**
+ * Direct demo entry: the app route that signs straight into the public demo
+ * company with no form (truckwyas-frontend PR #123 adds /demo).
+ */
+export const DEMO_URL = `${APP_URL}/demo?ref=website`;
+/**
+ * TODO: flip to true once truckwyas-frontend #123 is deployed.
+ * Until then /demo would 404 in production, so "Open the demo" stays on the
+ * login page, whose "View demo" button signs into the demo company with no form.
+ */
+export const DEMO_DEEP_LINK_LIVE = false;
+/** What "Open the demo" does, said truthfully for where the button lands today. */
+export const DEMO_LINE = DEMO_DEEP_LINK_LIVE
+  ? 'The demo is open. No form, no sales call.'
+  : 'The demo is open: press View demo on the sign-in page. No sign-up, no sales call.';
+/** Where every "Open the demo" button points today. */
+export const APP_DEMO_URL = DEMO_DEEP_LINK_LIVE ? DEMO_URL : APP_LOGIN_URL;
+
+export const APP_STORE_URL = FACTS.appStore;
+export const PLAY_STORE_URL = FACTS.android;
+
+/** Where the "Talk to us" form is delivered (FormSubmit). Unchanged address. */
+export const CONTACT_EMAIL = 'grant@truckwys.com';
 
 /**
- * The Android app is not on the Play Store yet. When it is, set this and
- * uncomment the Google Play badge in app/page.tsx.
+ * Outbound app links carry ?ref=site-{page}-{location} (no personal data).
+ * NOTE: the app does not read `ref` yet (no code in Login.tsx or Signup.tsx on
+ * 30 Sep 2026), so the tags are kept for when signup attribution is added.
  */
-// export const PLAY_STORE_URL = 'https://play.google.com/store/apps/details?id=';
+function withRef(url: string, ref?: string) {
+  return ref ? `${url}?ref=site-${ref}` : url;
+}
+export const signupUrl = (ref?: string) => withRef(APP_SIGNUP_URL, ref);
+/** "Open the demo": DEMO_URL (already tagged ?ref=website) once live, else login with a per-button ref. */
+export const demoUrl = (ref?: string) => (DEMO_DEEP_LINK_LIVE ? DEMO_URL : withRef(APP_LOGIN_URL, ref));
+export const loginUrl = (ref?: string) => withRef(APP_LOGIN_URL, ref);
 
-export const FACTS = {
-  name: 'TruckWys',
-  oneLiner:
-    'TruckWys is fleet finance software for South African transporters: AI quoting with live diesel and toll prices, automatic invoicing on delivery, collections, and FastPay that settles invoices in 48 hours.',
-  audience:
-    'South African fleet owners and transport operators running 3 to 200 trucks, including cross-border work into Botswana, Namibia, Zimbabwe, Zambia and Mozambique.',
-  pricePerMonth: 4500,
-  bookingFeePct: 0.25,
-  email: 'grant@truckwys.com',
-  features: [
-    'AI quote builder: price a load in about 60 seconds with live diesel prices, SANRAL toll plaza fees per route, cross-border and weighbridge charges, and your own vehicle running costs',
-    'Route options on a live map with per-route distance, tolls and fuel burn',
-    'Win probability and margin recommendations learned from your own quote history',
-    'Automatic invoice creation the moment a load is delivered',
-    'Collections agent that follows up overdue invoices',
-    'FastPay: optional 48-hour invoice settlement',
-    'Capital advances against outstanding invoices',
-    'Fleet insights: cost per kilometre, margin per route, utilisation, driver and vehicle performance',
-    'Integrations with Xero and Cartrack',
-    'Mobile app for iOS and Android with the same account and data as the web app',
-  ],
-  faqs: [
-    {
-      q: 'What is TruckWys?',
-      a: 'TruckWys is fleet finance software for South African transporters. It prices loads with live diesel and toll costs, creates invoices automatically on delivery, chases payment, and can settle invoices in 48 hours through FastPay.',
-    },
-    {
-      q: 'How much does TruckWys cost?',
-      a: 'R4,500 per month per fleet with unlimited users and quotes, plus 0.25% on confirmed bookings. There are no setup fees. FastPay early settlement is optional and priced separately.',
-    },
-    {
-      q: 'How does the AI quote builder work?',
-      a: 'You pick the client, vehicle type, collection and delivery points. TruckWys draws the route, prices fuel from the live diesel price, adds the actual SANRAL toll plazas on that route, and applies your own per-kilometre rates. It then recommends a price based on what has won you work before.',
-    },
-    {
-      q: 'Does TruckWys handle cross-border loads?',
-      a: 'Yes. Quotes into Botswana, Namibia, Zimbabwe, Zambia and Mozambique include border fees, weighbridge charges and non-SA toll costs automatically.',
-    },
-    {
-      q: 'What is FastPay?',
-      a: 'FastPay settles an approved invoice into your account within 48 hours instead of waiting 30 to 60 days for the client to pay. It is optional: you choose it invoice by invoice, and pricing is agreed when you switch it on.',
-    },
-    {
-      q: 'Is FastPay invoice factoring?',
-      a: 'It works like invoice factoring or invoice discounting for transporters, without the paperwork. You choose an approved invoice, TruckWys settles it into your account within 48 hours, and the balance clears when your client pays. No lock-in contracts, no bridging finance rates.',
-    },
-    {
-      q: 'Does TruckWys replace my transport management system?',
-      a: 'No. TruckWys handles the money side: quoting, invoicing, collections and cash flow. It works alongside your TMS and tracking, and integrates with Xero and Cartrack.',
-    },
-    {
-      q: 'Is TruckWys fleet management software?',
-      a: 'TruckWys is fleet management software for the money side of a South African trucking business: load pricing, truck quoting, invoicing, collections and cash flow. It does not do dispatch or routing, so it fits alongside the fleet management system you already run.',
-    },
-    {
-      q: 'How long does setup take?',
-      a: 'Most fleets are quoting on day one. Add your vehicles and rates, import your clients, and the system is ready. Xero and Cartrack connections take a few minutes each.',
-    },
-    {
-      q: 'Is my data safe?',
-      a: 'Yes. Your data is encrypted in transit and at rest, hosted securely, and never shared with other fleets. You can export it at any time.',
-    },
-  ],
-};
+/* Legacy names still used by the phase B pages (/product, /about, /blogs). */
+export const PRICE_PER_MONTH = FACTS.price.monthly;
+export const PRICE_LABEL = PRICE;
+export const FEE_LABEL = FEE;
+export const FEE_BASIS = FEE_LINE.replace(/^0,25% /, '');
+export const CANCELLATION = CANCEL;
 
-/** Renders a JSON-LD script tag. Server component friendly.
- * Escapes < so content can never break out of the script tag. */
+/** Renders a JSON-LD script tag body. Escapes < so content can never break out. */
 export function jsonLd(data: object) {
-  return {
-    __html: JSON.stringify(data).replace(/</g, '\\u003c'),
-  };
+  return { __html: JSON.stringify(data).replace(/</g, '\\u003c') };
 }
 
-export const organizationSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'Organization',
-  name: 'TruckWys',
-  url: SITE_URL,
-  logo: `${SITE_URL}/images/truckwys-logo-transparent.png`,
-  description: FACTS.oneLiner,
-  email: FACTS.email,
-  foundingDate: '2024',
-  areaServed: { '@type': 'Country', name: 'South Africa' },
-  sameAs: [
-    'https://www.linkedin.com/in/truckwys-a8519239a',
-    'https://twitter.com/truckwys',
-  ],
-};
-
-export const websiteSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'WebSite',
-  name: 'TruckWys',
-  url: SITE_URL,
-};
-
-export const softwareSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'SoftwareApplication',
-  name: 'TruckWys',
-  applicationCategory: 'BusinessApplication',
-  operatingSystem: 'Web',
-  description: FACTS.oneLiner,
-  offers: {
-    '@type': 'Offer',
-    price: String(FACTS.pricePerMonth),
-    priceCurrency: 'ZAR',
-    description: 'R4,500 per month per fleet plus 0.25% per confirmed booking. No setup fees.',
-  },
-  featureList: [
-    'AI quote builder with live diesel and SANRAL toll prices',
-    'Automatic invoicing on delivery',
-    'Collections follow-up',
-    'FastPay 48-hour invoice settlement',
-    'Capital advances against invoices',
-    'Fleet profitability insights',
-    'Xero and Cartrack integrations',
-  ],
-};
-
-export const faqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: FACTS.faqs.map((f) => ({
-    '@type': 'Question',
-    name: f.q,
-    acceptedAnswer: { '@type': 'Answer', text: f.a },
-  })),
-};
+export { organizationSchema, softwareSchema } from './schema';

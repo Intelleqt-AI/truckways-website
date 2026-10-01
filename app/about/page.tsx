@@ -1,110 +1,119 @@
-import type { Metadata } from 'next';
-import Image from 'next/image';
-import Link from 'next/link';
-import { APP_LOGIN_URL, jsonLd, organizationSchema, SITE_URL } from '../../lib/site';
+import { Check, X } from 'lucide-react';
+import '../../components/pages/pages-b.css';
+import { TextLink, SectionHeader } from '../../components/ui';
+import { Closing } from '../../components/Blocks';
+import { PhotoHero, Split, DL } from '../../components/pages/blocks';
+import { pageMeta } from '../../components/pages/meta';
+import { FACTS } from '../../lib/facts';
+import { SITE_URL, jsonLd } from '../../lib/site';
+import { graph, breadcrumbSchema, ids } from '../../lib/schema';
 
-export const metadata: Metadata = {
-  title: 'About',
+const PATH = '/about';
+
+const NUMBER_WORDS = ['Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten'];
+/** "Six roles": one role per user, so never "6 roles per user". */
+const ROLE_COUNT = `${NUMBER_WORDS[FACTS.roles.length] ?? FACTS.roles.length} roles`;
+export const metadata = pageMeta({
+  path: PATH,
+  title: 'About: South African load-to-cash software',
   description:
-    'Why TruckWys exists: South African fleets quote below cost and wait 30 to 60 days to be paid. TruckWys fixes the money side of running trucks.',
-  alternates: {
-    canonical: 'https://www.truckwys.com/about',
-  },
-  openGraph: {
-    type: 'website',
-    siteName: 'TruckWys',
-    locale: 'en_ZA',
-    title: 'About TruckWys',
-    description:
-      'Why TruckWys exists: South African fleets quote below cost and wait 30 to 60 days to be paid. TruckWys fixes the money side of running trucks.',
-    url: 'https://www.truckwys.com/about',
-    images: [{ url: 'https://www.truckwys.com/og-image.png', width: 1200, height: 630, alt: 'The TruckWys quote builder pricing a Johannesburg to Cape Town load' }],
-  },
-};
+    'TruckWys (Pty) Ltd is a Cape Town company building software for the money side of trucking: price, invoice, collect. What we are, and what we are not.',
+  og: 'about',
+  ogAlt: 'About TruckWys: the money side of running trucks.',
+});
 
-const aboutPageSchema = {
-  '@context': 'https://schema.org',
+const CRUMBS = [
+  { name: 'Home', path: '/' },
+  { name: 'About', path: PATH },
+];
+
+const BELIEFS = [
+  'A quote should show its working.',
+  'The invoice should exist the day the load delivers.',
+  'Owners should know who owes them before it is 90 days.',
+  'Software should say plainly what is not live yet.',
+];
+
+const IS = [
+  { t: 'Quoting from real costs', href: '/product/quoting' },
+  { t: 'Invoicing on delivery', href: '/product/invoicing' },
+  { t: 'Debtors and reminders', href: '/product/debtors' },
+  { t: 'Reports and margin', href: '/product/reports' },
+];
+const ISNT = ['A TMS', 'Tracking or telematics', 'Dispatch, routing or scheduling', 'Your accounting system'];
+
+const aboutPage = {
   '@type': 'AboutPage',
+  '@id': `${SITE_URL}${PATH}#page`,
+  url: `${SITE_URL}${PATH}`,
   name: 'About TruckWys',
-  url: `${SITE_URL}/about`,
-  description:
-    'TruckWys is fleet finance software for South African transporters: quoting with live diesel and toll prices, automatic invoicing, collections and FastPay.',
+  inLanguage: 'en-ZA',
+  about: { '@id': ids.org },
+  isPartOf: { '@id': ids.website },
 };
 
 export default function AboutPage() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(aboutPageSchema)} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(organizationSchema)} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(graph(aboutPage, breadcrumbSchema(CRUMBS)))} />
 
-      {/* Hero */}
-      <section className="bg-surface">
-        <div className="mx-auto max-w-6xl px-5 pb-20 pt-20 md:pt-28">
-          <div className="mx-auto max-w-3xl text-center">
-            <div className="eyebrow eyebrow-accent mb-5">About</div>
-            <h1 className="text-display text-ink">
-              Trucking runs on thin margins and late money. We started there.
-            </h1>
-            <p className="mx-auto mt-6 max-w-2xl text-[16px] leading-relaxed text-ink-2">
-              South African transporters quote off gut feel while diesel moves every
-              month and tolls differ route by route. Too many loads get priced below
-              cost, and the money for the good ones arrives 30 to 60 days after the
-              truck gets home. TruckWys exists to fix both: price every load on its
-              real costs, then get the money in faster.
-            </p>
-          </div>
+      <PhotoHero
+        // R10: "Sunset over a highway with mountains in background" (Table Mountain sunset, Cape Town), by Alicia Christin Gerald
+        // (https://unsplash.com/@allysphotos), https://unsplash.com/photos/sunset-over-a-highway-with-mountains-in-background-2kSQVzmbtlU,
+        // Unsplash Licence (https://unsplash.com/license), checked not Unsplash+ (premium=false, plus=false). Clear dusk, the road into
+        // Cape Town under Devil's Peak and Lion's Head; the gantry boards and plates are silhouettes, nothing is legible. 2:1 crop, levels
+        // stretched, a gentle S-curve, saturation 0.7, slightly cooler; the scrim darkens only behind the text.
+        src="/covers/pages/about-cape-town-dusk.jpg"
+        position="50% 60%"
+        positionPhone="70% 60%"
+        eyebrow="About TruckWys"
+        a="The money side"
+        b="of running trucks."
+        lead="TruckWys is South African software for the part of trucking that decides whether a year was good: price, invoice, collect. Founded in Cape Town in 2025."
+        place="Highway into Cape Town at sunset"
+      />
+
+      <section className="sec" aria-labelledby="believe-h">
+        <div className="wrap">
+          <Split id="believe-h" a="What we believe." b="We build to these." line="Every screen in TruckWys has to pass these four lines.">
+            <ol className="b-beliefs list-reset">
+              {BELIEFS.map((b) => (
+                <li key={b} className="reveal">
+                  {b}
+                </li>
+              ))}
+            </ol>
+          </Split>
         </div>
       </section>
 
-      {/* What it is / is not */}
-      <section className="border-t border-line bg-page">
-        <div className="mx-auto max-w-6xl px-5 py-24">
-          <div className="mx-auto max-w-2xl text-center">
-            <div className="eyebrow eyebrow-accent mb-4">The product</div>
-            <h2 className="text-display text-ink">The money side of running trucks</h2>
-            <p className="mt-4 text-[16px] text-ink-2">
-              One system for everything between quoting a load and banking the payment: the money half of fleet management software.
-            </p>
-          </div>
-
-          <div className="mx-auto mt-12 grid max-w-4xl gap-6 md:grid-cols-2">
-            <div className="card p-8">
-              <div className="eyebrow mb-3">What TruckWys is</div>
-              <h3 className="text-[20px] font-semibold text-ink">
-                Fleet finance software
-              </h3>
-              <ul className="mt-5 space-y-3.5">
-                {[
-                  'Quotes priced on live diesel, the actual SANRAL tolls on the route, and your own running costs',
-                  'Invoices created automatically the moment a load is delivered',
-                  'Collections that chase overdue invoices so you do not have to',
-                  'FastPay: optional settlement, money in your account within 48 hours',
-                  'Capital advances against outstanding invoices, sized by your payment history',
-                ].map((f) => (
-                  <li key={f} className="flex gap-3 text-[14px] leading-relaxed text-ink-2">
-                    <span className="mt-[7px] h-1.5 w-1.5 flex-none rounded-full bg-accent" />
-                    {f}
+      <section className="sec sec--grey" aria-labelledby="is-h">
+        <div className="wrap">
+          <SectionHeader
+            id="is-h"
+            a="What TruckWys is."
+            b="And what it isn't."
+            line="It works next to the TMS, tracking and books you already run. It does not replace them."
+          />
+          <div className="b-isnt">
+            <div className="reveal">
+              <h3>TruckWys is</h3>
+              <ul className="list-reset">
+                {IS.map((i) => (
+                  <li key={i.t}>
+                    <Check strokeWidth={1.75} aria-hidden="true" />
+                    <a href={i.href}>{i.t}</a>
                   </li>
                 ))}
               </ul>
             </div>
-
-            <div className="card p-8">
-              <div className="eyebrow mb-3">What TruckWys is not</div>
-              <h3 className="text-[20px] font-semibold text-ink">
-                Not another TMS
-              </h3>
-              <ul className="mt-5 space-y-3.5">
-                {[
-                  'It does not replace your transport management system or your tracking',
-                  'It works alongside the tools you already run and stays out of dispatch',
-                  'Xero keeps your books right through a direct sync',
-                  'Cartrack connects your vehicle data in a few minutes',
-                  'If your TMS runs the trucks, TruckWys runs the money',
-                ].map((f) => (
-                  <li key={f} className="flex gap-3 text-[14px] leading-relaxed text-ink-2">
-                    <span className="mt-[7px] h-1.5 w-1.5 flex-none rounded-full bg-accent" />
-                    {f}
+            <div className="reveal">
+              <h3>TruckWys isn&apos;t</h3>
+              <ul className="list-reset">
+                {ISNT.map((t) => (
+                  <li key={t}>
+                    <X strokeWidth={1.75} aria-hidden="true" />
+                    {t}
                   </li>
                 ))}
               </ul>
@@ -113,53 +122,52 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Product shot (dark) */}
-      <section className="bg-surface border-t border-line">
-        <div className="mx-auto max-w-6xl px-5 py-24">
-          <div className="mx-auto max-w-2xl text-center">
-            <div className="eyebrow eyebrow-accent mb-4">One view</div>
-            <h2 className="text-display text-ink">
-              Quotes, invoices and cash in one place
-            </h2>
-            <p className="mt-5 text-[16px] leading-relaxed text-ink-2">
-              From the first quote on a Johannesburg to Cape Town load to the day the
-              money clears, every rand is visible. No spreadsheets, no guessing what
-              a client still owes.
-            </p>
-          </div>
-          <div className="shot-frame mt-12">
-            <Image
-              src="/images/product/overview-light.png"
-              alt="The TruckWys overview dashboard showing active quotes, invoices awaiting payment and available FastPay settlement in one screen"
-              width={1440}
-              height={834}
-              className="w-full"
-            />
+      {/*
+        TODO(owner) Q6: founder note. Written and signed by the founder in their own words (at most 120 words),
+        with a real email address and, only if one exists, a real photo (1:1, radius 12). Not rendered until provided.
+        Template for the founder to rewrite, never to publish as is: brief §4.8.
+      */}
+
+      <section className="sec" aria-labelledby="security-h">
+        <div className="wrap">
+          <SectionHeader id="security-h" a="Security and POPIA." b="Who sees what." line="How you sign in, and what happens to your data." />
+          <div className="b-duo">
+            <div className="b-duo__b b-duo__b--full reveal">
+              <DL two
+                rows={[
+                  ['Sign-in', 'Email and password. Turn on two-factor in Settings and each sign-in also asks for a six-digit code sent by email.'],
+                  ['Sign-up', 'Your email is confirmed with a six-digit code, valid for 10 minutes.'],
+                  ['Sessions', 'See where you are signed in, and log out any session.'],
+                  ['Roles', `${ROLE_COUNT}: ${FACTS.roles.join(', ')}. Each person has one.`],
+                  ['Integrations', 'Passwords and keys for connected systems are encrypted at rest. All traffic is over TLS.'],
+                  ['Hosting', `${FACTS.hosting}. Your data stays in South Africa.`],
+                  [
+                    'Your data',
+                    <>
+                      Delete your account in Settings, or{' '}
+                      <a className="ulink" href="/delete-account">
+                        on our website
+                      </a>
+                      .
+                    </>,
+                  ],
+                  // TODO(owner) Q11: data-pooling wording. Omitted until confirmed.
+                ]}
+              />
+            </div>
           </div>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="panel-accent">
-        <div className="mx-auto max-w-6xl px-5 py-24 text-center">
-          <div className="eyebrow mb-4" style={{color: "rgba(255,255,255,0.7)"}}>Get started</div>
-          <h2 className="text-display mx-auto max-w-2xl text-ink">
-            See what your next load really costs
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-[16px] text-ink-2">
-            R4,500 per month, unlimited users and quotes. Or write to us first and
-            ask anything.
-          </p>
-          <div className="mt-8 flex flex-col items-center justify-center gap-3 px-6 sm:flex-row sm:px-0">
-            <a href={APP_LOGIN_URL} className="btn-primary w-full !border-white !bg-white !text-accent sm:w-auto">
-              See the demo
-            </a>
-            <Link href="/contact" className="btn-secondary w-full !border-white/40 !bg-transparent !text-white sm:w-auto">
-              Talk to us
-            </Link>
-          </div>
-        </div>
-      </section>
+      <Closing
+        page="about"
+        line="Fleets of 50 or more, TMS partners, or anything this page does not answer: Grant McEvoy reads every message and replies by email."
+        extra={
+          <TextLink href="/contact" cta="talk_to_us" loc="closing">
+            Talk to Grant
+          </TextLink>
+        }
+      />
     </>
   );
 }

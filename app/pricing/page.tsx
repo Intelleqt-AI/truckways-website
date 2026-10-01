@@ -1,198 +1,256 @@
 import type { Metadata } from 'next';
-import Link from 'next/link';
-import { APP_LOGIN_URL, FACTS, jsonLd, softwareSchema } from '../../lib/site';
+import { Check } from 'lucide-react';
+import '../../components/pages/pages-b.css';
+import { FastPayCard, PhotoBand } from '../../components/pages/blocks';
+import { ButtonLink, TextLink, TwoTone, SectionHeader } from '../../components/ui';
+import { Breadcrumbs, PageHero, Closing } from '../../components/Blocks';
+import Faq, { type QA } from '../../components/Faq';
+import FeeCalc from '../../components/FeeCalc';
+import { FACTS, PRICE, CANCELLATION, FEE_LINE, NO_VAT, VAT_ANSWER } from '../../lib/facts';
+import { FEE_EXAMPLE } from '../../content/demo-data';
+import { rand } from '../../lib/format';
+import { OG_BASE, SITE_URL, CONTACT_EMAIL, signupUrl, demoUrl, jsonLd } from '../../lib/site';
+import { graph, softwareSchema, offerSchema, faqSchema, breadcrumbSchema } from '../../lib/schema';
+
+const URL = `${SITE_URL}/pricing`;
+const TITLE = 'Pricing: R 4 499 per month, one plan';
+const DESCRIPTION =
+  "One plan for South African transporters: R 4 499 per month, plus 0,25% of each delivered load's invoice total. Unlimited users, no setup fees.";
 
 export const metadata: Metadata = {
-  title: 'Pricing',
-  description:
-    'TruckWys costs R4,500 per month per fleet plus 0.25% per confirmed booking. Unlimited users and quotes, no setup fees, no tiers.',
-  alternates: {
-    canonical: 'https://www.truckwys.com/pricing',
-  },
+  title: TITLE,
+  description: DESCRIPTION,
+  alternates: { canonical: URL },
   openGraph: {
-    type: 'website',
-    siteName: 'TruckWys',
-    locale: 'en_ZA',
-    title: 'TruckWys pricing',
-    description:
-      'R4,500 per month per fleet plus 0.25% per confirmed booking. Unlimited users and quotes, no setup fees, no tiers.',
-    url: 'https://www.truckwys.com/pricing',
-    images: [{ url: 'https://www.truckwys.com/og-image.png', width: 1200, height: 630, alt: 'The TruckWys quote builder pricing a Johannesburg to Cape Town load' }],
+    ...OG_BASE,
+    url: URL,
+    title: `${TITLE} | TruckWys`,
+    description: DESCRIPTION,
+    images: [{ url: '/og/pricing.png', width: 1200, height: 630, alt: 'TruckWys pricing: one plan, R 4 499 per month' }],
   },
+  twitter: { title: `${TITLE} | TruckWys`, description: DESCRIPTION, images: ['/og/pricing.png'] },
 };
 
-const pricingFaqs = FACTS.faqs.filter((f) =>
-  ['How much does TruckWys cost?', 'What is FastPay?', 'How long does setup take?'].includes(f.q),
-);
+const EG = `${rand(FEE_EXAMPLE.invoice, { cents: true })} adds ${rand(FEE_EXAMPLE.fee, { cents: true })}`;
 
-const pricingFaqSchema = {
-  '@context': 'https://schema.org',
-  '@type': 'FAQPage',
-  mainEntity: pricingFaqs.map((f) => ({
-    '@type': 'Question',
-    name: f.q,
-    acceptedAnswer: { '@type': 'Answer', text: f.a },
-  })),
-};
+const INCLUDED = [
+  'Unlimited loads, quotes and invoices',
+  'Unlimited users, with six roles',
+  'Quotes from FIASA diesel, SANRAL tolls and your costs',
+  'Invoice on delivery, debtors and reminders',
+  'Nine reports and insights, CSV export',
+  'Cartrack and CtrlFleet connections, API and webhooks',
+  'iPhone and Android apps',
+];
+
+const FAQ: QA[] = [
+  { id: 'trial', q: 'Is there a free trial?', a: 'No. The demo is open to everyone, with a working company in it. Use it as long as you like before you pay.' },
+  { id: 'setup', q: 'Are there setup fees?', a: 'No.' },
+  { id: 'per-user', q: 'Do you charge per user?', a: 'No. Add your whole team.' },
+  { id: 'fee', q: 'How is the 0,25% worked out?', a: `On each delivered load's invoice total, including the VAT on your customer's invoice: a load invoiced at ${EG}. Nothing on quotes you lose.` },
+  {
+    id: 'credited',
+    q: 'Is the 0,25% given back if an invoice is cancelled later?',
+    a: 'No. The fee is charged once, when a delivered load is invoiced, and it is not reversed if that invoice is later cancelled, disputed or changed. Every charge is listed in Billing history.',
+  },
+  { id: 'vat', q: 'Do you charge VAT?', a: VAT_ANSWER },
+  // Owner decision: Terms 6 (30 days' written notice) stands.
+  {
+    id: 'cancel',
+    q: 'Is there a contract?',
+    a: `${CANCELLATION} To give notice, email ${CONTACT_EMAIL}.`,
+    rich: (
+      <>
+        {CANCELLATION} To give notice, email{' '}
+        <a className="ulink" href={`mailto:${CONTACT_EMAIL}`}>
+          {CONTACT_EMAIL}
+        </a>
+        .
+      </>
+    ),
+  },
+  {
+    id: 'data',
+    q: 'What happens to my data if I cancel?',
+    a: 'Cancelling does not delete it. When your notice period ends, quoting and invoicing stop. You can still sign in, see your loads, invoices and customers, and export reports as CSV.',
+  },
+  {
+    id: 'popia',
+    q: 'Who looks after personal information under POPIA?',
+    a: 'Our Information Officer, named in the Privacy policy and the PAIA manual. The Privacy policy explains how we handle personal information, and the PAIA manual explains how to request records.',
+    rich: (
+      <>
+        Our Information Officer, named in the{' '}
+        <a className="ulink" href="/privacy">Privacy policy</a> and the <a className="ulink" href="/paia-manual">PAIA manual</a>. The
+        Privacy policy explains how we handle personal information, and the PAIA manual explains how to request records.
+      </>
+    ),
+  },
+  { id: 'eft', q: 'Can I pay by EFT?', a: 'Your subscription is paid by card through Paystack. Your customers pay you by EFT, straight into your own account.' },
+  { id: 'fleet-50', q: 'Running 50 or more trucks?', a: 'Talk to us about onboarding, integrations and security. Use the Talk to us page and a person will reply by email.' },
+];
+
+/* From demo to first invoice (moved from Home, owner R6). Milestones, not durations: nothing here implies a measured setup time. */
+const TIMELINE = [
+  { t: 'Before you pay', h: 'Look around the demo', d: 'A working company, open to everyone. No sign-up, no call.' },
+  { t: 'Sign-up', h: 'Create your account', d: 'Confirm your email with a code and add a card. You are live once the payment clears.' },
+  { t: 'First quote', h: 'Load your lists and rates', d: 'Paste customers and trucks from Excel, set your rates and allowance, and price a load.' },
+  { t: 'First delivery', h: 'The invoice raises itself', d: 'Mark the load delivered, or let your TMS do it. The invoice is raised with 15% VAT, ready to send.' },
+  { t: 'Month end', h: 'Close the month', d: 'Profit and loss, debtors by age and the VAT report, from the same numbers.' },
+];
+
+const CRUMBS = [
+  { name: 'Home', path: '/' },
+  { name: 'Pricing', path: '/pricing' },
+];
 
 export default function PricingPage() {
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(softwareSchema)} />
-      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(pricingFaqSchema)} />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={jsonLd(graph(softwareSchema, offerSchema, faqSchema(FAQ), breadcrumbSchema(CRUMBS)))}
+      />
 
-      {/* Hero */}
-      <section className="hero-wash">
-        <div className="mx-auto max-w-6xl px-5 pb-16 pt-20 text-center md:pt-28">
-          <div className="eyebrow eyebrow-accent mb-5">Pricing</div>
-          <h1 className="text-hero mx-auto max-w-4xl text-ink">
-            TruckWys pricing: R4,500 a month, everything included
-          </h1>
-          <p className="mx-auto mt-6 max-w-2xl text-[16px] leading-relaxed text-ink-2">
-            No per-user fees, no tiers, no surprises at month end. Every fleet gets
-            the whole product.
-          </p>
-        </div>
-      </section>
+      <PageHero
+        crumbs={<Breadcrumbs trail={CRUMBS} />}
+        a="One plan. One price."
+        b="No lock-in."
+        lead={`Everything TruckWys does, for your whole team. ${CANCELLATION}`}
+      />
 
-      {/* Cards */}
-      <section className="border-t border-line bg-surface">
-        <div className="mx-auto max-w-6xl px-5 py-20">
-          <div className="mx-auto grid max-w-4xl gap-6 md:grid-cols-2">
-            <div className="card flex flex-col p-8">
-              <div className="eyebrow mb-2">Platform</div>
-              <div className="flex items-baseline gap-2">
-                <span className="mono-stat text-[44px] font-semibold text-ink">R4,500</span>
-                <span className="text-[15px] text-ink-2">per month, per fleet</span>
-              </div>
-              <ul className="mt-6 space-y-3">
-                {[
-                  'Unlimited users, quotes and invoices',
-                  'AI quote builder with live diesel and SANRAL tolls',
-                  'Cross-border pricing for Southern Africa',
-                  'Automatic invoicing with POD attached',
-                  'Collections follow-ups written and sent for you',
-                  'Fleet insights: margin, cost per km, utilisation',
-                  'Xero and Cartrack integrations',
-                  'Email and phone support',
-                ].map((f) => (
-                  <li key={f} className="flex gap-3 text-[14px] text-ink-2">
-                    <span className="mt-0.5 text-accent" aria-hidden="true">✓</span>
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-auto pt-8">
-                <a href={APP_LOGIN_URL} className="btn-primary w-full">
-                  Get started
-                </a>
-              </div>
+      {/* Plan card + how the fee works */}
+      <section className="sec" style={{ paddingTop: 0 }} aria-label="The plan">
+        <div className="wrap plan">
+          <div className="plan__card">
+            <div className="plan__fig">
+              <span className="figure-big" style={{ color: 'var(--text-primary)' }}>{PRICE}</span>
+              <span>per month</span>
             </div>
-
-            <div className="card flex flex-col p-8">
-              <div className="eyebrow mb-2">Per booking</div>
-              <div className="flex items-baseline gap-2">
-                <span className="mono-stat text-[44px] font-semibold text-ink">0.25%</span>
-                <span className="text-[15px] text-ink-2">per confirmed booking</span>
-              </div>
-              <ul className="mt-6 space-y-3">
-                {[
-                  'Charged only when a quote becomes a booking',
-                  'Nothing on quotes you lose',
-                  'Covers invoicing, collections and your booking pipeline',
-                  'No per-user charges, no minimums',
-                ].map((f) => (
-                  <li key={f} className="flex gap-3 text-[14px] text-ink-2">
-                    <span className="mt-0.5 text-accent" aria-hidden="true">✓</span>
-                    {f}
-                  </li>
-                ))}
-              </ul>
-              <div className="mt-6 rounded-md border border-line bg-accent-soft p-4">
-                <div className="eyebrow eyebrow-accent mb-1.5">Optional extras</div>
-                <p className="text-[13px] leading-relaxed text-ink-2">
-                  FastPay early settlement and capital advances are optional. Both
-                  are priced when you switch them on, per invoice or per draw.
-                </p>
-              </div>
-              <p className="mt-auto pt-6 text-[13px] text-ink-3">
-                You pay for outcomes: a confirmed booking is money on its way in.
-              </p>
-            </div>
-          </div>
-
-          {/* Comparison strip */}
-          <div className="mx-auto mt-14 max-w-4xl">
-            <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
-              {[
-                { v: 'R0', l: 'setup fees' },
-                { v: 'R0', l: 'per-user charges' },
-                { v: 'Any time', l: 'cancellation, no penalties' },
-              ].map((s) => (
-                <div key={s.l} className="card p-6 text-center">
-                  <div className="mono-stat text-[24px] font-semibold text-ink">{s.v}</div>
-                  <div className="mt-1 text-[13px] text-ink-2">{s.l}</div>
-                </div>
+            <p className="plan__sub">plus {FEE_LINE}. {NO_VAT}</p>
+            <ul className="plan__list list-reset">
+              {INCLUDED.map((t) => (
+                <li key={t}>
+                  <Check strokeWidth={1.75} aria-hidden="true" />
+                  {t}
+                </li>
               ))}
+            </ul>
+            <ButtonLink href={signupUrl('pricing-card')} cta="get_started" loc="pricing_card" className="btn--block">
+              Get started
+            </ButtonLink>
+            <p className="small plan__note">Paid by card through Paystack. You are live once the payment clears.</p>
+            <div className="plan__alt">
+              <TextLink href={demoUrl('pricing-card')} cta="open_demo" loc="pricing_card">
+                Or open the demo first
+              </TextLink>
             </div>
+          </div>
+
+          <div className="plan__how">
+            <h2 className="h3">How the 0,25% works</h2>
+            <dl className="dl">
+              <div>
+                <dt>When</dt>
+                <dd>Charged when a delivered load is invoiced.</dd>
+              </div>
+              <div>
+                <dt>On what</dt>
+                <dd>The load&apos;s invoice total, including VAT. A load invoiced at {EG}.</dd>
+              </div>
+              <div>
+                <dt>Not charged on</dt>
+                <dd>Quotes you lose, drafts and cancelled loads.</dd>
+              </div>
+              <div>
+                <dt>Where you see it</dt>
+                <dd>Every charge is listed in Billing history.</dd>
+              </div>
+              <div>
+                <dt>Contract</dt>
+                <dd>{CANCELLATION}</dd>
+              </div>
+            </dl>
           </div>
         </div>
       </section>
+
+      {/* Fee calculator (G) */}
+      <section className="sec sec--grey" aria-labelledby="calc-h">
+        <div className="wrap calc">
+          <div className="calc__head">
+            <TwoTone id="calc-h" a="Your month," b="worked out." />
+            <p className="body">
+              Load fees are 0,25% of each delivered load&apos;s invoice total, including VAT. Arithmetic only; your real fees are listed in
+              Billing history.
+            </p>
+          </div>
+          <FeeCalc monthly={FACTS.price.monthly} feePct={FACTS.fee.pct} defaultValue={Math.round(FEE_EXAMPLE.invoice)} />
+        </div>
+      </section>
+
+      {/*
+        R9: one sharp photo band between the calculator and the setup timeline (light sections either side).
+        "R556 towards Sun City, South Africa", North West, by Clayton Majona (https://unsplash.com/@phathisile),
+        https://unsplash.com/photos/an-empty-road-in-the-middle-of-the-desert-ZlCGpnZ7QDA. Unsplash Licence
+        (https://unsplash.com/license), checked not Unsplash+; free commercial use, no attribution required. Bottom 2:1
+        crop, saturation 0.66, slightly cooler. Master: public/bands/pricing-r556-north-west.jpg.
+      */}
+      <PhotoBand
+        id="band-h"
+        src="/bands/pricing-r556-north-west.jpg"
+        position="50% 60%"
+        positionPhone="50% 60%"
+        a="Your whole team."
+        b="Month to month."
+        line="Unlimited users and every module on the one plan. Cancel with 30 days' written notice."
+        place="R556, North West"
+      />
+
+      {/* From demo to first invoice (W), moved from Home (owner R6). Ref: hemut-1440-full-2 Day 0 / 15 / 30 timeline */}
+      <section className="sec" aria-labelledby="setup-h">
+        <div className="wrap">
+          <SectionHeader
+            id="setup-h"
+            a="No migration project."
+            b="Just your lists and rates."
+            line="Nothing to install and nothing to rip out. You set it up yourself, and we are a message away."
+          />
+          <ol className="tl tl--3x2 tl--neutral list-reset reveal">
+            {TIMELINE.map((s, i) => (
+              <li className="tl__item" key={s.t}>
+                <span className="tl__node" aria-hidden="true">
+                  {i + 1}
+                </span>
+                <span className="tl__when">{s.t}</span>
+                <div className="tl__card">
+                  <h3>{s.h}</h3>
+                  <p>{s.d}</p>
+                </div>
+              </li>
+            ))}
+          </ol>
+        </div>
+      </section>
+
+      {/* Coming soon: a compact card to /capital (R7); /capital is the full story. Not in the price, not live. */}
+      <FastPayCard note={`Not part of the ${PRICE} plan. Nothing is charged for it today.`} />
 
       {/* Pricing FAQ */}
-      <section className="bg-page">
-        <div className="mx-auto max-w-3xl px-5 py-20">
-          <div className="text-center">
-            <div className="eyebrow eyebrow-accent mb-4">FAQ</div>
-            <h2 className="text-display text-ink">Pricing questions</h2>
+      <section className="sec" aria-label="Pricing questions">
+        <div className="wrap">
+          <Faq a="Pricing" b="questions." line="What people ask before they pay." items={FAQ} />
+          <div className="faq" style={{ marginTop: 24 }}>
+            <div className="faq__more">
+              <TextLink href="/contact?topic=fleet-50" cta="talk_to_us" loc="pricing_faq">
+                Talk to us
+              </TextLink>
+            </div>
           </div>
-          <div className="mt-10 space-y-3">
-            {pricingFaqs.map((f) => (
-              <details key={f.q} className="card group px-6 py-4">
-                <summary className="cursor-pointer list-none text-[15px] font-medium text-ink marker:content-none">
-                  <span className="flex items-center justify-between gap-4">
-                    {f.q}
-                    <span className="text-ink-3 transition-transform group-open:rotate-45" aria-hidden="true">+</span>
-                  </span>
-                </summary>
-                <p className="mt-3 text-[14px] leading-relaxed text-ink-2">{f.a}</p>
-              </details>
-            ))}
-          </div>
-          <p className="mt-8 text-center text-[14px] text-ink-2">
-            More questions on the{' '}
-            <Link href="/#faq" className="font-medium text-accent underline-offset-4 hover:underline">
-              full FAQ
-            </Link>{' '}
-            or email{' '}
-            <a href="mailto:grant@truckwys.com" className="font-medium text-accent underline-offset-4 hover:underline">
-              grant@truckwys.com
-            </a>
-            .
-          </p>
         </div>
       </section>
 
-      {/* CTA */}
-      <section className="panel-accent">
-        <div className="mx-auto max-w-6xl px-5 py-24 text-center">
-          <h2 className="text-display mx-auto max-w-2xl text-ink">
-            R4,500 gets your whole fleet on board
-          </h2>
-          <p className="mx-auto mt-4 max-w-xl text-[16px] text-ink-2">
-            Sign in and send your first properly costed quote before the diesel
-            price changes again.
-          </p>
-          <div className="mt-8 flex flex-col items-center justify-center gap-3 px-6 sm:flex-row sm:px-0">
-            <a href={APP_LOGIN_URL} className="btn-primary w-full !border-white !bg-white !text-accent sm:w-auto">
-              See the demo
-            </a>
-            <Link href="/contact" className="btn-secondary w-full !border-white/40 !bg-transparent !text-white sm:w-auto">
-              Talk to us
-            </Link>
-          </div>
-        </div>
-      </section>
+      <Closing page="pricing" />
     </>
   );
 }

@@ -1,23 +1,56 @@
-import Link from 'next/link';
+import type { Metadata } from 'next';
+import { TwoTone } from '../components/ui';
+import { CostBreakdown } from '../components/fragments/Quote';
+
+export const metadata: Metadata = {
+  title: 'Page not found',
+  robots: { index: false, follow: true },
+};
+
+/* No price lines here (owner): the price lives on /pricing. Fast Pay is not live, so it carries the Soon chip. */
+const LINKS: { href: string; label: string; line: string; soon?: boolean }[] = [
+  { href: '/', label: 'Home', line: 'From the first price to the last rand.' },
+  { href: '/product', label: 'How it works', line: 'Quote, invoice and chase, one load at a time.' },
+  { href: '/capital', label: 'Fast Pay', line: 'Get paid before your customer pays.', soon: true },
+  { href: '/pricing', label: 'Pricing', line: 'One plan, everything in it.' },
+];
 
 export default function NotFound() {
   return (
-    <section className="bg-page">
-      <div className="mx-auto flex min-h-[60vh] max-w-6xl flex-col items-center justify-center px-5 py-24 text-center">
-        <div className="eyebrow eyebrow-accent mb-4">404</div>
-        <h1 className="text-display text-ink">This page does not exist</h1>
-        <p className="mt-4 max-w-md text-[15px] text-ink-2">
-          The page may have moved in the site rebuild. The links below will get
-          you back on the road.
-        </p>
-        <div className="mt-8 flex w-full max-w-xs flex-col items-center gap-3 sm:w-auto sm:max-w-none sm:flex-row">
-          <Link href="/" className="btn-primary w-full sm:w-auto">
-            Back to home
-          </Link>
-          <Link href="/blogs" className="btn-secondary w-full sm:w-auto">
-            Read the guides
-          </Link>
+    <section className="phero status-page">
+      <div className="wrap">
+        <div className="status">
+          <div className="status__main">
+            <p className="label status__eyebrow">Error 404</p>
+            <TwoTone as="h1" className="h1" a="This page moved." b="Or it never existed." />
+            <p className="lead">The link may be old or mistyped. Try one of these instead.</p>
+          </div>
+          {/* Critic R3: one small product fragment (a quote's cost lines from the demo company). */}
+          <div className="status__side status__side--frag" aria-hidden="true">
+            <CostBreakdown float compact />
+          </div>
         </div>
+        <ul className="list-reset nf-cards">
+          {LINKS.map((l) => (
+            <li key={l.href}>
+              <a className="pcard nf-card" href={l.href}>
+                <span className="pcard__name">
+                  <span>
+                    {l.label}
+                    {l.soon ? <span className="nav__soon">Soon</span> : null}
+                  </span>
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                    <path d="M5 12h14M12 5l7 7-7 7" />
+                  </svg>
+                </span>
+                <span className="pcard__line">{l.line}</span>
+              </a>
+            </li>
+          ))}
+        </ul>
+        <p className="small nf-help">
+          Still stuck? Read <a className="ulink" href="/blog">the blog</a> or <a className="ulink" href="/contact">talk to us</a>.
+        </p>
       </div>
     </section>
   );
