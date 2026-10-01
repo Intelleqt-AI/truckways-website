@@ -10,12 +10,11 @@ export const FACTS = {
   price: {
     monthly: 4499,
     currency: 'ZAR',
-    // TODO(owner) VAT-2: the backend charges R 4 499,00 flat and the 0,25% exactly,
-    // with no VAT added (paystack.py MONTHLY_FEE, subscription_billing.py,
-    // delivery_fee_billing.py), while Terms 5.5 says fees exclude VAT and VAT is
-    // "added where applicable". Until the owner settles billing vs Terms, the site
-    // makes no statement that VAT is added to, or computed on, the TruckWys price.
-    vatBasis: null as null | 'incl' | 'excl',
+    // VAT-2 decided by the owner: TruckWys is not registered for VAT, so no VAT is
+    // charged on the subscription or the fee. R 4 499 is the full amount, which is
+    // what billing charges (paystack.py MONTHLY_FEE, subscription_billing.py,
+    // delivery_fee_billing.py). The Offer JSON-LD carries no VAT flag (see schema.ts).
+    vatBasis: 'not-registered' as const,
   },
   fee: {
     pct: 0.25,
@@ -62,22 +61,24 @@ export const FACTS = {
     address: '12 Keurboom Road, Claremont, Cape Town, 7800',
     infoOfficer: 'Grant McEvoy',
   },
-  hosting: null as null | string /* TODO(owner) Q5 */,
+  // Q5 decided by the owner: production runs on AWS in Cape Town.
+  hosting: 'Amazon Web Services, Cape Town region (af-south-1)',
 } as const;
 
 /* Rendered strings. Keep all price wording here. The spaces inside money are
    non-breaking (U+00A0) so "R" never wraps away from its figure. */
 const NB = '\u00a0';
 export const PRICE = `R${NB}4${NB}499`;
-/** "R 4 499 per month". No VAT wording until VAT-2 is settled (see FACTS.price.vatBasis). */
+/** "R 4 499 per month". The full amount: TruckWys is not registered for VAT (FACTS.price.vatBasis). */
 export const PRICE_LINE = `${PRICE} per month`;
-/** Small print, consistent with Terms 5.5 ("exclusive of VAT, which will be added where applicable"). */
-export const PRICE_VAT_NOTE = 'Pricing excludes VAT where applicable.';
+/** Answer to "Do you charge VAT?" (owner decision: not VAT registered). */
+export const VAT_ANSWER =
+  "TruckWys isn't registered for VAT yet, so there's no VAT on the subscription or the fee. If that changes, we'll tell you in writing before it applies.";
 export const FEE = '0,25%';
 /** The fee is worked out on the invoice total including VAT (owner decision; matches the code). */
 export const FEE_LINE = `0,25% of each delivered load's invoice value (incl.${NB}VAT)`;
 export const PRICE_AND_FEE = `${PRICE_LINE}, plus ${FEE_LINE}.`;
 /** Short form for tight spots (CTA bands, the phone menu). */
 export const PRICE_SHORT = `${PRICE_LINE}, plus 0,25% per delivered load.`;
-/** Owner is still deciding notice terms: say only this. Never point to the Terms for notice. */
-export const CANCELLATION = 'Month to month. No long\u2011term contract.'; // non-breaking hyphen
+/** Owner decision: Terms 6 stands (30 days' written notice). Use this wording wherever cancellation comes up. */
+export const CANCELLATION = "Month to month. Cancel with 30\u00a0days' written notice.";

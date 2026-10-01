@@ -9,7 +9,7 @@ export const metadata: Metadata = {
 const LINKS = [
   { href: '/', label: 'Home', line: 'Price it right. Invoice on delivery. Get paid.' },
   { href: '/product', label: 'How it works', line: 'From the first price to the last rand.' },
-  { href: '/pricing', label: 'Pricing', line: 'One plan, R 4 499 per month, month to month.' },
+  { href: '/pricing', label: 'Pricing', line: 'One plan, R 4 499 per month.' },
   { href: '/guides', label: 'Guides', line: 'Costs, quoting and getting paid in SA freight.' },
 ];
 

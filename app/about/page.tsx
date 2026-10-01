@@ -174,7 +174,8 @@ export default function AboutPage() {
                     .
                   </>,
                 ],
-                // TODO(owner) Q5: hosting row, and Q11: data-pooling wording. Omitted until confirmed.
+                ['Hosting', `${FACTS.hosting}.`],
+                // TODO(owner) Q11: data-pooling wording. Omitted until confirmed.
               ]}
             />
           </div>

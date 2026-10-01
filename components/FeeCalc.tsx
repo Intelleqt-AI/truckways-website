@@ -18,8 +18,8 @@ const toNum = (s: string) => Number(s.replace(/\D/g, '')) || 0;
  * C-FeeCalc: arithmetic only. The default result is server-rendered, so the
  * page shows the default month without JavaScript. The 0,25% is worked out on
  * each delivered load's invoice total incl. VAT (the customer invoice). No VAT
- * line on the TruckWys total: owner-blocked VAT-2 (billing charges the fee and
- * the subscription flat, the Terms say fees exclude VAT).
+ * line on the TruckWys total: TruckWys is not VAT registered (owner decision),
+ * so the subscription plus the fees is the full amount.
  */
 export default function FeeCalc({
   monthly,

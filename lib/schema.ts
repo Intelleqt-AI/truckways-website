@@ -65,10 +65,10 @@ export const offerSchema = {
     priceCurrency: 'ZAR',
     unitCode: 'MON',
     billingDuration: 'P1M',
-    // TODO(owner) VAT-2: no VAT flag until billing and Terms agree (FACTS.price.vatBasis is null).
-    ...(FACTS.price.vatBasis ? { valueAddedTaxIncluded: FACTS.price.vatBasis === 'incl' } : {}),
+    // No valueAddedTaxIncluded: TruckWys is not VAT registered, so there is no VAT
+    // to be included or excluded. true would claim VAT is inside the price and false
+    // would claim VAT is added on top; both are wrong. The price is the full amount.
   },
-  ...(FACTS.price.vatBasis ? { valueAddedTaxIncluded: FACTS.price.vatBasis === 'incl' } : {}),
   description: "Per month, plus 0,25% of each delivered load's invoice value (incl. VAT).",
   eligibleRegion: { '@type': 'Country', name: 'ZA' },
   availability: 'https://schema.org/InStock',

@@ -5,7 +5,7 @@ import { ButtonLink, TextLink, TwoTone } from '../../components/ui';
 import { Breadcrumbs, PageHero, CTABand } from '../../components/Blocks';
 import Faq, { type QA } from '../../components/Faq';
 import FeeCalc from '../../components/FeeCalc';
-import { FACTS, PRICE, CANCELLATION, FEE_LINE, PRICE_VAT_NOTE } from '../../lib/facts';
+import { FACTS, PRICE, CANCELLATION, FEE_LINE, VAT_ANSWER } from '../../lib/facts';
 import { FEE_EXAMPLE } from '../../content/demo-data';
 import { rand } from '../../lib/format';
 import { SITE_URL, signupUrl, demoUrl, jsonLd } from '../../lib/site';
@@ -51,12 +51,13 @@ const FAQ: QA[] = [
     q: 'Is the 0,25% given back if an invoice is cancelled later?',
     a: 'No. The fee is charged once, when a delivered load is invoiced, and it is not reversed if that invoice is later cancelled, disputed or changed. Every charge is listed in Billing history.',
   },
-  // Q3 (notice terms) is still open with the owner: say only this.
+  { id: 'vat', q: 'Do you charge VAT?', a: VAT_ANSWER },
+  // Owner decision: Terms 6 (30 days' written notice) stands.
   { id: 'cancel', q: 'Is there a contract?', a: CANCELLATION },
   {
     id: 'data',
     q: 'What happens to my data if I cancel?',
-    a: 'Cancelling does not delete it. When the period you have paid for ends, quoting and invoicing stop. You can still sign in, see your loads, invoices and customers, and export reports as CSV.',
+    a: 'Cancelling does not delete it. When your notice period ends, quoting and invoicing stop. You can still sign in, see your loads, invoices and customers, and export reports as CSV.',
   },
   {
     id: 'popia',
@@ -92,7 +93,7 @@ export default function PricingPage() {
         crumbs={<Breadcrumbs trail={CRUMBS} />}
         a="One plan. One price."
         b={<>No <span className="nowrap">long-term</span> contract.</>}
-        lead="Everything TruckWys does, for your whole team, month to month."
+        lead={`Everything TruckWys does, for your whole team. ${CANCELLATION}`}
       />
 
       {/* Plan card + how the fee works */}
@@ -116,7 +117,7 @@ export default function PricingPage() {
             <ButtonLink href={signupUrl('pricing-card')} cta="get_started" loc="pricing_card" className="btn--block">
               Get started
             </ButtonLink>
-            <p className="small plan__note">Paid by card through Paystack. You are live once the payment clears. {PRICE_VAT_NOTE}</p>
+            <p className="small plan__note">Paid by card through Paystack. You are live once the payment clears.</p>
             <div className="plan__alt">
               <TextLink href={demoUrl('pricing-card')} cta="open_demo" loc="pricing_card">
                 Or open the demo first

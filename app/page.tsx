@@ -87,7 +87,7 @@ const TIMELINE = [
 
 const FAQ: QA[] = [
   { id: 'tms', q: 'Is TruckWys a TMS?', a: 'No. It does not dispatch, route or schedule. It works next to your TMS, your spreadsheets and your tracking, and handles the money on each load.' },
-  { id: 'cost', q: 'What does it cost?', a: `${PRICE_AND_FEE} Unlimited users. No long-term contract.` },
+  { id: 'cost', q: 'What does it cost?', a: `${PRICE_AND_FEE} Unlimited users. ${CANCELLATION}` },
   { id: 'fee', q: 'How is the 0,25% worked out?', a: `On each delivered load's invoice total, including the VAT on your customer's invoice: a load invoiced at ${rand(FEE_EXAMPLE.invoice, { cents: true })} adds ${rand(FEE_EXAMPLE.fee, { cents: true })}. Nothing on quotes you lose.` },
   { id: 'try', q: 'Can I try it first?', a: `Yes. Open the demo: a working company with sample data. ${DEMO_LINE}` },
   { id: 'prices', q: 'Where do diesel and toll prices come from?', a: `Diesel from FIASA, inland or coastal. Tolls from the SANRAL tariffs effective 1 March 2026, for ${FACTS.tollPlazas} mainline plazas, by vehicle class.` },
@@ -124,7 +124,7 @@ export default function Home() {
               </ButtonLink>
             </div>
             <p className="small hero__price">
-              {PRICE_AND_FEE} No <span className="nowrap">long-term</span> contract.
+              {PRICE_AND_FEE} {CANCELLATION}
             </p>
           </div>
 

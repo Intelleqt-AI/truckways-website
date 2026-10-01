@@ -4,7 +4,7 @@
 
 ## Key facts
 
-- One plan: R 4 499 per month plus 0,25% of each delivered load's invoice value (incl. VAT). Unlimited loads, quotes, invoices and users. No setup fees. Nothing charged on quotes you lose.
+- One plan: R 4 499 per month plus 0,25% of each delivered load's invoice value (incl. VAT). Unlimited loads, quotes, invoices and users. No setup fees. Nothing charged on quotes you lose. No VAT: TruckWys is not registered for VAT, so there is no VAT on the subscription or the fee. Month to month. Cancel with 30 days' written notice.
 - Diesel price from FIASA, inland or coastal.
 - Tolls: 31 SANRAL mainline toll plazas on the N1, N2, N3, N4, N17 and R30, by vehicle class, from the tariffs effective 1 March 2026 (GG 54087, GG 54088). Tolls go into the quote excl. VAT because a VAT vendor claims the input VAT back.
 - Cross-border: border, permit and foreign toll fees for SADC loads, including Botswana, Namibia, Lesotho, Eswatini and Mozambique.
