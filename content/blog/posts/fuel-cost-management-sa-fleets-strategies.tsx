@@ -27,7 +27,7 @@ const post: Post = {
   faq: [
     {
       q: 'When does the diesel price change in South Africa?',
-      a: 'The regulated price is adjusted once a month and takes effect on the first Wednesday. The Department of Mineral and Petroleum Resources announces the adjustment a few days before.',
+      a: 'The regulated wholesale price is adjusted once a month and takes effect on the first Wednesday. The Department of Mineral and Petroleum Resources announces the adjustment a few days before.',
     },
     {
       q: 'Can a road freight business claim the diesel refund?',

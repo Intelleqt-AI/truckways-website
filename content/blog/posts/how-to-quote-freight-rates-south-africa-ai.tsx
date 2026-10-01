@@ -170,7 +170,7 @@ const post: Post = {
         <li>You must not charge VAT or issue a tax invoice. Your price is the total.</li>
       </ul>
       <p>
-        In the example, the tolls add R&nbsp;317,48 over the round trip, for a cost of R&nbsp;26&nbsp;432,58. A price of
+        In the example, the tolls add R&nbsp;317,48 over the round trip (we assume the tyre and maintenance figures already include the VAT you paid; if yours exclude it, add 15% to them too), for a cost of R&nbsp;26&nbsp;432,58. A price of
         R&nbsp;30&nbsp;100 leaves R&nbsp;3&nbsp;667,42, a margin of 12,2%, and that is the amount on the invoice. Check your own position
         with a tax practitioner, especially as you get close to the threshold.
       </p>

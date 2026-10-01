@@ -132,7 +132,7 @@ const post: Post = {
         when interest starts to run, usually the due date, so note the rate on that date.
       </p>
       <p>
-        <strong>Worked check:</strong> on example inputs of R&nbsp;50&nbsp;000 paid 60 days late, interest at 10,75% a year is
+        <strong>Worked check:</strong> on example inputs of R&nbsp;50&nbsp;000 paid 60 days late, interest at 10,75% a year (the rate for a debt that falls due on or after 1 November 2026) is
         R&nbsp;50&nbsp;000 × 10,75% × 60 ÷ 365 = R&nbsp;883,56. Small next to the R&nbsp;50&nbsp;000 itself: the real cost of an unchased
         debtor is the risk that it is never paid.
       </p>
