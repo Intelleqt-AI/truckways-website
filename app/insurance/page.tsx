@@ -48,8 +48,8 @@ export default function InsurancePage() {
       <PhotoHero
         // "A truck in Cape Town" (Franschhoek Pass), by Aaron Jones (https://unsplash.com/@ajonesyyyyy),
         // https://unsplash.com/photos/a-car-driving-down-a-road-with-mountains-in-the-background-bMUV5oK_rP8, Unsplash Licence.
-        // R8: a wider landscape crop (the valley, the town and the tanker on the pass), saturation 0.8, contrast 1.1,
-        // slightly brighter and cooler. The text sits top left so the tanker stays clear.
+        // R9 regrade: the same crop (the valley, the town and the tanker on the pass), levels stretched, midtones lifted about
+        // +0.4 EV and a gentle S-curve, saturation 0.76, slightly cooler. The text sits top left so the tanker stays clear.
         src="/covers/pages/insurance-franschhoek-pass.jpg"
         position="50% 70%"
         align="top"
@@ -105,6 +105,7 @@ export default function InsurancePage() {
 
       <Closing
         page="insurance"
+        photo="franschhoek-valley"
         variant="notify"
         notifyHref="/contact?topic=insurance"
         a="Be first to know."

@@ -3,7 +3,7 @@ import { SectionHeader } from '../../../components/ui';
 import { Closing } from '../../../components/Blocks';
 import Faq, { type QA } from '../../../components/Faq';
 import { NeedsYouCard } from '../../../components/fragments/Money';
-import { FeatureHero, Stage, Answers, FeatureRow, Split, DL, NextCards } from '../../../components/pages/blocks';
+import { FeatureHero, Stage, Answers, FeatureRow, Split, DL, NextCards, PhotoBand } from '../../../components/pages/blocks';
 import { DebtorsAge, Statement } from '../../../components/pages/frags';
 import { KPIS, OVERDUE, OVERDUE_COUNT } from '../../../content/demo-data';
 import { rand } from '../../../lib/format';
@@ -76,6 +76,23 @@ export default function DebtorsPage() {
           />
         </div>
       </section>
+
+      {/*
+        R9: one sharp photo band. "Empty road between brown grass field", South Africa, by Bruchin Noeka (https://unsplash.com/@kr8t), https://unsplash.com/photos/empty-road-between-brown-grass-field-during-daytime--ywSz_3ofSY. Cropped to the road and the power line; no vehicles, plates or people.
+        Unsplash Licence (https://unsplash.com/license), checked not Unsplash+ (premium=false, plus=false); free commercial
+        use, no attribution required. Graded like the site's other bands (saturation ~0.66, slightly cooler), darkened
+        only behind the text by the band's scrim. Master: public/bands/debtors-open-road.jpg.
+      */}
+      <PhotoBand
+        id="band-h"
+        src="/bands/debtors-open-road.jpg"
+        position="50% 82%"
+        positionPhone="30% 70%"
+        a="Delivered weeks ago."
+        b="Not paid yet."
+        line="Debtors by age show which invoices are late and by how many days, so you chase the largest first."
+        place="Open road, South Africa"
+      />
 
       <section className="sec sec--grey" aria-labelledby="detail-h">
         <div className="wrap">

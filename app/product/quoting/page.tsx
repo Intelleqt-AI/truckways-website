@@ -3,7 +3,7 @@ import { SectionHeader } from '../../../components/ui';
 import { Closing } from '../../../components/Blocks';
 import Faq, { type QA } from '../../../components/Faq';
 import { CostBreakdown } from '../../../components/fragments/Quote';
-import { FeatureHero, Stage, Answers, FeatureRow, Split, DL, NextCards } from '../../../components/pages/blocks';
+import { FeatureHero, Stage, Answers, FeatureRow, Split, DL, NextCards, PhotoBand } from '../../../components/pages/blocks';
 import { QuoteForm, FuelLine } from '../../../components/pages/frags';
 import { SigTolls } from '../../../components/pages/signature';
 import { QUOTE, PIPELINE } from '../../../content/demo-data';
@@ -106,6 +106,23 @@ export default function QuotingPage() {
           </div>
         </div>
       </section>
+
+      {/*
+        R9: one sharp photo band. "Large industrial cranes under a cloudy sky", Cape Town container terminal, by Omar (https://unsplash.com/@ommyjay), https://unsplash.com/photos/large-industrial-cranes-under-a-cloudy-sky-Wt3ChnH8N08. Shipping-line and terminal marks on containers and cranes are softened; the trailer at the bottom edge is cropped out.
+        Unsplash Licence (https://unsplash.com/license), checked not Unsplash+ (premium=false, plus=false); free commercial
+        use, no attribution required. Graded like the site's other bands (saturation ~0.66, slightly cooler), darkened
+        only behind the text by the band's scrim. Master: public/bands/quoting-cape-town-terminal.jpg.
+      */}
+      <PhotoBand
+        id="band-h"
+        src="/bands/quoting-cape-town-terminal.jpg"
+        position="50% 88%"
+        positionPhone="30% 75%"
+        a="Every load, priced."
+        b="Before it leaves."
+        line="Diesel, tolls, border fees and your rates, added up line by line for the truck you send."
+        place="Container terminal, Cape Town"
+      />
 
       <section className="sec" aria-labelledby="spec-h">
         <div className="wrap">

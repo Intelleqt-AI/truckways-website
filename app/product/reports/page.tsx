@@ -2,7 +2,7 @@ import '../../../components/pages/pages-b.css';
 import { SectionHeader } from '../../../components/ui';
 import { Closing } from '../../../components/Blocks';
 import Faq, { type QA } from '../../../components/Faq';
-import { FeatureHero, Stage, Answers, FeatureRow, Split, DL, NextCards } from '../../../components/pages/blocks';
+import { FeatureHero, Stage, Answers, FeatureRow, Split, DL, NextCards, PhotoBand } from '../../../components/pages/blocks';
 import { ReportsIndex, ProfitLoss, LanesScatter, VatReport } from '../../../components/pages/frags';
 import { SigPnl } from '../../../components/pages/signature';
 import { LANES, REVENUE_VS_COSTS } from '../../../content/demo-data';
@@ -98,9 +98,20 @@ export default function ReportsPage() {
               body="Revenue, direct costs, gross profit, overheads and net profit, for this month, a quarter, a year or any dates you choose."
               points={['Cash basis, excl. VAT', 'Only approved expenses count as costs', 'Export CSV or print']}
             >
-              <Stage label="Profit and loss for three months: sales, direct costs, gross profit and margin, overheads, net profit and net margin, with a total column.">
-                <ProfitLoss />
-              </Stage>
+              <div className="b-pnlmore">
+                <Stage label="Profit and loss for three months, totals only: sales, total direct costs, gross profit and margin, total overheads, net profit and net margin, with a total column.">
+                  <ProfitLoss summary />
+                </Stage>
+                <details className="b-pnlfull">
+                  <summary>
+                    <span className="b-pnlfull__show">Show the full P&amp;L</span>
+                    <span className="b-pnlfull__hide">Show totals only</span>
+                  </summary>
+                  <Stage label="The full profit and loss for three months, line by line: sales; fuel, tolls, and maintenance and repairs as direct costs; gross profit and margin; insurance, overheads and admin, driver cost and other overheads; net profit and net margin, with a total column.">
+                    <ProfitLoss />
+                  </Stage>
+                </details>
+              </div>
             </FeatureRow>
             <FeatureRow
               flip
@@ -117,6 +128,23 @@ export default function ReportsPage() {
       </section>
 
       {/* R7: Insights has its own section, so Home can link to /product/reports#insights. */}
+      {/*
+        R9: one sharp photo band. "Road", Klein Karoo, by Patrick Baum (https://unsplash.com/@gecko81de), https://unsplash.com/photos/gray-concrete-road-near-brown-mountain-under-white-clouds-during-daytime-metEDF4wFHw. Centre 2:1 crop; no vehicles, plates or people.
+        Unsplash Licence (https://unsplash.com/license), checked not Unsplash+ (premium=false, plus=false); free commercial
+        use, no attribution required. Graded like the site's other bands (saturation ~0.66, slightly cooler), darkened
+        only behind the text by the band's scrim. Master: public/bands/reports-klein-karoo.jpg.
+      */}
+      <PhotoBand
+        id="band-h"
+        src="/bands/reports-klein-karoo.jpg"
+        position="50% 50%"
+        positionPhone="45% 60%"
+        a="Every lane, per km."
+        b="See which ones pay."
+        line="Revenue per kilometre by lane against your fleet average, from your own invoices and trips."
+        place="Klein Karoo, Western Cape"
+      />
+
       <section className="sec" id="insights" aria-labelledby="insights-h">
         <div className="wrap">
           <SectionHeader

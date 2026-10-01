@@ -788,11 +788,15 @@ a.b-hubcard:hover .b-hubcard__more svg { transform: translateX(2px); }
 .b-band__img { position: absolute; left: 0; top: -10%; width: 100%; height: 120%; object-fit: cover; object-position: var(--pos, 50% 50%); z-index: -2; color: transparent; }
 .b-band__scrim { position: absolute; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(90deg, rgba(11, 12, 14, 0.86) 0%, rgba(11, 12, 14, 0.8) 46%, rgba(11, 12, 14, 0.3) 72%, rgba(11, 12, 14, 0) 100%); }
 .b-band__text { position: relative; max-width: 880px; }
+/* R9: after a grey section the band gets its own top space, so the frame never butts against the grey edge. */
+.sec--grey + .b-band { padding-top: var(--web-section-y); }
+/* ...and a white section after the band does not double the band's own bottom space. */
+.b-band + .sec:not(.sec--grey):not(.sec--ink) { padding-top: 0; }
 .b-band__text .tlink, .b-band__text .tlink:hover { color: #FFFFFF; }
 .b-band__text .h2 { color: #FFFFFF; text-wrap: balance; }
 .b-band__text .h2 > .tone-2 { display: block; color: rgba(255, 255, 255, 0.84); }
 .b-band__text p { margin-top: 20px; font: 400 17px/27px var(--font-sans); color: rgba(255, 255, 255, 0.9); max-width: 46ch; }
-.b-band__place { position: absolute; right: 20px; bottom: 20px; padding: 2px 10px; border-radius: 999px; background: rgba(11, 12, 14, 0.6); font: 500 13px/18px var(--font-sans); color: rgba(255, 255, 255, 0.9); }
+.b-band__place { position: absolute; right: 20px; bottom: 20px; padding: 2px 10px; border-radius: 999px; background: rgba(11, 12, 14, 0.68); font: 500 13px/18px var(--font-sans); color: rgba(255, 255, 255, 0.92); }
 @media (max-width: 767px) {
   .b-band { padding: 0 8px var(--web-section-y); }
   .b-band__frame { min-height: 480px; align-items: flex-end; padding: 72px 20px 64px; }
@@ -803,7 +807,9 @@ a.b-hubcard:hover .b-hubcard__more svg { transform: translateX(2px); }
 
 /* R8 feature pages: a hairline between the specifics and the FAQ; long two-tone heads balance their lines. */
 .sec.b-faqsec { padding-top: 0; }
-.b-faqsec > .wrap { border-top: 1px solid var(--border-subtle); padding-top: var(--web-section-y); }
+/* R9: the hairline sits inside the gutter, on the content width (not the wrap's padding box). */
+.b-faqsec > .wrap { position: relative; padding-top: var(--web-section-y); }
+.b-faqsec > .wrap::before { content: ''; position: absolute; top: 0; left: var(--web-gutter); right: var(--web-gutter); border-top: 1px solid var(--border-subtle); }
 .b-hero .h1, .shead > .h2, .b-split__head .h2, .sig .h2 { text-wrap: balance; }
 
 /* R8 PhotoHero align="top" (/insurance): text top left, the photo's subject (the tanker) stays clear at the bottom.
@@ -832,3 +838,16 @@ a.b-hubcard:hover .b-hubcard__more svg { transform: translateX(2px); }
 
 /* R8: the eyebrow on photo heroes at 4.5:1 or better on the brighter grades. */
 .b-phero__text .label { color: rgba(255, 255, 255, 0.92); }
+
+/* R9 /product/reports: the P&L mock shows totals; the full statement opens from a disclosure and replaces it. */
+.b-pnlmore:has(> .b-pnlfull[open]) > .clipin { display: none; }
+.b-pnlfull > summary {
+  display: inline-flex; align-items: center; gap: 8px; margin-top: 16px; cursor: pointer; list-style: none;
+  font: 500 15px/22px var(--font-sans); color: var(--link); min-height: 44px;
+}
+.b-pnlfull > summary::-webkit-details-marker { display: none; }
+.b-pnlfull > summary::after { content: ''; width: 7px; height: 7px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: translateY(-2px) rotate(45deg); transition: transform 0.2s; }
+.b-pnlfull[open] > summary { margin-top: 0; margin-bottom: 16px; }
+.b-pnlfull[open] > summary::after { transform: translateY(2px) rotate(-135deg); }
+.b-pnlfull__hide, .b-pnlfull[open] .b-pnlfull__show { display: none; }
+.b-pnlfull[open] .b-pnlfull__hide { display: inline; }

@@ -1,7 +1,7 @@
 import type { Metadata } from 'next';
 import { Check } from 'lucide-react';
 import '../../components/pages/pages-b.css';
-import { FastPayCard } from '../../components/pages/blocks';
+import { FastPayCard, PhotoBand } from '../../components/pages/blocks';
 import { ButtonLink, TextLink, TwoTone, SectionHeader } from '../../components/ui';
 import { Breadcrumbs, PageHero, Closing } from '../../components/Blocks';
 import Faq, { type QA } from '../../components/Faq';
@@ -188,6 +188,24 @@ export default function PricingPage() {
           <FeeCalc monthly={FACTS.price.monthly} feePct={FACTS.fee.pct} defaultValue={Math.round(FEE_EXAMPLE.invoice)} />
         </div>
       </section>
+
+      {/*
+        R9: one sharp photo band between the calculator and the setup timeline (light sections either side).
+        "R556 towards Sun City, South Africa", North West, by Clayton Majona (https://unsplash.com/@phathisile),
+        https://unsplash.com/photos/an-empty-road-in-the-middle-of-the-desert-ZlCGpnZ7QDA. Unsplash Licence
+        (https://unsplash.com/license), checked not Unsplash+; free commercial use, no attribution required. Bottom 2:1
+        crop, saturation 0.66, slightly cooler. Master: public/bands/pricing-r556-north-west.jpg.
+      */}
+      <PhotoBand
+        id="band-h"
+        src="/bands/pricing-r556-north-west.jpg"
+        position="50% 60%"
+        positionPhone="50% 60%"
+        a="Your whole team."
+        b="Month to month."
+        line="Unlimited users and every module on the one plan. Cancel with 30 days' written notice."
+        place="R556, North West"
+      />
 
       {/* From demo to first invoice (W), moved from Home (owner R6). Ref: hemut-1440-full-2 Day 0 / 15 / 30 timeline */}
       <section className="sec" aria-labelledby="setup-h">

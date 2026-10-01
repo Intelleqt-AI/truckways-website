@@ -4,7 +4,7 @@ import { Closing } from '../../../components/Blocks';
 import Faq, { type QA } from '../../../components/Faq';
 import { CopilotPanel } from '../../../components/fragments/Money';
 import { CostBreakdown } from '../../../components/fragments/Quote';
-import { FeatureHero, Stage, FeatureRow, NextCards } from '../../../components/pages/blocks';
+import { FeatureHero, Stage, FeatureRow, NextCards, PhotoBand } from '../../../components/pages/blocks';
 import { QuoteForm } from '../../../components/pages/frags';
 import { pageMeta } from '../../../components/pages/meta';
 import { FACTS } from '../../../lib/facts';
@@ -136,6 +136,23 @@ export default function AiPage() {
           </div>
         </div>
       </section>
+
+      {/*
+        R9: one sharp photo band. "William Nicol Road, Fourways, Johannesburg", by Bjorn Moyo (https://unsplash.com/@theblackbjorn), https://unsplash.com/photos/timelapse-photography-of-road-during-daytime-pz3yRzj-uYE. Bottom 2:1 crop of the long exposure; traffic is reduced to light trails, no plates or people.
+        Unsplash Licence (https://unsplash.com/license), checked not Unsplash+ (premium=false, plus=false); free commercial
+        use, no attribution required. Graded like the site's other bands (saturation ~0.66, slightly cooler), darkened
+        only behind the text by the band's scrim. Master: public/bands/ai-johannesburg-trails.jpg.
+      */}
+      <PhotoBand
+        id="band-h"
+        src="/bands/ai-johannesburg-trails.jpg"
+        position="50% 50%"
+        positionPhone="30% 50%"
+        a="A model reads words."
+        b="Rules set the price."
+        line="It fills a form or answers from your data. Diesel, tolls and VAT are formulas you can check by hand."
+        place="William Nicol Drive, Johannesburg"
+      />
 
       <section className="sec sec--grey" id="rules" aria-labelledby="rules-h">
         <div className="wrap">

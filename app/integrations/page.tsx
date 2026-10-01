@@ -164,9 +164,9 @@ export default function IntegrationsPage() {
       <Closing
         page="integrations"
         variant="contact"
-        a="Building a TMS or telematics product?"
+        a="Building a TMS?"
         b="Talk to us about an integration."
-        line="Open API, signed webhooks and OpenAPI documentation for your developers. Tell us what you run, and we will reply by email."
+        line="Or a telematics product: an open API, signed webhooks and OpenAPI documentation for your developers. Tell us what you run, and we will reply by email."
         primary={{ href: '/contact?topic=partner', label: 'Talk to us' }}
         secondary={{ href: signupUrl('integrations-cta'), label: 'Get started' }}
       />

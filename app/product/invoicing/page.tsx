@@ -2,7 +2,7 @@ import '../../../components/pages/pages-b.css';
 import { SectionHeader } from '../../../components/ui';
 import { Closing } from '../../../components/Blocks';
 import Faq, { type QA } from '../../../components/Faq';
-import { FeatureHero, Stage, Answers, FeatureRow, Split, DL, NextCards } from '../../../components/pages/blocks';
+import { FeatureHero, Stage, Answers, FeatureRow, Split, DL, NextCards, PhotoBand } from '../../../components/pages/blocks';
 import { InvoiceDetail, PublicInvoice, InvoiceList } from '../../../components/pages/frags';
 import { SigDelivery } from '../../../components/pages/signature';
 import { INVOICE } from '../../../content/demo-data';
@@ -111,6 +111,23 @@ export default function InvoicingPage() {
           </div>
         </div>
       </section>
+
+      {/*
+        R9: one sharp photo band. "An aerial view of the Port of Port Elizabeth with cargo ships and cranes", by William Veitch (https://unsplash.com/@willv78), https://unsplash.com/photos/port-elizabeth-harbor-and-city-skyline-B4X6DPP4rnU. Cropped to the sky, the harbour and the quays (the street signs below are outside the crop).
+        Unsplash Licence (https://unsplash.com/license), checked not Unsplash+ (premium=false, plus=false); free commercial
+        use, no attribution required. Graded like the site's other bands (saturation ~0.66, slightly cooler), darkened
+        only behind the text by the band's scrim. Master: public/bands/invoicing-gqeberha-port.jpg.
+      */}
+      <PhotoBand
+        id="band-h"
+        src="/bands/invoicing-gqeberha-port.jpg"
+        position="50% 60%"
+        positionPhone="40% 70%"
+        a="Delivered today."
+        b="Invoiced today."
+        line="Mark the load delivered, in TruckWys or from your TMS, and the invoice is raised with 15% VAT and your terms."
+        place="Port Elizabeth harbour, Eastern Cape"
+      />
 
       <section className="sec" aria-labelledby="spec-h">
         <div className="wrap">

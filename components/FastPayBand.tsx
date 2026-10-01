@@ -42,7 +42,7 @@ export default function FastPayBand({ loc, grey, id = 'fastpay-h', insurance }: 
         <div className="fpb">
           <div className="fpb__text reveal">
             <StatusChip />
-            <TwoTone id={id} a="Get paid on delivered loads." b="Before your customer pays." />
+            <TwoTone id={id} a="Get paid on delivery." b="Before they pay you." />
             <p className="body">
               Fast Pay is coming soon. Your delivered load, its proof of delivery and its invoice already live in TruckWys, so getting
               paid early should not mean collecting the paperwork again.

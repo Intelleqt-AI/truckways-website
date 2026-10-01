@@ -20,7 +20,7 @@ export default function PhoneSection({ loc = 'home_phone', grey }: { loc?: strin
     <section className={`sec phs${grey ? ' sec--grey' : ''}`} aria-labelledby="phone-h">
       <div className="wrap phs__grid">
         <div className="phs__text reveal">
-          <TwoTone id="phone-h" a="TruckWys on your phone." b="On iPhone and Android." />
+          <TwoTone id="phone-h" a="On your phone, too." b="iPhone and Android." />
           <ul className="phs__lines list-reset">
             {LINES.map((l) => (
               <li key={l.b}>

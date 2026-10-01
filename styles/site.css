@@ -736,7 +736,7 @@ a.pcard:hover .pcard__go { transform: translateX(2px); color: var(--text-primary
 .closing__demo, .closing__demo:hover, .closing__text .tlink, .closing__text .tlink:hover { color: #FFFFFF; }
 .closing__words { position: absolute; right: max(calc(var(--web-gutter) - 16px), calc((100% - var(--web-container)) / 2)); bottom: clamp(56px, 6vw, 96px); display: flex; flex-direction: column; align-items: flex-end; gap: 14px; font: 500 12px/16px var(--font-sans); letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255, 255, 255, 0.8); }
 .closing__soon { flex-direction: row; }
-.closing__place { position: absolute; right: 24px; top: 20px; font: 500 13px/18px var(--font-sans); color: rgba(255, 255, 255, 0.8); }
+.closing__place { position: absolute; right: 20px; top: 20px; padding: 2px 10px; border-radius: 999px; background: rgba(11, 12, 14, 0.68); font: 500 13px/18px var(--font-sans); color: rgba(255, 255, 255, 0.92); } /* R9: a pill, like the band captions, so it reads on bright skies */
 @media (max-width: 767px) {
   .closing { padding: 8px 8px 0; }
   .closing__frame { min-height: 560px; padding: 0 20px 40px; }

@@ -60,8 +60,8 @@ export default function AboutPage() {
       <PhotoHero
         // "N1 route just passing Midrand", by Clayton Majona (https://unsplash.com/@phathisile),
         // https://unsplash.com/photos/a-highway-filled-with-lots-of-traffic-under-a-cloudy-sky-VUEaEIZn4U4, Unsplash Licence.
-        // Cropped to the road and sky (no plates or brand boards). R8: brighter grade (brightness 1.32, contrast 1.12,
-        // saturation 0.72); the scrim darkens only behind the text.
+        // Cropped to the road and sky (no plates or brand boards). R9 regrade: levels stretched, midtones lifted about +0.4 EV, a gentle
+        // S-curve, saturation 0.72; the scrim darkens only behind the text.
         src="/covers/pages/about-n1-midrand.jpg"
         position="50% 60%"
         eyebrow="About TruckWys"

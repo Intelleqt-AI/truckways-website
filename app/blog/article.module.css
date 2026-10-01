@@ -54,7 +54,7 @@
 .eyebrow a { color: inherit; }
 .eyebrow a:hover { color: var(--text-primary); text-decoration: underline; text-underline-offset: 3px; }
 /* R7: a smaller H1 scale for posts (long titles): at most three lines at 390. */
-.title { max-width: 22ch; font-size: clamp(30px, 1.1rem + 2.4vw, 52px); line-height: 1.1; }
+.title { max-width: 24ch; font-size: clamp(30px, 1.1rem + 2.4vw, 48px); line-height: 1.1; } /* R9: 48px cap, a little wider */
 .title :global(.tone-2) { display: block; }
 .dek { margin-top: 20px; font-size: clamp(18px, 0.95rem + 0.3vw, 20px); line-height: 1.5; color: var(--text-secondary); }
 .byline { margin-top: 28px; padding: 16px 0; border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle); display: flex; flex-wrap: wrap; gap: 4px 20px; font: 400 14px/20px var(--font-sans); color: var(--text-tertiary); }

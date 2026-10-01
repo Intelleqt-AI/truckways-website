@@ -138,8 +138,8 @@ export default function Home() {
         <div className="wrap">
           <SectionHeader
             id="fit-h"
-            a="Your TMS runs the trucks."
-            b="We run the money."
+            a="Trucks in your TMS."
+            b="Money in TruckWys."
             line="No dispatch, no routing, nothing to rip out. TruckWys starts when a load is priced and ends when it is paid."
           />
           <FitDiagram />
@@ -158,7 +158,7 @@ export default function Home() {
           <SectionHeader
             id="steps-h"
             a="One record per load."
-            b="From the first price to the last rand."
+            b="Quote to last rand."
             line="Every load carries its price, its invoice, its payment and its margin, so the numbers always agree."
           />
           <StepSwitcher
@@ -174,8 +174,8 @@ export default function Home() {
         <div className="wrap">
           <SectionHeader
             id="leaks-h"
-            a="Money you have earned."
-            b="Not yet in the bank."
+            a="Money you earned."
+            b="Not in the bank yet."
             line="Overdue invoices never chased, invoices never sent, customers who stop paying. TruckWys ranks them by rand value."
           />
           <figure className="clipin">
@@ -198,7 +198,7 @@ export default function Home() {
       {/* 6. Everything in one plan (W). Copilot is one card here; its full band lives on /product and /product/ai. */}
       <section className="sec" aria-labelledby="plan-h">
         <div className="wrap">
-          <SectionHeader id="plan-h" a="Everything in one plan." b="And two more on the way." line="One subscription covers every module, for your whole team." />
+          <SectionHeader id="plan-h" a="All in one plan." b="Two more on the way." line="One subscription covers every module, for your whole team." />
           <ul className="cards list-reset">
             {CARDS.map(({ icon: Icon, name, line, href, fact }) => (
               <li key={name} className="reveal">

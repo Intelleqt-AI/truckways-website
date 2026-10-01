@@ -546,9 +546,9 @@ export function ReportsIndex() {
 }
 
 /* ================================================================ S10 profit and loss */
-export function ProfitLoss() {
+export function ProfitLoss({ summary }: { summary?: boolean } = {}) {
   const cols = [...PNL_MONTHS.slice(-3), PNL_TOTAL];
-  const rows: [string, (m: (typeof cols)[number]) => ReactNode, string?][] = [
+  const all: [string, (m: (typeof cols)[number]) => ReactNode, string?][] = [
     ['Revenue', () => '', 'group'],
     ['Sales', (m) => num(m.revenue), 'sub'],
     ['Direct costs', () => '', 'group'],
@@ -567,6 +567,9 @@ export function ProfitLoss() {
     ['Net profit', (m) => num(m.net), 'bold'],
     ['Net margin', (m) => `${num((m.net / m.revenue) * 100, 1)}%`, 'muted'],
   ];
+  // R9: the summary keeps the totals only (7 rows), so the mock stays short; the line items open from a disclosure.
+  const SUMMARY = ['Sales', 'Total direct costs', 'Gross profit', 'Gross margin', 'Total overheads', 'Net profit', 'Net margin'];
+  const rows = summary ? all.filter(([l]) => SUMMARY.includes(l)).map(([l, f, k]) => [l, f, k === 'sub' ? undefined : k] as typeof all[number]) : all;
   return (
     <div className="frag b-app cq">
       <div className="b-toolbar" style={{ marginTop: 0 }}>

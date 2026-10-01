@@ -16,6 +16,9 @@ const PHOTOS = {
   durban: { src: '/bands/durban-port.jpg', place: 'Port of Durban, KwaZulu-Natal', pos: '50% 50%', posPhone: '58% 50%' },
   midrand: { src: '/bands/about-n1-midrand.jpg', place: 'N1 at Midrand, Gauteng', pos: '50% 50%', posPhone: '50% 50%' },
   franschhoek: { src: '/bands/insurance-franschhoek-pass.jpg', place: 'Franschhoek Pass, Western Cape', pos: '50% 50%', posPhone: '50% 50%' },
+  // R9 (/insurance closing): the same licensed photo as the /insurance hero, but a different frame: the valley, the
+  // mountains and the cloud above the hero's crop, without the tanker. Toned by scratchpad fix-r9/grade/regrade.py.
+  'franschhoek-valley': { src: '/bands/insurance-franschhoek-valley.jpg', place: 'Franschhoek valley, Western Cape', pos: '50% 45%', posPhone: '50% 45%' },
 } as const;
 export type ClosingPhotoName = keyof typeof PHOTOS;
 
