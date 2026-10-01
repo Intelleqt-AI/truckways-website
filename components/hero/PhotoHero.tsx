@@ -34,7 +34,7 @@ export const HERO_COPY = {
 function Photo() {
   const common = { alt: '', fill: true, priority: true } as const;
   const { props: desk } = getImageProps({ ...common, src: '/hero/velddrif-desktop.jpg', quality: 62, sizes: 'calc(100vw - 32px)' });
-  const { props: band } = getImageProps({ ...common, src: '/hero/velddrif-band.jpg', quality: 55, sizes: '100vw' });
+  const { props: band } = getImageProps({ ...common, src: '/hero/velddrif-band.jpg', quality: 46, sizes: '100vw' });
   return (
     <>
       {/* Preload the right crop for the viewport so the LCP image starts with the document. */}

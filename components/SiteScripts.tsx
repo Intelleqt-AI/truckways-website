@@ -123,7 +123,14 @@ export default function SiteScripts() {
       els.forEach((el) => el.classList.add('is-in'));
     }
 
-    const stopParallax = parallax();
+    // Parallax is not needed for first paint: set it up when the main thread is idle (keeps hydration short).
+    let stopParallax = () => {};
+    const idle = (cb: () => void) =>
+      'requestIdleCallback' in window ? window.requestIdleCallback(cb, { timeout: 1500 }) : setTimeout(cb, 200);
+    let cancelled = false;
+    idle(() => {
+      if (!cancelled) stopParallax = parallax();
+    });
 
     // Nav hairline
     const nav = document.getElementById('site-nav');
@@ -147,6 +154,7 @@ export default function SiteScripts() {
 
     return () => {
       io?.disconnect();
+      cancelled = true;
       stopParallax();
       window.removeEventListener('scroll', onScroll);
       document.removeEventListener('click', onClick);
