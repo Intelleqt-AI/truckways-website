@@ -5,7 +5,7 @@ import { Closing } from '../../components/Blocks';
 import { FeatureHero, Stage, Split, NextCards } from '../../components/pages/blocks';
 import { IntegrationsSettings } from '../../components/pages/frags';
 import { pageMeta } from '../../components/pages/meta';
-import { jsonLd } from '../../lib/site';
+import { jsonLd, signupUrl } from '../../lib/site';
 import { graph, breadcrumbSchema } from '../../lib/schema';
 
 const PATH = '/integrations';
@@ -79,7 +79,7 @@ export default function IntegrationsPage() {
         b="you already run."
         lead="Connect your tracking, bring your lists across from Excel, and let your TMS send deliveries to TruckWys by API."
         frame={
-          <Stage label="Integration settings: Cartrack connected with 15 vehicles linked, CtrlFleet not connected, one active partner API key and one active webhook.">
+          <Stage photo="durban-port" label="Integration settings: Cartrack connected with 15 vehicles linked, CtrlFleet not connected, one active partner API key and one active webhook.">
             <IntegrationsSettings />
           </Stage>
         }
@@ -91,7 +91,7 @@ export default function IntegrationsPage() {
             id="list-h"
             a="What connects today."
             b="And what is next."
-            line="Names, not logos, and only what is live is marked Available. No hardware to install."
+            line="Live today, unless marked coming soon. No hardware to install."
           />
           <ul className="b-intlist b-intlist--six list-reset">
             {CARDS.map((c) => (
@@ -161,7 +161,15 @@ export default function IntegrationsPage() {
         read="fleet-management-software-south-africa-2026"
       />
 
-      <Closing page="integrations" />
+      <Closing
+        page="integrations"
+        variant="contact"
+        a="Building a TMS or telematics product?"
+        b="Talk to us about an integration."
+        line="Open API, signed webhooks and OpenAPI documentation for your developers. Tell us what you run, and we will reply by email."
+        primary={{ href: '/contact?topic=partner', label: 'Talk to us' }}
+        secondary={{ href: signupUrl('integrations-cta'), label: 'Get started' }}
+      />
     </>
   );
 }

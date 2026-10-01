@@ -2,7 +2,8 @@ import { ArrowRight } from 'lucide-react';
 import { TwoTone } from '../../components/ui';
 import { Closing } from '../../components/Blocks';
 import { pageMeta } from '../../components/pages/meta';
-import { CATEGORIES, FEATURED_SLUG, POSTS_SORTED, getPost, type Post } from '../../content/blog';
+import { CATEGORIES, FEATURED_SLUG, POSTS_SORTED, coverOf, getPost, type Post } from '../../content/blog';
+import { getImageProps } from 'next/image';
 import { SITE_URL, jsonLd } from '../../lib/site';
 import { graph, breadcrumbSchema, ids } from '../../lib/schema';
 import { date } from '../../lib/format';
@@ -46,20 +47,27 @@ const blog = {
   })),
 };
 
+/** A cover as a plain <img> from next/image (AVIF/WebP, srcset), decorative unless `alt` is given. */
+function CoverImg({ slug, sizes, className, eager }: { slug: string; sizes: string; className: string; eager?: boolean }) {
+  const c = coverOf(slug);
+  if (!c) return null;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { props: { style: _style, ...img } } = getImageProps({ src: c.src, alt: '', width: 1600, height: 900, quality: 62, sizes });
+  return <img {...img} alt="" className={className} loading={eager ? 'eager' : 'lazy'} decoding="async" />;
+}
+
 function Row({ p }: { p: Post }) {
   return (
     <li className={s.item}>
-      <a className={s.itemLink} href={`/blog/${p.slug}`}>
-        <span className={s.itemDate}>
-          Published <time dateTime={p.published}>{date(p.published)}</time>
-        </span>
+      <a className={`${s.itemLink} ${s.itemLinkThumb}`} href={`/blog/${p.slug}`}>
+        <CoverImg slug={p.slug} sizes="176px" className={s.thumb} />
         <span>
           <span className={s.itemTitle}>{p.title}</span>
           <span className={s.itemSummary} style={{ display: 'block' }}>
             {p.summary}
           </span>
           <span className={s.itemMeta} style={{ display: 'block' }}>
-            {p.readingMinutes} min read
+            Published <time dateTime={p.published}>{date(p.published)}</time> · {p.readingMinutes} min read
           </span>
         </span>
         <span className={s.itemArrow} aria-hidden="true">
@@ -98,7 +106,9 @@ export default function BlogPage() {
 
       <section className="sec" style={{ paddingTop: 0 }} aria-labelledby="featured-h">
         <div className="wrap">
-          <a className={s.featured} href={`/blog/${featured.slug}`}>
+          <a className={`${s.featured} ${s.featuredCover}`} href={`/blog/${featured.slug}`}>
+            <CoverImg slug={featured.slug} sizes="(max-width: 899px) calc(100vw - 32px), 560px" className={s.featuredImg} eager />
+            <span className={s.featuredText}>
             <span className={s.featuredLabel} id="featured-h">
               Start here · {featured.category}
             </span>
@@ -111,6 +121,7 @@ export default function BlogPage() {
               <span className={s.featuredGo}>
                 Read the article <ArrowRight strokeWidth={1.75} aria-hidden="true" />
               </span>
+            </span>
             </span>
           </a>
 

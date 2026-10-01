@@ -107,7 +107,6 @@ export default function CapitalPage() {
             <TextLink href="#how-h">How it will work</TextLink>
           </>
         }
-        note="TruckWys Capital is the name for the finance features we're building, starting with Fast Pay."
         frame={
           <Stage photo="durban-port" label="An invoice raised on delivery of a load: bill to, issue and due dates, 30-day terms, the charges, VAT at 15% and the total due.">
             <InvoiceDetail />
@@ -187,19 +186,20 @@ export default function CapitalPage() {
                 ['Who pays you', 'Not TruckWys. TruckWys is not a credit provider. Financing would come from an independent invoice-finance provider.'],
                 ['Approval', "On that provider's own terms, fees and credit checks."],
                 ['Until then', 'Your customers pay you by EFT, straight into your own account.'],
+                ['The name', "TruckWys Capital is the name for the finance features we're building, starting with Fast Pay."],
               ]}
             />
           </Split>
         </div>
       </section>
 
-      <section className="sec" style={{ paddingTop: 0 }} aria-label="Questions about Fast Pay">
+      <section className="sec b-faqsec" aria-label="Questions about Fast Pay">
         <div className="wrap">
           <Faq a="Fast Pay" b="questions." items={FAQ} />
         </div>
       </section>
 
-      <Closing page="capital" variant="notify" notifyHref="/contact?topic=fast-pay" a="Be first to know." b="When Fast Pay opens." />
+      <Closing page="capital" variant="notify" photo="durban" notifyHref="/contact?topic=fast-pay" a="Be first to know." b="When Fast Pay opens." />
     </>
   );
 }

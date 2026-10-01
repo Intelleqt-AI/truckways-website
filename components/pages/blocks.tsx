@@ -161,9 +161,9 @@ export function Split({ id, a, b, line, children }: { id: string; a: ReactNode; 
   );
 }
 
-export function DL({ rows }: { rows: [ReactNode, ReactNode][] }) {
+export function DL({ rows, two }: { rows: [ReactNode, ReactNode][]; /** R8: two columns of rows from 1024px (/about security). */ two?: boolean }) {
   return (
-    <dl className="b-dl">
+    <dl className={`b-dl${two ? ' b-dl--two' : ''}`}>
       {rows.map(([k, v], i) => (
         <div key={i}>
           <dt>{k}</dt>
@@ -264,12 +264,14 @@ export function NextCards({ next, read }: { next: { href: string; title: string;
  * R7 photo-led hero (/insurance, /about): the page's H1 on a SHARP, graded South African photo (owner rule:
  * full-width photo bands use sharp photos; the blurred Backdrop is only for behind product frames), in an inset
  * rounded frame like the closing band. A left-side scrim darkens only behind the text (4.5:1 or better, measured).
- * Photos: public/bands/*.jpg, each credited where it is used.
+ * Photos: public/bands/*.jpg or public/covers/pages/*.jpg (R8 regrades), each credited where it is used.
  */
 export function PhotoHero({
-  src, position = '50% 50%', eyebrow, a, b, lead, actions, note, place,
+  src, position = '50% 50%', eyebrow, a, b, lead, actions, note, place, align = 'bottom',
 }: {
-  /** A file in public/bands. */
+  /** R8: 'top' puts the text at the top left (the subject of the photo sits low, e.g. /insurance). */
+  align?: 'top' | 'bottom';
+  /** A file in public/bands or public/covers/pages. */
   src: string;
   /** object-position for the crop. */
   position?: string;
@@ -285,7 +287,7 @@ export function PhotoHero({
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { props: { style: _style, ...img } } = getImageProps({ src, alt: '', fill: true, quality: 70, sizes: 'calc(100vw - 16px)', priority: true });
   return (
-    <section className="b-phero" aria-labelledby="page-h1">
+    <section className={`b-phero${align === 'top' ? ' b-phero--top' : ''}`} aria-labelledby="page-h1">
       <div className="b-phero__frame" data-theme="dark">
         <img {...img} className="b-phero__img" alt="" style={{ objectPosition: position }} />
         <div className="b-phero__scrim" aria-hidden="true" />
@@ -297,6 +299,49 @@ export function PhotoHero({
           {note ? <p className="small b-hero__note">{note}</p> : null}
         </div>
         {place ? <p className="b-phero__place">{place}</p> : null}
+      </div>
+    </section>
+  );
+}
+
+/**
+ * R8 mid-page photo band (/product): one SHARP, graded South African photo, full width in an inset rounded frame,
+ * with a short statement. Darkened only behind the text (left scrim on desktop, bottom scrim on phones); contrast
+ * measured at 4.5:1 or better. Never place it next to another dark band (closing, photo hero, Fast Pay).
+ */
+export function PhotoBand({
+  id, src, position = '50% 50%', positionPhone, a, b, line, place,
+}: {
+  id: string;
+  /** A file in public/bands or public/covers/pages. */
+  src: string;
+  position?: string;
+  positionPhone?: string;
+  a: ReactNode;
+  b?: ReactNode;
+  line?: ReactNode;
+  place?: string;
+}) {
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { props: { style: _style, ...img } } = getImageProps({ src, alt: '', fill: true, quality: 65, sizes: 'calc(100vw - 16px)' });
+  return (
+    <section className="b-band" aria-labelledby={id}>
+      <div className="b-band__frame" data-theme="dark" data-pframe>
+        <img
+          {...img}
+          className="b-band__img"
+          alt=""
+          loading="lazy"
+          decoding="async"
+          data-parallax="0.06"
+          style={{ ['--pos' as string]: position, ['--pos-phone' as string]: positionPhone ?? position }}
+        />
+        <div className="b-band__scrim" aria-hidden="true" />
+        <div className="b-band__text reveal">
+          <TwoTone id={id} a={a} b={b} />
+          {line ? <p>{line}</p> : null}
+        </div>
+        {place ? <p className="b-band__place">{place}</p> : null}
       </div>
     </section>
   );

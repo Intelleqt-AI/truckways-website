@@ -111,7 +111,7 @@ export default function DebtorsPage() {
 
       <section className="sec" aria-labelledby="spec-h">
         <div className="wrap">
-          <Split id="spec-h" a="The specifics." line="Everything on this list is in the product today.">
+          <Split id="spec-h" a="The details." line="How ageing, statements and reminders work today.">
             <DL
               rows={[
                 ['Debtors age', 'Current, 1 to 30, 31 to 60, 61 to 90 and over 90 days. Incl. VAT, aged by due date, as at any date.'],
@@ -126,7 +126,7 @@ export default function DebtorsPage() {
         </div>
       </section>
 
-      <section className="sec" style={{ paddingTop: 0 }} aria-label="Questions about debtors">
+      <section className="sec b-faqsec" aria-label="Questions about debtors">
         <div className="wrap">
           <Faq a="Debtors" b="questions." items={FAQ} />
         </div>

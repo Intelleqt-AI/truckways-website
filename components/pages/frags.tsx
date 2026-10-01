@@ -117,7 +117,8 @@ export function QuotesBoard() {
 }
 
 /* ================================================================ S3 quote builder, top of form */
-export function QuoteForm() {
+/** compact (R8, /product/ai): just the typed sentence, the Fill button and the three fields it filled. */
+export function QuoteForm({ compact }: { compact?: boolean } = {}) {
   // [label, value, required, wide]: wide fields take two of the four columns (or the whole row of two), so names never clip.
   const fields: [string, string, boolean, boolean][] = [
     ['Client', QUOTE.customer, true, true],
@@ -129,9 +130,10 @@ export function QuoteForm() {
     ['Delivery date', 'DD/MM/YYYY', false, false],
     ['Vehicle type', `${QUOTE.vehicle} (${QUOTE.vehicleCap})`, false, true],
   ];
+  const shown = compact ? fields.filter(([l]) => l === 'Client' || l === 'Collection' || l === 'Delivery') : fields;
   return (
-    <div className="frag b-app cq">
-      <AppHead title="New quote" back="Quote · Auto-saves in this browser" />
+    <div className={`frag b-app cq${compact ? ' b-app--compact' : ''}`}>
+      {compact ? null : <AppHead title="New quote" back="Quote · Auto-saves in this browser" />}
       <div className="b-describe">
         <MessageCircle strokeWidth={S} aria-hidden="true" />
         <span className="b-describe__text">28 t palletised floor tiles, City Deep to Prospecton, superlink</span>
@@ -141,7 +143,7 @@ export function QuoteForm() {
         <span className="tw-btn tw-btn--primary">Fill</span>
       </div>
       <div className="b-form">
-        {fields.map(([l, v, req, wide]) => (
+        {shown.map(([l, v, req, wide]) => (
           <div className={`b-field${wide ? ' b-field--wide' : ''}`} key={l}>
             <span className="b-field__label">
               {l}
@@ -154,6 +156,7 @@ export function QuoteForm() {
             </span>
           </div>
         ))}
+        {compact ? null : (
         <div className="b-field b-field--row">
           <span className="b-field__label">Trip</span>
           <span className="tw-seg b-trip">
@@ -161,6 +164,7 @@ export function QuoteForm() {
             <span>Round</span>
           </span>
         </div>
+        )}
       </div>
     </div>
   );
@@ -890,7 +894,7 @@ export function IntegrationsSettings() {
             <span className="tw-btn tw-btn--sm">Add webhook</span>
           </div>
           <div className="tw-row b-intg__key">
-            <span className="tw-13 b-ellipsis">https://your-tms.example/webhooks/truckwys</span>
+            <span className="tw-13 b-ellipsis">https://tms.yourcompany.co.za/webhooks/truckwys</span>
             <Status tone="success">Active</Status>
           </div>
         </div>

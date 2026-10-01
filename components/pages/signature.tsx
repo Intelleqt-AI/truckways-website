@@ -33,7 +33,7 @@ export function SigTolls() {
   return (
     <Band
       id="sig-h"
-      a="Johannesburg to Durban."
+      a="Joburg to Durban."
       b="Five plazas, priced."
       line="A superlink pays class 4. Each plaza is named on the quote, and the tolls go in excl. VAT because you claim the VAT back."
       label={`The N3 from Johannesburg to Durban for a class 4 vehicle: ${N3_PLAZAS.map((p) => `${p.name} ${rand(p.tariffIncl, { cents: true })}`).join(', ')}. ${rand(N3_TOTAL_INCL, { cents: true })} incl. VAT, ${rand(N3_TOTAL_EX, { cents: true })} excl. VAT into the quote.`}

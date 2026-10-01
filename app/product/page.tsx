@@ -1,9 +1,9 @@
 import type { Metadata } from 'next';
-import { ArrowRight } from 'lucide-react';
+import { ArrowRight, Check } from 'lucide-react';
 import '../../components/pages/pages-b.css';
-import { SectionHeader, TextLink } from '../../components/ui';
+import { SectionHeader, TextLink, TwoTone } from '../../components/ui';
 import { Closing } from '../../components/Blocks';
-import { FeatureHero, Stage, DL, FastPayCard } from '../../components/pages/blocks';
+import { FeatureHero, Stage, DL, FastPayCard, PhotoBand } from '../../components/pages/blocks';
 import { QuotesBoard, MiniCost, MiniInvoice, MiniAge, MiniLanes, TeamSettings } from '../../components/pages/frags';
 import PhoneShot from '../../components/PhoneShot';
 import StoreBadges from '../../components/StoreBadges';
@@ -144,24 +144,55 @@ export default function ProductPage() {
         </div>
       </section>
 
-      {/* 5. Mobile (W): the real S2 phone capture beside the copy. R7: a standard section H2. */}
-      <section className="sec sec--grey" aria-labelledby="mobile-h">
-        <div className="wrap">
-          <SectionHeader id="mobile-h" a="The same numbers." b="On your phone." />
-          <div className="b-row">
-            <div className="b-row__text reveal">
-              {/* VERIFY Q16: the iPhone app's exact feature list before adding more. */}
-              <p>
-                See cash, overdue invoices and quotes on the move, on the same account. The web app works in any phone browser too.
-              </p>
-              <div className="b-app-row">
-                <StoreBadges loc="product" />
-              </div>
+      {/*
+        R8: one sharp photo band mid-page. "Drone shot of a port during the day", Durban harbour, by Magda Ehlers
+        (https://www.pexels.com/@magda-ehlers-pexels), https://www.pexels.com/photo/drone-shot-of-a-port-during-the-day-3814211/
+        Pexels Licence (free commercial use, no attribution required). Cropped to the rail sidings and quay road (the
+        car carrier's hull lettering is outside the crop), saturation 0.68, slightly darker and cooler.
+        Master: public/covers/pages/product-durban-rail.jpg.
+      */}
+      <PhotoBand
+        id="sa-h"
+        src="/covers/pages/product-durban-rail.jpg"
+        position="50% 50%"
+        positionPhone="62% 50%"
+        a="Built for South Africa."
+        b="SANRAL tolls, FIASA diesel, 15% VAT."
+        line="The rules that set your price are South African, and each one is a line you can check."
+        place="Port of Durban, KwaZulu-Natal"
+      />
+
+      {/* 5. Mobile (W): the real S2 phone capture beside the copy. R8: text top-aligned with the phone, a larger phone
+          cropped by the section's bottom edge on desktop, so there is no empty column. */}
+      <section className="sec sec--grey b-mobile" aria-labelledby="mobile-h">
+        <div className="wrap b-mobile__grid">
+          <div className="b-mobile__text reveal">
+            <TwoTone id="mobile-h" a="The same numbers." b="On your phone." />
+            {/* VERIFY Q16: the iPhone app's exact feature list before adding more. The three points are what the S2 capture shows. */}
+            <p className="body">
+              See cash, overdue invoices and quotes on the move, on the same account. The web app works in any phone browser too.
+            </p>
+            <ul className="b-checks list-reset">
+              <li>
+                <Check strokeWidth={1.75} aria-hidden="true" />
+                What you are owed, and how much is past due
+              </li>
+              <li>
+                <Check strokeWidth={1.75} aria-hidden="true" />
+                Revenue and margin over the last 12 months
+              </li>
+              <li>
+                <Check strokeWidth={1.75} aria-hidden="true" />
+                Active loads, and a new quote one tap away
+              </li>
+            </ul>
+            <div className="b-app-row">
+              <StoreBadges loc="product" />
             </div>
-            <figure className="b-row__vis b-phonefig reveal">
-              <PhoneShot scale={0.72} />
-            </figure>
           </div>
+          <figure className="b-mobile__vis reveal">
+            <PhoneShot scale={0.92} />
+          </figure>
         </div>
       </section>
 
@@ -186,7 +217,7 @@ export default function ProductPage() {
                       .
                     </>,
                   ],
-                  // TODO(owner) Q5: add a Hosting row once the production region is confirmed.
+                  ['Hosting', `${FACTS.hosting}. Your data stays in South Africa.`],
                 ]}
               />
             </div>

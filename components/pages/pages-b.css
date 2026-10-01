@@ -254,6 +254,9 @@ a.b-hubcard:hover .b-hubcard__more svg { transform: translateX(2px); }
 .b-field--row .b-trip { width: min(100%, 360px); }
 .b-trip span { flex: 1; justify-content: center; height: 34px; font-size: 14px; }
 @container (max-width: 760px) { .b-form { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+/* R8 compact form (/product/ai): the sentence, Fill, and the three fields it filled, one per row. */
+.b-app--compact .b-form { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+.b-app--compact .b-field--wide { grid-column: auto; }
 @container (max-width: 420px) {
   .b-describe { flex-wrap: wrap; }
   .b-describe__text { flex-basis: calc(100% - 40px); }
@@ -743,7 +746,88 @@ a.b-hubcard:hover .b-hubcard__more svg { transform: translateX(2px); }
 .b-phero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; color: transparent; }
 .b-phero__scrim { background: linear-gradient(90deg, rgba(11, 12, 14, 0.78) 0%, rgba(11, 12, 14, 0.55) 45%, rgba(11, 12, 14, 0.12) 80%, rgba(11, 12, 14, 0) 100%), linear-gradient(180deg, rgba(11, 12, 14, 0.25) 0%, rgba(11, 12, 14, 0) 25%, rgba(11, 12, 14, 0) 55%, rgba(11, 12, 14, 0.45) 100%); }
 @media (max-width: 767px) { .b-phero__scrim { background: linear-gradient(180deg, rgba(11, 12, 14, 0.45) 0%, rgba(11, 12, 14, 0.62) 40%, rgba(11, 12, 14, 0.8) 100%); } }
-.b-phero__scrim { background: linear-gradient(90deg, rgba(11, 12, 14, 0.8) 0%, rgba(11, 12, 14, 0.66) 50%, rgba(11, 12, 14, 0.25) 80%, rgba(11, 12, 14, 0.05) 100%), linear-gradient(180deg, rgba(11, 12, 14, 0.25) 0%, rgba(11, 12, 14, 0) 25%, rgba(11, 12, 14, 0) 55%, rgba(11, 12, 14, 0.45) 100%); }
+/* R8: stops in px so the scrim always covers the text column (about 880px from the frame's edge) and the rest of the photo stays bright. */
+.b-phero__scrim { background: linear-gradient(90deg, rgba(11, 12, 14, 0.82) 0px, rgba(11, 12, 14, 0.7) 860px, rgba(11, 12, 14, 0.08) 1180px, rgba(11, 12, 14, 0) 100%), linear-gradient(180deg, rgba(11, 12, 14, 0.2) 0%, rgba(11, 12, 14, 0) 25%, rgba(11, 12, 14, 0) 60%, rgba(11, 12, 14, 0.3) 100%); }
 @media (max-width: 767px) { .b-phero__scrim { background: linear-gradient(180deg, rgba(11, 12, 14, 0.45) 0%, rgba(11, 12, 14, 0.62) 40%, rgba(11, 12, 14, 0.8) 100%); } }
 .b-phero__text .lead { color: rgba(255, 255, 255, 0.92); }
 .b-phero__place { padding: 2px 10px; border-radius: 999px; background: rgba(11, 12, 14, 0.6); color: rgba(255, 255, 255, 0.9); }
+
+/* ------------------------------------------------------------ R8 /product mobile section */
+.b-mobile__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--web-col-gap); row-gap: 40px; align-items: start; }
+.b-mobile__text { grid-column: 1 / 7; }
+.b-mobile__text > .body { margin-top: 20px; max-width: 46ch; color: var(--text-secondary); }
+.b-mobile__text .b-checks { margin-top: 24px; }
+.b-mobile__text .b-app-row { margin-top: 32px; }
+.b-mobile__vis { grid-column: 8 / 13; display: flex; justify-content: center; margin: 0; }
+@media (min-width: 1024px) {
+  /* The phone runs off the section's bottom edge: the frame is cropped, never the screen's top. */
+  .b-mobile { padding-bottom: 0; }
+  .b-mobile__vis { height: 600px; overflow: hidden; align-self: end; }
+}
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .b-mobile__text { grid-column: 1 / 8; }
+  .b-mobile__vis { grid-column: 8 / 13; }
+  .b-mobile__vis .phoneshot { --ps: 0.82 !important; }
+}
+@media (max-width: 1023px) {
+  .b-mobile__text, .b-mobile__vis { grid-column: 1 / -1; }
+  .b-mobile__vis .phoneshot { --ps: 0.8 !important; }
+}
+@media (max-width: 639px) {
+  .b-mobile__vis .phoneshot { --ps: 0.7 !important; }
+}
+
+/* ------------------------------------------------------------ R8 mid-page photo band (PhotoBand) */
+.b-band { padding: 0 16px var(--web-section-y); background: var(--web-bg); }
+.b-band__frame {
+  position: relative; isolation: isolate; overflow: hidden; border-radius: var(--radius-dialog);
+  min-height: clamp(420px, 34vw, 520px); display: flex; align-items: center;
+  background: #15181D; color: #FFFFFF;
+  padding: 64px max(calc(var(--web-gutter) - 16px), calc((100% - var(--web-container)) / 2));
+}
+.b-band__img { position: absolute; left: 0; top: -10%; width: 100%; height: 120%; object-fit: cover; object-position: var(--pos, 50% 50%); z-index: -2; color: transparent; }
+.b-band__scrim { position: absolute; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(90deg, rgba(11, 12, 14, 0.86) 0%, rgba(11, 12, 14, 0.8) 46%, rgba(11, 12, 14, 0.3) 72%, rgba(11, 12, 14, 0) 100%); }
+.b-band__text { position: relative; max-width: 880px; }
+.b-band__text .h2 { color: #FFFFFF; text-wrap: balance; }
+.b-band__text .h2 > .tone-2 { display: block; color: rgba(255, 255, 255, 0.84); }
+.b-band__text p { margin-top: 20px; font: 400 17px/27px var(--font-sans); color: rgba(255, 255, 255, 0.9); max-width: 46ch; }
+.b-band__place { position: absolute; right: 20px; bottom: 20px; padding: 2px 10px; border-radius: 999px; background: rgba(11, 12, 14, 0.6); font: 500 13px/18px var(--font-sans); color: rgba(255, 255, 255, 0.9); }
+@media (max-width: 767px) {
+  .b-band { padding: 0 8px var(--web-section-y); }
+  .b-band__frame { min-height: 480px; align-items: flex-end; padding: 72px 20px 64px; }
+  .b-band__img { object-position: var(--pos-phone, 50% 50%); }
+  .b-band__scrim { background: linear-gradient(180deg, rgba(11, 12, 14, 0.1) 0%, rgba(11, 12, 14, 0.55) 40%, rgba(11, 12, 14, 0.86) 100%); }
+  .b-band__place { top: 16px; bottom: auto; right: 16px; }
+}
+
+/* R8 feature pages: a hairline between the specifics and the FAQ; long two-tone heads balance their lines. */
+.sec.b-faqsec { padding-top: 0; }
+.b-faqsec > .wrap { border-top: 1px solid var(--border-subtle); padding-top: var(--web-section-y); }
+.b-hero .h1, .shead > .h2, .b-split__head .h2, .sig .h2 { text-wrap: balance; }
+
+/* R8 PhotoHero align="top" (/insurance): text top left, the photo's subject (the tanker) stays clear at the bottom.
+   The scrim darkens the top-left corner only, so the rest of the photo keeps its brighter grade. */
+.b-phero--top .b-phero__frame { align-items: flex-start; padding-top: clamp(72px, 7vw, 112px); }
+.b-phero--top .b-phero__scrim { background: linear-gradient(90deg, rgba(11, 12, 14, 0.82) 0%, rgba(11, 12, 14, 0.68) 42%, rgba(11, 12, 14, 0.1) 72%, rgba(11, 12, 14, 0) 100%), linear-gradient(180deg, rgba(11, 12, 14, 0.45) 0%, rgba(11, 12, 14, 0.15) 55%, rgba(11, 12, 14, 0) 75%); }
+.b-phero--top .b-phero__place { top: auto; bottom: 20px; }
+@media (max-width: 767px) {
+  .b-phero--top .b-phero__frame { padding-top: 48px; padding-bottom: 200px; }
+  .b-phero--top .b-phero__scrim { background: linear-gradient(180deg, rgba(11, 12, 14, 0.88) 0%, rgba(11, 12, 14, 0.74) 62%, rgba(11, 12, 14, 0.1) 85%, rgba(11, 12, 14, 0) 100%); }
+}
+
+/* R8 /about security: the full width, rows in two columns from 1024px. */
+.b-duo__b--full { grid-column: 1 / -1; }
+@media (min-width: 1024px) {
+  .b-dl--two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--web-col-gap); border-top: 0; }
+  .b-dl--two > div { grid-template-columns: 8.5rem minmax(0, 1fr); }
+  .b-dl--two > div:nth-child(-n + 2) { border-top: 1px solid var(--border-default); }
+}
+
+/* R8 /pricing: the timeline's first step is ink, not blue (blue is for buttons and links). */
+.tl--neutral > .tl__item:first-child .tl__when { color: var(--text-primary); }
+.tl--neutral > .tl__item:first-child .tl__node { background: var(--text-primary); color: var(--web-bg); }
+/* R8: calm page heroes (/pricing, /contact, /blog) keep a short H1 to two lines at 360 to 400. */
+@media (max-width: 400px) { .phero .h1 { font-size: 9.8vw; } }
+
+/* R8: the eyebrow on photo heroes at 4.5:1 or better on the brighter grades. */
+.b-phero__text .label { color: rgba(255, 255, 255, 0.92); }

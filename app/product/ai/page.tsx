@@ -80,7 +80,7 @@ export default function AiPage() {
         page="ai"
         eyebrow="AI in TruckWys"
         a="Ask your numbers."
-        b="You approve every change."
+        b="You sign off."
         lead="TruckWys uses a model in three places: Copilot, a load you type in plain words, and your win chance. The price, the tolls and the VAT never come from a model."
         frame={
           <Stage photo="n1-midrand" label="Copilot answering who owes the most right now from the company's invoices, with the source and buttons to view the invoice or draft a reminder.">
@@ -112,14 +112,14 @@ export default function AiPage() {
               title="Type a load the way you'd say it"
               body={
                 <>
-                  &ldquo;20 t steel, JHB to Cape Town, flatbed, Tuesday&rdquo; fills the quote form: customer, weight, collection, delivery,
-                  date and vehicle. A language model reads the words. The price still comes from your costs.
+                  &ldquo;28 t palletised floor tiles, City Deep to Prospecton, superlink&rdquo; fills the quote form: customer, weight,
+                  collection, delivery, date and vehicle. A language model reads the words. The price still comes from your costs.
                 </>
               }
               points={['You check every field before you price', 'Type it, or say it into the microphone']}
             >
-              <Stage label="The quote builder with a typed load description, and the form filled in: customer, weight, collection and delivery, dates, vehicle type and a one-way trip.">
-                <QuoteForm />
+              <Stage label="A typed load description, the Fill button, and the fields it filled: customer, collection and delivery.">
+                <QuoteForm compact />
               </Stage>
             </FeatureRow>
             <FeatureRow
@@ -142,7 +142,7 @@ export default function AiPage() {
           <SectionHeader
             id="rules-h"
             a="Where it's a rule."
-            b="Same answer every time."
+            b="One answer, every time."
             line="Anything that sets a price, a tax or the tone of a reminder is a rule or a formula. You can check each one by hand."
           />
           <ul className="b-rules b-rules--tiles list-reset">

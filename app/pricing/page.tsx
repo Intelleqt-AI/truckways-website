@@ -123,7 +123,6 @@ export default function PricingPage() {
       <section className="sec" style={{ paddingTop: 0 }} aria-label="The plan">
         <div className="wrap plan">
           <div className="plan__card">
-            <p className="plan__name">TruckWys Fleet</p>
             <div className="plan__fig">
               <span className="figure-big" style={{ color: 'var(--text-primary)' }}>{PRICE}</span>
               <span>per month</span>
@@ -199,7 +198,7 @@ export default function PricingPage() {
             b="Just your lists and rates."
             line="Nothing to install and nothing to rip out. You set it up yourself, and we are a message away."
           />
-          <ol className="tl tl--3x2 list-reset reveal">
+          <ol className="tl tl--3x2 tl--neutral list-reset reveal">
             {TIMELINE.map((s, i) => (
               <li className="tl__item" key={s.t}>
                 <span className="tl__node" aria-hidden="true">
@@ -213,11 +212,6 @@ export default function PricingPage() {
               </li>
             ))}
           </ol>
-          <div className="tl__more">
-            <TextLink href="/contact?topic=fleet-50" cta="talk_to_us" loc="pricing_setup">
-              Talk to us if you run 50 or more trucks
-            </TextLink>
-          </div>
         </div>
       </section>
 

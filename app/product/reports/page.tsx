@@ -122,7 +122,7 @@ export default function ReportsPage() {
           <SectionHeader
             id="insights-h"
             a="Insights."
-            b="Ranked by the rand at stake."
+            b="Biggest rand first."
             line="Profit this period, net margin by month, invoice to cash, who pays late, revenue by truck and revenue per km by lane. Rules and sums, not a model."
           />
           <FeatureRow
@@ -139,7 +139,7 @@ export default function ReportsPage() {
 
       <section className="sec" aria-labelledby="spec-h">
         <div className="wrap">
-          <Split id="spec-h" a="The specifics." line="Everything on this list is in the product today.">
+          <Split id="spec-h" a="Under the hood." line="Where each figure comes from, as it works today.">
             <DL
               rows={[
                 ['Reports', FACTS.reportNames.join(', ')],
@@ -153,7 +153,7 @@ export default function ReportsPage() {
         </div>
       </section>
 
-      <section className="sec" style={{ paddingTop: 0 }} aria-label="Questions about reports">
+      <section className="sec b-faqsec" aria-label="Questions about reports">
         <div className="wrap">
           <Faq a="Reports" b="questions." items={FAQ} />
         </div>

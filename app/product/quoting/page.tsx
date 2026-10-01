@@ -55,7 +55,7 @@ export default function QuotingPage() {
         crumbs={CRUMBS}
         page="quoting"
         eyebrow="Quoting"
-        a="Quote from real costs,"
+        a="Price what it costs,"
         b="not last year's rate."
         lead="Pick the customer, truck and route. TruckWys adds up diesel, tolls, allowance and your rate, and flags a quote under a 12% margin before you send it."
         frame={
@@ -89,7 +89,7 @@ export default function QuotingPage() {
         <div className="wrap">
           <SectionHeader
             id="detail-h"
-            a="Real South African costs."
+            a="South African costs."
             b="Traced line by line."
             line="Diesel from FIASA, tolls from the SANRAL tariffs and your own rates. Every line can be traced."
           />
@@ -109,7 +109,7 @@ export default function QuotingPage() {
 
       <section className="sec" aria-labelledby="spec-h">
         <div className="wrap">
-          <Split id="spec-h" a="The specifics." line="Everything on this list is in the product today.">
+          <Split id="spec-h" a="In the product today." line="Each line below is live now, on the one plan.">
             <DL
               rows={[
                 ['Tolls', `${FACTS.tollPlazas} SANRAL mainline plazas on the N1, N2, N3, N4, N17 and R30, by class 1 to 4, at the tariffs effective 1 March 2026, named plaza by plaza. Excl. VAT. Gauteng e-tolls are left out: they ended in April 2024.`],
@@ -127,7 +127,7 @@ export default function QuotingPage() {
         </div>
       </section>
 
-      <section className="sec" style={{ paddingTop: 0 }} aria-label="Questions about quoting">
+      <section className="sec b-faqsec" aria-label="Questions about quoting">
         <div className="wrap">
           <Faq a="Quoting" b="questions." items={FAQ} />
         </div>

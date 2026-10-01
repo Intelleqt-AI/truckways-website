@@ -150,3 +150,24 @@
   .title { font-size: 28px; line-height: 1.12; }
   .title :global(.tone-2) { display: inline; }
 }
+
+/* R8: covers. A cropped, graded licensed photo per post (content/blog/covers.ts). */
+.featuredCover { padding: 0; overflow: hidden; grid-template-columns: minmax(0, 1fr); gap: 0; }
+.featuredText { display: grid; gap: 12px; padding: 32px 40px 40px; align-content: center; }
+.featuredImg { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; }
+@media (min-width: 900px) {
+  .featuredCover { grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); }
+  .featuredImg { order: 2; height: 100%; min-height: 340px; aspect-ratio: auto; }
+  .featuredText { padding: 48px; }
+}
+@media (max-width: 639px) { .featuredText { padding: 20px 20px 24px; } }
+.itemLinkThumb { grid-template-columns: 176px minmax(0, 1fr) 44px; }
+.thumb { display: block; width: 176px; height: 99px; border-radius: 8px; object-fit: cover; background: var(--bg-deep); }
+@media (max-width: 767px) {
+  .itemLinkThumb { grid-template-columns: 96px minmax(0, 1fr); column-gap: 16px; }
+  .thumb { width: 96px; height: 72px; }
+}
+/* Post header cover, under the byline. */
+.cover { margin: 32px 0 0; }
+.cover img { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; border-radius: var(--radius-card); background: var(--bg-deep); }
+.cover figcaption { margin-top: 8px; font: 400 13px/18px var(--font-sans); color: var(--text-tertiary); }

@@ -66,7 +66,7 @@ export default function InvoicingPage() {
 
       <section className="sec" aria-labelledby="answers-h">
         <div className="wrap">
-          <SectionHeader id="answers-h" a="What it answers." b="The day the load delivers." />
+          <SectionHeader id="answers-h" a="What it answers." b="On the day it delivers." />
           <Answers
             items={[
               { q: 'Did we invoice that load?', fig: INVOICE.number, note: `raised on delivery, ${date(INVOICE.issued)}`, a: 'Every delivered load gets its invoice, numbered and linked back to the load it came from.' },
@@ -84,7 +84,7 @@ export default function InvoicingPage() {
           <SectionHeader
             id="detail-h"
             a="No retyping."
-            b="No invoice left in the cab."
+            b="No invoice left behind."
             line="The invoice takes the customer, route, rate and VAT from the load. You check it and send it."
           />
           <div className="b-rows">
@@ -114,7 +114,7 @@ export default function InvoicingPage() {
 
       <section className="sec" aria-labelledby="spec-h">
         <div className="wrap">
-          <Split id="spec-h" a="The specifics." line="Everything on this list is in the product today.">
+          <Split id="spec-h" a="What it does, exactly." line="The invoice rules, as they work today.">
             <DL
               rows={[
                 ['When', 'Raised the moment a load is marked delivered, in TruckWys or by your TMS through the API.'],
@@ -130,7 +130,7 @@ export default function InvoicingPage() {
         </div>
       </section>
 
-      <section className="sec" style={{ paddingTop: 0 }} aria-label="Questions about invoicing">
+      <section className="sec b-faqsec" aria-label="Questions about invoicing">
         <div className="wrap">
           <Faq a="Invoicing" b="questions." items={FAQ} />
         </div>

@@ -5,7 +5,8 @@ import { existsSync } from 'node:fs';
 import { join } from 'node:path';
 import { TextLink } from '../../../components/ui';
 import { Breadcrumbs, Closing } from '../../../components/Blocks';
-import { POSTS, getPost, relatedPosts } from '../../../content/blog';
+import { POSTS, coverOf, getPost, relatedPosts } from '../../../content/blog';
+import { getImageProps } from 'next/image';
 import { OG_BASE, SITE_URL, jsonLd } from '../../../lib/site';
 import { graph, breadcrumbSchema, faqSchema, ids } from '../../../lib/schema';
 import { date } from '../../../lib/format';
@@ -127,6 +128,12 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
     citation: g.sources.map((x) => x.url),
   };
   const { out, toc } = withAnchors(g.body);
+  // R8: the post's cover photo (content/blog/covers.ts), under the byline.
+  const cover = coverOf(g.slug);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { style: _style, ...coverImg } = cover
+    ? getImageProps({ src: cover.src, alt: cover.alt, width: 1600, height: 900, quality: 62, priority: true, sizes: '(max-width: 1023px) calc(100vw - 32px), 760px' }).props
+    : { style: undefined };
   const others = relatedPosts(g);
   const faq = g.faq?.length ? faqSchema(g.faq) : null;
 
@@ -156,6 +163,11 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
               </span>
               <span>{g.readingMinutes} min read</span>
             </p>
+            {cover ? (
+              <figure className={s.cover}>
+                <img {...coverImg} alt={cover.alt} fetchPriority="high" decoding="async" />
+              </figure>
+            ) : null}
 
             <div className={s.body}>{out}</div>
 

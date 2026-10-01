@@ -42,3 +42,4 @@ export function relatedPosts(post: Post, n = 3) {
   const others = POSTS_SORTED.filter((p) => p.slug !== post.slug);
   return [...others.filter((p) => p.category === post.category), ...others.filter((p) => p.category !== post.category)].slice(0, n);
 }
+export { coverOf, type Cover } from './covers';

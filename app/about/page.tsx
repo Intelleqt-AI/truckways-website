@@ -60,8 +60,9 @@ export default function AboutPage() {
       <PhotoHero
         // "N1 route just passing Midrand", by Clayton Majona (https://unsplash.com/@phathisile),
         // https://unsplash.com/photos/a-highway-filled-with-lots-of-traffic-under-a-cloudy-sky-VUEaEIZn4U4, Unsplash Licence.
-        // Cropped to the road and sky (no plates or brand boards), desaturated and darkened.
-        src="/bands/about-n1-midrand.jpg"
+        // Cropped to the road and sky (no plates or brand boards). R8: brighter grade (brightness 1.32, contrast 1.12,
+        // saturation 0.72); the scrim darkens only behind the text.
+        src="/covers/pages/about-n1-midrand.jpg"
         position="50% 60%"
         eyebrow="About TruckWys"
         a="The money side"
@@ -129,14 +130,15 @@ export default function AboutPage() {
         <div className="wrap">
           <SectionHeader id="security-h" a="Security and POPIA." b="Who sees what." line="How you sign in, and what happens to your data." />
           <div className="b-duo">
-            <div className="b-duo__b b-duo__b--wide reveal">
-              <DL
+            <div className="b-duo__b b-duo__b--full reveal">
+              <DL two
                 rows={[
                   ['Sign-in', 'Email and password. Turn on two-factor in Settings and each sign-in also asks for a six-digit code sent by email.'],
                   ['Sign-up', 'Your email is confirmed with a six-digit code, valid for 10 minutes.'],
                   ['Sessions', 'See where you are signed in, and log out any session.'],
                   ['Roles', `${ROLE_COUNT}: ${FACTS.roles.join(', ')}. Each person has one.`],
                   ['Integrations', 'Passwords and keys for connected systems are encrypted at rest. All traffic is over TLS.'],
+                  ['Hosting', `${FACTS.hosting}. Your data stays in South Africa.`],
                   [
                     'Your data',
                     <>

@@ -26,6 +26,13 @@ const CRUMBS = [
   { name: 'Insurance', path: PATH },
 ];
 
+/** R8: general, no statistics and no cover claims. */
+const HARD = [
+  { t: 'Comparing quotes', d: 'Every insurer words its cover differently, so two quotes for the same fleet rarely line up side by side.' },
+  { t: 'Paperwork per truck', d: 'Each truck and trailer goes on the schedule with its own details, and the schedule changes whenever your fleet does.' },
+  { t: 'Claims and cash flow', d: 'While a claim is open, the repair and the loads you could not carry can still come out of your own pocket.' },
+];
+
 const PUBLISH = [
   { t: 'What it covers', d: 'The cover, and what it does not cover, in plain words.' },
   { t: 'Who underwrites it', d: 'The insurer behind it, by name.' },
@@ -41,9 +48,11 @@ export default function InsurancePage() {
       <PhotoHero
         // "A truck in Cape Town" (Franschhoek Pass), by Aaron Jones (https://unsplash.com/@ajonesyyyyy),
         // https://unsplash.com/photos/a-car-driving-down-a-road-with-mountains-in-the-background-bMUV5oK_rP8, Unsplash Licence.
-        // Landscape crop of the pass and the tanker, desaturated and darkened.
-        src="/bands/insurance-franschhoek-pass.jpg"
-        position="60% 60%"
+        // R8: a wider landscape crop (the valley, the town and the tanker on the pass), saturation 0.8, contrast 1.1,
+        // slightly brighter and cooler. The text sits top left so the tanker stays clear.
+        src="/covers/pages/insurance-franschhoek-pass.jpg"
+        position="50% 70%"
+        align="top"
         eyebrow={<StatusChip>Insurance · coming soon</StatusChip>}
         a="Insurance."
         b="Coming soon."
@@ -55,6 +64,25 @@ export default function InsurancePage() {
         }
         place="Franschhoek Pass, Western Cape"
       />
+
+      <section className="sec sec--grey" aria-labelledby="hard-h">
+        <div className="wrap">
+          <SectionHeader
+            id="hard-h"
+            a="Why it's hard today."
+            b="Three problems."
+            line="We're building insurance for South African transporters with these three in mind. What it covers is published before launch."
+          />
+          <ul className="b-rules list-reset">
+            {HARD.map((h) => (
+              <li key={h.t} className="reveal">
+                <h3>{h.t}</h3>
+                <p>{h.d}</p>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </section>
 
       <section className="sec" aria-labelledby="publish-h">
         <div className="wrap">
