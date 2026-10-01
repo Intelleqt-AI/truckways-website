@@ -4,6 +4,12 @@
 import { FACTS, PRICE, FEE, FEE_LINE, CANCELLATION as CANCEL } from './facts';
 
 export const SITE_URL = 'https://www.truckwys.com';
+
+/**
+ * Spread into every page-level `openGraph`: Next replaces the layout's openGraph object wholesale, so without
+ * this og:type, og:locale and og:site_name go missing on pages that set their own.
+ */
+export const OG_BASE = { type: 'website', locale: 'en_ZA', siteName: 'TruckWys' } as const;
 export const APP_URL = 'https://app.truckwys.com';
 
 /** "Get started": the app's signup (account, email code, card, live). */
@@ -29,6 +35,7 @@ export const DEMO_LINE = DEMO_DEEP_LINK_LIVE
 export const APP_DEMO_URL = DEMO_DEEP_LINK_LIVE ? DEMO_URL : APP_LOGIN_URL;
 
 export const APP_STORE_URL = FACTS.appStore;
+export const PLAY_STORE_URL = FACTS.android;
 
 /** Where the "Talk to us" form is delivered (FormSubmit). Unchanged address. */
 export const CONTACT_EMAIL = 'grant@truckwys.com';

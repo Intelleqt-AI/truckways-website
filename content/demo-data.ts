@@ -294,7 +294,7 @@ export const FINDINGS = [
 /* ------------------------------------------------------------ Copilot (S13) */
 export const COPILOT = {
   question: 'Who owes me the most right now?',
-  answerLead: `${CUSTOMERS.kaapse} owes you the most: R 296 963 across 5 open invoices.`,
-  answerDetail: `The oldest is ${OVERDUE[1].number} (R 57 805), ${OVERDUE[1].daysLate} days past its due date.`,
+  answerLead: `${CUSTOMERS.kaapse} owes you the most: R 296 963 across 5 open invoices.`,
+  answerDetail: `The oldest is ${OVERDUE[1].number} (R 57 805), ${OVERDUE[1].daysLate} days past its due date.`,
   source: 'From your invoices, 30 Sep 2026',
 };

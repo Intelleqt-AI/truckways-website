@@ -1,9 +1,12 @@
 import '../../../components/pages/pages-b.css';
 import { SectionHeader } from '../../../components/ui';
-import { CTABand } from '../../../components/Blocks';
+import { Closing } from '../../../components/Blocks';
 import Faq, { type QA } from '../../../components/Faq';
-import { FeatureHero, Stage, Answers, FeatureRow, Split, DL, NextStep } from '../../../components/pages/blocks';
+import { FeatureHero, Stage, Answers, FeatureRow, Split, DL, NextCards, PhotoBand } from '../../../components/pages/blocks';
 import { InvoiceDetail, PublicInvoice, InvoiceList } from '../../../components/pages/frags';
+import { SigDelivery } from '../../../components/pages/signature';
+import { INVOICE } from '../../../content/demo-data';
+import { rand, date } from '../../../lib/format';
 import { pageMeta } from '../../../components/pages/meta';
 import { jsonLd } from '../../../lib/site';
 import { graph, breadcrumbSchema, faqSchema } from '../../../lib/schema';
@@ -38,7 +41,7 @@ const FAQ: QA[] = [
   {
     id: 'invoicing-accountant',
     q: 'Can my accountant get the invoices?',
-    a: 'Yes. Every report exports to CSV and prints, including sales by month and the VAT report. A Xero connection is coming soon.',
+    a: 'Yes. Xero and QuickBooks connections are coming soon; until then every report exports to CSV.',
   },
 ];
 
@@ -55,7 +58,7 @@ export default function InvoicingPage() {
         b="invoiced."
         lead="When a load is marked delivered, in TruckWys or from your TMS, the invoice is raised with 15% VAT and your payment terms, ready to send."
         frame={
-          <Stage label="An invoice raised on delivery of a Johannesburg to Durban load: bill-to customer, issue and due dates, 30-day terms, the linehaul and fuel surcharge lines, VAT at 15% and the total due, with its activity.">
+          <Stage photo="n3-gillitts" label="An invoice raised on delivery of a Johannesburg to Durban load: bill-to customer, issue and due dates, 30-day terms, the linehaul and fuel surcharge lines, VAT at 15% and the total due, with its activity.">
             <InvoiceDetail />
           </Stage>
         }
@@ -63,23 +66,25 @@ export default function InvoicingPage() {
 
       <section className="sec" aria-labelledby="answers-h">
         <div className="wrap">
-          <SectionHeader id="answers-h" a="What it answers." b="The day the load delivers." />
+          <SectionHeader id="answers-h" a="What it answers." b="On the day it delivers." />
           <Answers
             items={[
-              { q: 'Did we invoice that load?', a: 'Every delivered load gets its invoice, numbered and linked back to the load it came from.' },
-              { q: 'Can the customer pay today?', a: 'Your bank details and the invoice number as the EFT reference, on the invoice and the page it links to.' },
-              { q: 'Where is the POD?', a: 'On the load: the signature, the name of the person who received it and the document.' },
+              { q: 'Did we invoice that load?', fig: INVOICE.number, note: `raised on delivery, ${date(INVOICE.issued)}`, a: 'Every delivered load gets its invoice, numbered and linked back to the load it came from.' },
+              { q: 'Can the customer pay today?', fig: rand(INVOICE.total, { cents: true }), note: 'incl. 15% VAT, due in 30 days', a: 'Your bank details and the invoice number as the EFT reference, on the invoice and the page it links to.' },
+              { q: 'Where is the POD?', fig: 'Attached', note: `on ${INVOICE.load}`, a: 'On the load: the signature, the name of the person who received it and the document.' },
             ]}
           />
         </div>
       </section>
 
+      <SigDelivery />
+
       <section className="sec sec--grey" aria-labelledby="detail-h">
         <div className="wrap">
           <SectionHeader
             id="detail-h"
-            a="No retyping from the job sheet."
-            b="No invoice left in the cab."
+            a="No retyping."
+            b="No invoice left behind."
             line="The invoice takes the customer, route, rate and VAT from the load. You check it and send it."
           />
           <div className="b-rows">
@@ -107,9 +112,26 @@ export default function InvoicingPage() {
         </div>
       </section>
 
+      {/*
+        R9: one sharp photo band. "An aerial view of the Port of Port Elizabeth with cargo ships and cranes", by William Veitch (https://unsplash.com/@willv78), https://unsplash.com/photos/port-elizabeth-harbor-and-city-skyline-B4X6DPP4rnU. Cropped to the sky, the harbour and the quays (the street signs below are outside the crop).
+        Unsplash Licence (https://unsplash.com/license), checked not Unsplash+ (premium=false, plus=false); free commercial
+        use, no attribution required. Graded like the site's other bands (saturation ~0.66, slightly cooler), darkened
+        only behind the text by the band's scrim. Master: public/bands/invoicing-gqeberha-port.jpg.
+      */}
+      <PhotoBand
+        id="band-h"
+        src="/bands/invoicing-gqeberha-port.jpg"
+        position="50% 60%"
+        positionPhone="40% 70%"
+        a="Delivered today."
+        b="Invoiced today."
+        line="Mark the load delivered, in TruckWys or from your TMS, and the invoice is raised with 15% VAT and your terms."
+        place="Gqeberha harbour, Eastern Cape"
+      />
+
       <section className="sec" aria-labelledby="spec-h">
         <div className="wrap">
-          <Split id="spec-h" a="The specifics." b="Exactly what an invoice does." line="Everything on this list is in the product today.">
+          <Split id="spec-h" a="What it does, exactly." line="The invoice rules, as they work today.">
             <DL
               rows={[
                 ['When', 'Raised the moment a load is marked delivered, in TruckWys or by your TMS through the API.'],
@@ -125,19 +147,18 @@ export default function InvoicingPage() {
         </div>
       </section>
 
-      <section className="sec" style={{ paddingTop: 0 }} aria-label="Questions about invoicing">
+      <section className="sec b-faqsec" aria-label="Questions about invoicing">
         <div className="wrap">
-          <Faq a="Questions" b="about invoicing." items={FAQ} />
+          <Faq a="Invoicing" b="questions." items={FAQ} />
         </div>
       </section>
 
-      <section className="sec" style={{ paddingTop: 0 }} aria-label="Next step">
-        <div className="wrap">
-          <NextStep href="/product/debtors" title="Debtors" line="Once it is sent, see who owes you and chase what is late." />
-        </div>
-      </section>
+      <NextCards
+        next={{ href: '/product/debtors', title: 'Debtors', line: 'Once it is sent, see who owes you and chase what is late.' }}
+        read="proof-of-delivery-invoice-on-delivery"
+      />
 
-      <CTABand page="invoicing" />
+      <Closing page="invoicing" />
     </>
   );
 }

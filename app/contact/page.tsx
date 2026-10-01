@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-import { Breadcrumbs, PageHero } from '../../components/Blocks';
+import { Breadcrumbs, PageHero, Closing } from '../../components/Blocks';
 import { TextLink } from '../../components/ui';
 import ContactForm from '../../components/ContactForm';
-import { SITE_URL, CONTACT_EMAIL, demoUrl, loginUrl, jsonLd } from '../../lib/site';
+import { OG_BASE, SITE_URL, CONTACT_EMAIL, demoUrl, loginUrl, jsonLd } from '../../lib/site';
 import { graph, breadcrumbSchema } from '../../lib/schema';
 
 const URL = `${SITE_URL}/contact`;
@@ -15,6 +15,7 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   alternates: { canonical: URL },
   openGraph: {
+    ...OG_BASE,
     url: URL,
     title: `${TITLE} | TruckWys`,
     description: DESCRIPTION,
@@ -95,6 +96,14 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+
+      {/* R8: contact-specific closing; no Get started or demo link competing with the form. Q15: no promised turnaround. */}
+      <Closing
+        page="contact"
+        a="Prefer to look first?"
+        b="Open the demo. No sign-up."
+        line="The demo is a working company with its quotes, invoices and reports, so you can see TruckWys before you talk to anyone."
+      />
     </>
   );
 }

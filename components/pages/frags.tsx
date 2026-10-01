@@ -7,7 +7,7 @@
  * b-* are local to these pages (./pages-b.css).
  */
 import type { ReactNode } from 'react';
-import { ChevronRight, ChevronDown, Download, Printer, Search, Info, Check, Mic, MessageCircle, Plus, KeyRound, Webhook, Calendar } from 'lucide-react';
+import { ChevronRight, ChevronDown, Download, Printer, Search, Info, Check, Mic, MessageCircle, Plus, KeyRound, Webhook, Calendar, Satellite } from 'lucide-react';
 import { COMPANY, INVOICE, KPIS, QUOTE, AGEING, TODAY, OVERDUE } from '../../content/demo-data';
 import { rand, date, num } from '../../lib/format';
 import {
@@ -84,7 +84,7 @@ export function QuotesBoard() {
           <span className="is-active">Board</span>
           <span>List</span>
         </span>
-        <span className="b-toolbar__meta">Drag a card to change its status · {BOARD_COUNT} quotes</span>
+        <span className="b-toolbar__meta">{BOARD_COUNT} quotes</span>
       </div>
       <div className="b-board">
         {BOARD.map((col) => (
@@ -117,7 +117,8 @@ export function QuotesBoard() {
 }
 
 /* ================================================================ S3 quote builder, top of form */
-export function QuoteForm() {
+/** compact (R8, /product/ai): just the typed sentence, the Fill button and the three fields it filled. */
+export function QuoteForm({ compact }: { compact?: boolean } = {}) {
   // [label, value, required, wide]: wide fields take two of the four columns (or the whole row of two), so names never clip.
   const fields: [string, string, boolean, boolean][] = [
     ['Client', QUOTE.customer, true, true],
@@ -129,9 +130,10 @@ export function QuoteForm() {
     ['Delivery date', 'DD/MM/YYYY', false, false],
     ['Vehicle type', `${QUOTE.vehicle} (${QUOTE.vehicleCap})`, false, true],
   ];
+  const shown = compact ? fields.filter(([l]) => l === 'Client' || l === 'Collection' || l === 'Delivery') : fields;
   return (
-    <div className="frag b-app cq">
-      <AppHead title="New quote" back="Quote · Auto-saves in this browser" />
+    <div className={`frag b-app cq${compact ? ' b-app--compact' : ''}`}>
+      {compact ? null : <AppHead title="New quote" back="Quote · Auto-saves in this browser" />}
       <div className="b-describe">
         <MessageCircle strokeWidth={S} aria-hidden="true" />
         <span className="b-describe__text">28 t palletised floor tiles, City Deep to Prospecton, superlink</span>
@@ -141,7 +143,7 @@ export function QuoteForm() {
         <span className="tw-btn tw-btn--primary">Fill</span>
       </div>
       <div className="b-form">
-        {fields.map(([l, v, req, wide]) => (
+        {shown.map(([l, v, req, wide]) => (
           <div className={`b-field${wide ? ' b-field--wide' : ''}`} key={l}>
             <span className="b-field__label">
               {l}
@@ -154,6 +156,7 @@ export function QuoteForm() {
             </span>
           </div>
         ))}
+        {compact ? null : (
         <div className="b-field b-field--row">
           <span className="b-field__label">Trip</span>
           <span className="tw-seg b-trip">
@@ -161,6 +164,7 @@ export function QuoteForm() {
             <span>Round</span>
           </span>
         </div>
+        )}
       </div>
     </div>
   );
@@ -542,9 +546,9 @@ export function ReportsIndex() {
 }
 
 /* ================================================================ S10 profit and loss */
-export function ProfitLoss() {
+export function ProfitLoss({ summary }: { summary?: boolean } = {}) {
   const cols = [...PNL_MONTHS.slice(-3), PNL_TOTAL];
-  const rows: [string, (m: (typeof cols)[number]) => ReactNode, string?][] = [
+  const all: [string, (m: (typeof cols)[number]) => ReactNode, string?][] = [
     ['Revenue', () => '', 'group'],
     ['Sales', (m) => num(m.revenue), 'sub'],
     ['Direct costs', () => '', 'group'],
@@ -563,6 +567,9 @@ export function ProfitLoss() {
     ['Net profit', (m) => num(m.net), 'bold'],
     ['Net margin', (m) => `${num((m.net / m.revenue) * 100, 1)}%`, 'muted'],
   ];
+  // R9: the summary keeps the totals only (7 rows), so the mock stays short; the line items open from a disclosure.
+  const SUMMARY = ['Sales', 'Total direct costs', 'Gross profit', 'Gross margin', 'Total overheads', 'Net profit', 'Net margin'];
+  const rows = summary ? all.filter(([l]) => SUMMARY.includes(l)).map(([l, f, k]) => [l, f, k === 'sub' ? undefined : k] as typeof all[number]) : all;
   return (
     <div className="frag b-app cq">
       <div className="b-toolbar" style={{ marginTop: 0 }}>
@@ -707,7 +714,7 @@ export function LanesScatter() {
             <g key={v}>
               <line x1={pad.l} x2={W - pad.r} y1={y(v)} y2={y(v)} stroke="var(--chart-grid)" />
               <text x={pad.l - 8} y={y(v) + 4} textAnchor="end" className="b-scatter__ax">
-                R {v}
+                {`R\u00a0${v}`}
               </text>
             </g>
           ))}
@@ -716,7 +723,7 @@ export function LanesScatter() {
               {num(v)}
             </text>
           ))}
-          <line x1={pad.l} x2={W - pad.r} y1={y(FLEET_AVG_PER_KM)} y2={y(FLEET_AVG_PER_KM)} stroke="var(--text-primary)" strokeWidth="1.25" />
+          <line className="b-scatter__avg" pathLength={1} x1={pad.l} x2={W - pad.r} y1={y(FLEET_AVG_PER_KM)} y2={y(FLEET_AVG_PER_KM)} stroke="var(--text-primary)" strokeWidth="1.25" />
           <text x={pad.l + 4} y={y(FLEET_AVG_PER_KM) + 16} textAnchor="start" className="b-scatter__ax">
             Fleet {rand(FLEET_AVG_PER_KM, { cents: true })}/km
           </text>
@@ -844,9 +851,9 @@ export function Expenses() {
 
 /* ================================================================ S15 integrations settings */
 export function IntegrationsSettings() {
-  const cards: { name: string; mark: string; line: string; status: string; tone: 'success' | 'neutral'; foot: string }[] = [
-    { name: 'Cartrack', mark: 'C', line: 'Vehicle location, speed and ignition status', status: 'Connected', tone: 'success', foot: '15 vehicles linked' },
-    { name: 'CtrlFleet', mark: 'C', line: 'Vehicle location and points of interest', status: 'Not connected', tone: 'neutral', foot: 'Connect CtrlFleet' },
+  const cards: { name: string; line: string; status: string; tone: 'success' | 'neutral'; foot: string }[] = [
+    { name: 'Cartrack', line: 'Vehicle location, speed and ignition status', status: 'Connected', tone: 'success', foot: '15 vehicles linked' },
+    { name: 'CtrlFleet', line: 'Vehicle location and points of interest', status: 'Not connected', tone: 'neutral', foot: 'Connect CtrlFleet' },
   ];
   return (
     <div className="frag b-app cq">
@@ -856,7 +863,7 @@ export function IntegrationsSettings() {
           <div className="tw-card b-intg__card" key={c.name}>
             <div className="b-intg__row">
               <span className="b-intg__mark" aria-hidden="true">
-                {c.mark}
+                <Satellite strokeWidth={S} />
               </span>
               <span style={{ minWidth: 0, flex: 1 }}>
                 <b>{c.name}</b>
@@ -890,7 +897,7 @@ export function IntegrationsSettings() {
             <span className="tw-btn tw-btn--sm">Add webhook</span>
           </div>
           <div className="tw-row b-intg__key">
-            <span className="tw-13 b-ellipsis">https://dispatch.example.co.za/hooks/truckwys</span>
+            <span className="tw-13 b-ellipsis">https://tms.yourcompany.co.za/webhooks/truckwys</span>
             <Status tone="success">Active</Status>
           </div>
         </div>
@@ -939,7 +946,8 @@ export function MiniInvoice() {
   );
 }
 export function MiniAge() {
-  const tones = ['var(--chart-muted)', 'var(--chart-axis)', 'var(--chart-hatch)', 'var(--text-secondary)', 'var(--text-primary)'];
+  // R7: a greyscale ramp (lighter = newer) with one blue highlight, the debt over 90 days.
+  const tones = ['var(--chart-axis)', 'var(--chart-muted)', 'var(--text-tertiary)', 'var(--text-secondary)', 'var(--chart-bar-highlight)'];
   return (
     <div className="frag tw-card b-mini" aria-hidden="true">
       <div className="tw-row" style={{ paddingTop: 0, borderBottom: 0 }}>
@@ -1037,7 +1045,7 @@ export function TeamSettings() {
         ))}
       </div>
       <div className="b-basis" style={{ marginTop: 0 }}>
-        <KeyRound strokeWidth={S} aria-hidden="true" /> Sign-in is a login code by email. Sessions can be logged out from Settings.
+        <KeyRound strokeWidth={S} aria-hidden="true" /> Sign-in is email and password, with an optional emailed code. Sessions can be logged out from Settings.
       </div>
     </div>
   );

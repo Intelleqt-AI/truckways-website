@@ -2,10 +2,10 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-export type MenuItem = { href: string; label: string; line: string };
+export type MenuItem = { href: string; label: string; line: string; soon?: boolean };
 
 /** Product menu (brief §2.4): a simple disclosure panel, not a mega-menu. Escape and outside click close it. */
-export default function ProductMenu({ items, current }: { items: MenuItem[]; current?: boolean }) {
+export default function ProductMenu({ items, current, path }: { items: MenuItem[]; current?: boolean; path?: string }) {
   const [open, setOpen] = useState(false);
   const root = useRef<HTMLDivElement>(null);
   const btn = useRef<HTMLButtonElement>(null);
@@ -40,10 +40,9 @@ export default function ProductMenu({ items, current }: { items: MenuItem[]; cur
       <button
         ref={btn}
         type="button"
-        className="nav__link pmenu__btn"
+        className={`nav__link pmenu__btn${current ? ' is-current' : ''}`}
         aria-expanded={open}
         aria-controls="product-menu"
-        aria-current={current ? 'page' : undefined}
         onClick={() => setOpen((o) => !o)}
       >
         Product
@@ -53,10 +52,13 @@ export default function ProductMenu({ items, current }: { items: MenuItem[]; cur
       </button>
       <div className="pmenu__panel" id="product-menu" hidden={!open}>
         <ul className="list-reset">
-          {items.map((i) => (
-            <li key={i.href}>
-              <a href={i.href} className="pmenu__item">
-                <b>{i.label}</b>
+          {items.map((i, n) => (
+            <li key={i.href} className={i.soon && !items[n - 1]?.soon ? 'pmenu__soonfirst' : undefined}>
+              <a href={i.href} className="pmenu__item" aria-current={path === i.href ? 'page' : undefined}>
+                <b>
+                  {i.label}
+                  {i.soon ? <i className="pmenu__soon">Soon</i> : null}
+                </b>
                 <span>{i.line}</span>
               </a>
             </li>

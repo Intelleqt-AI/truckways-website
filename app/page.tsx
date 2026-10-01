@@ -1,19 +1,25 @@
 import type { Metadata } from 'next';
 import { Calculator, Receipt, Users, FileBarChart, MessageSquareText, Plug, ArrowRight, Check } from 'lucide-react';
-import { ButtonLink, TextLink, SectionHeader, TwoTone, Caption, SAMPLE_CAPTION } from '../components/ui';
+import { ButtonLink, TextLink, SectionHeader, TwoTone } from '../components/ui';
+import { Closing } from '../components/Blocks';
 import StepSwitcher from '../components/StepSwitcher';
+import Backdrop from '../components/Backdrop';
+import PhotoHero from '../components/hero/PhotoHero';
+import HeroSections from '../components/hero/HeroSections';
 import FitDiagram from '../components/FitDiagram';
 import { SoonCard, SOON } from '../components/SoonCard';
+import FastPayBand from '../components/FastPayBand';
+import PhoneSection from '../components/PhoneSection';
 import Faq, { type QA } from '../components/Faq';
-import { CostBreakdown, QuoteCard, N3Tolls } from '../components/fragments/Quote';
+import { QuoteCard, N3Tolls } from '../components/fragments/Quote';
 import {
-  InvoiceRow, NeedsYouCard, LaneRanking, CopilotPanel, Findings, Stats,
+  InvoiceRow, NeedsYouCard, LaneRanking, Findings, Stats,
 } from '../components/fragments/Money';
-import { FACTS, PRICE, PRICE_AND_FEE, PRICE_SHORT, FEE_LINE, CANCELLATION } from '../lib/facts';
-import { signupUrl, demoUrl, jsonLd, SITE_URL, DEMO_LINE } from '../lib/site';
+import { FACTS, PRICE, FEE_LINE, NO_VAT, CANCELLATION } from '../lib/facts';
+import { signupUrl, jsonLd, SITE_URL, DEMO_LINE, OG_BASE } from '../lib/site';
 import { graph, softwareSchema, offerSchema, faqSchema } from '../lib/schema';
-import { INVOICE, KPIS, FEE_EXAMPLE, BOOKED_QUOTE, LANE_JHB_DBN } from '../content/demo-data';
-import { rand, date, num } from '../lib/format';
+import { FEE_EXAMPLE } from '../content/demo-data';
+import { rand } from '../lib/format';
 
 const TITLE = 'TruckWys: quoting, invoicing and debtors for SA transporters';
 const DESCRIPTION =
@@ -24,7 +30,8 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   alternates: { canonical: SITE_URL },
   openGraph: {
-    url: SITE_URL,
+    ...OG_BASE,
+    url: `${SITE_URL}/`,
     title: TITLE,
     description: DESCRIPTION,
     images: [{ url: '/og/home.png', width: 1200, height: 630, alt: 'TruckWys: Price it right. Invoice on delivery. Get paid.' }],
@@ -72,28 +79,31 @@ const CARDS = [
   { icon: Receipt, name: 'Invoicing', line: 'Raised when the load delivers', href: '/product/invoicing', fact: '15% VAT · EFT reference' },
   { icon: Users, name: 'Debtors', line: 'Who owes you, and reminders after a preview', href: '/product/debtors', fact: 'By age · statements' },
   { icon: FileBarChart, name: 'Reports', line: 'P&L, VAT and margin by lane', href: '/product/reports', fact: `${FACTS.reports} reports · CSV export` },
-  { icon: MessageSquareText, name: 'Copilot', line: 'Ask your numbers in plain words', href: '/product#models', fact: 'Drafts wait for you to confirm' },
+  { icon: MessageSquareText, name: 'Copilot', line: 'Ask your numbers in plain words', href: '/product/ai', fact: 'Drafts wait for you to confirm' },
   { icon: Plug, name: 'Integrations', line: 'Cartrack, CtrlFleet, API and CSV', href: '/integrations', fact: 'Nothing to install' },
 ];
 
-/* Milestones, not durations: nothing here implies a measured setup time. */
-const TIMELINE = [
-  { t: 'Before you pay', h: 'Look around the demo', d: 'A working company with sample data. No sign-up, no call.' },
-  { t: 'Day 0', h: 'Create your account', d: 'Confirm your email with a code and add a card. You are live once the payment clears.' },
-  { t: 'First quote', h: 'Load your lists and rates', d: 'Paste customers and trucks from Excel, set your rates and allowance, and price a load.' },
-  { t: 'First delivery', h: 'The invoice raises itself', d: 'Mark the load delivered, or let your TMS do it. The invoice is raised with 15% VAT, ready to send.' },
-  { t: 'Month end', h: 'Close the month', d: 'Profit and loss, debtors by age and the VAT report, from the same numbers.' },
-];
-
+/* Five questions on Home (owner R6); cost and the 0,25% are answered by the pricing band above and on /pricing. */
 const FAQ: QA[] = [
   { id: 'tms', q: 'Is TruckWys a TMS?', a: 'No. It does not dispatch, route or schedule. It works next to your TMS, your spreadsheets and your tracking, and handles the money on each load.' },
-  { id: 'cost', q: 'What does it cost?', a: `${PRICE_AND_FEE} Unlimited users. ${CANCELLATION}` },
-  { id: 'fee', q: 'How is the 0,25% worked out?', a: `On each delivered load's invoice total, including the VAT on your customer's invoice: a load invoiced at ${rand(FEE_EXAMPLE.invoice, { cents: true })} adds ${rand(FEE_EXAMPLE.fee, { cents: true })}. Nothing on quotes you lose.` },
-  { id: 'try', q: 'Can I try it first?', a: `Yes. Open the demo: a working company with sample data. ${DEMO_LINE}` },
+  { id: 'try', q: 'Can I try it first?', a: `Yes. Open the demo: a working company with its quotes, invoices and reports. ${DEMO_LINE}` },
   { id: 'prices', q: 'Where do diesel and toll prices come from?', a: `Diesel from FIASA, inland or coastal. Tolls from the SANRAL tariffs effective 1 March 2026, for ${FACTS.tollPlazas} mainline plazas, by vehicle class.` },
   { id: 'cartrack', q: 'Does it work with Cartrack?', a: 'Yes. Connect with your Cartrack API username and password (in Fleetweb under Settings, API Settings), not your normal login, and vehicle location, speed and ignition status flow in. CtrlFleet connects too.' },
   // Q11 (data pooling wording) is held until the owner approves it.
-  { id: 'fastpay', q: 'What about Fast Pay?', a: 'Coming soon. It is not live, and we will not publish rates until it is.' },
+  {
+    id: 'fastpay',
+    q: 'What about Fast Pay?',
+    a: 'Coming soon. It is not live, and we will not publish rates until it is. It will be opt-in, and TruckWys is not a credit provider.',
+    rich: (
+      <>
+        Coming soon. It is not live, and we will not publish rates until it is. It will be opt-in, and TruckWys is not a credit provider.{' '}
+        <a className="ulink" href="/capital">
+          How Fast Pay will work
+        </a>
+        .
+      </>
+    ),
+  },
 ];
 
 export default function Home() {
@@ -104,87 +114,13 @@ export default function Home() {
         dangerouslySetInnerHTML={jsonLd(graph(softwareSchema, offerSchema, faqSchema(FAQ)))}
       />
 
-      {/* 1. Hero (I, inset panel). Ref: hemut-1440-full-0 top + flott-1440-full-0 top */}
-      <section className="hero" aria-labelledby="hero-h1">
-        <div className="hero__panel" data-theme="dark">
-          <div className="hero__text">
-            <p className="hero__eyebrow">Load-to-cash software for South African transporters</p>
-            <h1 className="h1 hero__h1" id="hero-h1">
-              <span>Price it right.</span> <span>Invoice on delivery.</span> <span className="tone-2">Get paid.</span>
-            </h1>
-            <p className="lead hero__lead">
-              TruckWys runs the money side of every load, next to the TMS, spreadsheets and tracking you already use.
-            </p>
-            <div className="btn-row btn-row--stack hero__ctas">
-              <ButtonLink href={signupUrl('home-hero')} cta="get_started" loc="hero">
-                Get started
-              </ButtonLink>
-              <ButtonLink href={demoUrl('home-hero')} variant="secondary" cta="open_demo" loc="hero">
-                Open the demo
-              </ButtonLink>
-            </div>
-            <p className="small hero__price">
-              {PRICE_AND_FEE} {CANCELLATION}
-            </p>
-          </div>
+      {/* 1. Hero: approved photo hero (lab variant C, 1 Oct 2026) with three product cross-sections. */}
+      <PhotoHero>
+        <HeroSections />
+      </PhotoHero>
 
-          {/* Composition: the real S1 capture (Home, light, demo company, 30 Sep 2026) rising from the panel's
-              bottom edge, F1 floating over its left edge. Sources only match from 1024px, where the composition
-              shows; phones get the S2 phone capture below and never download this one. */}
-          <figure className="hero__comp" role="img" aria-label={`TruckWys Home for the demo company: ${rand(KPIS.owed)} owed to you (${rand(KPIS.pastDue)} past due), ${rand(KPIS.revenue12m)} received over 12 months, a ${num(KPIS.netMargin12m, 1)}% net margin and ${KPIS.activeLoads} active loads, with the invoices to chase; over it, the cost breakdown of a Johannesburg to Durban quote.`}>
-            <div className="hero__frame" data-theme="light">
-              <div className="hero__scale">
-                <picture>
-                  <source media="(min-width: 1024px)" type="image/avif" srcSet="/product/s01-home-light-1080.avif 1080w, /product/s01-home-light-1440.avif 1440w, /product/s01-home-light-2880.avif 2880w" sizes="(max-width: 1099px) 944px, (max-width: 1279px) 1008px, (max-width: 1439px) 1152px, (max-width: 1679px) 1181px, 1296px" />
-                  <source media="(min-width: 1024px)" type="image/webp" srcSet="/product/s01-home-light-1080.webp 1080w, /product/s01-home-light-1440.webp 1440w, /product/s01-home-light-2880.webp 2880w" sizes="(max-width: 1099px) 944px, (max-width: 1279px) 1008px, (max-width: 1439px) 1152px, (max-width: 1679px) 1181px, 1296px" />
-                  <img
-                    className="hero__shot"
-                    src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                    width={1440}
-                    height={900}
-                    alt=""
-                    fetchPriority="high"
-                    decoding="async"
-                  />
-                </picture>
-              </div>
-            </div>
-            <div className="hero__float" data-theme="light">
-              <CostBreakdown float hidden compact />
-            </div>
-          </figure>
-          {/* S2: the real phone Home of the demo company (final capture, 30 Sep 2026). Sources only match below 1024px,
-              so desktops load a 1x1 placeholder instead of the screenshot. */}
-          <div className="hero__phone" data-theme="light">
-            <div className="phone">
-              <picture>
-                <source
-                  media="(max-width: 1023px)"
-                  type="image/avif"
-                  srcSet="/product/s02-home-phone-light-390.avif 1x, /product/s02-home-phone-light-780.avif 2x"
-                />
-                <source
-                  media="(max-width: 1023px)"
-                  type="image/webp"
-                  srcSet="/product/s02-home-phone-light-390.webp 1x, /product/s02-home-phone-light-780.webp 2x"
-                />
-                <img
-                  src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
-                  width={390}
-                  height={844}
-                  alt={`TruckWys Home on a phone for the demo company: ${rand(KPIS.owed)} owed to you, ${rand(KPIS.revenue12m)} received over 12 months, a ${num(KPIS.netMargin12m, 1)}% margin and ${KPIS.activeLoads} active loads.`}
-                  fetchPriority="low"
-                  decoding="async"
-                />
-              </picture>
-            </div>
-          </div>
-        </div>
-        <p className="small hero__caption">{SAMPLE_CAPTION}</p>
-      </section>
-
-      {/* 2. Facts row (W). Ref: Flott "Backed by" line, replacing Hemut's ROI counters */}
-      <section className="facts" aria-label="Product facts">
+      {/* 1b. Facts strip, folded in under the hero (owner R6). SiteScripts counts up `.facts__list`. */}
+      <section className="facts facts--strip" aria-label="Product facts">
         <div className="wrap">
           <ul className="facts__list list-reset">
             {FACTS_ROW.map((f) => (
@@ -197,18 +133,17 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 3. How it fits (G). Ref: flott-1440-full-2 "Keep your infrastructure. Add the intelligence." */}
+      {/* 2. How it fits (G). Ref: flott-1440-full-2 "Keep your infrastructure. Add the intelligence." */}
       <section className="sec sec--grey" aria-labelledby="fit-h">
         <div className="wrap">
           <SectionHeader
             id="fit-h"
-            a="Your TMS runs the trucks."
-            b="We run the money."
+            a="Trucks in your TMS."
+            b="Money in TruckWys."
             line="No dispatch, no routing, nothing to rip out. TruckWys starts when a load is priced and ends when it is paid."
           />
           <FitDiagram />
           <p className="small fit__note">No hardware to install. Nothing to migrate. Your tools stay in place.</p>
-          <p className="caption fit__cap">Invoice, debtors and lanes: {SAMPLE_CAPTION.charAt(0).toLowerCase() + SAMPLE_CAPTION.slice(1)}</p>
           <div className="fit__foot">
             <TextLink href="/contact?topic=partner" cta="talk_to_us" loc="fit">
               For TMS partners
@@ -217,73 +152,33 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4. From price to paid (I, full-width band). Ref: flott-1440-full-0 bottom, flott-1440-full-1 top */}
+      {/* 3. From price to paid (I, full-width band). Ref: flott-1440-full-0 bottom, flott-1440-full-1 top */}
       <section className="sec sec--ink" data-theme="dark" aria-labelledby="steps-h">
         <div className="wrap">
           <SectionHeader
             id="steps-h"
             a="One record per load."
-            b="From the first price to the last rand."
+            b="Quote to last rand."
             line="Every load carries its price, its invoice, its payment and its margin, so the numbers always agree."
           />
-          <div className="reveal">
-            <StepSwitcher
-              steps={STEPS}
-              panels={[<QuoteCard key="q" />, <InvoiceRow key="i" />, <NeedsYouCard key="n" />, <LaneRanking key="l" />]}
-              aside={
-                <>
-                  <p className="chain__title">One delivered load, one record</p>
-                  <p className="chain__sub">
-                    {INVOICE.customer}, {INVOICE.route}. A different load from the new quote above.
-                  </p>
-                  <ul className="chain list-reset">
-                    <li>
-                      <span>Quote</span>
-                      <span>
-                        <span className="nowrap">{BOOKED_QUOTE.number}</span>, accepted
-                      </span>
-                      <span>{rand(BOOKED_QUOTE.amount, { cents: true })}</span>
-                    </li>
-                    <li>
-                      <span>Delivered</span>
-                      <span>
-                        <span className="nowrap">{INVOICE.load}</span>, POD attached
-                      </span>
-                      <span className="nowrap">{date(INVOICE.delivered)}</span>
-                    </li>
-                    <li>
-                      <span>Invoice</span>
-                      <span>
-                        <span className="nowrap">{INVOICE.number}</span>, due {date(INVOICE.due)}
-                      </span>
-                      <span>{rand(INVOICE.total, { cents: true })}</span>
-                    </li>
-                    <li>
-                      <span>Lane</span>
-                      <span>
-                        {LANE_JHB_DBN.lane}, 12 months, {LANE_JHB_DBN.trips} trips
-                      </span>
-                      <span>{rand(LANE_JHB_DBN.perKm, { cents: true })}/km</span>
-                    </li>
-                  </ul>
-                  <Caption />
-                </>
-              }
-            />
-          </div>
+          <StepSwitcher
+            steps={STEPS}
+            panels={[<QuoteCard key="q" />, <InvoiceRow key="i" />, <NeedsYouCard key="n" />, <LaneRanking key="l" />]}
+            backdrop={<Backdrop photo="n1-midrand" sizes="(max-width: 1023px) 1px, 50vw" />}
+          />
         </div>
       </section>
 
-      {/* 5. Where the money leaks (W). Ref: flott-1440-full-1 "Target the losses in your operations." */}
-      <section className="sec" aria-labelledby="leaks-h">
+      {/* 4. Where the money leaks (G), between the ink step band and the Fast Pay photo band. Ref: flott-1440-full-1 "Target the losses in your operations." */}
+      <section className="sec sec--grey" aria-labelledby="leaks-h">
         <div className="wrap">
           <SectionHeader
             id="leaks-h"
-            a="Money you have earned."
-            b="Not yet in the bank."
+            a="Money you earned."
+            b="Not in the bank yet."
             line="Overdue invoices never chased, invoices never sent, customers who stop paying. TruckWys ranks them by rand value."
           />
-          <figure className="reveal">
+          <figure className="clipin">
             <div className="leaks">
               <div className="leaks__main">
                 <Findings />
@@ -292,39 +187,18 @@ export default function Home() {
                 <Stats />
               </div>
             </div>
-            <figcaption className="caption">{SAMPLE_CAPTION}</figcaption>
           </figure>
         </div>
       </section>
 
-      {/* 6. You approve every change (I, rounded inset band). Ref: flott-1440-full-1 bottom / -2 top, hemut-1440-full-1 */}
-      <section aria-labelledby="copilot-h">
-        <div className="inset band" data-theme="dark">
-          <div className="band__texture" aria-hidden="true">
-            {/* Photo-optional slot (S13). Launch default: a crop of the real S13 capture (Copilot, dark, demo
-                company), dimmed as texture so its text never reads as page text. A captioned documentary photo
-                can replace it later. */}
-            <img src="/product/s13-copilot-dark.webp" alt="" width={1084} height={499} loading="lazy" decoding="async" />
-          </div>
-          <div className="band__text reveal">
-            <TwoTone id="copilot-h" a="Ask your numbers in plain words." b="You approve every change." />
-            <ul className="band__lines list-reset">
-              <li>Answers come from your own company&apos;s data.</li>
-              <li>Drafts quotes and customers for you to confirm.</li>
-              <li>Uses a language model. Prices, tolls, VAT and reminders do not.</li>
-            </ul>
-          </div>
-          <div className="band__float reveal">
-            <CopilotPanel float />
-            <p className="caption band__cap">{SAMPLE_CAPTION}</p>
-          </div>
-        </div>
-      </section>
+      {/* 5b. Capital and Fast Pay: the flagship coming-soon section as a photo band (owner: critical). Sits after the
+          light "Money you have earned" so no two dark bands touch (owner, 1 Oct 2026). Never claims it is live. */}
+      <FastPayBand loc="home_fastpay" />
 
-      {/* 7. Everything in one plan (W). Ref: hemut-1440-full-1 product cards, flott-1440-full-3 */}
+      {/* 6. Everything in one plan (W). Copilot is one card here; its full band lives on /product and /product/ai. */}
       <section className="sec" aria-labelledby="plan-h">
         <div className="wrap">
-          <SectionHeader id="plan-h" a="Everything in one plan." b="And two more on the way." line="One subscription covers every module, for your whole team." />
+          <SectionHeader id="plan-h" a="All in one plan." b="Two more on the way." line="One subscription covers every module, for your whole team." />
           <ul className="cards list-reset">
             {CARDS.map(({ icon: Icon, name, line, href, fact }) => (
               <li key={name} className="reveal">
@@ -350,8 +224,11 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 8. Built for South Africa (G). Ref: Flott's specific local detail */}
-      <section className="sec sec--grey" aria-labelledby="sa-h">
+      {/* 7. TruckWys on your phone (G): compact band with the real S2 capture and the store badges. */}
+      <PhoneSection loc="home_phone" grey />
+
+      {/* 8. Built for South Africa (W). Ref: Flott's specific local detail */}
+      <section className="sec" aria-labelledby="sa-h">
         <div className="wrap">
           <SectionHeader id="sa-h" a="Rand, VAT and the N3." b="Not dollars and miles." line="Built for South African road freight, down to the toll class." />
           <div className="sa">
@@ -370,44 +247,13 @@ export default function Home() {
               </li>
             </ul>
             <div className="sa__frag reveal">
-              <N3Tolls />
+              <N3Tolls rows={3} more={{ href: '/product/quoting', label: 'How tolls are priced' }} />
             </div>
           </div>
         </div>
       </section>
 
-      {/* 9. From demo to first invoice (W). Ref: hemut-1440-full-2 Day 0 / 15 / 30 timeline */}
-      <section className="sec" aria-labelledby="setup-h">
-        <div className="wrap">
-          <SectionHeader
-            id="setup-h"
-            a="No migration project."
-            b="Just your lists and your rates."
-            line="Nothing to install and nothing to rip out. You set it up yourself, and we are a message away."
-          />
-          <ol className="tl list-reset reveal">
-            {TIMELINE.map((s, i) => (
-              <li className="tl__item" key={s.t}>
-                <span className="tl__node" aria-hidden="true">
-                  {i + 1}
-                </span>
-                <span className="tl__when">{s.t}</span>
-                <div className="tl__card">
-                  <h3>{s.h}</h3>
-                  <p>{s.d}</p>
-                </div>
-              </li>
-            ))}
-          </ol>
-          <div className="tl__more">
-            <TextLink href="/contact?topic=fleet-50" cta="talk_to_us" loc="setup">
-              Talk to us if you run 50 or more trucks
-            </TextLink>
-          </div>
-        </div>
-      </section>
-
-      {/* 10. Pricing (G). Ref: flott-1440-full-3 "Deploy your first use case." The price is the figure. */}
+      {/* 9. Pricing (G). The price is the figure and one worked example (the onboarding steps live on /pricing only). */}
       <section className="sec sec--grey" aria-labelledby="price-h">
         <div className="wrap psplit">
           <div className="psplit__lead reveal">
@@ -419,10 +265,9 @@ export default function Home() {
               <span className="figure-big">{PRICE}</span>
               <span>per month</span>
             </p>
-            <p className="psplit__fee">plus {FEE_LINE}</p>
+            <p className="psplit__fee">plus {FEE_LINE}. {NO_VAT}</p>
             <p className="small psplit__eg">
-              Worked example: the load invoiced above, {rand(FEE_EXAMPLE.invoice, { cents: true })} incl. VAT, adds{' '}
-              {rand(FEE_EXAMPLE.fee, { cents: true })}.
+              A load invoiced at {rand(FEE_EXAMPLE.invoice, { cents: true })} adds {rand(FEE_EXAMPLE.fee, { cents: true })}.
             </p>
             <ul className="psplit__list list-reset">
               {['Unlimited loads, quotes, invoices and users', 'Reports, Copilot, integrations and API', 'Nothing on quotes you lose', CANCELLATION].map((t) => (
@@ -437,52 +282,22 @@ export default function Home() {
                 Get started
               </ButtonLink>
               <TextLink href="/pricing" cta="see_pricing" loc="pricing_section">
-                See pricing
+                See full pricing
               </TextLink>
             </div>
           </div>
         </div>
       </section>
 
-      {/* 11. FAQ (W). Ref: flott-1440-full-3 "Before you get started." */}
+      {/* 10. FAQ (W). Ref: flott-1440-full-3 "Before you get started." */}
       <section className="sec" aria-label="Questions">
         <div className="wrap">
           <Faq a="Before you" b="get started." line="The questions fleet owners ask first." items={FAQ} />
         </div>
       </section>
 
-      {/* 12. Final CTA (I, rounded inset panel). Ref: hemut-1440-full-2 bottom, hemut-1440-full-3, flott-1440-full-3/4 */}
-      <section aria-labelledby="cta-h" style={{ paddingBottom: 16 }}>
-        <div className="inset ctap" data-theme="dark">
-          <div className="ctap__text reveal">
-            <TwoTone id="cta-h" a="Look around a working company." b="Then decide." />
-            <p className="lead">{DEMO_LINE}</p>
-            <div className="btn-row btn-row--stack">
-              <ButtonLink href={demoUrl('home-cta')} cta="open_demo" loc="cta_band">
-                Open the demo
-              </ButtonLink>
-              <ButtonLink href={signupUrl('home-cta')} variant="secondary" cta="get_started" loc="cta_band">
-                Get started
-              </ButtonLink>
-            </div>
-            <p className="small">{PRICE_SHORT}</p>
-          </div>
-          <div className="ctap__visual" aria-hidden="true">
-            <div className="ctap__crop">
-              {/* S14: the real dark Home capture (top 60%), from 640px up only. */}
-              <picture>
-                <source media="(min-width: 640px)" type="image/avif" srcSet="/product/s14-home-dark-1080.avif 1080w, /product/s14-home-dark-1440.avif 1440w, /product/s14-home-dark-2880.avif 2880w" sizes="(max-width: 1023px) 100vw, 1484px" />
-                <source media="(min-width: 640px)" type="image/webp" srcSet="/product/s14-home-dark-1080.webp 1080w, /product/s14-home-dark-1440.webp 1440w, /product/s14-home-dark-2880.webp 2880w" sizes="(max-width: 1023px) 100vw, 1484px" />
-                <img className="ctap__shot" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" width={1440} height={540} alt="" loading="lazy" decoding="async" />
-              </picture>
-            </div>
-            <div className="ctap__float">
-              <InvoiceRow compact float />
-            </div>
-          </div>
-          <p className="caption ctap__cap">{SAMPLE_CAPTION}</p>
-        </div>
-      </section>
+      {/* 11. Closing (W). Owner R4: no panel, no screenshot; the demo is a link only. */}
+      <Closing page="home" />
     </>
   );
 }

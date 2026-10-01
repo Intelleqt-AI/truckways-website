@@ -452,8 +452,42 @@
   --web-nav-h: 64px;
   --web-btn-h: 44px;
   --web-frame-radius: var(--radius-dialog);
+
+  /*
+   * WEB ACCENT (R4): the dashboard's own blue, nothing new. The light value is
+   * the product's light --accent-primary (#2563EB, hover #1D4ED8); on ink bands
+   * (data-theme="dark") text accents resolve to the dashboard's dark
+   * --accent-primary (#6AA6FF) through the theme tokens above.
+   *
+   * Rules:
+   *  1. The primary action ("Get started", the contact form's Send) is a filled
+   *     blue button on every ground, light or ink: --web-cta-*. White on
+   *     #2563EB is 5.2:1; hover #1D4ED8 is 6.7:1. The fill is 3.9:1 against ink
+   *     and 5.2:1 against white (UI >= 3:1). Focus: the 2px --accent-primary
+   *     ring at 3px offset (blue on white, #6AA6FF on ink).
+   *  2. Ink (--btn-primary-*) is no longer the website's primary fill. It stays
+   *     for secondary emphasis only (FAQ rule, timeline track, chips).
+   *  3. Blue text: one key figure per section (var(--accent-primary), used directly so it follows the theme of its band), inline links
+   *     (--link), active states (selected step chip, nav underline, open FAQ,
+   *     current timeline node), the hero eyebrow and the TruckWys layer of the
+   *     fit diagram. Charts keep --chart-series-1 as the primary series.
+   *     #2563EB on white 5.2:1, on --bg-deep #F3F4F6 4.7:1; #6AA6FF on ink 7.9:1.
+   *  4. At most ONE dominant blue element per viewport (a button OR a figure
+   *     row), plus small accents. Never gradients, washes, glows, tinted
+   *     section backgrounds or side-rail stripes.
+   *  5. "Open the demo" and "Talk to us" are text links, never buttons (the
+   *     contact form's Send is the one exception, on Contact).
+   */
+  --web-cta-bg: #2563EB;
+  --web-cta-hover: #1D4ED8;
+  --web-cta-pressed: #1A45C2;
+  --web-cta-fg: #FFFFFF;
 }
 
+/* Fix round 7: one step down for laptops, so sections don't feel stretched at 1024 to 1279. */
+@media (max-width: 1279px) {
+  :root { --web-section-y: 96px; }
+}
 @media (max-width: 1023px) {
   :root { --web-gutter: 24px; --web-section-y: 96px; }
 }

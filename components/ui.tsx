@@ -90,9 +90,3 @@ export function StatusChip({ children = 'Coming soon' }: { children?: ReactNode 
     </span>
   );
 }
-
-export const SAMPLE_CAPTION = 'Sample data from a fictional demo company. Figures are illustrative.';
-
-export function Caption({ right, children = SAMPLE_CAPTION }: { right?: boolean; children?: ReactNode }) {
-  return <p className={`caption${right ? ' caption--right' : ''}`}>{children}</p>;
-}

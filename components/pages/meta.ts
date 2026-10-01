@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { SITE_URL } from '../../lib/site';
+import { OG_BASE, SITE_URL } from '../../lib/site';
 
 /** Per-page metadata for the phase B pages: title (the %s part), description, canonical and a per-page OG image. */
 export function pageMeta({ path, title, description, og, ogAlt }: { path: string; title: string; description: string; og: string; ogAlt: string }): Metadata {
@@ -9,7 +9,7 @@ export function pageMeta({ path, title, description, og, ogAlt }: { path: string
     title,
     description,
     alternates: { canonical: url },
-    openGraph: { type: 'website', url, title: `${title} | TruckWys`, description, images: [{ url: image, width: 1200, height: 630, alt: ogAlt }] },
+    openGraph: { ...OG_BASE, url, title: `${title} | TruckWys`, description, images: [{ url: image, width: 1200, height: 630, alt: ogAlt }] },
     twitter: { card: 'summary_large_image', title: `${title} | TruckWys`, description, images: [image] },
   };
 }

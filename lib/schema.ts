@@ -41,7 +41,7 @@ export const organizationSchema = {
   },
   areaServed: { '@type': 'Country', name: 'ZA' },
   // LinkedIn company page only once it exists (owner question Q13).
-  sameAs: [FACTS.appStore],
+  sameAs: [FACTS.appStore, FACTS.android],
 };
 
 export const websiteSchema = {
@@ -69,7 +69,7 @@ export const offerSchema = {
     // to be included or excluded. true would claim VAT is inside the price and false
     // would claim VAT is added on top; both are wrong. The price is the full amount.
   },
-  description: "Per month, plus 0,25% of each delivered load's invoice value (incl. VAT).",
+  description: "Per month, plus 0,25% of each delivered load's invoice total. No VAT on our fees.",
   eligibleRegion: { '@type': 'Country', name: 'ZA' },
   availability: 'https://schema.org/InStock',
 };
@@ -81,7 +81,7 @@ export const softwareSchema = {
   url: SITE,
   applicationCategory: 'BusinessApplication',
   applicationSubCategory: 'Load-to-cash software for road freight',
-  operatingSystem: 'Web, iOS',
+  operatingSystem: 'Web, iOS, Android',
   description:
     'Load-to-cash software for South African transporters: quotes priced from diesel and SANRAL tolls, invoices raised on delivery, debtors and reminders, and reports.',
   publisher: { '@id': ids.org },
@@ -95,7 +95,7 @@ export const softwareSchema = {
     'Insights',
     'Copilot',
     'Integrations and API',
-    'iPhone app',
+    'iPhone and Android apps',
   ],
 };
 

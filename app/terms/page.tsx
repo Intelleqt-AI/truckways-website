@@ -1,4 +1,5 @@
 import type { Metadata } from 'next';
+import { OG_BASE } from '../../lib/site';
 import LegalPage from '../../components/LegalPage';
 
 export const metadata: Metadata = {
@@ -9,13 +10,10 @@ export const metadata: Metadata = {
     canonical: 'https://www.truckwys.com/terms',
   },
   openGraph: {
+    ...OG_BASE,
     title: 'Terms and conditions | TruckWys',
     url: 'https://www.truckwys.com/terms',
     images: [{ url: 'https://www.truckwys.com/og-image.png', width: 1200, height: 630 }],
-  },
-  robots: {
-    index: true,
-    follow: true,
   },
 };
 

@@ -4,12 +4,11 @@ import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 type Props = {
-  links: { href: string; label: string }[];
-  product?: { href: string; label: string }[];
+  links: { href: string; label: string; soon?: boolean }[];
+  product?: { href: string; label: string; soon?: boolean }[];
   signIn: string;
   demo: string;
   signup: string;
-  price: string;
 };
 
 /**
@@ -17,7 +16,7 @@ type Props = {
  * returns focus, page scroll locked. The sheet is portalled to <body> so no
  * ancestor (the sticky header) can become its containing block and clip it.
  */
-export default function NavSheet({ links, product = [], signIn, demo, signup, price }: Props) {
+export default function NavSheet({ links, product = [], signIn, demo, signup }: Props) {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
@@ -111,17 +110,19 @@ export default function NavSheet({ links, product = [], signIn, demo, signup, pr
                   <a href={l.href}>{l.label}</a>
                   <div className="sheet__sub">
                     {product
-                      .filter((p) => p.href !== '/product')
+                      // Same items as the desktop Product menu; Fast Pay has its own top-level row below.
                       .map((p) => (
                         <a key={p.href} href={p.href}>
                           {p.label}
+                          {p.soon ? <span className="nav__soon">Soon</span> : null}
                         </a>
                       ))}
                   </div>
                 </div>
               ) : (
-                <a key={l.href} href={l.href}>
+                <a key={l.href} href={l.href} className={l.soon ? 'sheet__top' : undefined}>
                   {l.label}
+                  {l.soon ? <span className="nav__soon">Soon</span> : null}
                 </a>
               ),
             )}
@@ -134,10 +135,12 @@ export default function NavSheet({ links, product = [], signIn, demo, signup, pr
             <a href={signup} className="btn btn--primary" data-cta="get_started" data-loc="menu">
               Get started
             </a>
-            <a href={demo} className="btn btn--secondary" data-cta="open_demo" data-loc="menu">
+            <a href={demo} className="tlink sheet__demo" data-cta="open_demo" data-loc="menu">
               Open the demo
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
             </a>
-            <p className="small sheet__price">{price}</p>
           </div>
         </div>
       </div>,

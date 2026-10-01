@@ -1,10 +1,13 @@
 import '../../../components/pages/pages-b.css';
 import { SectionHeader } from '../../../components/ui';
-import { CTABand } from '../../../components/Blocks';
+import { Closing } from '../../../components/Blocks';
 import Faq, { type QA } from '../../../components/Faq';
-import { CostBreakdown, N3Tolls } from '../../../components/fragments/Quote';
-import { FeatureHero, Stage, Answers, FeatureRow, Split, DL, NextStep } from '../../../components/pages/blocks';
+import { CostBreakdown } from '../../../components/fragments/Quote';
+import { FeatureHero, Stage, Answers, FeatureRow, Split, DL, NextCards, PhotoBand } from '../../../components/pages/blocks';
 import { QuoteForm, FuelLine } from '../../../components/pages/frags';
+import { SigTolls } from '../../../components/pages/signature';
+import { QUOTE, PIPELINE } from '../../../content/demo-data';
+import { rand } from '../../../lib/format';
 import { pageMeta } from '../../../components/pages/meta';
 import { FACTS } from '../../../lib/facts';
 import { jsonLd } from '../../../lib/site';
@@ -14,7 +17,7 @@ const PATH = '/product/quoting';
 export const metadata = pageMeta({
   path: PATH,
   title: 'Transport quote software for South Africa',
-  description: `Price every load from this month's FIASA diesel, ${FACTS.tollPlazas} SANRAL toll plazas by class, border fees and your rates, with a warning when the margin is too thin.`,
+  description: `Price every load from this month's FIASA diesel, ${FACTS.tollPlazas} SANRAL toll plazas by class, border fees and your rates, and a Caution flag under a 12% margin.`,
   og: 'quoting',
   ogAlt: "TruckWys quoting: quote from real costs, not last year's rate.",
 });
@@ -52,11 +55,11 @@ export default function QuotingPage() {
         crumbs={CRUMBS}
         page="quoting"
         eyebrow="Quoting"
-        a="Quote from real costs,"
+        a="Price what it costs,"
         b="not last year's rate."
-        lead="Pick the customer, truck and route. TruckWys adds up diesel, tolls, allowance and your rate, and warns you when the margin on a quote is too thin to send."
+        lead="Pick the customer, truck and route. TruckWys adds up diesel, tolls, allowance and your rate, and flags a quote under a 12% margin before you send it."
         frame={
-          <Stage label="The TruckWys quote builder for a Johannesburg to Durban load: the typed description, the filled form and the cost breakdown with fuel, tolls, driver allowance and base rate adding up to the quote price.">
+          <Stage photo="n1-midrand" label="The TruckWys quote builder for a Johannesburg to Durban load: the typed description, the filled form and the cost breakdown with fuel, tolls, driver allowance and base rate adding up to the quote price.">
             <div className="cq">
               <div className="b-qb">
                 <QuoteForm />
@@ -69,23 +72,25 @@ export default function QuotingPage() {
 
       <section className="sec" aria-labelledby="answers-h">
         <div className="wrap">
-          <SectionHeader id="answers-h" a="What it answers." b="Before the customer sees a number." />
+          <SectionHeader id="answers-h" a="What it answers." b="Before you send a price." />
           <Answers
             items={[
-              { q: 'What does this load cost me?', a: 'Diesel, tolls, cross-border fees and driver allowance, line by line, for the truck you pick.' },
-              { q: 'Am I charging enough?', a: 'An "At risk" or "Caution" flag when the margin is thin, with the increase that gets it to 10% where it can work one out.' },
-              { q: 'Will they accept?', a: 'Your customer accepts or declines from a link, and the quote moves to Accepted or Declined on your board.' },
+              { q: 'What does this load cost me?', fig: rand(QUOTE.costs), note: `${QUOTE.from} to ${QUOTE.to}, before your margin`, a: 'Diesel, tolls, cross-border fees and driver allowance, line by line, for the truck you pick.' },
+              { q: 'Am I charging enough?', fig: `${QUOTE.marginPct}%`, note: 'margin at the suggested price', a: 'A "Caution" flag under a 12% margin and "At risk" under 5%, with the increase in rand that gets it back to 10%.' },
+              { q: 'Will they accept?', fig: `${PIPELINE.winRate}%`, note: 'win rate on your quotes board', a: 'Your customer accepts or declines from a link, and the quote moves to Accepted or Declined on your board.' },
             ]}
           />
         </div>
       </section>
 
+      <SigTolls />
+
       <section className="sec sec--grey" aria-labelledby="detail-h">
         <div className="wrap">
           <SectionHeader
             id="detail-h"
-            a="Built from South African costs."
-            b="Traceable, line by line."
+            a="South African costs."
+            b="Traced line by line."
             line="Diesel from FIASA, tolls from the SANRAL tariffs and your own rates. Every line can be traced."
           />
           <div className="b-rows">
@@ -98,25 +103,34 @@ export default function QuotingPage() {
                 <FuelLine />
               </Stage>
             </FeatureRow>
-            <FeatureRow
-              flip
-              title="Every toll plaza on the route"
-              body={`${FACTS.tollPlazas} SANRAL mainline plazas on the N1, N2, N3, N4, N17 and R30, at the tariffs effective 1 March 2026, by class 1 to 4. Tolls go in excl. VAT, because you claim the VAT back.`}
-              points={['Plaza by plaza, named on the quote', 'Class from your vehicle type, so a superlink pays class 4', 'Gauteng e-tolls left out: they ended in April 2024']}
-            >
-              <Stage label="Toll plazas on the N3 from Johannesburg to Durban for a class 4 vehicle: De Hoek, Wilge, Tugela, Mooi and Mariannhill, with each tariff and the total excluding VAT.">
-                <N3Tolls />
-              </Stage>
-            </FeatureRow>
           </div>
         </div>
       </section>
 
+      {/*
+        R10: one sharp photo band. "A wide open road in the middle of nowhere" (lone road between fields, South Africa), by Tertia van
+        Rensburg (https://unsplash.com/@tertia), https://unsplash.com/photos/a-wide-open-road-in-the-middle-of-nowhere-b87b0Ine748.
+        No vehicles, signs, plates or people, so nothing is retouched. Unsplash Licence (https://unsplash.com/license), checked not
+        Unsplash+ (premium=false, plus=false); free commercial use, no attribution required. Graded like the site's other bands
+        (saturation ~0.62, slightly cooler), darkened only behind the text by the band's scrim. Master: public/bands/quoting-country-road.jpg.
+      */}
+      <PhotoBand
+        id="band-h"
+        src="/bands/quoting-country-road.jpg"
+        position="50% 62%"
+        positionPhone="64% 50%"
+        a="Every load, priced."
+        b="Before it leaves."
+        line="Diesel, tolls, border fees and your rates, added up line by line for the truck you send."
+        place="A country road, South Africa"
+      />
+
       <section className="sec" aria-labelledby="spec-h">
         <div className="wrap">
-          <Split id="spec-h" a="The specifics." b="Exactly what a quote does." line="Everything on this list is in the product today.">
+          <Split id="spec-h" a="In the product today." line="Each line below is live now, on the one plan.">
             <DL
               rows={[
+                ['Tolls', `${FACTS.tollPlazas} SANRAL mainline plazas on the N1, N2, N3, N4, N17 and R30, by class 1 to 4, at the tariffs effective 1 March 2026, named plaza by plaza. Excl. VAT. Gauteng e-tolls are left out: they ended in April 2024.`],
                 ['Driver allowance', 'At your own rates, on its own line. No bargaining council tables are built in.'],
                 ['Rate per km', 'A base rate per vehicle type, editable on every quote.'],
                 ['Trip', 'One way by default. Switch to round and the distance costs double, labelled on the quote.'],
@@ -131,19 +145,18 @@ export default function QuotingPage() {
         </div>
       </section>
 
-      <section className="sec" style={{ paddingTop: 0 }} aria-label="Questions about quoting">
+      <section className="sec b-faqsec" aria-label="Questions about quoting">
         <div className="wrap">
-          <Faq a="Questions" b="about quoting." items={FAQ} />
+          <Faq a="Quoting" b="questions." items={FAQ} />
         </div>
       </section>
 
-      <section className="sec" style={{ paddingTop: 0 }} aria-label="Next step">
-        <div className="wrap">
-          <NextStep href="/product/invoicing" title="Invoicing" line="The accepted quote becomes the load, and the load becomes the invoice." />
-        </div>
-      </section>
+      <NextCards
+        next={{ href: '/product/invoicing', title: 'Invoicing', line: 'The accepted quote becomes the load, and the load becomes the invoice.' }}
+        read="how-to-quote-freight-rates-south-africa-ai"
+      />
 
-      <CTABand page="quoting" />
+      <Closing page="quoting" />
     </>
   );
 }

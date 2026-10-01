@@ -1,11 +1,11 @@
 import { Check } from 'lucide-react';
 import '../../components/pages/pages-b.css';
 import { SectionHeader, TextLink } from '../../components/ui';
-import { CTABand } from '../../components/Blocks';
-import { FeatureHero, Stage, Split } from '../../components/pages/blocks';
+import { Closing } from '../../components/Blocks';
+import { FeatureHero, Stage, Split, NextCards } from '../../components/pages/blocks';
 import { IntegrationsSettings } from '../../components/pages/frags';
 import { pageMeta } from '../../components/pages/meta';
-import { jsonLd } from '../../lib/site';
+import { jsonLd, signupUrl } from '../../lib/site';
 import { graph, breadcrumbSchema } from '../../lib/schema';
 
 const PATH = '/integrations';
@@ -39,11 +39,17 @@ const CARDS: Card[] = [
     points: ['Vehicle location and points of interest', 'Link a vehicle by hand if the plates differ', 'Your key is encrypted at rest'],
   },
   {
-    name: 'Open API and webhooks',
+    name: 'Open API',
     status: 'Available',
-    line: 'Your TMS sends a signed delivery with its POD, and the load is marked delivered. Webhooks tell your systems about loads, quotes and invoices.',
+    line: 'Your TMS sends a signed delivery with its POD, and the load is marked delivered. The invoice follows.',
     points: ['API keys with a monthly quota and an optional IP allow-list', 'Inbound requests signed with HMAC SHA-256', 'OpenAPI documentation for your developers'],
     link: { href: '/contact?topic=partner', label: 'Talk to us about an integration' },
+  },
+  {
+    name: 'Webhooks',
+    status: 'Available',
+    line: 'Tell your own systems when loads, quotes and invoices change, at an address you choose.',
+    points: ['Each delivery signed with HMAC SHA-256', 'Send a test event from Settings', 'Add or delete a webhook at any time'],
   },
   {
     name: 'Spreadsheet import',
@@ -51,12 +57,12 @@ const CARDS: Card[] = [
     line: 'Bring your customers and vehicles across from Excel. Paste the rows, or upload an Excel, CSV or PDF file, check the columns, then import.',
     points: ['Customers and vehicles', 'Trip data imports separately', 'Nothing is saved until you confirm'],
   },
-  // TODO(owner) Q4: switch to "Available: invoices and payments sync to Xero" once a production Xero app is live.
+  // Owner (R7): Xero and QuickBooks are the next integrations. Switch to Available only once each is live.
   {
-    name: 'Xero',
+    name: 'Xero and QuickBooks',
     status: 'Coming soon',
-    line: 'Invoices and payments sent to Xero for your accountant. Until then, every report exports to CSV.',
-    points: [],
+    line: 'Invoices and payments sent to your accounting system, for your accountant. Until then, every report exports to CSV.',
+    points: ['Xero and QuickBooks connections are coming soon', 'Every report exports to CSV today'],
   },
 ];
 
@@ -73,7 +79,7 @@ export default function IntegrationsPage() {
         b="you already run."
         lead="Connect your tracking, bring your lists across from Excel, and let your TMS send deliveries to TruckWys by API."
         frame={
-          <Stage label="Integration settings: Cartrack connected with 15 vehicles linked, CtrlFleet not connected, one active partner API key and one active webhook.">
+          <Stage photo="durban-port" label="Integration settings: Cartrack connected with 15 vehicles linked, CtrlFleet not connected, one active partner API key and one active webhook.">
             <IntegrationsSettings />
           </Stage>
         }
@@ -85,9 +91,9 @@ export default function IntegrationsPage() {
             id="list-h"
             a="What connects today."
             b="And what is next."
-            line="Names, not logos, and only what is live is marked Available. No hardware to install."
+            line="Live today, unless marked coming soon. No hardware to install."
           />
-          <ul className="b-intlist list-reset">
+          <ul className="b-intlist b-intlist--six list-reset">
             {CARDS.map((c) => (
               <li key={c.name} className="reveal">
                 <div className="b-intcard">
@@ -150,7 +156,20 @@ export default function IntegrationsPage() {
         </div>
       </section>
 
-      <CTABand page="integrations" />
+      <NextCards
+        next={{ href: '/pricing', title: 'Pricing', line: 'One plan for your whole team, and what happens from sign-up to month end.' }}
+        read="fleet-management-software-south-africa-2026"
+      />
+
+      <Closing
+        page="integrations"
+        variant="contact"
+        a="Building a TMS?"
+        b="Talk to us about an integration."
+        line="Or a telematics product: an open API, signed webhooks and OpenAPI documentation for your developers. Tell us what you run, and we will reply by email."
+        primary={{ href: '/contact?topic=partner', label: 'Talk to us' }}
+        secondary={{ href: signupUrl('integrations-cta'), label: 'Get started' }}
+      />
     </>
   );
 }

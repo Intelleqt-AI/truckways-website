@@ -48,7 +48,8 @@ export default function NeedsYou({ variant = 'home' }: { variant?: 'home' | 'cha
     );
   }
   const total = KPIS.owed;
-  const tones = ['var(--chart-muted)', 'var(--chart-axis)', 'var(--chart-hatch)', 'var(--text-secondary)', 'var(--text-primary)'];
+  // R7: a greyscale ramp (lighter = newer) with one blue highlight, the debt over 90 days.
+  const tones = ['var(--chart-axis)', 'var(--chart-muted)', 'var(--text-tertiary)', 'var(--text-secondary)', 'var(--chart-bar-highlight)'];
   return (
     <div>
       {rows}

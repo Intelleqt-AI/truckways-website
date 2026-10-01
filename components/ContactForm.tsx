@@ -6,6 +6,9 @@ import { track } from '@vercel/analytics';
 type Topic = { v: string; l: string };
 type Status = 'idle' | 'sending' | 'error';
 
+/** "Tell me when it's live" topics: a person, not a company, may ask, so Company is optional for them. */
+const NOTIFY_TOPICS = new Set(['fast-pay', 'insurance']);
+
 const FIELDS = ['name', 'email', 'company', 'fleet_size'] as const;
 const MESSAGES: Record<(typeof FIELDS)[number], string> = {
   name: 'Enter your name.',
@@ -30,17 +33,24 @@ export default function ContactForm({ email, topics, next }: { email: string; to
   const form = useRef<HTMLFormElement>(null);
   const [status, setStatus] = useState<Status>('idle');
   const [errors, setErrors] = useState<Partial<Record<(typeof FIELDS)[number], string>>>({});
+  const [topic, setTopic] = useState(topics[0]?.v ?? '');
+  const companyOptional = NOTIFY_TOPICS.has(topic);
 
   // Preselect the topic from ?topic= (fleet-50, partner, fast-pay, insurance, other).
   useEffect(() => {
     const t = new URLSearchParams(window.location.search).get('topic');
     const sel = form.current?.elements.namedItem('topic') as HTMLSelectElement | null;
-    if (t && sel && topics.some((x) => x.v === t)) sel.value = t;
+    if (t && sel && topics.some((x) => x.v === t)) {
+      sel.value = t;
+      setTopic(t);
+    }
   }, [topics]);
 
   const validate = (f: HTMLFormElement) => {
     const e: typeof errors = {};
+    const optional = NOTIFY_TOPICS.has((f.elements.namedItem('topic') as HTMLSelectElement | null)?.value ?? '');
     for (const k of FIELDS) {
+      if (k === 'company' && optional) continue;
       const el = f.elements.namedItem(k) as HTMLInputElement | HTMLSelectElement | null;
       if (!el) continue;
       const v = el.value.trim();
@@ -117,8 +127,10 @@ export default function ContactForm({ email, topics, next }: { email: string; to
       </div>
       <div className="form__row">
         <div className="field">
-          <label htmlFor="company">Company</label>
-          <input className="input" id="company" name="company" type="text" autoComplete="organization" required {...err('company')} />
+          <label htmlFor="company">
+            Company{companyOptional ? <span className="opt"> (optional)</span> : null}
+          </label>
+          <input className="input" id="company" name="company" type="text" autoComplete="organization" required={!companyOptional} {...err('company')} />
           {errors.company ? <p className="field__err" id="company-err">{errors.company}</p> : null}
         </div>
         <div className="field">
@@ -138,7 +150,16 @@ export default function ContactForm({ email, topics, next }: { email: string; to
       </div>
       <div className="field">
         <label htmlFor="topic">Topic</label>
-        <select className="input" id="topic" name="topic" defaultValue={topics[0]?.v}>
+        <select
+          className="input"
+          id="topic"
+          name="topic"
+          defaultValue={topics[0]?.v}
+          onChange={(ev) => {
+            setTopic(ev.target.value);
+            if (NOTIFY_TOPICS.has(ev.target.value)) setErrors(({ company: _c, ...rest }) => rest); // eslint-disable-line @typescript-eslint/no-unused-vars
+          }}
+        >
           {topics.map((t) => (
             <option key={t.v} value={t.v}>
               {t.l}

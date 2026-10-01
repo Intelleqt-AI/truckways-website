@@ -9,7 +9,8 @@
  * are the full amounts); cancellation wording other than 30 days' written
  * notice (owner decision: Terms 6 stands); JSON-LD that is invalid, carries
  * the wrong price, states a VAT flag on the Offer, or lists
- * Fast Pay or Insurance as a feature or offer.
+ * Fast Pay or Insurance as a feature or offer; sample-data captions; the
+ * company address or Information Officer outside the legal pages (owner R4).
  * Legal pages (owner-controlled wording) are checked for em dashes, "0.25%",
  * the old price, Merchant Capital, "exclusive of VAT" and per-fleet pricing.
  */
@@ -34,11 +35,14 @@ const BANNED = [
   [/0\.25\s?%/, '0.25% (use 0,25%)'],
   [/48[\s-]?(hours|hrs|hour)/i, '48 hours claim'],
   [/FastPay/, 'FastPay (use Fast Pay, coming soon only)'],
-  [/\bCapital\b/, 'Capital'],
+  // "Capital" only as the pillar's full name, "Capital and Fast Pay" (owner, 1 Oct 2026); never alone.
+  [/\bCapital\b(?! and Fast Pay)/, 'Capital (only as "Capital and Fast Pay")'],
   [/fleet finance/i, 'fleet finance'],
   [/\b(revolutionary|seamless|cutting-edge|game-changing|unlock|supercharge|effortless|autopilot|AI-powered|trusted by)\b/i, 'banned word'],
   [/\breal-time\b/i, 'real-time'],
-  [/\bAI\b/, '"AI" label (describe Copilot as a language model)'],
+  // "AI" only in the page and menu names "AI in TruckWys" and "AI and Copilot" (owner, 1 Oct 2026);
+  // the copy itself says "language model" or "trained model".
+  [/\bAI\b(?! (in TruckWys|and Copilot))/, '"AI" label (describe Copilot as a language model)'],
   [/\bfree trial\b(?!\?)/i, 'free trial claim'],
   // Not VAT registered (owner decision): never say VAT is added to, or included in, the TruckWys price.
   [/4\s?499[^.]{0,40}\b(incl|excl)\.?\s?VAT/i, 'VAT basis on the TruckWys price (TruckWys is not VAT registered)'],
@@ -56,6 +60,11 @@ const BANNED = [
   [/pricing excludes VAT|excl(usive of|\.?) VAT where applicable/i, 'VAT note on the TruckWys price (TruckWys is not VAT registered)'],
   [/cancel (at )?any ?time|no notice (period|needed|required)|without notice/i, 'cancellation needs 30 days\' written notice (Terms 6)'],
   [/Cartrack login|with your login/i, 'Cartrack takes API credentials, not the normal login'],
+  // Owner R4: no sample-data captions anywhere.
+  [/Sample data from a fictional|Figures are illustrative/i, 'sample-data caption (owner R4: removed site-wide)'],
+  // Owner R4: the address and the Information Officer live only in the Privacy policy and the PAIA manual
+  // (the footer keeps one line: company name and registration number).
+  [/Keurboom|Information Officer is\b/i, 'company address or Information Officer outside Privacy and PAIA (owner R4)'],
 ];
 
 const LEGAL_BANNED = [
@@ -104,6 +113,17 @@ for (const page of PAGES) {
       failedPages.add(page);
       const i = m.index ?? 0;
       fail(page, `${label}: "...${text.slice(Math.max(0, i - 50), i + 50)}..."`);
+    }
+  }
+
+  // Critic R3: "R" and its amount are joined by a non-breaking space, so the symbol never wraps away.
+  if (!LEGAL.includes(page)) {
+    const body = html.replace(/^[\s\S]*?<body[^>]*>/i, '').replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<style[\s\S]*?<\/style>/gi, ' ').replace(/<[^>]+>/g, ' ');
+    const m = body.match(/(?<![A-Za-z])R \d/);
+    if (m) {
+      failedPages.add(page);
+      const i = m.index ?? 0;
+      fail(page, `"R" and amount split by a normal space: "...${body.slice(Math.max(0, i - 40), i + 40)}..."`);
     }
   }
 

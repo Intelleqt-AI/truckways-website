@@ -3,11 +3,14 @@ const APP = 'https://app.truckwys.com';
 
 const nextConfig = {
   poweredByHeader: false,
-  images: { formats: ['image/avif', 'image/webp'] },
+  images: { formats: ['image/avif', 'image/webp'], deviceSizes: [640, 750, 828, 1080, 1200, 1440, 1920, 2048, 3840] },
   async redirects() {
     return [
       // Phase A (brief §2.2)
-      { source: '/ai', destination: '/product#models', permanent: true },
+      { source: '/ai', destination: '/product/ai', permanent: true },
+      // Capital and Fast Pay (coming soon): the old site's names.
+      { source: '/fast-pay', destination: '/capital', permanent: true },
+      { source: '/fastpay', destination: '/capital', permanent: true },
       { source: '/get-started', destination: `${APP}/signup?ref=site-redirect`, permanent: false },
       { source: '/signup', destination: `${APP}/signup?ref=site-redirect`, permanent: false },
       { source: '/login', destination: `${APP}/login`, permanent: false },
@@ -20,14 +23,16 @@ const nextConfig = {
       { source: '/dashboard/:path*', destination: '/', permanent: true },
       { source: '/ai-analysis', destination: '/', permanent: true },
       { source: '/linkedin-profile', destination: '/', permanent: true },
-      // Phase B (brief §2.2, §2.3): /blogs is now /guides. Retired slugs first, then the catch-all.
-      { source: '/blogs/true-cost-running-truck-fleet-south-africa-2026', destination: '/guides/sa-fleet-operators-real-cost-per-kilometre', permanent: true },
-      { source: '/blogs/fleet-profitability-south-africa-ai-powered-pricing', destination: '/guides/how-to-quote-freight-rates-south-africa-ai', permanent: true },
-      { source: '/blogs/invoice-factoring-vs-ai-cash-advances-sa-transport', destination: '/guides', permanent: true },
-      { source: '/blogs/fleet-management-software-south-africa-2026', destination: '/guides', permanent: true },
-      { source: '/blogs/future-of-freight-africa-ai-transforming-transport', destination: '/guides', permanent: true },
-      { source: '/blogs', destination: '/guides', permanent: true },
-      { source: '/blogs/:slug', destination: '/guides/:slug', permanent: true },
+      // Blog. The original posts lived at /blogs/<slug>; v3 previewed them as /guides/<slug>. Every post now
+      // lives at /blog/<slug> with its original slug, so each old URL is one 308, never a chain.
+      // v3's quoting slug dropped "-ai"; the original slug was restored, so that one is mapped by name first.
+      { source: '/guides/how-to-quote-freight-rates-south-africa', destination: '/blog/how-to-quote-freight-rates-south-africa-ai', permanent: true },
+      { source: '/blog/how-to-quote-freight-rates-south-africa', destination: '/blog/how-to-quote-freight-rates-south-africa-ai', permanent: true },
+      { source: '/blogs/how-to-quote-freight-rates-south-africa', destination: '/blog/how-to-quote-freight-rates-south-africa-ai', permanent: true },
+      { source: '/blogs', destination: '/blog', permanent: true },
+      { source: '/blogs/:slug', destination: '/blog/:slug', permanent: true },
+      { source: '/guides', destination: '/blog', permanent: true },
+      { source: '/guides/:slug', destination: '/blog/:slug', permanent: true },
       { source: '/features', destination: '/product', permanent: true },
       { source: '/features/:path*', destination: '/product', permanent: true },
     ];

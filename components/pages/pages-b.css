@@ -1,5 +1,5 @@
 /*
- * Phase B pages (/product, /product/*, /integrations, /about, /guides):
+ * Phase B pages (/product, /product/*, /integrations, /about, /blog):
  * layout blocks and the product fragments added for them. Tokens only
  * (styles/tokens.css); no new colours, no gradients, radius never above 16.
  * Prefix b- so nothing collides with the shell's styles/site.css.
@@ -11,7 +11,7 @@
 .b-hero .h1 { max-width: 20ch; }
 .b-hero .h1 > .tone-2 { display: block; }
 .b-hero__lead { max-width: 56ch; margin-top: 24px; }
-.b-hero .btn-row { margin-top: 32px; }
+.b-hero .btn-row, .b-hero .cta-pair { margin-top: 32px; }
 .b-hero__price { margin-top: 16px; }
 .b-hero__frame { margin-top: 64px; }
 @media (max-width: 639px) {
@@ -32,7 +32,11 @@
 .b-stage--flush { padding: 0; }
 @media (max-width: 1023px) { .b-stage { padding: 24px; } }
 @media (max-width: 639px) { .b-stage { padding: 16px 12px; border-radius: 12px; } }
-.b-cap { margin-top: 12px; font: 400 14px/20px var(--font-sans); color: var(--text-tertiary); }
+/* Stage on a photo (Stage photo=...): the screen floats on a blurred road photo (Hemut), dark in both themes. */
+.b-stage.b-stage--photo { isolation: isolate; background: #15181D; border-color: transparent; padding: clamp(20px, 5vw, 64px); }
+/* The screen keeps the dashboard's grey page surface (its headers are drawn on it), floating on the photo. */
+.b-stage__screen { position: relative; border-radius: var(--radius-card); background: var(--bg-deep); padding: 24px; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 24px 48px -12px rgba(0, 0, 0, 0.5); }
+@media (max-width: 639px) { .b-stage.b-stage--photo { padding: 20px 10px; } .b-stage__screen { padding: 14px 10px; } }
 
 /* ------------------------------------------------------------ what it answers */
 .b-answers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--web-col-gap); border-top: 1px solid var(--border-subtle); }
@@ -250,6 +254,9 @@ a.b-hubcard:hover .b-hubcard__more svg { transform: translateX(2px); }
 .b-field--row .b-trip { width: min(100%, 360px); }
 .b-trip span { flex: 1; justify-content: center; height: 34px; font-size: 14px; }
 @container (max-width: 760px) { .b-form { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+/* R8 compact form (/product/ai): the sentence, Fill, and the three fields it filled, one per row. */
+.b-app--compact .b-form { grid-template-columns: minmax(0, 1fr); gap: 14px; }
+.b-app--compact .b-field--wide { grid-column: auto; }
 @container (max-width: 420px) {
   .b-describe { flex-wrap: wrap; }
   .b-describe__text { flex-basis: calc(100% - 40px); }
@@ -401,6 +408,7 @@ a.b-hubcard:hover .b-hubcard__more svg { transform: translateX(2px); }
 .b-intg__row { display: flex; align-items: center; gap: 14px; }
 .b-intg__row b { font: 600 15px/22px var(--font-sans); }
 .b-intg__mark { width: 40px; height: 40px; flex: none; display: grid; place-items: center; border: 1px solid var(--border-subtle); border-radius: 10px; background: var(--bg-raised); font: 600 15px/1 var(--font-sans); color: var(--text-secondary); }
+.b-intg__mark svg { width: 18px; height: 18px; }
 .b-intg__icon { width: 18px; height: 18px; color: var(--text-secondary); flex: none; }
 .b-intg__line { display: block; overflow-wrap: anywhere; }
 .b-intg__btn { align-self: flex-start; }
@@ -486,3 +494,361 @@ a.b-hubcard:hover .b-hubcard__more svg { transform: translateX(2px); }
 .b-phonefig { display: flex; flex-direction: column; align-items: center; }
 .b-row__text .b-dl { margin-top: 16px; }
 .b-row__text .b-dl > div { grid-template-columns: 1fr; gap: 2px; }
+.fit + .b-isnt { margin-top: 48px; }
+
+/* ------------------------------------------------ What it answers: figure-led (critic R3) */
+.b-answers__fig { display: flex; flex-direction: column; gap: 2px; margin-bottom: 16px; }
+.b-answers__fig span { font: 600 32px/38px var(--font-sans); letter-spacing: -0.03em; color: var(--text-primary); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.b-answers__fig small { font: 400 13px/18px var(--font-sans); color: var(--text-tertiary); }
+.b-answers > li:has(.b-answers__fig) { padding-top: 28px; }
+@media (max-width: 639px) { .b-answers__fig span { font-size: 28px; line-height: 34px; } }
+
+/* Phones: a few frames give way to their text (critic R3: Reports and the hub ran ~11 500px). */
+@media (max-width: 639px) {
+  .b-row--text-sm .b-row__vis, .hide-sm { display: none; }
+}
+
+/* ------------------------------------------------ signature bands (one per feature page) */
+.sig__head { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--web-col-gap); row-gap: 16px; align-items: end; margin-bottom: var(--web-header-to-content); }
+.sig__head > .h2 { grid-column: 1 / 8; }
+.sig__head > p { grid-column: 9 / 13; font: 400 16px/26px var(--font-sans); color: var(--text-secondary); max-width: 40ch; }
+@media (max-width: 1023px) { .sig__head > .h2 { grid-column: 1 / -1; } .sig__head > p { grid-column: 1 / 10; } }
+@media (max-width: 639px) { .sig__head > p { grid-column: 1 / -1; } }
+.sig__fig { border: 1px solid var(--border-subtle); border-radius: var(--radius-dialog); background: var(--bg-surface); padding: 40px; }
+@media (max-width: 639px) { .sig__fig { padding: 20px 16px; } }
+.sig__fig-blue { font: 600 clamp(32px, 1.4rem + 1.4vw, 44px)/1.1 var(--font-sans); letter-spacing: -0.03em; color: var(--accent-primary); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.sig__total { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border-subtle); display: flex; flex-wrap: wrap; align-items: baseline; gap: 8px 20px; }
+.sig__total > span:last-child { font: 400 15px/22px var(--font-sans); color: var(--text-secondary); max-width: 52ch; }
+
+/* Quoting: the route */
+.sig-route { display: grid; grid-template-columns: auto minmax(0, 1fr) auto; align-items: start; column-gap: 24px; }
+.sig-route__end { display: flex; flex-direction: column; gap: 2px; padding-top: 28px; }
+.sig-route__end b { font: 600 17px/24px var(--font-sans); letter-spacing: -0.012em; }
+.sig-route__end span { font: 400 13px/18px var(--font-sans); color: var(--text-tertiary); }
+.sig-route__end--to { text-align: right; }
+.sig-route__plazas { position: relative; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); }
+.sig-route__plazas::before { content: ""; position: absolute; left: -24px; right: -24px; top: 6px; height: 2px; background: var(--border-strong); transform-origin: left center; }
+.sig-route__plazas li { position: relative; display: flex; flex-direction: column; align-items: center; gap: 2px; text-align: center; font-variant-numeric: tabular-nums; }
+.sig-route__node { width: 14px; height: 14px; border-radius: 50%; background: var(--bg-surface); border: 2px solid var(--accent-primary); margin-bottom: 14px; position: relative; z-index: 1; }
+.sig-route__plazas b { font: 600 15px/22px var(--font-sans); }
+.sig-route__plazas span { font: 500 14px/20px var(--font-sans); color: var(--text-primary); }
+.sig-route__plazas .sig-route__ex { font: 400 12px/16px var(--font-sans); color: var(--text-tertiary); }
+@media (max-width: 767px) {
+  .sig-route { grid-template-columns: 1fr; row-gap: 0; }
+  .sig-route__end { padding: 0 0 0 30px; }
+  .sig-route__end--to { text-align: left; }
+  .sig-route__plazas { grid-template-columns: 1fr; padding: 12px 0; }
+  .sig-route__plazas::before { left: 6px; right: auto; top: -24px; bottom: -24px; width: 2px; height: auto; transform-origin: center top; }
+  .sig-route__plazas li { display: grid; grid-template-columns: 30px minmax(0, 1fr) auto; grid-template-areas: "n b v" "n x x"; align-items: baseline; text-align: left; padding: 10px 0; column-gap: 0; }
+  .sig-route__node { grid-area: n; margin: 4px 0 0; align-self: start; }
+  .sig-route__plazas b { grid-area: b; }
+  .sig-route__plazas li > span:not(.sig-route__ex) { grid-area: v; }
+  .sig-route__plazas .sig-route__ex { grid-area: x; text-align: right; }
+}
+
+/* Invoicing: delivery to invoice */
+.sig-flow { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 0; }
+.sig-flow li { position: relative; display: flex; flex-direction: column; gap: 6px; padding: 0 24px; border-left: 1px solid var(--border-subtle); }
+.sig-flow li:first-child { padding-left: 0; border-left: 0; }
+.sig-flow__k { font: 500 13px/18px var(--font-sans); color: var(--text-tertiary); }
+.sig-flow b { font: 600 17px/24px var(--font-sans); letter-spacing: -0.012em; white-space: nowrap; }
+.sig-flow__s { font: 400 14px/20px var(--font-sans); color: var(--text-secondary); }
+.sig-flow__out b { font-size: clamp(28px, 1.2rem + 1vw, 36px); line-height: 1.15; }
+@media (max-width: 1023px) {
+  .sig-flow { grid-template-columns: 1fr 1fr; row-gap: 28px; }
+  .sig-flow li:nth-child(3) { padding-left: 0; border-left: 0; }
+}
+@media (max-width: 639px) {
+  .sig-flow { grid-template-columns: 1fr; row-gap: 0; }
+  .sig-flow li, .sig-flow li:nth-child(3) { padding: 16px 0; border-left: 0; border-top: 1px solid var(--border-subtle); }
+  .sig-flow li:first-child { border-top: 0; padding-top: 0; }
+}
+
+/* Debtors: ageing bar */
+.sig-age__top, .sig-pnl__top { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 16px; margin-bottom: 28px; }
+.sig-age__top > span:last-child, .sig-pnl__top > span:last-child { font: 400 15px/22px var(--font-sans); color: var(--text-secondary); }
+.sig-age__bar { display: flex; gap: 3px; height: 40px; border-radius: 8px; overflow: hidden; }
+.sig-age__bar span { display: block; height: 100%; min-width: 4px; transform-origin: left center; }
+.sig-age__legend { margin-top: 24px; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 16px; }
+.sig-age__legend li { display: grid; grid-template-columns: 10px minmax(0, 1fr); column-gap: 8px; row-gap: 2px; align-items: center; }
+.sig-age__legend i { width: 10px; height: 10px; border-radius: 2px; }
+.sig-age__legend span { font: 400 13px/18px var(--font-sans); color: var(--text-tertiary); }
+.sig-age__legend b { grid-column: 2; font: 600 16px/22px var(--font-sans); font-variant-numeric: tabular-nums; white-space: nowrap; }
+@media (max-width: 767px) { .sig-age__legend { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+
+/* Reports: net profit by month */
+.sig-pnl__bars { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: 8px; align-items: end; }
+.sig-pnl__bars li { display: flex; flex-direction: column; align-items: stretch; gap: 6px; text-align: center; font-variant-numeric: tabular-nums; }
+.sig-pnl__pct { font: 500 12px/16px var(--font-sans); color: var(--text-secondary); }
+.sig-pnl__track { position: relative; height: 180px; display: flex; align-items: flex-end; justify-content: center; border-bottom: 1px solid var(--chart-axis); }
+.sig-pnl__bar { display: block; width: min(28px, 70%); border-radius: 3px 3px 0 0; background: var(--chart-series-1); transform-origin: center bottom; }
+.sig-pnl__val { font: 400 11px/14px var(--font-sans); color: var(--text-tertiary); white-space: nowrap; }
+.sig-pnl__m { font: 500 12px/16px var(--font-sans); color: var(--text-tertiary); }
+.sig-pnl__m.is-now { color: var(--text-primary); font-weight: 600; }
+@media (max-width: 767px) {
+  .sig-pnl__bars { gap: 4px; }
+  .sig-pnl__track { height: 140px; }
+  .sig-pnl__val { display: none; }
+  .sig-pnl__pct { font-size: 10px; letter-spacing: -0.02em; }
+}
+
+/* ------------------------------------------------ coming-soon heroes: own action row (/capital, /insurance) */
+.b-hero__actions { margin-top: 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; }
+
+/* ------------------------------------------------ rules, not models (/product/ai) */
+.b-rules { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--web-col-gap); border-top: 1px solid var(--border-default); }
+.b-rules > li { padding: 24px 0 28px; border-bottom: 1px solid var(--border-default); }
+.b-rules h3 { font: 600 18px/26px var(--font-sans); letter-spacing: -0.012em; color: var(--text-primary); }
+.b-rules p { margin-top: 8px; font: 400 16px/26px var(--font-sans); color: var(--text-secondary); max-width: 34ch; }
+@media (max-width: 1023px) { .b-rules { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 639px) { .b-rules { grid-template-columns: 1fr; } .b-rules > li { padding: 20px 0; } }
+/* Copilot panel on a stage: panel width, centred. */
+.b-aistage { max-width: 520px; margin-inline: auto; }
+
+/* ------------------------------------------------ what we'll publish (/insurance), numbered */
+.b-publish { border-top: 1px solid var(--border-default); counter-reset: pub; }
+.b-publish > li { counter-increment: pub; display: grid; grid-template-columns: 48px minmax(0, 1fr); padding: 24px 0; border-bottom: 1px solid var(--border-default); }
+.b-publish > li::before { content: counter(pub, decimal-leading-zero); grid-row: 1 / span 2; font: 500 14px/28px var(--font-sans); color: var(--text-tertiary); font-variant-numeric: tabular-nums; }
+.b-publish h3 { font: 600 20px/28px var(--font-sans); letter-spacing: -0.014em; color: var(--text-primary); }
+.b-publish p { margin-top: 4px; font: 400 16px/26px var(--font-sans); color: var(--text-secondary); }
+
+/* ------------------------------------------------ five-step flow (/capital) */
+.b-steps5 { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); column-gap: var(--web-col-gap); border-top: 1px solid var(--border-default); }
+.b-steps5 > li { padding: 24px 0 8px; display: flex; flex-direction: column; }
+.b-steps5__num { font: 500 14px/20px var(--font-sans); color: var(--text-tertiary); font-variant-numeric: tabular-nums; }
+.b-steps5__tag { align-self: flex-start; margin-top: 12px; padding: 0 8px; border: 1px solid var(--border-default); border-radius: var(--radius-chip); font: 500 12px/22px var(--font-sans); color: var(--text-tertiary); white-space: nowrap; }
+.b-steps5__tag.is-live { color: var(--text-primary); border-color: var(--border-strong); }
+.b-steps5 h3 { margin-top: 16px; font: 600 18px/26px var(--font-sans); letter-spacing: -0.012em; color: var(--text-primary); }
+.b-steps5 p { margin-top: 8px; font: 400 15px/24px var(--font-sans); color: var(--text-secondary); }
+@media (max-width: 1100px) {
+  .b-steps5 { grid-template-columns: 1fr; }
+  .b-steps5 > li { display: grid; grid-template-columns: 48px minmax(0, 1fr); padding: 20px 0; border-bottom: 1px solid var(--border-default); }
+  .b-steps5 > li > * { grid-column: 2; }
+  .b-steps5__num { grid-column: 1 !important; grid-row: 1 / span 3; line-height: 22px; }
+  .b-steps5__tag { margin-top: 0; justify-self: start; }
+  .b-steps5 h3 { margin-top: 8px; }
+}
+
+/* ------------------------------------------------ R7: Fast Pay, compact linked card (/product, /pricing) */
+.b-fpcard { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 24px 48px; padding: 32px; border: 1px solid var(--border-default); border-radius: var(--radius-card); background: var(--bg-surface); color: var(--text-primary); transition: background-color 150ms var(--ease-out), border-color 150ms var(--ease-out); }
+.b-fpcard:hover { background: var(--bg-surface-hover); border-color: var(--border-strong); }
+.b-fpcard__text { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.b-fpcard__eyebrow { display: flex; align-items: center; gap: 12px; font: 500 14px/20px var(--font-sans); color: var(--text-tertiary); }
+.b-fpcard__title { display: block; font-weight: 600; font-size: clamp(22px, 1rem + 1vw, 28px); line-height: 1.25; letter-spacing: -0.02em; max-width: 34ch; text-wrap: balance; }
+.b-fpcard__line { display: block; font: 400 16px/26px var(--font-sans); color: var(--text-secondary); max-width: 64ch; }
+.b-fpcard__more { display: inline-flex; align-items: center; gap: 6px; font: 500 15px/20px var(--font-sans); color: var(--link); white-space: nowrap; }
+.b-fpcard__more svg { width: 16px; height: 16px; transition: transform 120ms var(--ease-out); }
+.b-fpcard:hover .b-fpcard__more svg { transform: translateX(2px); }
+@media (max-width: 767px) { .b-fpcard { grid-template-columns: 1fr; padding: 24px 20px; } }
+
+/* R7: matched hub cards. Crops and "Learn more" sit on the same line across a row. */
+.b-hubcard__crop { margin-top: auto; }
+.b-hubcard__line { margin-bottom: 16px; }
+
+/* R7: the /product hero board is capped on phones and fades out (the full board is on the quoting page). */
+@media (max-width: 639px) {
+  .b-capfade { max-height: 560px; overflow: hidden; -webkit-mask-image: linear-gradient(to bottom, #000 78%, transparent); mask-image: linear-gradient(to bottom, #000 78%, transparent); }
+}
+
+/* R7: one-line "where we use a model" note on /product. */
+.b-modelnote { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border-default); display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px 32px; }
+.b-modelnote p { font: 400 16px/26px var(--font-sans); color: var(--text-secondary); max-width: 72ch; }
+.b-modelnote p b { color: var(--text-primary); font-weight: 600; }
+
+/* R7 charts: greyscale with one blue highlight. Headline figures are ink, not blue. */
+.sig__num { font: 600 clamp(32px, 1.4rem + 1.4vw, 44px)/1.1 var(--font-sans); letter-spacing: -0.03em; color: var(--text-primary); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.sig-pnl__bar { background: var(--chart-muted); }
+.sig-pnl__bar.is-now { background: var(--chart-bar-highlight); }
+@media (max-width: 639px) {
+  /* 12 bars at 390: every other label (ending on the latest month), so none collide. */
+  .sig-pnl__bars li:nth-child(odd) .sig-pnl__pct, .sig-pnl__bars li:nth-child(odd) .sig-pnl__m { visibility: hidden; }
+  .sig-pnl__pct { font-size: 11px; letter-spacing: 0; }
+}
+
+/* R7: next step + from the blog, two small matched cards. */
+.b-nextcards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--card-gap); }
+.b-nextcards > li { display: flex; }
+.b-nextcard { position: relative; flex: 1; display: flex; flex-direction: column; gap: 6px; padding: 24px 64px 24px 24px; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); background: var(--bg-surface); color: var(--text-primary); transition: background-color 150ms var(--ease-out), border-color 150ms var(--ease-out); }
+.b-nextcard:hover { background: var(--bg-surface-hover); border-color: var(--border-strong); }
+.b-nextcard__k { font: 500 13px/18px var(--font-sans); color: var(--text-tertiary); }
+.b-nextcard__t { font: 600 18px/26px var(--font-sans); letter-spacing: -0.012em; text-wrap: balance; }
+.b-nextcard__l { font: 400 15px/24px var(--font-sans); color: var(--text-secondary); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.b-nextcard__a { position: absolute; right: 24px; top: 24px; width: 18px; height: 18px; color: var(--link); transition: transform 120ms var(--ease-out); }
+.b-nextcard:hover .b-nextcard__a { transform: translateX(2px); }
+.b-nextcards > li:only-child { grid-column: 1 / -1; }
+@media (max-width: 767px) { .b-nextcards { grid-template-columns: 1fr; } .b-nextcard { padding: 20px 52px 20px 20px; } .b-nextcard__a { right: 20px; top: 20px; } }
+
+/* R7 /product/ai: the Copilot line sits above the rows; the rules are matched tiles. */
+.b-modelnote--top { margin: 0 0 72px; }
+.b-rules--tiles { gap: var(--card-gap); border-top: 0; }
+.b-rules--tiles > li { padding: 24px; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); background: var(--bg-surface); }
+@media (max-width: 639px) { .b-rules--tiles > li { padding: 20px; } .b-modelnote--top { margin-bottom: 48px; } }
+
+/* R7: hero eyebrow can hold the Coming soon pill; a small note under the actions (/capital). */
+.b-hero__eyebrow .chip { vertical-align: middle; }
+.b-hero__note { margin-top: 20px; max-width: 56ch; color: var(--text-secondary); }
+.b-rules--four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 1023px) { .b-rules--four { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 639px) { .b-rules--four { grid-template-columns: 1fr; } }
+
+/* R7: photo-led hero (PhotoHero). Same inset frame as the closing band. */
+.b-phero { padding: 16px 16px 0; }
+.b-phero__frame {
+  position: relative; isolation: isolate; overflow: hidden; border-radius: var(--radius-dialog);
+  min-height: clamp(480px, 40vw, 600px); display: flex; align-items: flex-end;
+  background: #15181D; color: var(--text-primary);
+  padding: 96px max(calc(var(--web-gutter) - 16px), calc((100% - var(--web-container)) / 2)) clamp(48px, 5vw, 80px);
+}
+.b-phero__scrim { position: absolute; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(90deg, rgba(11, 12, 14, 0.5) 0%, rgba(11, 12, 14, 0.22) 55%, rgba(11, 12, 14, 0) 100%), linear-gradient(180deg, rgba(11, 12, 14, 0) 40%, rgba(11, 12, 14, 0.35) 100%); }
+.b-phero__text { position: relative; max-width: 760px; }
+.b-phero__text .h1 { max-width: 20ch; }
+.b-phero__text .h1 > .tone-2 { display: block; }
+.b-phero__text .lead { color: rgba(255, 255, 255, 0.86); }
+.b-phero__text .b-hero__note { color: rgba(255, 255, 255, 0.78); }
+.b-phero__text .label { color: rgba(255, 255, 255, 0.78); }
+.b-phero__place { position: absolute; right: 24px; top: 20px; font: 500 13px/18px var(--font-sans); color: rgba(255, 255, 255, 0.78); }
+.b-phero + .sec { padding-top: 96px; }
+@media (max-width: 767px) {
+  .b-phero { padding: 8px 8px 0; }
+  .b-phero__frame { min-height: 520px; padding: 72px 20px 40px; }
+  .b-phero + .sec { padding-top: 64px; }
+}
+
+/* R7: Split heads get columns 1 to 5, so a two-tone H2 stays on two lines at 1440. */
+@media (min-width: 1024px) {
+  .b-split__head { grid-column: 1 / 6; }
+  .b-split__body { grid-column: 7 / 13; }
+}
+/* R7 /insurance: the four answers as a wide 2 x 2. */
+.b-publish--grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--web-col-gap); }
+@media (max-width: 767px) { .b-publish--grid { grid-template-columns: 1fr; } }
+.b-duo__b--wide { grid-column: 1 / 9; }
+@media (max-width: 1023px) { .b-duo__b--wide { grid-column: 1 / -1; } }
+/* R7 /integrations: six matched cards, 3 x 2 on desktop, links on the bottom line. */
+.b-intlist--six { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.b-intlist--six > li:last-child:nth-child(odd) { grid-column: auto; }
+.b-intlist--six .b-intcard ul { margin-bottom: 4px; }
+@media (max-width: 1023px) { .b-intlist--six { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 767px) { .b-intlist--six { grid-template-columns: 1fr; } }
+/* R7 /pricing: the five steps as 3 + 2 between 1024 and 1279 (five across is too tight there). */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .tl.tl--3x2 { grid-template-columns: repeat(6, minmax(0, 1fr)); row-gap: 32px; }
+  .tl.tl--3x2::before { display: none; }
+  .tl.tl--3x2 > .tl__item { grid-column: span 2; }
+  .tl.tl--3x2 > .tl__item:nth-child(n + 4) { grid-column: span 3; }
+}
+/* The note beside a signature figure wraps inside the band at 390 (it could push the page wide). */
+.sig__total > span:last-child, .sig-age__top > span:last-child, .sig-pnl__top > span:last-child { flex: 1 1 240px; min-width: 0; }
+.b-phero__text .h1 > .tone-2 { color: rgba(255, 255, 255, 0.76); }
+/* R7 /pricing: the calculator total is ink, not blue (blue only for buttons, links and one chart highlight). */
+.calc .calc__out > .calc__total > span:last-child { color: var(--text-primary); }
+/* R7b: sharp photo in the photo hero (replaces the blurred backdrop there). */
+.b-phero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--pos, 50% 50%); z-index: -2; color: transparent; }
+@media (max-width: 767px) { .b-phero__img { object-position: var(--pos-phone, var(--pos, 50% 50%)); } }
+.b-phero__scrim { background: linear-gradient(90deg, rgba(11, 12, 14, 0.78) 0%, rgba(11, 12, 14, 0.55) 45%, rgba(11, 12, 14, 0.12) 80%, rgba(11, 12, 14, 0) 100%), linear-gradient(180deg, rgba(11, 12, 14, 0.25) 0%, rgba(11, 12, 14, 0) 25%, rgba(11, 12, 14, 0) 55%, rgba(11, 12, 14, 0.45) 100%); }
+@media (max-width: 767px) { .b-phero__scrim { background: linear-gradient(180deg, rgba(11, 12, 14, 0.45) 0%, rgba(11, 12, 14, 0.62) 40%, rgba(11, 12, 14, 0.8) 100%); } }
+/* R8: stops in px so the scrim always covers the text column (about 880px from the frame's edge) and the rest of the photo stays bright. */
+.b-phero__scrim { background: linear-gradient(90deg, rgba(11, 12, 14, 0.82) 0px, rgba(11, 12, 14, 0.7) 860px, rgba(11, 12, 14, 0.08) 1180px, rgba(11, 12, 14, 0) 100%), linear-gradient(180deg, rgba(11, 12, 14, 0.2) 0%, rgba(11, 12, 14, 0) 25%, rgba(11, 12, 14, 0) 60%, rgba(11, 12, 14, 0.3) 100%); }
+@media (max-width: 767px) { .b-phero__scrim { background: linear-gradient(180deg, rgba(11, 12, 14, 0.45) 0%, rgba(11, 12, 14, 0.62) 40%, rgba(11, 12, 14, 0.8) 100%); } }
+.b-phero__text .lead { color: rgba(255, 255, 255, 0.92); }
+.b-phero__place { padding: 2px 10px; border-radius: 999px; background: rgba(11, 12, 14, 0.6); color: rgba(255, 255, 255, 0.9); }
+
+/* ------------------------------------------------------------ R8 /product mobile section */
+.b-mobile__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--web-col-gap); row-gap: 40px; align-items: start; }
+.b-mobile__text { grid-column: 1 / 7; }
+.b-mobile__text > .body { margin-top: 20px; max-width: 46ch; color: var(--text-secondary); }
+.b-mobile__text .b-checks { margin-top: 24px; }
+.b-mobile__text .b-app-row { margin-top: 32px; }
+.b-mobile__vis { grid-column: 8 / 13; display: flex; justify-content: center; margin: 0; }
+@media (min-width: 1024px) {
+  /* The phone runs off the section's bottom edge: the frame is cropped, never the screen's top. */
+  .b-mobile { padding-bottom: 0; }
+  .b-mobile__vis { height: 600px; overflow: hidden; align-self: end; }
+}
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .b-mobile__text { grid-column: 1 / 8; }
+  .b-mobile__vis { grid-column: 8 / 13; }
+  .b-mobile__vis .phoneshot { --ps: 0.82 !important; }
+}
+@media (max-width: 1023px) {
+  .b-mobile__text, .b-mobile__vis { grid-column: 1 / -1; }
+  .b-mobile__vis .phoneshot { --ps: 0.8 !important; }
+}
+@media (max-width: 639px) {
+  .b-mobile__vis .phoneshot { --ps: 0.7 !important; }
+}
+
+/* ------------------------------------------------------------ R8 mid-page photo band (PhotoBand) */
+.b-band { padding: 0 16px var(--web-section-y); background: var(--web-bg); }
+.b-band__frame {
+  position: relative; isolation: isolate; overflow: hidden; border-radius: var(--radius-dialog);
+  min-height: clamp(420px, 34vw, 520px); display: flex; align-items: center;
+  background: #15181D; color: #FFFFFF;
+  padding: 64px max(calc(var(--web-gutter) - 16px), calc((100% - var(--web-container)) / 2));
+}
+.b-band__img { position: absolute; left: 0; top: -10%; width: 100%; height: 120%; object-fit: cover; object-position: var(--pos, 50% 50%); z-index: -2; color: transparent; }
+.b-band__scrim { position: absolute; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(90deg, rgba(11, 12, 14, 0.86) 0%, rgba(11, 12, 14, 0.8) 46%, rgba(11, 12, 14, 0.3) 72%, rgba(11, 12, 14, 0) 100%); }
+.b-band__text { position: relative; max-width: 880px; }
+/* R9: after a grey section the band gets its own top space, so the frame never butts against the grey edge. */
+.sec--grey + .b-band { padding-top: var(--web-section-y); }
+/* ...and a white section after the band does not double the band's own bottom space. */
+.b-band + .sec:not(.sec--grey):not(.sec--ink) { padding-top: 0; }
+.b-band__text .tlink, .b-band__text .tlink:hover { color: #FFFFFF; }
+.b-band__text .h2 { color: #FFFFFF; text-wrap: balance; }
+.b-band__text .h2 > .tone-2 { display: block; color: rgba(255, 255, 255, 0.84); }
+.b-band__text p { margin-top: 20px; font: 400 17px/27px var(--font-sans); color: rgba(255, 255, 255, 0.9); max-width: 46ch; }
+.b-band__place { position: absolute; right: 20px; bottom: 20px; padding: 2px 10px; border-radius: 999px; background: rgba(11, 12, 14, 0.68); font: 500 13px/18px var(--font-sans); color: rgba(255, 255, 255, 0.92); }
+@media (max-width: 767px) {
+  .b-band { padding: 0 8px var(--web-section-y); }
+  .b-band__frame { min-height: 480px; align-items: flex-end; padding: 72px 20px 64px; }
+  .b-band__img { object-position: var(--pos-phone, 50% 50%); }
+  .b-band__scrim { background: linear-gradient(180deg, rgba(11, 12, 14, 0.1) 0%, rgba(11, 12, 14, 0.55) 40%, rgba(11, 12, 14, 0.86) 100%); }
+  .b-band__place { top: 16px; bottom: auto; right: 16px; }
+}
+
+/* R8 feature pages: a hairline between the specifics and the FAQ; long two-tone heads balance their lines. */
+.sec.b-faqsec { padding-top: 0; }
+/* R9: the hairline sits inside the gutter, on the content width (not the wrap's padding box). */
+.b-faqsec > .wrap { position: relative; padding-top: var(--web-section-y); }
+.b-faqsec > .wrap::before { content: ''; position: absolute; top: 0; left: var(--web-gutter); right: var(--web-gutter); border-top: 1px solid var(--border-subtle); }
+.b-hero .h1, .shead > .h2, .b-split__head .h2, .sig .h2 { text-wrap: balance; }
+
+/* R8 PhotoHero align="top" (/insurance): text top left, the photo's subject (the tanker) stays clear at the bottom.
+   The scrim darkens the top-left corner only, so the rest of the photo keeps its brighter grade. */
+.b-phero--top .b-phero__frame { align-items: flex-start; padding-top: clamp(72px, 7vw, 112px); }
+.b-phero--top .b-phero__scrim { background: linear-gradient(90deg, rgba(11, 12, 14, 0.82) 0%, rgba(11, 12, 14, 0.68) 42%, rgba(11, 12, 14, 0.1) 72%, rgba(11, 12, 14, 0) 100%), linear-gradient(180deg, rgba(11, 12, 14, 0.45) 0%, rgba(11, 12, 14, 0.15) 55%, rgba(11, 12, 14, 0) 75%); }
+.b-phero--top .b-phero__place { top: auto; bottom: 20px; }
+@media (max-width: 767px) {
+  .b-phero--top .b-phero__frame { padding-top: 48px; padding-bottom: 200px; }
+  .b-phero--top .b-phero__scrim { background: linear-gradient(180deg, rgba(11, 12, 14, 0.88) 0%, rgba(11, 12, 14, 0.74) 62%, rgba(11, 12, 14, 0.1) 85%, rgba(11, 12, 14, 0) 100%); }
+}
+
+/* R8 /about security: the full width, rows in two columns from 1024px. */
+.b-duo__b--full { grid-column: 1 / -1; }
+@media (min-width: 1024px) {
+  .b-dl--two { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--web-col-gap); border-top: 0; }
+  .b-dl--two > div { grid-template-columns: 8.5rem minmax(0, 1fr); }
+  .b-dl--two > div:nth-child(-n + 2) { border-top: 1px solid var(--border-default); }
+}
+
+/* R8 /pricing: the timeline's first step is ink, not blue (blue is for buttons and links). */
+.tl--neutral > .tl__item:first-child .tl__when { color: var(--text-primary); }
+.tl--neutral > .tl__item:first-child .tl__node { background: var(--text-primary); color: var(--web-bg); }
+/* R8: calm page heroes (/pricing, /contact, /blog) keep a short H1 to two lines at 360 to 400. */
+@media (max-width: 400px) { .phero .h1 { font-size: 9.8vw; } }
+
+/* R8: the eyebrow on photo heroes at 4.5:1 or better on the brighter grades. */
+.b-phero__text .label { color: rgba(255, 255, 255, 0.92); }
+
+/* R9 /product/reports: the P&L mock shows totals; the full statement opens from a disclosure and replaces it. */
+.b-pnlmore:has(> .b-pnlfull[open]) > .clipin { display: none; }
+.b-pnlfull > summary {
+  display: inline-flex; align-items: center; gap: 8px; margin-top: 16px; cursor: pointer; list-style: none;
+  font: 500 15px/22px var(--font-sans); color: var(--link); min-height: 44px;
+}
+.b-pnlfull > summary::-webkit-details-marker { display: none; }
+.b-pnlfull > summary::after { content: ''; width: 7px; height: 7px; border-right: 1.5px solid currentColor; border-bottom: 1.5px solid currentColor; transform: translateY(-2px) rotate(45deg); transition: transform 0.2s; }
+.b-pnlfull[open] > summary { margin-top: 0; margin-bottom: 16px; }
+.b-pnlfull[open] > summary::after { transform: translateY(2px) rotate(-135deg); }
+.b-pnlfull__hide, .b-pnlfull[open] .b-pnlfull__show { display: none; }
+.b-pnlfull[open] .b-pnlfull__hide { display: inline; }

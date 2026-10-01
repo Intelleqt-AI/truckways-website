@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-import { ButtonLink, TextLink, TwoTone } from '../../../components/ui';
+import { TextLink, TwoTone } from '../../../components/ui';
 import { Breadcrumbs } from '../../../components/Blocks';
-import { CONTACT_EMAIL, demoUrl, signupUrl } from '../../../lib/site';
-import { PRICE_SHORT } from '../../../lib/facts';
+import { InvoiceRow } from '../../../components/fragments/Money';
+import { CONTACT_EMAIL, demoUrl } from '../../../lib/site';
 
 export const metadata: Metadata = {
   title: 'Message sent',
@@ -29,15 +29,16 @@ export default function SentPage() {
           </p>
           <TwoTone as="h1" className="h1" a="Thanks." b="We have your message." />
           <p className="lead">A person reads it and replies by email, from {CONTACT_EMAIL}, on South African working days.</p>
-          <div className="btn-row btn-row--stack status__ctas">
-            <ButtonLink href={demoUrl('contact-sent')} cta="open_demo" loc="contact_sent">
+          {/* R7: one action, and no price line. */}
+          <div className="cta-pair status__ctas">
+            <TextLink href={demoUrl('contact-sent')} cta="open_demo" loc="contact_sent">
               Open the demo while you wait
-            </ButtonLink>
-            <ButtonLink href={signupUrl('contact-sent')} variant="secondary" cta="get_started" loc="contact_sent">
-              Get started
-            </ButtonLink>
+            </TextLink>
           </div>
-          <p className="small status__price">{PRICE_SHORT}</p>
+          {/* Critic R3: one small product fragment (the delivered invoice from the demo company). */}
+          <div className="status__frag" aria-hidden="true">
+            <InvoiceRow compact float />
+          </div>
         </div>
         <div className="status__side">
           <h2 className="h4">What happens next</h2>

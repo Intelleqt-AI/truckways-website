@@ -1,21 +1,21 @@
 # TruckWys
 
-> TruckWys is load-to-cash software for South African transporters. It prices each load from its real costs (this month's FIASA diesel, the SANRAL mainline toll plazas on the route at the truck's class, border fees, driver allowance and your own rate), raises the invoice with 15% VAT when the load is delivered, shows who owes you by age with reminders sent per invoice after a preview, and reports profit, margin by lane and VAT. It works next to a transport management system (TMS); it does not dispatch, route or schedule. Pricing is R 4 499 per month, plus 0,25% of each delivered load's invoice value (incl. VAT), with unlimited users. Month to month, no long-term contract. Fast Pay and Insurance are coming soon and are not live.
+> TruckWys is load-to-cash software for South African transporters. It prices each load from its real costs (this month's FIASA diesel, the SANRAL mainline toll plazas on the route at the truck's class, border fees, driver allowance and your own rate), raises the invoice with 15% VAT when the load is delivered, shows who owes you by age with reminders sent per invoice after a preview, and reports profit, margin by lane and VAT. It works next to a transport management system (TMS); it does not dispatch, route or schedule. Pricing is R 4 499 per month, plus 0,25% of each delivered load's invoice total (the total includes the VAT on your customer's invoice), with unlimited users. Month to month, no long-term contract. Capital and Fast Pay (getting paid on a delivered load's invoice before the customer pays) and Insurance are coming soon and are not live.
 
 ## Key facts
 
-- One plan: R 4 499 per month plus 0,25% of each delivered load's invoice value (incl. VAT). Unlimited loads, quotes, invoices and users. No setup fees. Nothing charged on quotes you lose. No VAT: TruckWys is not registered for VAT, so there is no VAT on the subscription or the fee. Month to month. Cancel with 30 days' written notice.
+- One plan: R 4 499 per month plus 0,25% of each delivered load's invoice total (the total includes the VAT on your customer's invoice). Unlimited loads, quotes, invoices and users. No setup fees. Nothing charged on quotes you lose. No VAT: TruckWys is not registered for VAT, so there is no VAT on the subscription or the fee. Month to month. Cancel with 30 days' written notice.
 - Diesel price from FIASA, inland or coastal.
 - Tolls: 31 SANRAL mainline toll plazas on the N1, N2, N3, N4, N17 and R30, by vehicle class, from the tariffs effective 1 March 2026 (GG 54087, GG 54088). Tolls go into the quote excl. VAT because a VAT vendor claims the input VAT back.
 - Cross-border: border, permit and foreign toll fees for SADC loads, including Botswana, Namibia, Lesotho, Eswatini and Mozambique.
 - A warning in rand when a quote is below cost.
 - Invoice raised when a load is marked delivered, in TruckWys or from a TMS by API, with 15% VAT, your bank details and the invoice number as the EFT reference. Proof of delivery stays with the load.
-- Debtors by age, a statement per customer, and templated reminders that get firmer as days pass, sent by the user from each overdue invoice, in one click after a preview. Not sent automatically and not written by a model.
+- Debtors by age, a statement per customer, and templated reminders in three tones (gentle, firm and final), sent by the user from each overdue invoice, in one click after a preview. Not sent automatically and not written by a model.
 - Nine reports reconciled to invoices, payments and expenses: profit and loss, sales by month, cash movement, debtors age, customer statement, revenue by customer, revenue by lane, expense report and VAT report. CSV export.
 - Copilot: ask about cash, quotes or fleet in plain words. It uses a language model, answers from the company's own data, and drafts quotes and customers for the user to confirm. Prices, tolls, VAT and reminders are rules, not a model.
-- Integrations: Cartrack (connect with your Cartrack API username and password, from Fleetweb under Settings, API Settings) and CtrlFleet, API keys and signed webhooks, Excel and CSV import. Xero is coming soon.
+- Integrations: Cartrack (connect with your Cartrack API username and password, from Fleetweb under Settings, API Settings) and CtrlFleet, API keys and signed webhooks, Excel and CSV import. Xero and QuickBooks: coming soon.
 - Six user roles: Admin, Manager, Operator, Dispatcher, Viewer, Driver.
-- iPhone app on the South African App Store. Android is coming soon.
+- Mobile apps: iPhone (https://apps.apple.com/za/app/truckwys/id6796449044) and Android (https://play.google.com/store/apps/details?id=za.co.truckwys.mobile). Sign in with a TruckWys account created on the web.
 - Try it: the demo company is open to everyone at https://app.truckwys.com/login (press "View demo"). No sign-up, no call.
 - Company: TruckWys (Pty) Ltd, registration 2025/773091/07, 12 Keurboom Road, Claremont, Cape Town, 7800.
 
@@ -23,7 +23,7 @@
 
 1. Quote from real costs. Pick the customer, vehicle, collection and delivery. TruckWys prices fuel from this month's FIASA diesel, adds the tolls on the route from the 31 SANRAL mainline plazas it carries, at the truck's class (excl. VAT), border fees for SADC loads, driver allowance at your rates and your base rate per kilometre. A warning in rand shows when a quote is below cost. Customers can accept a quote from a link.
 2. Delivered means invoiced. Mark the load delivered in TruckWys, or let your TMS do it through the API or a signed webhook, and the invoice is raised with 15% VAT, your terms, your bank details and the invoice number as the EFT reference.
-3. See who owes you. Debtors by age, a statement per customer, a formula-based payment score per customer (not a model), and templated reminders that get firmer as the days pass, sent by you from any overdue invoice, in one click after a preview.
+3. See who owes you. Debtors by age, a statement per customer, a formula-based payment score per customer (not a model), and templated reminders in three tones (gentle, firm and final), sent by you from any overdue invoice, in one click after a preview.
 4. Know what every lane makes. Profit and loss, net margin by month, revenue per kilometre by lane, revenue by customer and truck, and a VAT report, with CSV for your accountant.
 
 ## Where a model is used
@@ -39,7 +39,7 @@ Q: Is TruckWys a TMS?
 A: No. It does not dispatch, route or schedule. It works next to your TMS, your spreadsheets and your tracking, and handles the money on each load.
 
 Q: What does it cost?
-A: R 4 499 per month, plus 0,25% of each delivered load's invoice value (incl. VAT). Unlimited users. Month to month. Cancel with 30 days' written notice.
+A: R 4 499 per month, plus 0,25% of each delivered load's invoice total (the total includes the VAT on your customer's invoice). Unlimited users. Month to month. Cancel with 30 days' written notice.
 
 Q: Do you charge VAT?
 A: TruckWys isn't registered for VAT yet, so there's no VAT on the subscription or the fee. If that changes, we'll tell you in writing before it applies.
@@ -57,10 +57,10 @@ Q: Can I pay by EFT?
 A: The subscription is paid by card through Paystack. Your customers pay you by EFT, straight into your own account.
 
 Q: What about Fast Pay?
-A: Coming soon. It is not live, and no rates will be published until it is.
+A: Coming soon. It is not live, and no rates will be published until it is. It will be opt-in, and TruckWys is not a credit provider: financing would come from an independent invoice-finance provider on its own terms. See https://www.truckwys.com/capital
 
 Q: Is there an Android app?
-A: Not yet. The iPhone app is on the App Store; the web app works on any phone.
+A: Yes. TruckWys is on Google Play and the App Store. The web app works in any phone browser too.
 
 ## Pages
 
@@ -71,9 +71,28 @@ A: Not yet. The iPhone app is on the App Store; the web app works on any phone.
 - [Invoicing](https://www.truckwys.com/product/invoicing): the invoice raised on delivery, with 15% VAT and the invoice number as the EFT reference
 - [Debtors](https://www.truckwys.com/product/debtors): who owes you by age, statements per customer and reminders per invoice
 - [Reports](https://www.truckwys.com/product/reports): profit and loss, revenue per km by lane, expenses and the VAT report
+- [AI in TruckWys](https://www.truckwys.com/product/ai): where a model is used (Copilot, typed loads, win chance) and where rules are used instead
 - [Integrations](https://www.truckwys.com/integrations): Cartrack, CtrlFleet, API keys, webhooks and CSV import
+- [Capital and Fast Pay](https://www.truckwys.com/capital): coming soon, not live. Get paid on a delivered load's invoice before your customer pays. Opt-in; rates published at launch; TruckWys is not a credit provider
+- [Insurance](https://www.truckwys.com/insurance): coming soon, not live. What it covers and costs is published before launch
 - [About](https://www.truckwys.com/about): what TruckWys is and is not
 - [Talk to us](https://www.truckwys.com/contact): for fleets of 50+ trucks and TMS partners
 - [Get started](https://app.truckwys.com/signup): create an account
-- [Guides](https://www.truckwys.com/guides): pricing loads, tolls, diesel and getting paid in South Africa
+- [Blog](https://www.truckwys.com/blog): pricing loads, costs, invoicing on delivery and getting paid in South Africa
 
+## Blog
+
+Articles for South African transporters. Every figure is sourced and dated.
+
+- [How to price loads for profit: floors, lanes and when to say no](https://www.truckwys.com/blog/fleet-profitability-south-africa-ai-powered-pricing): Set a floor for every lane, find out which lanes and customers really make money, price backloads on the extra cost they add, and know when to say no.
+- [How to quote a transport load in South Africa, line by line](https://www.truckwys.com/blog/how-to-quote-freight-rates-south-africa-ai): Diesel, tolls, allowance, fixed costs and the return leg, then margin and VAT. A worked Johannesburg to Pietermaritzburg quote.
+- [Cross-border trucking costs in southern Africa: permits, road charges and tolls](https://www.truckwys.com/blog/cross-border-trucking-southern-africa-multi-currency): C-BRTA permits, foreign road charges and tolls, and how VAT works on a load that leaves the country.
+- [Diesel costs for South African fleets: what you pay for, and what you can control](https://www.truckwys.com/blog/fuel-cost-management-sa-fleets-strategies): The levies in the price, the monthly adjustment, the diesel refund question and a simple fuel surcharge formula.
+- [How to work out your truck's real cost per kilometre](https://www.truckwys.com/blog/sa-fleet-operators-real-cost-per-kilometre): Diesel, tolls, tyres and fixed costs, turned into one rand figure per kilometre, with a worked example.
+- [The true cost of running a truck and a small fleet in South Africa in 2026](https://www.truckwys.com/blog/true-cost-running-truck-fleet-south-africa-2026): Every cost line of owning and running a heavy truck for a year, which are fixed and which move, when each one changes, and a worked budget for one interlink.
+- [Cash flow for South African transport businesses: how to get paid faster](https://www.truckwys.com/blog/cash-flow-transport-business-south-africa): Why a busy transport business can still run out of cash, how to measure the gap, and the steps that shorten it, in the order you control them.
+- [Invoice factoring and other ways to get paid sooner: a guide for South African transporters](https://www.truckwys.com/blog/invoice-factoring-vs-ai-cash-advances-sa-transport): The ways a transport business can turn unpaid invoices into cash sooner, how the fees are built, how to work out the real cost, and what to check before you sign.
+- [Proof of delivery and invoicing on delivery: a guide for South African transporters](https://www.truckwys.com/blog/proof-of-delivery-invoice-on-delivery): What a good POD shows, what a valid tax invoice must contain, how to handle shorts and disputes, and a routine that gets the invoice raised on the day the load delivers.
+- [Six places transport businesses lose money between the load and the bank](https://www.truckwys.com/blog/hidden-profit-leaks-south-african-fleet-operators): Missed costs, late invoices, missing PODs, unchased debtors, VAT on unpaid invoices and diesel increases not passed on.
+- [Fleet management software in South Africa: the four kinds, what each does, and how to choose](https://www.truckwys.com/blog/fleet-management-software-south-africa-2026): The four kinds of software a South African transport business runs, what each one is for, how they fit together, and a checklist for choosing.
+- [The future of road freight in South Africa: what is actually changing](https://www.truckwys.com/blog/future-of-freight-africa-ai-transforming-transport): Private trains on Transnet lines, rebuilt border posts, continental free trade, digital VAT and volatile diesel: what is happening, what it could mean, and what to do now.

@@ -1,20 +1,24 @@
 import { FACTS } from '../lib/facts';
-import { APP_STORE_URL, loginUrl } from '../lib/site';
+import { demoUrl, loginUrl } from '../lib/site';
+import StoreBadges from './StoreBadges';
 
 /* Footer (brief §2.4): only pages that exist. For TMS partners and the
    calculators join when their pages ship. */
-const COLS = [
+type FLink = { href: string; label: string; soon?: boolean };
+const COLS: { title: string; wide?: boolean; links: FLink[] }[] = [
   {
     title: 'Product',
+    wide: true,
     links: [
       { href: '/product', label: 'How it works' },
       { href: '/product/quoting', label: 'Quoting' },
       { href: '/product/invoicing', label: 'Invoicing' },
       { href: '/product/debtors', label: 'Debtors' },
       { href: '/product/reports', label: 'Reports' },
+      { href: '/product/ai', label: 'AI and Copilot' },
       { href: '/integrations', label: 'Integrations' },
-      { href: '/pricing', label: 'Pricing' },
-      { href: APP_STORE_URL, label: 'iPhone app', app: true },
+      { href: '/capital', label: 'Fast Pay', soon: true },
+      { href: '/insurance', label: 'Insurance', soon: true },
     ],
   },
   {
@@ -27,17 +31,19 @@ const COLS = [
   },
   {
     title: 'Resources',
-    links: [{ href: '/guides', label: 'Guides' }],
-  },
-  {
-    title: 'Legal',
     links: [
-      { href: '/privacy', label: 'Privacy policy' },
-      { href: '/terms', label: 'Terms' },
-      { href: '/paia-manual', label: 'PAIA manual' },
-      { href: '/delete-account', label: 'Delete your account' },
+      { href: '/pricing', label: 'Pricing' },
+      { href: '/blog', label: 'Blog' },
+      { href: demoUrl('footer'), label: 'Open the demo' },
     ],
   },
+];
+
+const LEGAL = [
+  { href: '/privacy', label: 'Privacy' },
+  { href: '/terms', label: 'Terms' },
+  { href: '/paia-manual', label: 'PAIA manual' },
+  { href: '/delete-account', label: 'Delete your account' },
 ];
 
 export default function Footer() {
@@ -49,23 +55,19 @@ export default function Footer() {
             <img className="footer__logo" src="/brand/truckwys-logo.png" alt="TruckWys" width={113} height={22} loading="lazy" />
             <p>Load-to-cash software for South African transporters.</p>
             <div className="footer__app">
-              {/* TODO(owner): swap for Apple's official "Download on the App Store"
-                  badge artwork (Apple marketing guidelines); a text button until then. */}
-              <a href={APP_STORE_URL} className="btn btn--secondary btn--sm" data-appstore="footer">
-                iPhone app on the App Store
-              </a>
-              <span className="small">Android coming soon</span>
+              <StoreBadges loc="footer" size="sm" />
             </div>
           </div>
           <div className="footer__cols">
             {COLS.map((c) => (
-              <nav key={c.title} className="footer__col" aria-label={c.title}>
+              <nav key={c.title} className={`footer__col${c.wide ? ' footer__col--wide' : ''}`} aria-label={c.title}>
                 <h2>{c.title}</h2>
                 <ul className="list-reset">
                   {c.links.map((l) => (
                     <li key={l.label}>
-                      <a href={l.href} {...('app' in l ? { 'data-appstore': 'footer_link' } : {})}>
+                      <a href={l.href}>
                         {l.label}
+                        {l.soon ? <span className="footer__soon">Soon</span> : null}
                       </a>
                     </li>
                   ))}
@@ -76,9 +78,15 @@ export default function Footer() {
         </div>
         <div className="footer__legal">
           <p className="small footer__co">
-            <span>{FACTS.company.name}</span> <span>· Reg. {FACTS.company.reg}</span> <span>· {FACTS.company.address}</span>
+            © 2026 {FACTS.company.name} · Reg.&nbsp;{FACTS.company.reg}
           </p>
-          <p className="small">© 2026 TruckWys</p>
+          <nav aria-label="Legal" className="footer__legal-links">
+            {LEGAL.map((l) => (
+              <a key={l.href} href={l.href} className="small">
+                {l.label}
+              </a>
+            ))}
+          </nav>
         </div>
       </div>
     </footer>
