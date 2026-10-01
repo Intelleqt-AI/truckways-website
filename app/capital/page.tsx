@@ -97,7 +97,7 @@ export default function CapitalPage() {
         primary="none"
         eyebrow={<StatusChip>Fast Pay · coming soon</StatusChip>}
         a="Get paid sooner."
-        b="Before your customer pays."
+        b="Before they pay."
         lead="Get paid on a delivered load's invoice without waiting out your customer's 30 to 60 days. Opt in, invoice by invoice. Not live yet."
         actions={
           <>

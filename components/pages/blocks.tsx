@@ -267,7 +267,7 @@ export function NextCards({ next, read }: { next: { href: string; title: string;
  * Photos: public/bands/*.jpg or public/covers/pages/*.jpg (R8 regrades), each credited where it is used.
  */
 export function PhotoHero({
-  src, position = '50% 50%', eyebrow, a, b, lead, actions, note, place, align = 'bottom',
+  src, position = '50% 50%', positionPhone, eyebrow, a, b, lead, actions, note, place, align = 'bottom',
 }: {
   /** R8: 'top' puts the text at the top left (the subject of the photo sits low, e.g. /insurance). */
   align?: 'top' | 'bottom';
@@ -275,6 +275,8 @@ export function PhotoHero({
   src: string;
   /** object-position for the crop. */
   position?: string;
+  /** R10: object-position below 768px (the tall phone frame shows a narrow slice of the 2:1 photo). */
+  positionPhone?: string;
   eyebrow: ReactNode;
   a: ReactNode;
   b?: ReactNode;
@@ -289,7 +291,7 @@ export function PhotoHero({
   return (
     <section className={`b-phero${align === 'top' ? ' b-phero--top' : ''}`} aria-labelledby="page-h1">
       <div className="b-phero__frame" data-theme="dark">
-        <img {...img} className="b-phero__img" alt="" style={{ objectPosition: position }} />
+        <img {...img} className="b-phero__img" alt="" style={{ ['--pos' as string]: position, ['--pos-phone' as string]: positionPhone ?? position }} />
         <div className="b-phero__scrim" aria-hidden="true" />
         <div className="b-phero__text">
           <div className="label b-hero__eyebrow">{eyebrow}</div>

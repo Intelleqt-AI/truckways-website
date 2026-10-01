@@ -126,7 +126,7 @@ export default function InvoicingPage() {
         a="Delivered today."
         b="Invoiced today."
         line="Mark the load delivered, in TruckWys or from your TMS, and the invoice is raised with 15% VAT and your terms."
-        place="Port Elizabeth harbour, Eastern Cape"
+        place="Gqeberha harbour, Eastern Cape"
       />
 
       <section className="sec" aria-labelledby="spec-h">

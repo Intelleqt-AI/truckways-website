@@ -58,17 +58,19 @@ export default function AboutPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(graph(aboutPage, breadcrumbSchema(CRUMBS)))} />
 
       <PhotoHero
-        // "N1 route just passing Midrand", by Clayton Majona (https://unsplash.com/@phathisile),
-        // https://unsplash.com/photos/a-highway-filled-with-lots-of-traffic-under-a-cloudy-sky-VUEaEIZn4U4, Unsplash Licence.
-        // Cropped to the road and sky (no plates or brand boards). R9 regrade: levels stretched, midtones lifted about +0.4 EV, a gentle
-        // S-curve, saturation 0.72; the scrim darkens only behind the text.
-        src="/covers/pages/about-n1-midrand.jpg"
+        // R10: "Sunset over a highway with mountains in background" (Table Mountain sunset, Cape Town), by Alicia Christin Gerald
+        // (https://unsplash.com/@allysphotos), https://unsplash.com/photos/sunset-over-a-highway-with-mountains-in-background-2kSQVzmbtlU,
+        // Unsplash Licence (https://unsplash.com/license), checked not Unsplash+ (premium=false, plus=false). Clear dusk, the road into
+        // Cape Town under Devil's Peak and Lion's Head; the gantry boards and plates are silhouettes, nothing is legible. 2:1 crop, levels
+        // stretched, a gentle S-curve, saturation 0.7, slightly cooler; the scrim darkens only behind the text.
+        src="/covers/pages/about-cape-town-dusk.jpg"
         position="50% 60%"
+        positionPhone="70% 60%"
         eyebrow="About TruckWys"
         a="The money side"
         b="of running trucks."
         lead="TruckWys is South African software for the part of trucking that decides whether a year was good: price, invoice, collect. Founded in Cape Town in 2025."
-        place="N1 at Midrand, Gauteng"
+        place="Highway into Cape Town at sunset"
       />
 
       <section className="sec" aria-labelledby="believe-h">

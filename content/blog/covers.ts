@@ -11,11 +11,13 @@
  * durban-day: Magda Ehlers, https://www.pexels.com/photo/drone-shot-of-a-port-during-the-day-3814211/ (Pexels Licence)
  * R9 (the Home hero photo, Velddrif, is no longer a blog cover; adjacent thumbnails in a category differ). All Unsplash
  * Licence, checked premium=false and plus=false; crops made by scratchpad fix-r9/grade/covers.py:
- * cape-town-quay: Theophilus Asamoah Yeboah, https://unsplash.com/photos/industrial-buildings-and-cranes-at-a-harbor-MSRF2MBkbrY
- *                 (the company logos on the shed and the tower are softened)
+ * (cape-town-quay, R9 only: Theophilus Asamoah Yeboah, MSRF2MBkbrY; dropped in R10 because its logos had to be blurred)
  * barkly-east:    William Veitch, https://unsplash.com/photos/a-long-road-through-golden-fields-leading-to-mountains-gDa6bciSpxQ
  * eastern-cape:   Aphiwe Anna Biyana, https://unsplash.com/photos/an-empty-road-with-a-fence-and-a-field-in-the-background-bw1UMft0DD8
  * central-karoo:  redcharlie, https://unsplash.com/photos/road-traversing-land-mass-cnTYZThmdu0
+ * R10 (Unsplash Licence, premium=false, plus=false; no signage, plates or people, nothing retouched; crop by scratchpad fix-r10/grade/grade.py):
+ * winelands-road: Bradley Terblanche, https://unsplash.com/photos/a-road-in-the-middle-of-the-desert-with-mountains-in-the-background-YuPluEMsdWY
+ *                 ("Cape Winelands in South Africa")
  */
 const PLACES = {
   gillitts: 'The N3 at Gillitts, KwaZulu-Natal, at dusk',
@@ -23,14 +25,14 @@ const PLACES = {
   midrand: 'Traffic on the N1 at Midrand, Gauteng, in the rain',
   franschhoek: 'The Franschhoek Pass and valley, Western Cape',
   'durban-day': 'Rail sidings and quays at the Port of Durban',
-  'cape-town-quay': 'A quay crane and sheds in Cape Town harbour',
+  'winelands-road': 'A two-lane road through farmland in the Cape Winelands',
   'barkly-east': 'A road through grassland to the mountains near Barkly East, Eastern Cape',
   'eastern-cape': 'An empty two-lane road in the Eastern Cape in the morning',
   'central-karoo': 'A road winding through the Central Karoo under a fiery cloud sky',
 } as const;
 
 const BY_SLUG: Record<string, keyof typeof PLACES> = {
-  'how-to-quote-freight-rates-south-africa-ai': 'cape-town-quay',
+  'how-to-quote-freight-rates-south-africa-ai': 'winelands-road',
   'true-cost-running-truck-fleet-south-africa-2026': 'barkly-east',
   'fleet-profitability-south-africa-ai-powered-pricing': 'gillitts',
   'hidden-profit-leaks-south-african-fleet-operators': 'gillitts',

@@ -743,7 +743,8 @@ a.b-hubcard:hover .b-hubcard__more svg { transform: translateX(2px); }
 /* R7 /pricing: the calculator total is ink, not blue (blue only for buttons, links and one chart highlight). */
 .calc .calc__out > .calc__total > span:last-child { color: var(--text-primary); }
 /* R7b: sharp photo in the photo hero (replaces the blurred backdrop there). */
-.b-phero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; z-index: -2; color: transparent; }
+.b-phero__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: var(--pos, 50% 50%); z-index: -2; color: transparent; }
+@media (max-width: 767px) { .b-phero__img { object-position: var(--pos-phone, var(--pos, 50% 50%)); } }
 .b-phero__scrim { background: linear-gradient(90deg, rgba(11, 12, 14, 0.78) 0%, rgba(11, 12, 14, 0.55) 45%, rgba(11, 12, 14, 0.12) 80%, rgba(11, 12, 14, 0) 100%), linear-gradient(180deg, rgba(11, 12, 14, 0.25) 0%, rgba(11, 12, 14, 0) 25%, rgba(11, 12, 14, 0) 55%, rgba(11, 12, 14, 0.45) 100%); }
 @media (max-width: 767px) { .b-phero__scrim { background: linear-gradient(180deg, rgba(11, 12, 14, 0.45) 0%, rgba(11, 12, 14, 0.62) 40%, rgba(11, 12, 14, 0.8) 100%); } }
 /* R8: stops in px so the scrim always covers the text column (about 880px from the frame's edge) and the rest of the photo stays bright. */

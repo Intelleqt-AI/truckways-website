@@ -3,7 +3,7 @@ import { A, type Post } from '../types';
 
 const post: Post = {
   slug: 'how-to-quote-freight-rates-south-africa-ai',
-  h1: { a: 'How to quote a transport load.', b: 'Line by line, diesel to VAT.' },
+  h1: { a: 'How to quote a load.', b: 'Line by line, diesel to VAT.' },
   title: 'How to quote a transport load in South Africa, line by line',
   seoTitle: 'How to quote a transport load in South Africa',
   description:

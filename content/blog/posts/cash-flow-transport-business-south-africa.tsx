@@ -3,7 +3,7 @@ import { A, type Post } from '../types';
 
 const post: Post = {
   slug: 'cash-flow-transport-business-south-africa',
-  h1: { a: 'Cash flow for transport businesses.', b: 'How to get paid faster.' },
+  h1: { a: 'Transport cash flow.', b: 'How to get paid faster.' },
   title: 'Cash flow for South African transport businesses: how to get paid faster',
   seoTitle: 'Cash flow for transport companies in SA',
   description:

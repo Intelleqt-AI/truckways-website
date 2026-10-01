@@ -90,7 +90,7 @@ export default function BlogPage() {
       <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(graph(blog, breadcrumbSchema(CRUMBS)))} />
       <section className={s.head}>
         <div className="wrap">
-          <TwoTone as="h1" className="h1" a="Blog." b="The money side of trucking." />
+          <TwoTone as="h1" className="h1" a="Blog." b="Trucking money." />
           <p className={`lead ${s.lead}`}>
             Pricing loads, costs, invoicing and getting paid, for South African transporters. Every figure is sourced and dated.
           </p>

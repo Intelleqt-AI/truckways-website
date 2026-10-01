@@ -108,20 +108,21 @@ export default function QuotingPage() {
       </section>
 
       {/*
-        R9: one sharp photo band. "Large industrial cranes under a cloudy sky", Cape Town container terminal, by Omar (https://unsplash.com/@ommyjay), https://unsplash.com/photos/large-industrial-cranes-under-a-cloudy-sky-Wt3ChnH8N08. Shipping-line and terminal marks on containers and cranes are softened; the trailer at the bottom edge is cropped out.
-        Unsplash Licence (https://unsplash.com/license), checked not Unsplash+ (premium=false, plus=false); free commercial
-        use, no attribution required. Graded like the site's other bands (saturation ~0.66, slightly cooler), darkened
-        only behind the text by the band's scrim. Master: public/bands/quoting-cape-town-terminal.jpg.
+        R10: one sharp photo band. "A wide open road in the middle of nowhere" (lone road between fields, South Africa), by Tertia van
+        Rensburg (https://unsplash.com/@tertia), https://unsplash.com/photos/a-wide-open-road-in-the-middle-of-nowhere-b87b0Ine748.
+        No vehicles, signs, plates or people, so nothing is retouched. Unsplash Licence (https://unsplash.com/license), checked not
+        Unsplash+ (premium=false, plus=false); free commercial use, no attribution required. Graded like the site's other bands
+        (saturation ~0.62, slightly cooler), darkened only behind the text by the band's scrim. Master: public/bands/quoting-country-road.jpg.
       */}
       <PhotoBand
         id="band-h"
-        src="/bands/quoting-cape-town-terminal.jpg"
-        position="50% 88%"
-        positionPhone="30% 75%"
+        src="/bands/quoting-country-road.jpg"
+        position="50% 62%"
+        positionPhone="64% 50%"
         a="Every load, priced."
         b="Before it leaves."
         line="Diesel, tolls, border fees and your rates, added up line by line for the truck you send."
-        place="Container terminal, Cape Town"
+        place="A country road, South Africa"
       />
 
       <section className="sec" aria-labelledby="spec-h">
