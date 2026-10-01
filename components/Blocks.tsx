@@ -4,18 +4,13 @@ import { demoUrl, signupUrl } from '../lib/site';
 import { PRICE_SHORT } from '../lib/facts';
 
 /** Breadcrumbs: mirrors the BreadcrumbList JSON-LD on each page below root. */
-export function Breadcrumbs({ trail }: { trail: { name: string; path: string }[] }) {
-  return (
-    <nav aria-label="Breadcrumb" className="crumbs">
-      <ol className="list-reset">
-        {trail.map((t, i) => (
-          <li key={t.path}>
-            {i < trail.length - 1 ? <a href={t.path}>{t.name}</a> : <span aria-current="page">{t.name}</span>}
-          </li>
-        ))}
-      </ol>
-    </nav>
-  );
+/**
+ * Visible breadcrumbs removed (owner, 1 Oct 2026): marketing pages don't show a dashboard-style trail.
+ * The BreadcrumbList JSON-LD (lib/schema.ts breadcrumbSchema) stays on each page for search.
+ */
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+export function Breadcrumbs(_props: { trail: { name: string; path: string }[] }) {
+  return null;
 }
 
 /** Flott calm page hero: white, left-aligned two-tone H1, lead, optional buttons. */

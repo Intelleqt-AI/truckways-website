@@ -11,7 +11,7 @@
 .b-hero .h1 { max-width: 20ch; }
 .b-hero .h1 > .tone-2 { display: block; }
 .b-hero__lead { max-width: 56ch; margin-top: 24px; }
-.b-hero .btn-row { margin-top: 32px; }
+.b-hero .btn-row, .b-hero .cta-pair { margin-top: 32px; }
 .b-hero__price { margin-top: 16px; }
 .b-hero__frame { margin-top: 64px; }
 @media (max-width: 639px) {
