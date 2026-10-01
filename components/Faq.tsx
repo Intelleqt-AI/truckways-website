@@ -1,7 +1,8 @@
 import type { ReactNode } from 'react';
 import { TwoTone } from './ui';
 
-export type QA = { id: string; q: string; a: string };
+/** `a` is the plain answer (also used for the FAQPage JSON-LD); `rich` optionally renders it with links. */
+export type QA = { id: string; q: string; a: string; rich?: ReactNode };
 
 /** Flott "Before you get started": two-tone heading left, native details/summary right. */
 export default function Faq({ a, b, line, items }: { a: ReactNode; b?: ReactNode; line?: ReactNode; items: QA[] }) {
@@ -18,7 +19,7 @@ export default function Faq({ a, b, line, items }: { a: ReactNode; b?: ReactNode
               {f.q}
               <span className="faq__icon" aria-hidden="true" />
             </summary>
-            <p className="faq__a">{f.a}</p>
+            <p className="faq__a">{f.rich ?? f.a}</p>
           </details>
         ))}
       </div>
