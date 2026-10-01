@@ -16,6 +16,38 @@ const slugify = (t: string) => t.toLowerCase().replace(/[^a-z0-9]+/g, '-').repla
 const textOf = (n: ReactNode): string =>
   typeof n === 'string' || typeof n === 'number' ? String(n) : Array.isArray(n) ? n.map(textOf).join('') : isValidElement(n) ? textOf((n.props as { children?: ReactNode }).children) : '';
 
+type El = ReactElement<{ children?: ReactNode; className?: string }>;
+const kids = (e: El) => Children.toArray(e.props.children).filter(isValidElement) as El[];
+
+/** Phones stack a `wide` table into blocks; label each cell with its column header so the values still read. */
+function labelWideTable(t: El): El {
+  const head = kids(t).find((k) => k.type === 'thead');
+  const headers = head ? kids(kids(head)[0] ?? head).map((th) => textOf(th.props.children)) : [];
+  return cloneElement(
+    t,
+    {},
+    Children.map(t.props.children, (sec) =>
+      isValidElement(sec) && (sec as El).type === 'tbody'
+        ? cloneElement(
+            sec as El,
+            {},
+            Children.map((sec as El).props.children, (tr) =>
+              isValidElement(tr)
+                ? cloneElement(
+                    tr as El,
+                    {},
+                    Children.map((tr as El).props.children, (td, i) =>
+                      isValidElement(td) && headers[i] ? cloneElement(td as ReactElement<{ 'data-label'?: string }>, { 'data-label': headers[i] }) : td,
+                    ),
+                  )
+                : tr,
+            ),
+          )
+        : sec,
+    ),
+  );
+}
+
 /** Gives every H2 in a post body an id, and returns the list for the "On this page" index. */
 function withAnchors(body: ReactNode) {
   const toc: { id: string; text: string }[] = [];
@@ -27,6 +59,7 @@ function withAnchors(body: ReactNode) {
       toc.push({ id, text });
       return cloneElement(c as ReactElement<{ id?: string }>, { id });
     }
+    if (isValidElement(c) && c.type === 'table' && (c as El).props.className?.split(' ').includes('wide')) return labelWideTable(c as El);
     return c;
   });
   return { out, toc };
