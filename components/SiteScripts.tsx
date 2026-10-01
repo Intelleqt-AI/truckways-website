@@ -39,7 +39,7 @@ export default function SiteScripts() {
     // Reveal (sections, cards) and motion targets (charts, drawn lines): .is-in once, on entering.
     const els = Array.from(
       document.querySelectorAll<HTMLElement>(
-        '.reveal,.facts__list,.chart__plot,.lane,.find__bar,.age__bar,.b-scatter,.sig-age__bar,.sig-pnl__bars,.sig-route__plazas,.sig-flow',
+        '.reveal,.facts__list,.closing,.chart__plot,.lane,.find__bar,.age__bar,.b-scatter,.sig-age__bar,.sig-pnl__bars,.sig-route__plazas,.sig-flow',
       ),
     );
     let io: IntersectionObserver | undefined;

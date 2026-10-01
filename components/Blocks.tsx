@@ -1,9 +1,18 @@
 import type { ReactNode } from 'react';
 import { ButtonLink, TextLink, TwoTone } from './ui';
 import { demoUrl, signupUrl } from '../lib/site';
-import { PRICE_SHORT } from '../lib/facts';
+import { getImageProps } from 'next/image';
 
-/** Breadcrumbs: mirrors the BreadcrumbList JSON-LD on each page below root. */
+/*
+ * Closing photo: "timelapse of road", Gillitts (N3 corridor), KwaZulu-Natal, by David Rama
+ * (https://www.pexels.com/photo/timelapse-of-road-541333/), Pexels Licence (free commercial use,
+ * no attribution required). Cropped (railing removed), desaturated, darkened, slightly cooler.
+ */
+function ClosingPhoto() {
+  const { props } = getImageProps({ src: '/closing/n3-gillitts.jpg', alt: '', fill: true, quality: 70, sizes: 'calc(100vw - 32px)' });
+  return <img {...props} className="closing__img" alt="" loading="lazy" decoding="async" />;
+}
+
 /**
  * Visible breadcrumbs removed (owner, 1 Oct 2026): marketing pages don't show a dashboard-style trail.
  * The BreadcrumbList JSON-LD (lib/schema.ts breadcrumbSchema) stays on each page for search.
@@ -47,23 +56,28 @@ export function Closing({
 }) {
   return (
     <section className="closing" aria-labelledby="closing-h">
-      <div className="wrap">
-        <div className="closing__grid">
-        <TwoTone id="closing-h" a={a} b={b} />
-        <div className="closing__side">
-          <p className="body">{line}</p>
-          <div className="cta-pair">
+      <div className="closing__frame" data-theme="dark">
+        <ClosingPhoto />
+        <div className="closing__scrim" aria-hidden="true" />
+        <div className="closing__text">
+          <TwoTone id="closing-h" a={a} b={b} />
+          <p className="closing__line">{line}</p>
+          <div className="closing__ctas">
             <ButtonLink href={signupUrl(`${page}-cta`)} cta="get_started" loc="closing">
               Get started
             </ButtonLink>
-            <TextLink href={demoUrl(`${page}-cta`)} cta="open_demo" loc="closing">
+            <TextLink href={demoUrl(`${page}-cta`)} cta="open_demo" loc="closing" className="closing__demo">
               Open the demo
             </TextLink>
             {extra}
           </div>
-          <p className="small closing__price">{PRICE_SHORT}</p>
         </div>
-        </div>
+        <ul className="closing__words list-reset" aria-hidden="true">
+          <li>Price</li>
+          <li>Invoice</li>
+          <li>Get paid</li>
+        </ul>
+        <p className="closing__place">N3 at Gillitts, KwaZulu-Natal</p>
       </div>
     </section>
   );
