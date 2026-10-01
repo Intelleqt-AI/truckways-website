@@ -1,5 +1,5 @@
 /*
- * Phase B pages (/product, /product/*, /integrations, /about, /guides):
+ * Phase B pages (/product, /product/*, /integrations, /about, /blog):
  * layout blocks and the product fragments added for them. Tokens only
  * (styles/tokens.css); no new colours, no gradients, radius never above 16.
  * Prefix b- so nothing collides with the shell's styles/site.css.

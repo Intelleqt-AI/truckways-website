@@ -1,7 +1,11 @@
 /**
- * Sources cited in the guides. Every URL was opened and the figure checked on
- * 30 Sep 2026. Re-check each one when a guide is reviewed.
+ * Sources shared by more than one blog post. Every URL was opened and the
+ * figure checked on the date in each post's `reviewed` field. Re-check each
+ * one when a post is reviewed. A source only one post uses can live in that
+ * post's file instead (see README.md).
  */
+export type Source = { readonly name: string; readonly url: string };
+
 export const SRC = {
   dmprSep: {
     name: 'DMPR media statement: fuel price adjustments effective 2 September 2026',
@@ -39,9 +43,14 @@ export const SRC = {
   dieselRefund: { name: 'SARS: diesel refund system', url: 'https://www.sars.gov.za/customs-and-excise/excise/diesel-refund-system/' },
   rfa: { name: 'Road Freight Association: Vehicle Cost Schedule', url: 'https://rfa.co.za/SA/vehicle-cost-schedule/' },
   nbcrfli: { name: 'NBCRFLI: Main Collective Agreement', url: 'https://www.nbcrfli.org.za/collective-agreements/main' },
-  prescribedRate: {
-    name: 'Government Gazette 54520, Notice 3887 of 2026: prescribed rate of interest',
-    url: 'https://www.gov.za/sites/default/files/gcis_document/202604/54520gen3887.pdf',
+  prescribedAct: {
+    name: 'Judicial Matters Amendment Act 24 of 2015, section 3: new section 1 of the Prescribed Rate of Interest Act, 1975',
+    url: 'https://www.justice.gov.za/legislation/acts/2015-024JudicinalMattersAmend.pdf',
+  },
+  repoMay: { name: 'SAnews, 28 May 2026: SARB raises repo rate to 7%, effective 29 May', url: 'https://www.sanews.gov.za/south-africa/sarb-raises-repo-rate-7' },
+  repoSep: {
+    name: 'SARB: Statement of the Monetary Policy Committee, September 2026 (repo rate 7,25% from 25 September)',
+    url: 'https://www.resbank.co.za/en/home/publications/publication-detail-pages/statements/monetary-policy-statements/2026/september',
   },
   cbrta: { name: 'Cross-Border Road Transport Agency: permits', url: 'https://www.cbrta.co.za/permits' },
   botswana: { name: 'Government of Botswana: single transit permit', url: 'https://www.gov.bw/transport-permits/single-transit-permit' },
@@ -49,6 +58,4 @@ export const SRC = {
   trac: { name: 'TRAC N4: toll plazas and toll fees', url: 'https://tracn4.co.za/toll-plazas-toll-fees/' },
   eswatini: { name: 'Eswatini Tourism Authority: how to get there (road toll)', url: 'https://www.thekingdomofeswatini.com/how-to-get-there/' },
   lesotho: { name: 'Road Fund (Lesotho), 29 Apr 2022: increase in toll gate fees', url: 'https://www.roadfund.org.ls/news/road-fund-announces-an-increase-in-toll-gate-fees/' },
-} as const;
-
-export type Source = (typeof SRC)[keyof typeof SRC];
+} as const satisfies Record<string, Source>;

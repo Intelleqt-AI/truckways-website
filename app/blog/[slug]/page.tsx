@@ -3,10 +3,10 @@ import { Children, cloneElement, isValidElement, type ReactElement, type ReactNo
 import { notFound } from 'next/navigation';
 import { ButtonLink, TextLink } from '../../../components/ui';
 import { Breadcrumbs } from '../../../components/Blocks';
-import { GUIDES, GUIDES_SORTED, getGuide } from '../../../content/guides';
+import { POSTS, getPost, relatedPosts } from '../../../content/blog';
 import { SITE_URL, demoUrl, signupUrl, jsonLd } from '../../../lib/site';
 import { PRICE_AND_FEE } from '../../../lib/facts';
-import { graph, breadcrumbSchema, ids } from '../../../lib/schema';
+import { graph, breadcrumbSchema, faqSchema, ids } from '../../../lib/schema';
 import { date } from '../../../lib/format';
 import s from '../article.module.css';
 
@@ -16,7 +16,7 @@ const slugify = (t: string) => t.toLowerCase().replace(/[^a-z0-9]+/g, '-').repla
 const textOf = (n: ReactNode): string =>
   typeof n === 'string' || typeof n === 'number' ? String(n) : Array.isArray(n) ? n.map(textOf).join('') : isValidElement(n) ? textOf((n.props as { children?: ReactNode }).children) : '';
 
-/** Gives every H2 in a guide body an id, and returns the list for the "On this page" index. */
+/** Gives every H2 in a post body an id, and returns the list for the "On this page" index. */
 function withAnchors(body: ReactNode) {
   const toc: { id: string; text: string }[] = [];
   const root = isValidElement(body) ? (body.props as { children?: ReactNode }).children : body;
@@ -32,13 +32,13 @@ function withAnchors(body: ReactNode) {
   return { out, toc };
 }
 export function generateStaticParams() {
-  return GUIDES.map((g) => ({ slug: g.slug }));
+  return POSTS.map((g) => ({ slug: g.slug }));
 }
 
 export function generateMetadata({ params }: { params: { slug: string } }): Metadata {
-  const g = getGuide(params.slug);
+  const g = getPost(params.slug);
   if (!g) return {};
-  const url = `${SITE_URL}/guides/${g.slug}`;
+  const url = `${SITE_URL}/blog/${g.slug}`;
   return {
     title: g.seoTitle,
     description: g.description,
@@ -50,23 +50,25 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
       description: g.description,
       publishedTime: g.published,
       modifiedTime: g.reviewed,
-      images: [{ url: '/og/guides.png', width: 1200, height: 630, alt: g.title }],
+      section: g.category,
+      authors: ['TruckWys'],
+      images: [{ url: '/og/blog.png', width: 1200, height: 630, alt: g.title }],
     },
-    twitter: { card: 'summary_large_image', title: `${g.seoTitle} | TruckWys`, description: g.description, images: ['/og/guides.png'] },
+    twitter: { card: 'summary_large_image', title: `${g.seoTitle} | TruckWys`, description: g.description, images: ['/og/blog.png'] },
   };
 }
 
-export default function GuidePage({ params }: { params: { slug: string } }) {
-  const g = getGuide(params.slug);
+export default function BlogPostPage({ params }: { params: { slug: string } }) {
+  const g = getPost(params.slug);
   if (!g) notFound();
-  const url = `${SITE_URL}/guides/${g.slug}`;
+  const url = `${SITE_URL}/blog/${g.slug}`;
   const crumbs = [
     { name: 'Home', path: '/' },
-    { name: 'Guides', path: '/guides' },
-    { name: g.title, path: `/guides/${g.slug}` },
+    { name: 'Blog', path: '/blog' },
+    { name: g.title, path: `/blog/${g.slug}` },
   ];
   const article = {
-    '@type': 'Article',
+    '@type': 'BlogPosting',
     '@id': `${url}#article`,
     headline: g.title,
     description: g.description,
@@ -78,19 +80,26 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
     // Q7: no named author yet, so the organisation is the author.
     author: { '@id': ids.org },
     publisher: { '@id': ids.org },
-    image: `${SITE_URL}/og/guides.png`,
+    image: `${SITE_URL}/og/blog.png`,
+    articleSection: g.category,
+    keywords: g.keyword,
+    isPartOf: { '@id': `${SITE_URL}/blog#blog` },
     citation: g.sources.map((x) => x.url),
   };
   const { out, toc } = withAnchors(g.body);
-  const others = GUIDES_SORTED.filter((x) => x.slug !== g.slug).slice(0, 3);
+  const others = relatedPosts(g);
+  const faq = g.faq?.length ? faqSchema(g.faq) : null;
 
   return (
     <>
-      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(graph(article, breadcrumbSchema(crumbs)))} />
+      <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(faq ? graph(article, breadcrumbSchema(crumbs), faq) : graph(article, breadcrumbSchema(crumbs)))} />
       <article className={s.article}>
         <div className={`wrap ${s.layout}`}>
           <div className={s.col}>
             <Breadcrumbs trail={crumbs} />
+            <p className={s.eyebrow}>
+              <a href={`/blog#${g.category.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>{g.category}</a>
+            </p>
             <h1 className={`h1 ${s.title}`}>
               {g.h1.a} <span className="tone-2">{g.h1.b}</span>
             </h1>
@@ -110,6 +119,18 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
 
             <div className={s.body}>{out}</div>
 
+            {g.faq?.length ? (
+              <section className={s.faq} aria-labelledby="faq-h">
+                <h2 id="faq-h">Questions people ask</h2>
+                {g.faq.map((f) => (
+                  <details key={f.q}>
+                    <summary>{f.q}</summary>
+                    <p>{f.a}</p>
+                  </details>
+                ))}
+              </section>
+            ) : null}
+
             <section className={s.sources} aria-labelledby="sources-h">
               <h2 id="sources-h">Sources</h2>
               <ol>
@@ -123,7 +144,7 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
               </ol>
               <p className={s.disclaimer}>
                 Figures checked on {date(g.reviewed)}. Prices, tariffs and rates change; check the source before you rely on a figure. This
-                guide is not tax or legal advice.
+                article is not tax, legal or financial advice.
               </p>
             </section>
 
@@ -131,10 +152,10 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
               <h2 id="end-h">Do this for every load, without the spreadsheet</h2>
               <p>TruckWys prices loads from diesel and tolls, raises the invoice on delivery and shows who owes you. Look around the demo company first.</p>
               <div className="cta-pair">
-                <ButtonLink href={signupUrl(`guide-${g.slug}`)} cta="get_started" loc="guide_end">
+                <ButtonLink href={signupUrl(`blog-${g.slug}`)} cta="get_started" loc="blog_end">
                   Get started
                 </ButtonLink>
-                <TextLink href={demoUrl(`guide-${g.slug}`)} cta="open_demo" loc="guide_end">
+                <TextLink href={demoUrl(`blog-${g.slug}`)} cta="open_demo" loc="blog_end">
                   Open the demo
                 </TextLink>
               </div>
@@ -153,19 +174,24 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
                   <a href={`#${t.id}`}>{t.text}</a>
                 </li>
               ))}
+              {g.faq?.length ? (
+                <li>
+                  <a href="#faq-h">Questions people ask</a>
+                </li>
+              ) : null}
               <li>
                 <a href="#sources-h">Sources</a>
               </li>
             </ol>
           </nav>
 
-          <nav className={s.more} aria-label="More guides">
-            <h2>More guides</h2>
+          <nav className={s.more} aria-label="More from the blog">
+            <h2>More from the blog</h2>
             <ul className={`${s.list} list-reset`}>
               {others.map((o) => (
                 <li key={o.slug} className={s.item}>
-                  <a className={s.itemLink} href={`/guides/${o.slug}`}>
-                    <span className={s.itemDate}>Reviewed {date(o.reviewed)}</span>
+                  <a className={s.itemLink} href={`/blog/${o.slug}`}>
+                    <span className={s.itemDate}>{o.category}</span>
                     <span>
                       <span className={s.itemTitle}>{o.title}</span>
                     </span>
