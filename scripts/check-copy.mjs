@@ -4,8 +4,10 @@
  *   node scripts/check-copy.mjs
  * Lints EVERY built page (all .html under .next/server/app). Fails on: em
  * dashes in reader-facing text; banned words and wrong or overstated facts;
- * the price without its VAT basis (owner decision: R 4 499 per month excl.
- * VAT); JSON-LD that is invalid, carries the wrong price or VAT flag, or lists
+ * any statement that VAT is added to, or computed on, the TruckWys price
+ * (owner-blocked VAT-2: billing charges R 4 499,00 and 0,25% flat while the
+ * Terms say fees exclude VAT); JSON-LD that is invalid, carries the wrong
+ * price, states a VAT flag on the Offer, or lists
  * Fast Pay or Insurance as a feature or offer.
  * Legal pages (owner-controlled wording) are checked for em dashes only.
  */
@@ -36,8 +38,16 @@ const BANNED = [
   [/\breal-time\b/i, 'real-time'],
   [/\bAI\b/, '"AI" label (describe Copilot as a language model)'],
   [/\bfree trial\b(?!\?)/i, 'free trial claim'],
-  [/4\s?499[^.]{0,40}\bincl\.?\s?VAT/i, 'price marked incl. VAT (it is excl. VAT)'],
-  [/4\s?499 (per|a) month(?!,? (is )?excl)/i, 'price without "excl. VAT"'],
+  // VAT-2 (owner-blocked): say nothing about VAT on the TruckWys price itself.
+  [/4\s?499[^.]{0,40}\b(incl|excl)\.?\s?VAT/i, 'VAT basis on the TruckWys price (owner-blocked VAT-2)'],
+  [/VAT (at 15% )?is added|(15% )?VAT (is )?added to your|added to your (TruckWys|subscription) invoice/i, 'claims VAT is added to the TruckWys bill (owner-blocked VAT-2)'],
+  [/per month[^.]{0,20}incl\.?\s?VAT/i, 'TruckWys total incl. VAT (owner-blocked VAT-2)'],
+  [/subscription (is|and the load fees are) excl/i, 'subscription VAT basis (owner-blocked VAT-2)'],
+  [/one plan,? excl\.? VAT/i, 'price VAT basis (owner-blocked VAT-2)'],
+  [/everyone overdue|all overdue at once/i, 'bulk reminders: the app sends per invoice after a preview'],
+  [/\bodometer\b/i, 'odometer: cartrack_sync stores location, speed, ignition, not odometer'],
+  [/invoice goes out/i, 'the invoice is raised, ready to send (nothing is emailed automatically)'],
+  [/Driver costs?\s+0\s+0\s+0/i, 'zero P&L row'],
   [/every SANRAL (mainline )?(toll )?plaza/i, 'overclaim: say "the 31 SANRAL mainline plazas"'],
   [/\blive diesel\b/i, 'live diesel (it is this month\'s FIASA diesel)'],
   [/Terms for notice/i, 'cancellation must say only "Month to month. No long-term contract."'],
@@ -98,7 +108,8 @@ for (const page of PAGES) {
     const nodes = data['@graph'] ?? [data];
     for (const n of nodes) {
       if (n['@type'] === 'Offer' && n.price !== 4499) fail(page, `Offer price ${n.price}`);
-      if (n['@type'] === 'Offer' && n.valueAddedTaxIncluded !== false) fail(page, 'Offer must carry valueAddedTaxIncluded: false (price is excl. VAT)');
+      if (n['@type'] === 'Offer' && 'valueAddedTaxIncluded' in n) fail(page, 'Offer must not state a VAT flag until VAT-2 is settled');
+      if (n['@type'] === 'Offer' && n.priceSpecification && 'valueAddedTaxIncluded' in n.priceSpecification) fail(page, 'priceSpecification must not state a VAT flag until VAT-2 is settled');
       if (n['@type'] === 'SoftwareApplication') {
         const list = JSON.stringify(n.featureList ?? []) + JSON.stringify(n.offers ?? {});
         if (/fast ?pay|insurance/i.test(list)) fail(page, 'Fast Pay or Insurance in featureList/offers');

@@ -10,9 +10,12 @@ export const FACTS = {
   price: {
     monthly: 4499,
     currency: 'ZAR',
-    // VAT-1 answered by the owner (30 Sep 2026): the subscription is quoted
-    // excl. VAT, matching Terms 5.5 ("All fees are exclusive of VAT").
-    vatBasis: 'excl' as 'incl' | 'excl',
+    // TODO(owner) VAT-2: the backend charges R 4 499,00 flat and the 0,25% exactly,
+    // with no VAT added (paystack.py MONTHLY_FEE, subscription_billing.py,
+    // delivery_fee_billing.py), while Terms 5.5 says fees exclude VAT and VAT is
+    // "added where applicable". Until the owner settles billing vs Terms, the site
+    // makes no statement that VAT is added to, or computed on, the TruckWys price.
+    vatBasis: null as null | 'incl' | 'excl',
   },
   fee: {
     pct: 0.25,
@@ -66,8 +69,10 @@ export const FACTS = {
    non-breaking (U+00A0) so "R" never wraps away from its figure. */
 const NB = '\u00a0';
 export const PRICE = `R${NB}4${NB}499`;
-/** "R 4 499 per month excl. VAT" (owner decision 30 Sep 2026, matches Terms 5.5). */
-export const PRICE_LINE = `${PRICE} per month excl.${NB}VAT`;
+/** "R 4 499 per month". No VAT wording until VAT-2 is settled (see FACTS.price.vatBasis). */
+export const PRICE_LINE = `${PRICE} per month`;
+/** Small print, consistent with Terms 5.5 ("exclusive of VAT, which will be added where applicable"). */
+export const PRICE_VAT_NOTE = 'Pricing excludes VAT where applicable.';
 export const FEE = '0,25%';
 /** The fee is worked out on the invoice total including VAT (owner decision; matches the code). */
 export const FEE_LINE = `0,25% of each delivered load's invoice value (incl.${NB}VAT)`;

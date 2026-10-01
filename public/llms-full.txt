@@ -1,29 +1,29 @@
 # TruckWys
 
-> TruckWys is load-to-cash software for South African transporters. It prices each load from its real costs (this month's FIASA diesel, the SANRAL mainline toll plazas on the route at the truck's class, border fees, driver allowance and your own rate), raises the invoice with 15% VAT when the load is delivered, shows who owes you by age with one-click reminders, and reports profit, margin by lane and VAT. It works next to a transport management system (TMS); it does not dispatch, route or schedule. Pricing is R 4 499 per month plus 0,25% of each delivered load's invoice value, with unlimited users. Month to month, no long-term contract. Fast Pay and Insurance are coming soon and are not live.
+> TruckWys is load-to-cash software for South African transporters. It prices each load from its real costs (this month's FIASA diesel, the SANRAL mainline toll plazas on the route at the truck's class, border fees, driver allowance and your own rate), raises the invoice with 15% VAT when the load is delivered, shows who owes you by age with reminders sent per invoice after a preview, and reports profit, margin by lane and VAT. It works next to a transport management system (TMS); it does not dispatch, route or schedule. Pricing is R 4 499 per month, plus 0,25% of each delivered load's invoice value (incl. VAT), with unlimited users. Month to month, no long-term contract. Fast Pay and Insurance are coming soon and are not live.
 
 ## Key facts
 
-- One plan: R 4 499 per month plus 0,25% of each delivered load's invoice value. Unlimited loads, quotes, invoices and users. No setup fees. Nothing charged on quotes you lose.
+- One plan: R 4 499 per month plus 0,25% of each delivered load's invoice value (incl. VAT). Unlimited loads, quotes, invoices and users. No setup fees. Nothing charged on quotes you lose.
 - Diesel price from FIASA, inland or coastal.
 - Tolls: 31 SANRAL mainline toll plazas on the N1, N2, N3, N4, N17 and R30, by vehicle class, from the tariffs effective 1 March 2026 (GG 54087, GG 54088). Tolls go into the quote excl. VAT because a VAT vendor claims the input VAT back.
 - Cross-border: border, permit and foreign toll fees for SADC loads, including Botswana, Namibia, Lesotho, Eswatini and Mozambique.
 - A warning in rand when a quote is below cost.
 - Invoice raised when a load is marked delivered, in TruckWys or from a TMS by API, with 15% VAT, your bank details and the invoice number as the EFT reference. Proof of delivery stays with the load.
-- Debtors by age, a statement per customer, and templated reminders that get firmer as days pass, sent by the user in one click. Not sent automatically and not written by a model.
+- Debtors by age, a statement per customer, and templated reminders that get firmer as days pass, sent by the user from each overdue invoice, in one click after a preview. Not sent automatically and not written by a model.
 - Nine reports reconciled to invoices, payments and expenses: profit and loss, sales by month, cash movement, debtors age, customer statement, revenue by customer, revenue by lane, expense report and VAT report. CSV export.
 - Copilot: ask about cash, quotes or fleet in plain words. It uses a language model, answers from the company's own data, and drafts quotes and customers for the user to confirm. Prices, tolls, VAT and reminders are rules, not a model.
 - Integrations: Cartrack (connect with your Cartrack API username and password, from Fleetweb under Settings, API Settings) and CtrlFleet, API keys and signed webhooks, Excel and CSV import. Xero is coming soon.
 - Six user roles: Admin, Manager, Operator, Dispatcher, Viewer, Driver.
 - iPhone app on the South African App Store. Android is coming soon.
-- Try it: the demo company is open to everyone at https://app.truckwys.com/login ("View demo"). No form, no call.
+- Try it: the demo company is open to everyone at https://app.truckwys.com/login (press "View demo"). No sign-up, no call.
 - Company: TruckWys (Pty) Ltd, registration 2025/773091/07, 12 Keurboom Road, Claremont, Cape Town, 7800.
 
 ## How a load moves through TruckWys
 
-1. Quote from real costs. Pick the customer, vehicle, collection and delivery. TruckWys prices fuel from this month's FIASA diesel, adds every SANRAL mainline plaza on the route at the truck's class (excl. VAT), border fees for SADC loads, driver allowance at your rates and your base rate per kilometre. A warning in rand shows when a quote is below cost. Customers can accept a quote from a link.
+1. Quote from real costs. Pick the customer, vehicle, collection and delivery. TruckWys prices fuel from this month's FIASA diesel, adds the tolls on the route from the 31 SANRAL mainline plazas it carries, at the truck's class (excl. VAT), border fees for SADC loads, driver allowance at your rates and your base rate per kilometre. A warning in rand shows when a quote is below cost. Customers can accept a quote from a link.
 2. Delivered means invoiced. Mark the load delivered in TruckWys, or let your TMS do it through the API or a signed webhook, and the invoice is raised with 15% VAT, your terms, your bank details and the invoice number as the EFT reference.
-3. See who owes you. Debtors by age, a statement per customer, a formula-based payment score per customer (not a model), and templated reminders that get firmer as the days pass, sent by you in one click for one customer or everyone overdue.
+3. See who owes you. Debtors by age, a statement per customer, a formula-based payment score per customer (not a model), and templated reminders that get firmer as the days pass, sent by you from any overdue invoice, in one click after a preview.
 4. Know what every lane makes. Profit and loss, net margin by month, revenue per kilometre by lane, revenue by customer and truck, and a VAT report, with CSV for your accountant.
 
 ## Where a model is used
@@ -39,7 +39,7 @@ Q: Is TruckWys a TMS?
 A: No. It does not dispatch, route or schedule. It works next to your TMS, your spreadsheets and your tracking, and handles the money on each load.
 
 Q: What does it cost?
-A: R 4 499 per month, plus 0,25% of each delivered load's invoice value. Unlimited users. No long-term contract.
+A: R 4 499 per month, plus 0,25% of each delivered load's invoice value (incl. VAT). Unlimited users. No long-term contract.
 
 Q: Is there a free trial?
 A: No. The demo is open to everyone, with a working company in it. Use it as long as you like before you pay.
@@ -48,7 +48,7 @@ Q: Where do diesel and toll prices come from?
 A: Diesel from FIASA, inland or coastal. Tolls from the SANRAL tariffs effective 1 March 2026, for 31 mainline plazas, by vehicle class.
 
 Q: Does it work with Cartrack?
-A: Yes. Connect with your Cartrack API username and password (in Fleetweb under Settings, API Settings), not your normal login, and vehicle location and odometer flow in. CtrlFleet connects too.
+A: Yes. Connect with your Cartrack API username and password (in Fleetweb under Settings, API Settings), not your normal login, and vehicle location, speed and ignition status flow in. CtrlFleet connects too.
 
 Q: Can I pay by EFT?
 A: The subscription is paid by card through Paystack. Your customers pay you by EFT, straight into your own account.
@@ -66,7 +66,7 @@ A: Not yet. The iPhone app is on the App Store; the web app works on any phone.
 - [How it works](https://www.truckwys.com/product): from booked load to paid invoice, and where a model is used
 - [Quoting](https://www.truckwys.com/product/quoting): price a load from FIASA diesel, SANRAL tolls by class, border fees, allowance and your rate
 - [Invoicing](https://www.truckwys.com/product/invoicing): the invoice raised on delivery, with 15% VAT and the invoice number as the EFT reference
-- [Debtors](https://www.truckwys.com/product/debtors): who owes you by age, statements per customer and one-click reminders
+- [Debtors](https://www.truckwys.com/product/debtors): who owes you by age, statements per customer and reminders per invoice
 - [Reports](https://www.truckwys.com/product/reports): profit and loss, revenue per km by lane, expenses and the VAT report
 - [Integrations](https://www.truckwys.com/integrations): Cartrack, CtrlFleet, API keys, webhooks and CSV import
 - [About](https://www.truckwys.com/about): what TruckWys is and is not

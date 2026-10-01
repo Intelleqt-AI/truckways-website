@@ -16,19 +16,18 @@ const toNum = (s: string) => Number(s.replace(/\D/g, '')) || 0;
 
 /**
  * C-FeeCalc: arithmetic only. The default result is server-rendered, so the
- * page shows the default month without JavaScript. Owner decisions: the
- * subscription is excl. VAT and the 0,25% is worked out on each delivered
- * load's invoice total incl. VAT; VAT at 15% is added to both.
+ * page shows the default month without JavaScript. The 0,25% is worked out on
+ * each delivered load's invoice total incl. VAT (the customer invoice). No VAT
+ * line on the TruckWys total: owner-blocked VAT-2 (billing charges the fee and
+ * the subscription flat, the Terms say fees exclude VAT).
  */
 export default function FeeCalc({
   monthly,
   feePct,
-  vatRate,
   defaultValue = 32880,
 }: {
   monthly: number;
   feePct: number;
-  vatRate: number;
   defaultValue?: number;
 }) {
   const [loads, setLoads] = useState('40');
@@ -39,9 +38,7 @@ export default function FeeCalc({
   const v = toNum(value);
   const r2 = (x: number) => Math.round(x * 100) / 100;
   const fees = r2(n * v * (feePct / 100));
-  const excl = r2(monthly + fees);
-  const vat = r2(excl * vatRate);
-  const incl = r2(excl + vat);
+  const total = r2(monthly + fees);
 
   const changed = (loadsNow: string) => {
     if (sent.current) return;
@@ -99,17 +96,9 @@ export default function FeeCalc({
           </span>
           <span>{rand(fees, true)}</span>
         </div>
-        <div className="calc__sub">
-          <span>Total excl. VAT</span>
-          <span>{rand(excl, true)}</span>
-        </div>
-        <div>
-          <span>VAT 15%</span>
-          <span>{rand(vat, true)}</span>
-        </div>
         <div className="calc__total" aria-live="polite">
-          <span>Total per month, incl. VAT</span>
-          <span>{rand(incl, true)}</span>
+          <span>Total for the month</span>
+          <span>{rand(total, true)}</span>
         </div>
       </div>
     </div>

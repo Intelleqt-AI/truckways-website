@@ -65,11 +65,11 @@ export const offerSchema = {
     priceCurrency: 'ZAR',
     unitCode: 'MON',
     billingDuration: 'P1M',
-    valueAddedTaxIncluded: FACTS.price.vatBasis === 'incl',
+    // TODO(owner) VAT-2: no VAT flag until billing and Terms agree (FACTS.price.vatBasis is null).
+    ...(FACTS.price.vatBasis ? { valueAddedTaxIncluded: FACTS.price.vatBasis === 'incl' } : {}),
   },
-  // Owner decision (VAT-1): the monthly price is excl. VAT (Terms 5.5).
-  valueAddedTaxIncluded: FACTS.price.vatBasis === 'incl',
-  description: "Excl. VAT. Plus 0,25% of each delivered load's invoice value (incl. VAT).",
+  ...(FACTS.price.vatBasis ? { valueAddedTaxIncluded: FACTS.price.vatBasis === 'incl' } : {}),
+  description: "Per month, plus 0,25% of each delivered load's invoice value (incl. VAT).",
   eligibleRegion: { '@type': 'Country', name: 'ZA' },
   availability: 'https://schema.org/InStock',
 };
