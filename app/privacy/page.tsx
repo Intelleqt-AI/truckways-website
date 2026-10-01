@@ -22,9 +22,9 @@ export const metadata: Metadata = {
 // Apple App Review and Google Play's Data safety declaration are both checked
 // against this page. Three things here are load-bearing for those reviews and
 // must not be softened or dropped:
-//   1. Section 3.5's explicit statement that the app collects no location and
-//      carries no advertising or analytics SDK — the Play Data safety form
-//      declares no location, and a reviewer comparing the two looks here.
+//   1. Section 3.5's explicit statement that the app collects no device
+//      location and carries no advertising or analytics SDK. Vehicle location
+//      from connected trackers (3.2) is a separate, disclosed category.
 //   2. Section 11, account deletion, which both stores require to be described
 //      on a page reachable without signing in (see also /delete-account).
 //   3. The processor list in section 5. Every third party that receives
@@ -32,7 +32,7 @@ export const metadata: Metadata = {
 //      adding it here in the same change.
 export default function PrivacyPage() {
   return (
-    <LegalPage title="Privacy policy" updated="30 September 2026">
+    <LegalPage title="Privacy policy" updated="1 October 2026">
     <section>
       <h2>1. Who we are</h2>
       <p>
@@ -55,8 +55,9 @@ export default function PrivacyPage() {
         </li>
       </ul>
       <p>
-        This policy covers both the TruckWys web dashboard and the TruckWys mobile app for iOS and Android.
-        Where a practice applies only to the mobile app, we say so.
+        This policy covers the TruckWys web dashboard and the TruckWys mobile app for iPhone, which is available
+        in South Africa. An Android app is not available yet. Where a practice applies only to the mobile app, we
+        say so.
       </p>
     </section>
 
@@ -82,11 +83,20 @@ export default function PrivacyPage() {
 
       <h3>3.2 Driver and vehicle information</h3>
       <ul>
-        <li>Driver names, contact details and licence information entered by the fleet operator</li>
+        <li>
+          Driver names, contact details, licence number and expiry, medical certificate expiry and emergency
+          contact details, entered by the fleet operator
+        </li>
         <li>
           Vehicle registration, axle configuration, and route and trip data used for quoting and toll
           calculation
         </li>
+        <li>
+          Where the fleet operator connects a vehicle tracking system (Cartrack or CtrlFleet) or sends trip
+          updates through our API: vehicle location, heading, speed and ignition status. This comes from the
+          tracking system, not from your phone
+        </li>
+        <li>Proof of delivery documents, signatures and the name of the person who received the load</li>
       </ul>
 
       <h3>3.3 Invoicing and financial information</h3>
@@ -96,15 +106,16 @@ export default function PrivacyPage() {
           Payment card data, tokenised and processed by our payment gateway, Paystack: TruckWys never receives
           or stores full card numbers. We hold only a token, the card type and its last four digits
         </li>
-        <li>
-          Banking details where required for payouts, or for the invoice financing referral described in
-          section 4
-        </li>
+        <li>Your company&apos;s bank details, which you add so that they appear on your invoices</li>
       </ul>
 
       <h3>3.4 Technical information</h3>
       <ul>
-        <li>Sign-in and usage logs, IP address, device and browser information</li>
+        <li>
+          Sign-in and usage logs, IP address, device and browser information. Activity logs that record IP
+          addresses are deleted after 30 days
+        </li>
+        <li>If you switch on browser notifications, the push subscription your browser issues</li>
       </ul>
 
       <h3>3.5 Mobile app data</h3>
@@ -131,7 +142,7 @@ export default function PrivacyPage() {
           which build a device is running.
         </li>
         <li>
-          <strong>Messages you type to the AI assistant.</strong> Sent to our AI providers to generate a reply.
+          <strong>Messages you type to Copilot.</strong> Sent to our language-model provider to generate a reply.
           See section 6.
         </li>
       </ul>
@@ -147,12 +158,13 @@ export default function PrivacyPage() {
       <h2>4. Why we process this information</h2>
       <ul>
         <li>To provide the quoting, invoicing and trip profitability features of the platform</li>
-        <li>To process the 0.25% invoice success fee and manage subscription billing via Paystack</li>
-        <li>
-          To facilitate an introduction to our invoice financing partner, Merchant Capital, where a customer opts
-          in to factoring
-        </li>
+        <li>To charge the 0,25% invoice fee and manage subscription billing via Paystack</li>
         <li>To calculate routes, distances and tolls, using third-party routing data where needed</li>
+        <li>
+          To work out pooled market rates and train our win probability model from quote outcomes across
+          customers, without customer or company names (see section 6)
+        </li>
+        <li>To show vehicle locations, where a customer connects a tracking system</li>
         <li>To send transactional and collections communications</li>
         <li>
           To sync invoicing data with accounting platforms such as Xero, where a customer connects their account
@@ -162,8 +174,9 @@ export default function PrivacyPage() {
       </ul>
       <p>
         Our lawful basis for processing is primarily performance of the SaaS agreement with the customer,
-        together with consent (for optional integrations such as Xero, or the factoring referral) and legitimate
-        business interests (such as fraud prevention and service security).
+        together with consent (for optional integrations such as Xero, Cartrack or CtrlFleet) and legitimate
+        business interests (such as fraud prevention, service security, and improving price suggestions with
+        pooled quote outcomes).
       </p>
     </section>
 
@@ -171,20 +184,27 @@ export default function PrivacyPage() {
       <h2>5. Sharing your information</h2>
       <p>
         We share personal information with the following third parties, only as needed to provide the service.
-        They process it on our behalf, under contract.
+        Except for the public OpenStreetMap services, they process it on our behalf, under contract.
       </p>
       <ul>
         <li>
           <strong>Paystack</strong>: subscription payment processing and card tokenisation
         </li>
         <li>
-          <strong>Merchant Capital</strong>: invoice financing, only where a customer opts in to factoring
-        </li>
-        <li>
           <strong>Xero</strong>: accounting sync, only where a customer connects their account
         </li>
         <li>
-          <strong>TomTom</strong>: route, distance and travel-time data
+          <strong>Cartrack</strong> and <strong>CtrlFleet</strong>: vehicle tracking, only where a customer
+          connects their account. We send them the customer&apos;s API credentials and receive vehicle data
+        </li>
+        <li>
+          <strong>TomTom</strong>: address search, route, distance and travel-time data, and map imagery in the
+          web dashboard
+        </li>
+        <li>
+          <strong>OpenStreetMap services</strong> (Nominatim address search, the OSRM routing service and
+          OpenStreetMap map tiles): used by the web dashboard as a fallback when TomTom is unavailable. Your
+          browser sends them the addresses or map area involved and your IP address
         </li>
         <li>
           <strong>MapTiler</strong>, using OpenStreetMap data: supplies the map imagery on route previews.
@@ -192,23 +212,24 @@ export default function PrivacyPage() {
           any web map
         </li>
         <li>
-          <strong>Anthropic</strong> and <strong>OpenAI</strong>: power quote analysis, the AI assistant and
-          voice transcription. See section 6
+          <strong>OpenAI</strong>: Copilot replies, price suggestion explanations and voice transcription.{' '}
+          <strong>Anthropic</strong>: written summaries and quote parsing, where switched on. See section 6
         </li>
         <li>
           <strong>Google Firebase Cloud Messaging</strong> and <strong>Apple Push Notification service</strong>:
-          deliver push notifications to the mobile app. The notification title and body pass through their
+          deliver push notifications to the mobile app, and web browser push services deliver browser
+          notifications if you switch them on. The notification title and body pass through their
           infrastructure, which is why we keep notification text to a short summary
         </li>
         <li>
-          <strong>Resend</strong>: sends transactional email such as quotes, invoices and password resets
+          <strong>Resend</strong>: sends transactional email such as quotes, invoices, reminders and sign-in codes
         </li>
         <li>
-          <strong>Amazon Web Services</strong>: hosting and infrastructure
+          <strong>Amazon Web Services</strong>: hosting and infrastructure, in the Cape Town region
         </li>
-        {/* Website (www.truckwys.com) processors, added with the v3 website. Owner review pending. */}
         <li>
-          <strong>Vercel</strong>: hosts this website and provides its Web Analytics, which counts page views
+          <strong>Vercel</strong>: serves the web dashboard&apos;s pages to your browser, hosts this website and
+          provides the website&apos;s Web Analytics, which counts page views
           and button clicks without cookies and without identifying you. See section 14
         </li>
         <li>
@@ -223,23 +244,46 @@ export default function PrivacyPage() {
     </section>
 
     <section>
-      <h2>6. AI processing</h2>
+      <h2>6. Price suggestions, models and Copilot</h2>
       <p>
-        Some features send your data to third-party AI providers (Anthropic and OpenAI) to generate a result:
-        pricing and margin analysis, the AI assistant, natural-language quote creation, and voice-to-quote
-        transcription.
+        Quote costs (diesel, tolls and your own rates) are calculated by formula, not by a model. Other features
+        use models, as follows:
       </p>
       <ul>
         <li>
-          We send only the data needed for the request, for example route, weight, vehicle type and cost inputs
-          for a pricing analysis, or the audio clip for a transcription
+          <strong>Market rate.</strong> We pool accepted quotes on the same route across TruckWys customers. A
+          pooled rate is shown only where at least five quotes from at least two different operators exist, so
+          no single operator&apos;s prices can be identified
+        </li>
+        <li>
+          <strong>Win probability.</strong> Our own model, run on TruckWys systems, estimates how likely a quote
+          is to be accepted. It is trained on quote outcomes pooled across TruckWys customers, using quote
+          features such as route, vehicle type, price and timing, without customer or company names, and on
+          your own outcomes once there are enough of them
+        </li>
+        <li>
+          <strong>Price suggestion.</strong> Where it is switched on, a language model (OpenAI) receives the
+          cost breakdown, market rate and suggested price range for the load, and may adjust the suggestion
+          within 10%, never below cost
+        </li>
+        <li>
+          <strong>Copilot</strong> uses a language model (OpenAI) to answer questions from your company&apos;s
+          data and to propose changes. It never changes data on its own: a change is carried out only when you
+          approve it
+        </li>
+        <li>
+          <strong>Voice quoting</strong> sends the audio clip to OpenAI&apos;s speech-to-text service
+        </li>
+        <li>
+          We send only the data needed for the request, for example route, vehicle type and cost inputs for a
+          price suggestion, or the audio clip for a transcription
         </li>
         <li>
           Under our agreements with these providers, your data is <strong>not used to train their models</strong>
         </li>
         <li>Voice recordings are transcribed and not retained for any other purpose</li>
         <li>
-          AI output is a decision-support suggestion, not advice. You remain responsible for the pricing and
+          Model output is a decision-support suggestion, not advice. You remain responsible for the pricing and
           operational decisions you make
         </li>
       </ul>
@@ -263,14 +307,21 @@ export default function PrivacyPage() {
     <section>
       <h2>8. Cross-border transfers</h2>
       <p>
-        Our primary infrastructure is hosted in South Africa, in Amazon Web Services&apos; Cape Town region, so
-        your platform data is stored locally by default.
+        Our primary infrastructure is hosted in South Africa, in Amazon Web Services&apos; Cape Town region
+        (af-south-1), so your platform data is stored locally by default.
       </p>
       <p>
-        Some of the providers listed in section 5, including our AI providers, push notification services, email
-        delivery, mapping and accounting integrations, process information outside South Africa. Before any such
-        transfer we take reasonable steps to ensure the recipient is subject to data protection terms that
-        provide an adequate level of protection, consistent with section 72 of POPIA.
+        These providers listed in section 5 process information outside South Africa: OpenAI and Anthropic
+        (language-model and speech-to-text features), Google Firebase Cloud Messaging, the Apple Push
+        Notification service and browser push services (notifications), Resend (email), TomTom, MapTiler and the
+        OpenStreetMap services (maps and routing), Xero (accounting sync, where connected), Vercel (web dashboard
+        pages, this website and its analytics) and FormSubmit (website enquiries). Paystack may also process
+        payment information outside South Africa.
+      </p>
+      <p>
+        We transfer personal information to them under section 72 of POPIA: where the recipient is bound by law,
+        binding corporate rules or an agreement that provides an adequate level of protection, or where the
+        transfer is necessary to perform our agreement with you or you have consented to it.
       </p>
     </section>
 
@@ -280,10 +331,12 @@ export default function PrivacyPage() {
         <li>All traffic between the apps and our servers is encrypted in transit over TLS</li>
         <li>Stored credentials and integration tokens, such as Xero OAuth tokens, are encrypted</li>
         <li>Card data is tokenised by Paystack; no full card numbers are stored on TruckWys systems</li>
-        <li>Sign-in can require a one-time code in addition to a password</li>
         <li>
-          On mobile, your session token is held in the device keychain or keystore rather than in general app
-          storage
+          Every new account confirms its email address with a one-time code, and each user can switch on a
+          one-time sign-in code in addition to their password
+        </li>
+        <li>
+          On iPhone, your session token is held in the device keychain rather than in general app storage
         </li>
         <li>Access controls limit internal access to personal information on a need-to-know basis</li>
       </ul>
@@ -302,34 +355,39 @@ export default function PrivacyPage() {
         the Tax Administration Act separately requires 5 years for tax-related records.
       </p>
       <p>
-        Personal information that we are not required to retain under those obligations is securely deleted or
-        de-identified once it is no longer needed for the purpose it was collected for.
+        We do not yet delete these records automatically when the retention period ends. Activity logs that
+        record IP addresses are deleted automatically after 30 days. For anything else, you can ask our
+        Information Officer to delete or de-identify personal information we are no longer required to keep,
+        and we will do so, or tell you why we cannot.
       </p>
     </section>
 
     <section>
       <h2>11. Deleting your account</h2>
-      <p>You can delete your account yourself, without contacting us:</p>
+      <p>You can deactivate your account yourself, without contacting us:</p>
       <ul>
         <li>
           <strong>Mobile app:</strong> More → Settings → Security → Delete account. You confirm with your
           password
         </li>
         <li>
-          <strong>Web dashboard:</strong> Settings → Security → Delete account
+          <strong>Web dashboard:</strong> Settings → Security → Delete my account. You confirm with your
+          password
         </li>
       </ul>
       <p>
-        Deleting your account deactivates it immediately, signs you out of every device, and removes your push
-        notification registrations. Records we are legally required to keep, such as invoices and financial
-        transactions needed for tax and audit purposes, are retained for the statutory period set out in
-        section 10 and then deleted.
+        This deactivates your account immediately and signs you out of every device. Your email address is
+        replaced with a marked copy, so you can sign up again with the same address. It does not erase your
+        other personal information: your name, phone number, address, job title, profile photo, notification
+        registrations and Copilot history stay stored, and your company&apos;s administrator can reactivate the
+        account.
       </p>
       <p>
-        Deleting your own user account removes your access; it does not close your company&apos;s TruckWys
-        account. Full details, including what to do if you cannot sign in, are on our{' '}
-        <a href="/delete-account">account deletion page</a>. If you would prefer we handle the deletion for you,
-        email <a href="mailto:privacy@truckwys.com">privacy@truckwys.com</a>.
+        To have your personal information erased, email our Information Officer at{' '}
+        <a href="mailto:grant@truckwys.com">grant@truckwys.com</a>. We will erase or de-identify everything we
+        are not required to keep, and tell you what we must retain and why (see section 10). Deactivating your
+        own user account does not close your company&apos;s TruckWys account. Full details are on our{' '}
+        <a href="/delete-account">account deletion page</a>.
       </p>
     </section>
 

@@ -25,13 +25,15 @@ export const metadata: Metadata = {
 // or warranty obligation. Do not trim that list.
 //
 // The fee figures in clause 5 are the real ones, checked against
-// core/services/paystack.py (MONTHLY_FEE = 4499.00) and
-// core/services/delivery_fee_billing.py (DELIVERY_FEE_PCT = 0.25, charged the
-// moment a load auto-invoices on delivery). Changing a price in code means
-// changing it here in the same release.
+// core/services/paystack.py (MONTHLY_FEE = 4499.00, one flat plan),
+// core/services/subscription_billing.py (charged every 30 days) and
+// core/services/delivery_fee_billing.py (0,25% of invoice.total_amount incl. VAT,
+// charged the moment a load auto-invoices on delivery, no refund path).
+// Owner decisions (Oct 2026): not VAT registered; 30 days' written notice stands.
+// Changing a price in code means changing it here in the same release.
 export default function TermsPage() {
   return (
-    <LegalPage title="Terms and conditions" updated="4 August 2026">
+    <LegalPage title="Terms and conditions" updated="1 October 2026">
     <section>
       <h2>1. Who this agreement is between</h2>
       <p>
@@ -55,12 +57,8 @@ export default function TermsPage() {
           <strong>"Subscription Fee"</strong> means the recurring monthly fee payable for access to the Platform.
         </li>
         <li>
-          <strong>"Invoice Fee"</strong> means the success fee payable on freight invoices processed through the
-          Platform.
-        </li>
-        <li>
-          <strong>"Factoring Referral"</strong> means the optional introduction to our invoice financing partner
-          described in clause 10.
+          <strong>"Invoice Fee"</strong> means the fee described in clause 5.2, payable on the invoice the
+          Platform raises when a load is marked as delivered.
         </li>
         <li>
           <strong>"Customer Data"</strong> means data uploaded to or generated within the Platform by or on behalf
@@ -101,14 +99,20 @@ export default function TermsPage() {
 
       <h3>5.1 Subscription Fee</h3>
       <p>
-        The Customer will pay a Subscription Fee of R4,499 per month per fleet, or such other amount as set out in
-        the applicable order form or on our pricing page, including any tiered pricing applicable to larger fleets.
+        TruckWys has one plan. The Customer will pay a Subscription Fee of R 4 499 per month, unless a different
+        amount is agreed in writing. The Subscription Fee covers the whole Customer account, with no charge per
+        user, vehicle or fleet. It is charged when the Customer signs up and then every 30 days from the date of
+        the first payment.
       </p>
 
       <h3>5.2 Invoice Fee</h3>
       <p>
-        TruckWys charges an Invoice Fee of 0.25% of the value of each freight invoice processed through the
-        Platform. This fee is charged when a delivery is completed and the invoice is raised, not batched monthly.
+        TruckWys charges an Invoice Fee of 0,25% of the total value, including VAT, of each invoice the Platform
+        raises when a load is marked as delivered. The Invoice Fee is charged to the Customer&apos;s payment
+        method as a separate charge at the time that invoice is raised, not batched monthly, and each charge is
+        shown in the Customer&apos;s billing history. No Invoice Fee is charged on quotes, including quotes that
+        are not accepted. Once charged, the Invoice Fee is not refunded or reversed if the invoice is later
+        cancelled, credited, changed or disputed, or is not paid by the Customer&apos;s own customer.
       </p>
 
       <h3>5.3 Payment processing</h3>
@@ -128,7 +132,11 @@ export default function TermsPage() {
       </p>
 
       <h3>5.5 Taxes</h3>
-      <p>All fees are exclusive of VAT, which will be added where applicable.</p>
+      <p>
+        TruckWys is not registered for VAT, so no VAT is charged on the Subscription Fee or the Invoice Fee. If
+        TruckWys registers for VAT, VAT at the applicable rate will be added to fees that fall due after the
+        date of registration, and TruckWys will notify the Customer in writing before VAT is first charged.
+      </p>
     </section>
 
     <section>
@@ -222,8 +230,8 @@ export default function TermsPage() {
         </li>
       </ul>
       <p>
-        If you obtained the app from Google Play, Google&apos;s Play Terms of Service apply to the distribution of
-        the app in addition to these terms.
+        The mobile app is currently available for iPhone only, from the Apple App Store in South Africa. An
+        Android app is not available yet. The Platform can also be used in a web browser on any device.
       </p>
     </section>
 
@@ -241,11 +249,36 @@ export default function TermsPage() {
     </section>
 
     <section>
-      <h2>9. AI features</h2>
+      <h2>9. Calculations, price suggestions and Copilot</h2>
+      <p>The Platform produces figures and suggestions in the following ways:</p>
+      <ul>
+        <li>
+          <strong>Quote costs</strong> are calculated by formula from published diesel prices, published toll
+          tariffs and the rates and costs the Customer enters. No model is used for these calculations.
+        </li>
+        <li>
+          <strong>Price suggestions</strong> combine the cost of the load with a market rate and a win
+          probability. The market rate comes from accepted quotes on the same route pooled across TruckWys
+          customers, shown only where at least five quotes from at least two different operators exist, or
+          otherwise from the Customer&apos;s own accepted quotes or an estimate. The win probability comes from
+          a TruckWys model trained on the outcomes of quotes (accepted or not) pooled across TruckWys customers,
+          without customer or company names. Where it is switched on, a language model may adjust the suggested
+          price within 10% of that figure, and never below cost.
+        </li>
+        <li>
+          <strong>Copilot</strong> uses a language model to answer questions from the Customer&apos;s own data
+          and to propose changes, such as creating a quote or a customer. Copilot does not change any data on its
+          own: a proposed change is carried out only when a user approves it.
+        </li>
+        <li>
+          <strong>Voice quoting</strong> uses a speech-to-text service to turn a recording into quote details.
+        </li>
+      </ul>
       <p>
-        Our AI features, pricing and margin analysis, the AI assistant, natural-language quote creation and
-        voice-to-quote transcription, are decision-support tools. They do not constitute financial, legal or
-        professional advice.
+        By using the Platform, the Customer agrees that TruckWys may use the Customer&apos;s quote outcomes, without
+        the Customer&apos;s name or its customers&apos; names, to compute pooled market rates and to train the win
+        probability model described above. These features are decision-support tools. They do not constitute
+        financial, legal or professional advice.
       </p>
       <p>
         You remain responsible for all business decisions. TruckWys does not warrant that quotes, toll calculations
@@ -256,17 +289,17 @@ export default function TermsPage() {
     </section>
 
     <section>
-      <h2>10. Invoice financing (factoring) referral</h2>
+      <h2>10. Planned services: Fast Pay and Insurance</h2>
       <p>
-        Where the Customer opts in, TruckWys may introduce the Customer to Merchant Capital, an independent invoice
-        financing provider, for the purposes of factoring the Customer&apos;s invoices.
+        Fast Pay (early payment of invoices) and Insurance are planned services. They are not available, no
+        financing or insurance partner provides them through TruckWys, and no rates or terms apply to them yet.
+        TruckWys does not currently offer, arrange or refer the Customer to any invoice financing, factoring,
+        credit or insurance product.
       </p>
       <p>
-        TruckWys is not a credit provider and does not itself provide, underwrite or guarantee any factoring or
-        financing arrangement. Any factoring agreement is entered into directly between the Customer and Merchant
-        Capital, on Merchant Capital&apos;s own terms, and is subject to Merchant Capital&apos;s own credit
-        assessment and approval, including its own fees and interest rates. TruckWys accepts no liability for the
-        terms, approval, performance or outcome of any such arrangement.
+        TruckWys is not a credit provider or an insurer. If either service is launched, it will be offered on
+        separate terms that the Customer must accept before using it, and any financing or insurance agreement
+        will be subject to the provider&apos;s own assessment, fees and terms.
       </p>
     </section>
 
@@ -274,9 +307,12 @@ export default function TermsPage() {
       <h2>11. Third-party services</h2>
       <p>
         The Platform integrates with third-party services, including Paystack (payments), Xero (accounting sync,
-        where connected by the Customer), TomTom (routing) and MapTiler (map imagery), and relies on Anthropic and
-        OpenAI for AI features, Google Firebase Cloud Messaging and the Apple Push Notification service for push
-        notifications, Resend for transactional email, and Amazon Web Services for hosting.
+        where connected by the Customer), Cartrack and CtrlFleet (vehicle tracking, where connected by the
+        Customer), TomTom and OpenStreetMap services (routing, address search and maps) and MapTiler (map
+        imagery), and relies on OpenAI and Anthropic for language-model and speech-to-text features, Google
+        Firebase Cloud Messaging, the Apple Push Notification service and web browser push services for
+        notifications, Resend for transactional email, Amazon Web Services for hosting, and Vercel for serving
+        the web app and website.
       </p>
       <p>
         Use of these integrations may be subject to the relevant third party&apos;s own terms. TruckWys is not
