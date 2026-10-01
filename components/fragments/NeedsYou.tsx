@@ -23,13 +23,14 @@ function Row({ icon, title, amount, sub, action }: { icon: 'doc' | 'truck'; titl
 
 /** F4: the Home "Needs you" list. `chase` adds the debtors age strip (StepSwitcher panel 3). */
 export default function NeedsYou({ variant = 'home' }: { variant?: 'home' | 'chase' | 'phone' }) {
+  // The app's Needs you drops the KL- prefix from invoice numbers (S1 shows INV-11043).
   const toRow = (i: (typeof OVERDUE)[number]) => (
     <Row
       key={i.number}
       icon="doc"
       title={i.customer}
       amount={R0(i.amount)}
-      sub={`${i.daysLate} days late · ${i.number}`}
+      sub={`${i.daysLate} days late · ${i.number.replace(/^KL-/, '')}`}
       action="Chase"
     />
   );

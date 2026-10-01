@@ -90,30 +90,33 @@ export const STATEMENT = {
   customer: CUSTOMERS.kaapse,
   asAt: TODAY,
   rows: [
-    { date: '2026-07-25', ref: 'INV-20260725-00002', amount: 53_817.7 },
-    { date: '2026-08-13', ref: 'INV-20260813-00001', amount: 57_804.75 },
-    { date: '2026-08-15', ref: 'INV-20260815-00001', amount: 61_469.8 },
-    { date: '2026-09-03', ref: 'INV-20260903-00001', amount: 59_392.9 },
-    { date: '2026-09-10', ref: 'INV-20260910-00003', amount: 60_437.1 },
-    { date: '2026-09-13', ref: 'INV-20260913-00001', amount: 57_858.8 },
-    { date: '2026-09-27', ref: 'Payment, EFT, INV-20260725-00002', amount: -53_817.7 },
+    { date: '2026-07-25', ref: 'KL-INV-10958', amount: 53_817.7 },
+    { date: '2026-08-13', ref: 'KL-INV-11005', amount: 57_804.75 },
+    { date: '2026-08-15', ref: 'KL-INV-11010', amount: 61_469.8 },
+    { date: '2026-09-03', ref: 'KL-INV-11057', amount: 59_392.9 },
+    { date: '2026-09-10', ref: 'KL-INV-11074', amount: 60_437.1 },
+    { date: '2026-09-13', ref: 'KL-INV-11081', amount: 57_858.8 },
+    { date: '2026-09-27', ref: 'Payment, EFT, KL-INV-10958', amount: -53_817.7 },
   ],
 };
 export const STATEMENT_BALANCE = Math.round(STATEMENT.rows.reduce((s, r) => s + r.amount, 0) * 100) / 100; // 296 963,35
 
 /* ------------------------------------------------------------ P&L (S10) */
 /** Cash basis, excl. VAT, whole rand, the report's own rows for the last three months. */
+/* S10's own rows. The report's direct "Driver costs" row is 0 in every month (payroll sits in the "Driver cost"
+   overhead), so, like a reader would, the fragment leaves the empty row out. */
 const PNL = [
-  { m: 'Jul 2026', revenue: 1_557_382, fuel: 464_515, tolls: 60_676, driver: 0, maint: 46_503, direct: 571_694, gross: 985_688, overheads: 647_405, net: 338_283 },
-  { m: 'Aug 2026', revenue: 1_369_654, fuel: 399_416, tolls: 55_232, driver: 0, maint: 20_924, direct: 475_571, gross: 894_083, overheads: 607_075, net: 287_008 },
-  { m: 'Sep 2026', revenue: 1_619_512, fuel: 607_594, tolls: 69_430, driver: 0, maint: 11_784, direct: 688_809, gross: 930_703, overheads: 632_775, net: 297_928 },
+  { m: 'Jul 2026', revenue: 1_557_382, fuel: 464_515, tolls: 60_676, maint: 46_503, direct: 571_694, gross: 985_688, insurance: 90_000, admin: 279_925, driverCost: 260_030, other: 17_450, overheads: 647_405, net: 338_283 },
+  { m: 'Aug 2026', revenue: 1_369_654, fuel: 399_416, tolls: 55_232, maint: 20_924, direct: 475_571, gross: 894_083, insurance: 90_000, admin: 279_975, driverCost: 231_050, other: 6_050, overheads: 607_075, net: 287_008 },
+  { m: 'Sep 2026', revenue: 1_619_512, fuel: 607_594, tolls: 69_430, maint: 11_784, direct: 688_809, gross: 930_703, insurance: 90_000, admin: 280_125, driverCost: 239_900, other: 22_750, overheads: 632_775, net: 297_928 },
 ];
 export const PNL_MONTHS = PNL;
 const sum3 = (k: keyof (typeof PNL)[number]) => PNL.reduce((s, m) => s + (m[k] as number), 0);
 export const PNL_TOTAL = {
   m: 'Total',
-  revenue: sum3('revenue'), fuel: sum3('fuel'), tolls: sum3('tolls'), driver: sum3('driver'), maint: sum3('maint'), direct: sum3('direct'),
-  gross: sum3('gross'), overheads: sum3('overheads'), net: sum3('net'),
+  revenue: sum3('revenue'), fuel: sum3('fuel'), tolls: sum3('tolls'), maint: sum3('maint'), direct: sum3('direct'),
+  gross: sum3('gross'), insurance: sum3('insurance'), admin: sum3('admin'), driverCost: sum3('driverCost'), other: sum3('other'),
+  overheads: sum3('overheads'), net: sum3('net'),
 };
 
 /* ------------------------------------------------------------ VAT report (S11) */
@@ -160,8 +163,8 @@ export const REPORTS_INDEX = [
 /* ------------------------------------------------------------ lanes scatter (S12) */
 /** The lanes the chart labels (the others are unlabelled dots, as in the app). */
 const LABELLED = new Set([
-  'Mbombela to Maputo', 'Midrand to Pretoria', 'Kempton Park to Secunda', 'Johannesburg to eMalahleni', 'Tzaneen to Johannesburg',
-  'Johannesburg to Durban', 'Durban to Johannesburg', 'Johannesburg to Polokwane', 'Durban to Gqeberha',
+  'Mbombela to Maputo', 'Midrand to Pretoria', 'Kempton Park to Secunda', 'Tzaneen to Johannesburg',
+  'Johannesburg to Durban', 'Durban to Johannesburg', 'Johannesburg to Polokwane', 'Durban to Gqeberha', 'Johannesburg to Cape Town',
 ]);
 export const LANE_POINTS = LANES.map((l) => ({ ...l, thin: false, label: LABELLED.has(l.lane) }));
 export const FLEET_AVG_PER_KM = FLEET_AVG;

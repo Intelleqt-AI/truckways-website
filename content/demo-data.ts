@@ -8,10 +8,12 @@
  * R 30,05/L 50ppm inland, FIASA, effective 2 Sep). The S-number next to a
  * block is the screenshot it matches.
  *
- * Numbers use the app's own formats: invoices INV-YYYYMMDD-NNNNN (the day's
- * sequence), quotes QT-YYYYMMDD-NNNN, loads LOAD-YYYYMMDD-NNNN, expenses
- * EXP-YYYYMMDD-NNNN. (The demo seed prints its own KL- prefixed numbers; each
- * one here is the same record renumbered in the production format.)
+ * Invoice numbers are the demo company's own (KL-INV-NNNNN, as the real
+ * captures show them: S6 KL-INV-11102, S7 KL-INV-11104, S13 KL-INV-11005; Home
+ * "Needs you" drops the KL- prefix, so that card shows INV-11043). Numbers not
+ * visible in any capture are placed in the same sequence by issue date.
+ * Quotes QT-YYYYMMDD-NNNN, loads LOAD-YYYYMMDD-NNNN and expenses
+ * EXP-YYYYMMDD-NNNN are in the app's production format.
  */
 import { addDays, daysBetween } from '../lib/format';
 
@@ -126,7 +128,7 @@ export const BOOKED_QUOTE = {
 /** S6: the invoice raised on delivery of that load (status Sent). */
 const invIssued = '2026-09-24';
 export const INVOICE = {
-  number: 'INV-20260924-00002',
+  number: 'KL-INV-11102',
   customer: CUSTOMERS.kraalspruit,
   load: 'LOAD-20260923-1387',
   route: 'Johannesburg to Durban',
@@ -153,11 +155,11 @@ function overdue(number: string, customer: string, issued: string, amount: numbe
   return { number, customer, issued, due, amount, daysLate: daysBetween(due, TODAY) };
 }
 
-/** Home "Needs you" (S1), in the app's order: three invoices to chase. */
+/** Home "Needs you" (S1), in the app's order: three invoices to chase (the card shows them without the KL- prefix, as S1 does). */
 export const NEEDS_YOU = [
-  overdue('INV-20260828-00003', CUSTOMERS.ironbark, '2026-08-28', 26_747.85), // 3 days late
-  overdue('INV-20260826-00001', CUSTOMERS.seaview, '2026-08-26', 16_060.9), // 5 days late
-  overdue('INV-20260824-00003', CUSTOMERS.kraalspruit, '2026-08-24', 18_256.25), // 7 days late
+  overdue('KL-INV-11043', CUSTOMERS.ironbark, '2026-08-28', 26_747.85), // 3 days late
+  overdue('KL-INV-11033', CUSTOMERS.seaview, '2026-08-26', 16_060.9), // 5 days late
+  overdue('KL-INV-11032', CUSTOMERS.kraalspruit, '2026-08-24', 18_256.25), // 7 days late
 ];
 export const NEEDS_YOU_OTHER = {
   openLoad: { title: '1 load left open', sub: 'Open since 14 Sep 2026 (16 days)' },
@@ -166,9 +168,9 @@ export const NEEDS_YOU_OTHER = {
 
 /** The largest overdue invoices in the demo DB, largest first (38 invoices, R 599 361 in all). */
 export const OVERDUE = [
-  overdue('INV-20260815-00001', CUSTOMERS.kaapse, '2026-08-15', 61_469.8), // 16 days late
-  overdue('INV-20260813-00001', CUSTOMERS.kaapse, '2026-08-13', 57_804.75), // 18 days late
-  overdue('INV-20260820-00002', CUSTOMERS.kraalspruit, '2026-08-20', 28_012.85), // 11 days late
+  overdue('KL-INV-11010', CUSTOMERS.kaapse, '2026-08-15', 61_469.8), // 16 days late
+  overdue('KL-INV-11005', CUSTOMERS.kaapse, '2026-08-13', 57_804.75), // 18 days late
+  overdue('KL-INV-11022', CUSTOMERS.kraalspruit, '2026-08-20', 28_012.85), // 11 days late
   NEEDS_YOU[0],
 ];
 export const OVERDUE_COUNT = 38;
