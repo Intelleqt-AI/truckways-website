@@ -12,6 +12,8 @@ import { SRC, type Source } from './sources';
 export type Guide = {
   slug: string;
   title: string;
+  /** The visible H1, two-tone like every page H1 (the title stays the Article headline). */
+  h1: { a: string; b: string };
   /** The %s part of the <title>, keyword first, 60 characters or fewer with " | TruckWys". */
   seoTitle: string;
   description: string;
@@ -36,10 +38,11 @@ export const GUIDES: Guide[] = [
   /* ---------------------------------------------------------------- 1 */
   {
     slug: 'sa-fleet-operators-real-cost-per-kilometre',
+    h1: { a: "Your truck's real cost per kilometre.", b: 'Worked out line by line.' },
     title: "How to work out your truck's real cost per kilometre",
     seoTitle: 'Truck cost per kilometre in South Africa (2026)',
     description:
-      'Work out what each kilometre really costs your truck: diesel, tolls, tyres, maintenance and fixed costs, with a worked 2026 example at the September diesel price.',
+      'What each kilometre really costs your truck: diesel, tolls, tyres, maintenance and fixed costs, worked out at the September 2026 diesel price.',
     summary: 'Diesel, tolls, tyres and fixed costs, turned into one rand figure per kilometre, with a worked example.',
     published: '2026-02-13',
     reviewed: REVIEWED,
@@ -64,13 +67,14 @@ export const GUIDES: Guide[] = [
         <p>
           The official wholesale price changes on the first Wednesday of each month. On 2 September 2026 the Department of Mineral and
           Petroleum Resources raised 50 ppm diesel by 314,90 cents a litre (<A s={SRC.dmprSep}>DMPR</A>), which put inland 50 ppm diesel at
-          R&nbsp;30,05 a litre and coastal at R&nbsp;28,79 (<A s={SRC.citizenSep}>The Citizen</A>). Use the price for your own region, or what
-          you actually pay at your depot.
+          R&nbsp;30,05 a litre, with the coast a little lower (<A s={SRC.citizenSep}>The Citizen</A>). Use the price for your own region, or
+          what you actually pay at your depot.
         </p>
         <p>
           For consumption, use your own fuel records or your tracking system, per truck and per type of load. A loaded interlink uses more
-          than the same truck running empty. In the example below we use 46 litres per 100 km, which is an assumption for illustration, not
-          a benchmark.
+          than the same truck running empty. In the example below we use 46 litres per 100 km for a loaded interlink, which is an
+          assumption for illustration, not a benchmark. (The quote on our product pages is a different truck: a 28 t superlink on the same
+          Johannesburg to Durban lane, at 37,3 litres per 100 km.)
         </p>
         <div className="b-calc">
           <p>0,46 L/km × R&nbsp;30,05/L = <strong>R&nbsp;13,82 per km</strong> for diesel</p>
@@ -89,7 +93,7 @@ export const GUIDES: Guide[] = [
         </p>
         <p>
           SANRAL tariffs include VAT. If you are a VAT vendor you claim that VAT back, so the cost to you is R&nbsp;1&nbsp;107,83 excl. VAT. Over
-          568 km that adds R&nbsp;1,95 per km on that lane.
+          the 570 km from City Deep to Prospecton that adds R&nbsp;1,94 per km on that lane.
         </p>
 
         <h3>Tyres and maintenance</h3>
@@ -146,8 +150,8 @@ export const GUIDES: Guide[] = [
             <tr><td>Maintenance</td><td>R&nbsp;1,80</td></tr>
             <tr><td>Fixed costs</td><td>R&nbsp;6,80</td></tr>
             <tr><th scope="row">Cost per km, before tolls</th><td><strong>R&nbsp;24,82</strong></td></tr>
-            <tr><td>N3 tolls, Johannesburg to Durban, excl. VAT</td><td>R&nbsp;1,95</td></tr>
-            <tr><th scope="row">Cost per km on that lane</th><td><strong>R&nbsp;26,77</strong></td></tr>
+            <tr><td>N3 tolls, Johannesburg to Durban, excl. VAT</td><td>R&nbsp;1,94</td></tr>
+            <tr><th scope="row">Cost per km on that lane</th><td><strong>R&nbsp;26,76</strong></td></tr>
           </tbody>
         </table>
 
@@ -172,11 +176,12 @@ export const GUIDES: Guide[] = [
   /* ---------------------------------------------------------------- 2 */
   {
     slug: 'how-to-quote-freight-rates-south-africa-ai',
+    h1: { a: 'How to quote a transport load.', b: 'Line by line, from diesel to VAT.' },
     title: 'How to quote a transport load in South Africa, line by line',
     seoTitle: 'How to quote a transport load in South Africa',
     description:
-      'Build a load quote from diesel, SANRAL tolls, driver allowance, fixed costs and the empty return, then add margin and VAT. A worked Johannesburg to Durban example.',
-    summary: 'Diesel, tolls, allowance, fixed costs and the return leg, then margin and VAT. A worked Johannesburg to Durban quote.',
+      'Build a load quote from diesel, SANRAL tolls, allowance, fixed costs and the empty return, then margin and VAT. Worked N3 example to Pietermaritzburg.',
+    summary: 'Diesel, tolls, allowance, fixed costs and the return leg, then margin and VAT. A worked Johannesburg to Pietermaritzburg quote.',
     published: '2026-02-03',
     reviewed: REVIEWED,
     readingMinutes: 7,
@@ -186,7 +191,8 @@ export const GUIDES: Guide[] = [
       <>
         <p>
           A quote that shows its working is easier to defend, easier to check and harder to get wrong. This guide builds one from the
-          ground up, using a 568 km load from Johannesburg to Durban on the N3 with an interlink. Swap in your own figures as you go.
+          ground up, using a 490 km load from Johannesburg to Pietermaritzburg on the N3 with an interlink. Swap in your own figures as you go.
+          (It is deliberately a different load from the superlink quote to Durban on our product pages.)
         </p>
         <p>
           The running costs used below come from our{' '}
@@ -196,20 +202,20 @@ export const GUIDES: Guide[] = [
 
         <h2>Step 1: diesel for the loaded leg</h2>
         <p>
-          Distance times consumption gives litres: 568 km × 46 L per 100 km = 261,28 L. At the September 2026 inland price of R&nbsp;30,05 a
-          litre for 50 ppm diesel (<A s={SRC.citizenSep}>The Citizen</A>), that is <strong>R&nbsp;7&nbsp;851,46</strong>.
+          Distance times consumption gives litres: 490 km × 46 L per 100 km = 225,40 L. At the September 2026 inland price of R&nbsp;30,05 a
+          litre for 50 ppm diesel (<A s={SRC.citizenSep}>The Citizen</A>), that is <strong>R&nbsp;6&nbsp;773,27</strong>.
         </p>
 
         <h2>Step 2: every toll plaza on the route</h2>
         <p>
           Name each plaza rather than using a lump sum, so you can check it. Your vehicle class sets the tariff: class 4 is five or more
-          axles (<A s={SRC.sanralBooklet}>SANRAL</A>). On the N3 from Johannesburg to Durban a class 4 truck passes De Hoek (R&nbsp;230),
-          Wilge (R&nbsp;304), Tugela (R&nbsp;359), Mooi (R&nbsp;324) and Mariannhill (R&nbsp;57), a total of R&nbsp;1&nbsp;274 at the tariffs
-          effective 1 March 2026 (<A s={SRC.sanralPoster}>SANRAL</A>).
+          axles (<A s={SRC.sanralBooklet}>SANRAL</A>). On the N3 from Johannesburg to Pietermaritzburg a class 4 truck passes De Hoek
+          (R&nbsp;230), Wilge (R&nbsp;304), Tugela (R&nbsp;359) and Mooi (R&nbsp;324), a total of R&nbsp;1&nbsp;217 at the tariffs effective
+          1 March 2026 (<A s={SRC.sanralPoster}>SANRAL</A>). Mariannhill comes after Pietermaritzburg, so it is not on this trip.
         </p>
         <p>
           Tariffs include VAT. A VAT vendor claims that input tax back (<A s={SRC.vat404}>SARS VAT 404</A>), so put tolls into the quote excl.
-          VAT: <strong>R&nbsp;1&nbsp;107,83</strong>. Gauteng e-tolls no longer apply; road users stopped paying them on 11 April 2024 (
+          VAT: <strong>R&nbsp;1&nbsp;058,26</strong>. Gauteng e-tolls no longer apply; road users stopped paying them on 11 April 2024 (
           <A s={SRC.etolls}>Department of Transport</A>).
         </p>
 
@@ -222,13 +228,13 @@ export const GUIDES: Guide[] = [
         <h2>Step 4: the costs that do not show up on a fuel slip</h2>
         <p>
           Tyres, maintenance and fixed costs are real on every kilometre. Using the example figures of R&nbsp;4,20 per km for tyres and
-          maintenance and R&nbsp;6,80 per km for fixed costs, the loaded leg carries <strong>R&nbsp;2&nbsp;385,60</strong> and{' '}
-          <strong>R&nbsp;3&nbsp;862,40</strong>.
+          maintenance and R&nbsp;6,80 per km for fixed costs, the loaded leg carries <strong>R&nbsp;2&nbsp;058,00</strong> and{' '}
+          <strong>R&nbsp;3&nbsp;332,00</strong>.
         </p>
 
         <h2>Step 5: the way home</h2>
         <p>
-          If there is no backload, the customer&apos;s load has to pay for the empty return. Empty, the truck burns less, say 38 L per 100 km,
+          If there is no backload, the customer&apos;s load has to pay for the empty return. Empty, the truck burns less, say 38 L per 100 km (186,20 L),
           but the tolls, tyres and fixed costs are the same.
         </p>
         <table>
@@ -241,13 +247,13 @@ export const GUIDES: Guide[] = [
             </tr>
           </thead>
           <tbody>
-            <tr><td>Diesel</td><td>R&nbsp;7&nbsp;851,46</td><td>R&nbsp;6&nbsp;485,99</td></tr>
-            <tr><td>Tolls, excl. VAT</td><td>R&nbsp;1&nbsp;107,83</td><td>R&nbsp;1&nbsp;107,83</td></tr>
+            <tr><td>Diesel</td><td>R&nbsp;6&nbsp;773,27</td><td>R&nbsp;5&nbsp;595,31</td></tr>
+            <tr><td>Tolls, excl. VAT</td><td>R&nbsp;1&nbsp;058,26</td><td>R&nbsp;1&nbsp;058,26</td></tr>
             <tr><td>Driver allowance</td><td>R&nbsp;850,00</td><td>R&nbsp;0,00</td></tr>
-            <tr><td>Tyres and maintenance</td><td>R&nbsp;2&nbsp;385,60</td><td>R&nbsp;2&nbsp;385,60</td></tr>
-            <tr><td>Fixed costs</td><td>R&nbsp;3&nbsp;862,40</td><td>R&nbsp;3&nbsp;862,40</td></tr>
-            <tr><th scope="row">Subtotal</th><td>R&nbsp;16&nbsp;057,29</td><td>R&nbsp;13&nbsp;841,82</td></tr>
-            <tr><th scope="row">Round trip cost</th><td colSpan={2}><strong>R&nbsp;29&nbsp;899,11</strong></td></tr>
+            <tr><td>Tyres and maintenance</td><td>R&nbsp;2&nbsp;058,00</td><td>R&nbsp;2&nbsp;058,00</td></tr>
+            <tr><td>Fixed costs</td><td>R&nbsp;3&nbsp;332,00</td><td>R&nbsp;3&nbsp;332,00</td></tr>
+            <tr><th scope="row">Subtotal</th><td>R&nbsp;14&nbsp;071,53</td><td>R&nbsp;12&nbsp;043,57</td></tr>
+            <tr><th scope="row">Round trip cost</th><td colSpan={2}><strong>R&nbsp;26&nbsp;115,10</strong></td></tr>
           </tbody>
         </table>
         <p>
@@ -256,8 +262,8 @@ export const GUIDES: Guide[] = [
 
         <h2>Step 6: margin, then VAT</h2>
         <p>
-          Now add your margin. A price of <strong>R&nbsp;34&nbsp;000 excl. VAT</strong> leaves R&nbsp;4&nbsp;100,89 over the round trip cost,
-          a margin of 12,1%. Then VAT at 15% (<A s={SRC.sarsVat}>SARS</A>): R&nbsp;5&nbsp;100, for an invoice total of R&nbsp;39&nbsp;100.
+          Now add your margin. A price of <strong>R&nbsp;29&nbsp;700 excl. VAT</strong> leaves R&nbsp;3&nbsp;584,90 over the round trip cost,
+          a margin of 12,1%. Then VAT at 15% (<A s={SRC.sarsVat}>SARS</A>): R&nbsp;4&nbsp;455, for an invoice total of R&nbsp;34&nbsp;155.
         </p>
 
         <h2>Step 7: put a date on it</h2>
@@ -283,10 +289,11 @@ export const GUIDES: Guide[] = [
   /* ---------------------------------------------------------------- 3 */
   {
     slug: 'hidden-profit-leaks-south-african-fleet-operators',
+    h1: { a: 'Six places the money leaks.', b: 'Between the load and the bank.' },
     title: 'Six places transport businesses lose money between the load and the bank',
     seoTitle: 'Where transport businesses lose money: six leaks',
     description:
-      'Quotes that miss a cost, invoices that go out late, missing PODs, unchased debtors, VAT on unpaid invoices and diesel increases not passed on. How to spot each one.',
+      'Quotes that miss a cost, late invoices, missing PODs, unchased debtors, VAT on unpaid invoices and diesel rises not passed on. How to spot each.',
     summary: 'Missed costs, late invoices, missing PODs, unchased debtors, VAT on unpaid invoices and diesel increases not passed on.',
     published: '2026-01-27',
     reviewed: REVIEWED,
@@ -321,7 +328,7 @@ export const GUIDES: Guide[] = [
           <strong>Check:</strong> for each regular customer, when was the rate last changed, and what was diesel then?
         </p>
 
-        <h2>3. The invoice goes out days after delivery</h2>
+        <h2>3. The invoice is raised days after delivery</h2>
         <p>
           Payment terms usually start from the invoice date, not the delivery date. Every day the paperwork sits in the cab or on a desk
           is a day added to how long you wait for your money.
@@ -374,10 +381,11 @@ export const GUIDES: Guide[] = [
   /* ---------------------------------------------------------------- 4 */
   {
     slug: 'fuel-cost-management-sa-fleets-strategies',
+    h1: { a: 'Diesel costs for South African fleets.', b: 'What you pay for, and what you control.' },
     title: 'Diesel costs for South African fleets: what you pay for, and what you can control',
     seoTitle: 'Diesel costs for trucks in South Africa (2026)',
     description:
-      "What makes up the diesel price in 2026, how the monthly adjustment works, why road freight gets no diesel refund, and how to pass increases on with a fuel clause.",
+      "What is in the 2026 diesel price, how the monthly adjustment works, why road freight gets no refund, and how to pass rises on with a fuel clause.",
     summary: 'The levies in the price, the monthly adjustment, the diesel refund question and a simple fuel surcharge formula.',
     published: '2026-02-07',
     reviewed: REVIEWED,
@@ -398,7 +406,7 @@ export const GUIDES: Guide[] = [
         </p>
         <p>
           From 2 September 2026, 50 ppm diesel went up by 314,90 cents a litre and 500 ppm by 293,90 cents (<A s={SRC.dmprSep}>DMPR</A>).
-          That took 50 ppm diesel to R&nbsp;30,05 a litre inland and R&nbsp;28,79 at the coast (<A s={SRC.citizenSep}>The Citizen</A>).
+          That took 50 ppm diesel to R&nbsp;30,05 a litre inland, with the coastal price a little lower (<A s={SRC.citizenSep}>The Citizen</A>).
         </p>
 
         <h2>What is in a litre</h2>
@@ -424,8 +432,7 @@ export const GUIDES: Guide[] = [
 
         <h2>Inland or coastal</h2>
         <p>
-          Inland diesel costs more because of the cost of moving fuel from the coast. In September 2026 the gap on 50 ppm was R&nbsp;1,26 a
-          litre. If you refuel at both ends of a long route, price each leg at the price you will actually pay.
+          Inland diesel costs more because of the cost of moving fuel from the coast, usually by a rand or so a litre. If you refuel at both ends of a long route, price each leg at the price you will actually pay.
         </p>
 
         <h2>Pass increases on with a fuel clause</h2>
@@ -456,10 +463,11 @@ export const GUIDES: Guide[] = [
   /* ---------------------------------------------------------------- 5 */
   {
     slug: 'cross-border-trucking-southern-africa-multi-currency',
+    h1: { a: 'Cross-border trucking costs.', b: 'Permits, road charges and tolls.' },
     title: 'Cross-border trucking costs in southern Africa: permits, road charges and tolls',
-    seoTitle: 'Cross-border trucking costs: permits and road charges',
+    seoTitle: 'Cross-border trucking costs from South Africa',
     description:
-      'The costs of a cross-border load from South Africa: C-BRTA permits, road charges in Namibia, Eswatini and Lesotho, N4 tolls into Mozambique, and zero-rated VAT.',
+      'Cross-border load costs from South Africa: C-BRTA permits, road charges in Namibia, Eswatini and Lesotho, N4 tolls to Mozambique, zero-rated VAT.',
     summary: 'C-BRTA permits, foreign road charges and tolls, and how VAT works on a load that leaves the country.',
     published: '2026-02-10',
     reviewed: REVIEWED,
@@ -513,7 +521,7 @@ export const GUIDES: Guide[] = [
             </tr>
             <tr>
               <td>Eswatini</td>
-              <td>Road toll for foreign heavy vehicles, from 1 Oct 2025: E&nbsp;400 for three or more axles.</td>
+              <td>Road toll for foreign heavy vehicles, from 1 Oct 2025: E&nbsp;400 for three axles and E&nbsp;450 for four axles, the heaviest class listed. Trucks entering through Mhlumeni or Lomahasha pay the equivalent of US$&nbsp;100 per truck.</td>
               <td><A s={SRC.eswatini}>Eswatini Tourism Authority</A></td>
             </tr>
             <tr>

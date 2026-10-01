@@ -90,8 +90,10 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
       <article className={s.article}>
         <div className={`wrap ${s.layout}`}>
           <div className={s.col}>
-            <Breadcrumbs trail={[crumbs[0], crumbs[1], { name: 'This guide', path: crumbs[2].path }]} />
-            <h1 className={s.title}>{g.title}</h1>
+            <Breadcrumbs trail={crumbs} />
+            <h1 className={`h1 ${s.title}`}>
+              {g.h1.a} <span className="tone-2">{g.h1.b}</span>
+            </h1>
             <p className={s.dek}>{g.summary}</p>
             <p className={s.byline}>
               <span>
