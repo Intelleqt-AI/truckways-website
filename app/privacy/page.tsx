@@ -30,7 +30,7 @@ export const metadata: Metadata = {
 //      adding it here in the same change.
 export default function PrivacyPage() {
   return (
-    <LegalPage title="Privacy policy" updated="30 September 2026">
+    <LegalPage title="Privacy policy" updated="1 October 2026">
     <section>
       <h2>1. Who we are</h2>
       <p>
@@ -147,13 +147,13 @@ export default function PrivacyPage() {
         <li>To provide the quoting, invoicing and trip profitability features of the platform</li>
         <li>To process the 0.25% invoice success fee and manage subscription billing via Paystack</li>
         <li>
-          To facilitate an introduction to our invoice financing partner, Merchant Capital, where a customer opts
-          in to factoring
+          Once available, to facilitate an introduction to an independent invoice financing provider, where a
+          customer opts in to factoring
         </li>
         <li>To calculate routes, distances and tolls, using third-party routing data where needed</li>
         <li>To send transactional and collections communications</li>
         <li>
-          To sync invoicing data with accounting platforms such as Xero, where a customer connects their account
+          Once available, to sync invoicing data with accounting platforms such as Xero or QuickBooks, where a customer connects their account
         </li>
         <li>To secure accounts, including one-time sign-in codes, and fraud and card-health monitoring</li>
         <li>To comply with legal, tax and regulatory obligations</li>
@@ -176,10 +176,11 @@ export default function PrivacyPage() {
           <strong>Paystack</strong>: subscription payment processing and card tokenisation
         </li>
         <li>
-          <strong>Merchant Capital</strong>: invoice financing, only where a customer opts in to factoring
+          <strong>An independent invoice financing provider</strong>: invoice financing, once available and only
+          where a customer opts in to factoring. The provider is named before the customer opts in
         </li>
         <li>
-          <strong>Xero</strong>: accounting sync, only where a customer connects their account
+          <strong>Xero and QuickBooks</strong>: accounting sync, once available and only where a customer connects their account
         </li>
         <li>
           <strong>TomTom</strong>: route, distance and travel-time data
@@ -276,7 +277,7 @@ export default function PrivacyPage() {
       <h2>9. Security safeguards</h2>
       <ul>
         <li>All traffic between the apps and our servers is encrypted in transit over TLS</li>
-        <li>Stored credentials and integration tokens, such as Xero OAuth tokens, are encrypted</li>
+        <li>Stored credentials and integration tokens, such as accounting-platform sign-in tokens, are encrypted</li>
         <li>Card data is tokenised by Paystack; no full card numbers are stored on TruckWys systems</li>
         <li>Sign-in can require a one-time code in addition to a password</li>
         <li>

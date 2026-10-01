@@ -31,7 +31,7 @@ export const metadata: Metadata = {
   alternates: { canonical: SITE_URL },
   openGraph: {
     ...OG_BASE,
-    url: SITE_URL,
+    url: `${SITE_URL}/`,
     title: TITLE,
     description: DESCRIPTION,
     images: [{ url: '/og/home.png', width: 1200, height: 630, alt: 'TruckWys: Price it right. Invoice on delivery. Get paid.' }],

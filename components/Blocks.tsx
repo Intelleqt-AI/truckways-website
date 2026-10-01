@@ -72,7 +72,7 @@ export function PageHero({ a, b, lead, children, crumbs }: { a: ReactNode; b?: R
  * variant "notify":  for products that are not live (Fast Pay, Insurance). "Get notified" to `notifyHref`,
  *                    plus a secondary text link (`secondary`, default: what is live today, /product).
  *                    A quiet "Coming soon" bottom right instead of the three words.
- * variant "contact": for /contact. Defaults "A person replies." / "Usually the same working day.", an
+ * variant "contact": for /contact. Defaults "A person replies." / "Write to us any time.", an
  *                    "Email us" button (mailto CONTACT_EMAIL, or `primary`) and an optional `secondary` text link.
  * `photo` picks the band photo; by default it follows the page family (capital: durban, else n3).
  * Pages may pass their own a / b / line in any variant.
@@ -113,7 +113,7 @@ export function Closing({
   const ph = PHOTOS[photoName];
   const head = {
     a: a ?? (notify ? 'Be first when Fast Pay goes live.' : contact ? 'A person replies.' : 'Ready when your next load is.'),
-    b: b ?? (notify ? 'Meanwhile, price, invoice and get paid.' : contact ? 'Usually the same working day.' : 'Price it, invoice it, get paid.'),
+    b: b ?? (notify ? 'Meanwhile, price, invoice and get paid.' : contact ? 'Write to us any time.' : 'Price it, invoice it, get paid.'),
     line:
       line ??
       (notify

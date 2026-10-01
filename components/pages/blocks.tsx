@@ -285,7 +285,7 @@ export function PhotoHero({
   place?: string;
 }) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { props: { style: _style, ...img } } = getImageProps({ src, alt: '', fill: true, quality: 70, sizes: 'calc(100vw - 16px)', priority: true });
+  const { props: { style: _style, ...img } } = getImageProps({ src, alt: '', fill: true, quality: 60, sizes: 'calc(100vw - 32px)', priority: true });
   return (
     <section className={`b-phero${align === 'top' ? ' b-phero--top' : ''}`} aria-labelledby="page-h1">
       <div className="b-phero__frame" data-theme="dark">
@@ -323,7 +323,7 @@ export function PhotoBand({
   place?: string;
 }) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
-  const { props: { style: _style, ...img } } = getImageProps({ src, alt: '', fill: true, quality: 65, sizes: 'calc(100vw - 16px)' });
+  const { props: { style: _style, ...img } } = getImageProps({ src, alt: '', fill: true, quality: 60, sizes: 'calc(100vw - 32px)' });
   return (
     <section className="b-band" aria-labelledby={id}>
       <div className="b-band__frame" data-theme="dark" data-pframe>

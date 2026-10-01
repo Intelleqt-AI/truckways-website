@@ -158,7 +158,7 @@ export default function AiPage() {
 
       <section className="sec" aria-label="Questions about models in TruckWys">
         <div className="wrap">
-          <Faq a="AI" b="questions." items={FAQ} />
+          <Faq a="Copilot" b="questions." items={FAQ} />
         </div>
       </section>
 

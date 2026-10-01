@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 // changing it here in the same release.
 export default function TermsPage() {
   return (
-    <LegalPage title="Terms and conditions" updated="4 August 2026">
+    <LegalPage title="Terms and conditions" updated="1 October 2026">
     <section>
       <h2>1. Who this agreement is between</h2>
       <p>
@@ -57,8 +57,8 @@ export default function TermsPage() {
           Platform.
         </li>
         <li>
-          <strong>"Factoring Referral"</strong> means the optional introduction to our invoice financing partner
-          described in clause 10.
+          <strong>"Factoring Referral"</strong> means the optional introduction, once available, to an independent
+          invoice financing provider described in clause 10.
         </li>
         <li>
           <strong>"Customer Data"</strong> means data uploaded to or generated within the Platform by or on behalf
@@ -254,15 +254,16 @@ export default function TermsPage() {
     </section>
 
     <section>
-      <h2>10. Invoice financing (factoring) referral</h2>
+      <h2>10. Invoice financing (factoring) referral (not yet available)</h2>
       <p>
-        Where the Customer opts in, TruckWys may introduce the Customer to Merchant Capital, an independent invoice
-        financing provider, for the purposes of factoring the Customer&apos;s invoices.
+        Invoice financing through TruckWys (Fast Pay) is not yet available. Once it is available, and only where the
+        Customer opts in, TruckWys may introduce the Customer to an independent invoice financing provider, named
+        to the Customer before they opt in, for the purposes of factoring the Customer&apos;s invoices.
       </p>
       <p>
         TruckWys is not a credit provider and does not itself provide, underwrite or guarantee any factoring or
-        financing arrangement. Any factoring agreement is entered into directly between the Customer and Merchant
-        Capital, on Merchant Capital&apos;s own terms, and is subject to Merchant Capital&apos;s own credit
+        financing arrangement. Any factoring agreement is entered into directly between the Customer and that
+        provider, on the provider&apos;s own terms, and is subject to the provider&apos;s own credit
         assessment and approval, including its own fees and interest rates. TruckWys accepts no liability for the
         terms, approval, performance or outcome of any such arrangement.
       </p>
@@ -271,8 +272,8 @@ export default function TermsPage() {
     <section>
       <h2>11. Third-party services</h2>
       <p>
-        The Platform integrates with third-party services, including Paystack (payments), Xero (accounting sync,
-        where connected by the Customer), TomTom (routing) and MapTiler (map imagery), and relies on Anthropic and
+        The Platform integrates with third-party services, including Paystack (payments), Xero and QuickBooks
+        (accounting sync, once available and where connected by the Customer), TomTom (routing) and MapTiler (map imagery), and relies on Anthropic and
         OpenAI for AI features, Google Firebase Cloud Messaging and the Apple Push Notification service for push
         notifications, Resend for transactional email, and Amazon Web Services for hosting.
       </p>

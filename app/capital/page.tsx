@@ -20,7 +20,7 @@ export const metadata = pageMeta({
   path: PATH,
   title: 'Capital and Fast Pay: coming soon',
   description:
-    "Fast Pay is coming soon: get paid on a delivered load's invoice without waiting out your customer's 30 to 60 days. Opt in, invoice by invoice. Not live yet.",
+    "Fast Pay is coming soon: get paid on a delivered load's invoice without waiting out your customer's 30 to 60 days. Opt in, invoice by invoice. Not live.",
   og: 'capital',
   ogAlt: 'TruckWys Fast Pay: coming soon. Get paid sooner, before your customer pays.',
 });
@@ -186,7 +186,7 @@ export default function CapitalPage() {
                 ['Who pays you', 'Not TruckWys. TruckWys is not a credit provider. Financing would come from an independent invoice-finance provider.'],
                 ['Approval', "On that provider's own terms, fees and credit checks."],
                 ['Until then', 'Your customers pay you by EFT, straight into your own account.'],
-                ['The name', "TruckWys Capital is the name for the finance features we're building, starting with Fast Pay."],
+                ['The name', "Capital and Fast Pay is the name for the finance features we're building, starting with Fast Pay."],
               ]}
             />
           </Split>

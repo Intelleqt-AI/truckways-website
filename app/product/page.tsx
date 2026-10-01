@@ -139,7 +139,7 @@ export default function ProductPage() {
               <b>Where we use a model:</b> reading a typed load into the quote form, Copilot, and the win chance. Never tolls, diesel, VAT or
               the price you send.
             </p>
-            <TextLink href="/product/ai">How we use AI</TextLink>
+            <TextLink href="/product/ai">AI in TruckWys</TextLink>
           </div>
         </div>
       </section>
