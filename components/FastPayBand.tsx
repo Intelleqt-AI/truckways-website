@@ -8,7 +8,7 @@ import { getImageProps } from 'next/image';
  * Mirrors Terms 10: TruckWys is not a credit provider. Never in the schema featureList or Offer.
  */
 export const FAST_PAY_STEPS = [
-  { t: 'Pick a delivered invoice', d: 'A sent invoice with the proof of delivery on file. Both are already in TruckWys.' },
+  { t: 'Pick a delivered load', d: 'Its invoice and proof of delivery are already in TruckWys, so there is nothing to collect again.' },
   { t: 'See the numbers first', d: 'The fee and the exact amount you would receive, before you ask for anything.' },
   { t: 'Get paid early', d: 'An independent finance provider pays you, on its own terms. Your customer pays the invoice as normal.' },
 ];
