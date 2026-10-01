@@ -93,6 +93,9 @@ p, li, dd { text-wrap: pretty; }
 }
 @media (max-width: 639px) { .label { font-size: 13px; } }
 
+/* Phones: section H2s a step below the hero H1 so the hero leads. */
+@media (max-width: 479px) { .h2 { font-size: 28px; } }
+
 /* -------------------------------------------------------------- layout */
 .wrap {
   width: 100%;
