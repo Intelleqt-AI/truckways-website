@@ -548,10 +548,10 @@ p, li, dd { text-wrap: pretty; }
 
 /* ------------------------------------------------------ photo band */
 .band {
-  position: relative; min-height: 560px; background: var(--bg-deep); color: var(--text-primary);
-  display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--web-col-gap); align-items: end;
+  position: relative; background: var(--bg-deep); color: var(--text-primary);
+  display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--web-col-gap); align-items: center;
   /* Text on the site's grid: the inset is 16px, so pad to where .wrap content starts. */
-  padding: 64px max(calc(var(--web-gutter) - 16px), calc((100% - var(--web-container)) / 2 - 16px));
+  padding: 96px max(calc(var(--web-gutter) - 16px), calc((100% - var(--web-container)) / 2 - 16px));
 }
 .band__text { grid-column: 1 / 7; position: relative; z-index: 1; }
 .band__lines { margin-top: 28px; display: flex; flex-direction: column; gap: 10px; border-left: 1px solid var(--border-strong); padding-left: 16px; }
