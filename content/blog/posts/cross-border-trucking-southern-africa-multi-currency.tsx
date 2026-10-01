@@ -7,6 +7,7 @@ const S = {
     name: 'C-BRTA: permit fees from 1 April 2026 (Government Gazette 54229, 27 Feb 2026)',
     url: 'https://www.cbrta.co.za/uploads/files/2026-C-BRTA-PERMIT-FEES.pdf',
   },
+  nrfa: { name: 'National Road Fund Agency (Zambia): National Road Tolling Programme', url: 'https://www.nrfa.org.zm/e-tolling/' },
   zinara: { name: 'ZINARA (Zimbabwe): transit fees', url: 'https://zinara.co.zw/services/transit-fees/' },
 } as const satisfies Record<string, Source>;
 
@@ -27,18 +28,18 @@ const post: Post = {
   faq: [
     {
       q: 'Do I need a permit to take a truck across the border from South Africa?',
-      a: "Yes. Goods vehicles crossing into neighbouring countries need a cross-border permit from the Cross-Border Road Transport Agency (C-BRTA). You can apply online through the agency's portal or in person in Centurion.",
+      a: "Yes. Goods vehicles crossing into neighbouring countries need a cross-border permit from the Cross-Border Road Transport Agency (C-BRTA). You can apply online through the agency's portal or in person in Centurion. A 12-month permit for a vehicle over 20\u00a0000 kg costs R\u00a09\u00a0041 per country from 1 April 2026.",
     },
     {
       q: 'Do I charge VAT on a cross-border load?',
-      a: 'International transport of goods into or out of South Africa is zero-rated for VAT, and a local leg can also be zero-rated in some cases. Keep the documents that prove the goods crossed the border, and check your own case with a tax practitioner.',
+      a: 'International transport of goods into or out of South Africa is zero-rated for VAT, and a local leg can also be zero-rated in some cases. Keep the documents that prove the goods crossed the border, and check your own case with a tax practitioner. If you only haul the South African leg as a subcontractor, your charge will generally carry VAT at 15%.',
     },
     {
       q: 'What currency should I quote a cross-border load in?',
       a: 'Quote in the currency your contract uses. Record foreign charges in the currency you paid them in, convert at the rate on the day, and agree up front who carries the exchange risk.',
     },
   ],
-  sources: [SRC.cbrta, S.cbrtaFees, SRC.botswana, SRC.namibia, SRC.trac, SRC.eswatini, SRC.lesotho, S.zinara, SRC.citizenSep, SRC.sanralPoster, SRC.vat404, SRC.sarsVat],
+  sources: [SRC.cbrta, S.cbrtaFees, SRC.botswana, SRC.namibia, SRC.trac, SRC.eswatini, SRC.lesotho, S.zinara, S.nrfa, SRC.citizenSep, SRC.sanralPoster, SRC.vat404, SRC.sarsVat],
   body: (
     <>
       <p>
@@ -60,7 +61,8 @@ const post: Post = {
         From 1 April 2026, a freight permit for a vehicle over 20&nbsp;000 kg (C-BRTA class 2) costs R&nbsp;9&nbsp;041 for 12 months: an
         application fee of R&nbsp;823 plus an issue fee of R&nbsp;8&nbsp;218. A five-year permit is R&nbsp;12&nbsp;320, plus an annual
         compliance fee of R&nbsp;1&nbsp;962, and a 14-day temporary permit is R&nbsp;2&nbsp;264. The fees are per vehicle, per country in which
-        you pick up or set down goods (<A s={S.cbrtaFees}>C-BRTA</A>).
+        you pick up or set down goods (<A s={S.cbrtaFees}>C-BRTA</A>). New permits must be advertised before they are issued, so apply well
+        before the first trip.
       </p>
 
       <h2>Charges country by country</h2>
@@ -103,7 +105,7 @@ const post: Post = {
           <tr>
             <td>Zimbabwe (Beitbridge)</td>
             <td>
-              Transit fees for foreign heavy vehicles, charged per 100 km and collected at the port of entry, plus tolls on the road. Fees and
+              Transit fees for foreign heavy vehicles: US$&nbsp;10 per 100 km for a multi-axle vehicle registered outside Malawi and Mozambique, collected at the port of entry, plus tolls on the road. Fees and
               the rules on them have changed in recent years, so check the current schedule with ZINARA before you quote.
             </td>
             <td><A s={S.zinara}>ZINARA</A></td>
@@ -112,9 +114,9 @@ const post: Post = {
             <td>Zambia</td>
             <td>
               Tolls at the border and on the main roads, set under Zambia&apos;s Tolls Act. Check the
-              current rates with Zambia&apos;s Road Development Agency before you quote.
+              current rates with Zambia&apos;s National Road Fund Agency (NRFA), which runs the national road tolling programme, before you quote.
             </td>
-            <td>Road Development Agency (Zambia)</td>
+            <td><A s={S.nrfa}>NRFA (Zambia)</A></td>
           </tr>
           <tr>
             <td>Botswana</td>

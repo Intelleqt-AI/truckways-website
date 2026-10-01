@@ -285,12 +285,12 @@ const post: Post = {
         <tbody>
           <tr><td>Dispatcher and admin person (invoicing, debtors, driver files)</td><td>R&nbsp;18&nbsp;000</td></tr>
           <tr><td>Yard rent and security</td><td>R&nbsp;8&nbsp;000</td></tr>
-          <tr><td>Software (excluding tracking, which is per truck)</td><td>R&nbsp;3&nbsp;500</td></tr>
+          <tr><td>Software: accounting, invoicing and load-to-cash (tracking is per truck, above)</td><td>R&nbsp;11&nbsp;000</td></tr>
           <tr><td>Accountant or bookkeeper</td><td>R&nbsp;3&nbsp;000</td></tr>
           <tr><td>Reserve for insurance excesses</td><td>R&nbsp;3&nbsp;000</td></tr>
           <tr><td>Office, phones and bank charges</td><td>R&nbsp;2&nbsp;000</td></tr>
-          <tr><th scope="row">Total shared overheads</th><td><strong>R&nbsp;37&nbsp;500</strong></td></tr>
-          <tr><th scope="row">Per truck</th><td><strong>R&nbsp;7&nbsp;500</strong></td></tr>
+          <tr><th scope="row">Total shared overheads</th><td><strong>R&nbsp;45&nbsp;000</strong></td></tr>
+          <tr><th scope="row">Per truck</th><td><strong>R&nbsp;9&nbsp;000</strong></td></tr>
         </tbody>
       </table>
       <table>
@@ -304,16 +304,16 @@ const post: Post = {
         </thead>
         <tbody>
           <tr><td>The truck&apos;s own costs (R&nbsp;289&nbsp;876 × 12)</td><td>R&nbsp;3&nbsp;478&nbsp;512</td><td>R&nbsp;3&nbsp;478&nbsp;512</td></tr>
-          <tr><td>Share of overheads</td><td>R&nbsp;96&nbsp;000</td><td>R&nbsp;90&nbsp;000</td></tr>
-          <tr><th scope="row">Total per truck</th><td><strong>R&nbsp;3&nbsp;574&nbsp;512</strong></td><td><strong>R&nbsp;3&nbsp;568&nbsp;512</strong></td></tr>
-          <tr><td>Per km, at 144&nbsp;000 km a year</td><td>R&nbsp;24,82</td><td>R&nbsp;24,78</td></tr>
+          <tr><td>Share of overheads</td><td>R&nbsp;96&nbsp;000</td><td>R&nbsp;108&nbsp;000</td></tr>
+          <tr><th scope="row">Total per truck</th><td><strong>R&nbsp;3&nbsp;574&nbsp;512</strong></td><td><strong>R&nbsp;3&nbsp;586&nbsp;512</strong></td></tr>
+          <tr><td>Per km, at 144&nbsp;000 km a year</td><td>R&nbsp;24,82</td><td>R&nbsp;24,91</td></tr>
         </tbody>
       </table>
       <p>
-        The whole five-truck fleet costs R&nbsp;17&nbsp;842&nbsp;560 a year in this example (5 × R&nbsp;3&nbsp;478&nbsp;512 plus R&nbsp;450&nbsp;000 of overheads).
-        The lesson is in the small difference: in these inputs, growing from one truck to five saves only R&nbsp;6&nbsp;000 per truck a year,
-        because the R&nbsp;8&nbsp;000 for one truck leaves out the owner&apos;s own time, and the bigger fleet pays someone to do that work. Scale
-        does not make a truck cheap. What moves cost per truck far more is kilometres, consumption and empty running.
+        The whole five-truck fleet costs R&nbsp;17&nbsp;932&nbsp;560 a year in this example (5 × R&nbsp;3&nbsp;478&nbsp;512 plus R&nbsp;540&nbsp;000 of overheads).
+        The lesson is in the small difference: in these inputs, each truck in the five-truck fleet costs R&nbsp;12&nbsp;000 a year more than the
+        single truck, because the R&nbsp;8&nbsp;000 for one truck leaves out the owner&apos;s own time, and the bigger fleet pays people and
+        systems to do that work. Scale does not make a truck cheap. What moves cost per truck far more is kilometres, consumption and empty running.
       </p>
       <p>
         Before you add a truck, rebuild the budget with the overhead you will really need at the new size, and check that the work you
