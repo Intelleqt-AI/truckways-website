@@ -1,5 +1,5 @@
 import { getImageProps } from 'next/image';
-import { ButtonLink, TextLink } from '../ui';
+import { ButtonLink } from '../ui';
 import { PRICE_AND_FEE, CANCELLATION } from '../../lib/facts';
 import { signupUrl, demoUrl } from '../../lib/site';
 import s from './PhotoHero.module.css';
@@ -39,8 +39,8 @@ function Photo() {
   return (
     <>
       {/* Preload the right crop for the viewport so the LCP image starts with the document. */}
-      <link rel="preload" as="image" imageSrcSet={band.srcSet} imageSizes={band.sizes} media="(max-width: 1199px)" fetchPriority="high" />
-      <link rel="preload" as="image" imageSrcSet={desk.srcSet} imageSizes={desk.sizes} media="(min-width: 1200px)" fetchPriority="high" />
+      <link rel="preload" as="image" href={band.src} imageSrcSet={band.srcSet} imageSizes={band.sizes} media="(max-width: 1199px)" fetchPriority="high" />
+      <link rel="preload" as="image" href={desk.src} imageSrcSet={desk.srcSet} imageSizes={desk.sizes} media="(min-width: 1200px)" fetchPriority="high" />
     <div className={s.media} data-subject-desktop={JSON.stringify(SUBJECT.desktop)} data-subject-band={JSON.stringify(SUBJECT.band)}>
       <picture>
         <source media="(max-width: 1199px)" srcSet={band.srcSet} sizes={band.sizes} />
@@ -69,9 +69,9 @@ export default function PhotoHero({ loc = 'home-hero', children }: { loc?: strin
             <ButtonLink href={signupUrl(loc)} cta="get_started" loc="hero">
               Get started
             </ButtonLink>
-            <TextLink href={demoUrl(loc)} cta="open_demo" loc="hero" className={s.demo}>
+            <ButtonLink href={demoUrl(loc)} variant="secondary" cta="open_demo" loc="hero" className={s.demo}>
               Open the demo
-            </TextLink>
+            </ButtonLink>
           </div>
           <p className={`${s.price} ${s.in}`} style={i(5)}>
             {PRICE_AND_FEE} {CANCELLATION}

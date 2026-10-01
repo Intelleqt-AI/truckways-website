@@ -38,9 +38,6 @@ export default function Nav({ current }: { current?: string }) {
           <a href={loginUrl('nav')} className="nav__link" data-cta="sign_in" data-loc="nav">
             Sign in
           </a>
-          <a href={demoUrl('nav')} className="nav__link" data-cta="open_demo" data-loc="nav">
-            Open the demo
-          </a>
           <a href={signupUrl('nav')} className="btn btn--primary btn--sm" data-cta="get_started" data-loc="nav">
             Get started
           </a>

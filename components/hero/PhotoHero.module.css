@@ -16,11 +16,15 @@
 /* Calm, even grade: one flat darkening, a left wash under the text, a bottom wash over the water. */
 .scrim {
   position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  /* One long, eased left wash (no hard stop mid-frame), a soft top-right corner and a gentle floor. */
   background:
-    radial-gradient(ellipse 22% 14% at 100% 0%, rgba(11, 12, 14, 0.55), rgba(11, 12, 14, 0)),
-    linear-gradient(90deg, rgba(11, 12, 14, 0.82) 0%, rgba(11, 12, 14, 0.78) 44%, rgba(11, 12, 14, 0.25) 55%, rgba(11, 12, 14, 0) 63%),
-    linear-gradient(180deg, rgba(11, 12, 14, 0) 58%, rgba(11, 12, 14, 0.55) 74%, rgba(11, 12, 14, 0.85) 100%),
-    rgba(11, 12, 14, 0.28);
+    radial-gradient(ellipse 30% 20% at 100% 0%, rgba(11, 12, 14, 0.4), rgba(11, 12, 14, 0)),
+    linear-gradient(90deg,
+      rgba(11, 12, 14, 0.8) 0%, rgba(11, 12, 14, 0.78) 28%, rgba(11, 12, 14, 0.7) 38%,
+      rgba(11, 12, 14, 0.56) 48%, rgba(11, 12, 14, 0.38) 58%, rgba(11, 12, 14, 0.2) 68%,
+      rgba(11, 12, 14, 0.08) 78%, rgba(11, 12, 14, 0) 88%),
+    linear-gradient(180deg, rgba(11, 12, 14, 0) 55%, rgba(11, 12, 14, 0.35) 75%, rgba(11, 12, 14, 0.7) 100%),
+    rgba(11, 12, 14, 0.2);
 }
 .text { position: relative; z-index: 1; width: min(620px, 46%); margin-left: clamp(40px, 6vw, 112px); padding-top: 72px; }
 .eyebrow { font: 500 14px/20px var(--font-sans); letter-spacing: -0.006em; color: #FFFFFF; margin-bottom: 20px; }
@@ -28,8 +32,9 @@
 .h1 > span { display: block; }
 .blue { color: #9DC4FF; }
 .lead { margin-top: 24px; max-width: 46ch; font-size: clamp(17px, 0.9rem + 0.35vw, 20px); line-height: 1.52; letter-spacing: -0.012em; color: #FFFFFF; }
-.ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 24px; margin-top: 32px; }
-.demo { color: #FFFFFF; }
+.ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin-top: 32px; }
+.ctas .demo { color: #FFFFFF; border-color: rgba(255, 255, 255, 0.36); }
+.ctas .demo:hover { background: rgba(255, 255, 255, 0.1); border-color: rgba(255, 255, 255, 0.56); }
 .price { margin-top: 20px; max-width: 52ch; font: 400 14px/20px var(--font-sans); color: rgba(255, 255, 255, 0.86); }
 .place { position: absolute; right: 24px; top: 20px; z-index: 1; font: 500 13px/18px var(--font-sans); color: #FFFFFF; }
 
