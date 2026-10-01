@@ -145,7 +145,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           <div className={s.col}>
             <Breadcrumbs trail={crumbs} />
             <p className={s.eyebrow}>
-              <a href={`/blog#${g.category.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>{g.category}</a>
+              <a className="hit" href={`/blog#${g.category.toLowerCase().replace(/[^a-z0-9]+/g, '-')}`}>{g.category}</a>
             </p>
             <h1 className={`h1 ${s.title}`}>
               {g.h1.a} <span className="tone-2">{g.h1.b}</span>

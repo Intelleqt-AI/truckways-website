@@ -181,6 +181,7 @@ p, li, dd { text-wrap: pretty; }
 .tlink:hover { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
 .tlink--quiet { color: var(--text-primary); }
 /* 44 x 44 hit area on coarse pointers without changing the layout (dashboard technique). */
+.hit { position: relative; }
 .hit::after, .tlink::after, .btn--sm::after {
   content: ""; position: absolute; left: 50%; top: 50%;
   width: max(100%, 44px); height: max(100%, 44px); transform: translate(-50%, -50%);
