@@ -13,8 +13,8 @@ import {
 import { FACTS, PRICE, PRICE_AND_FEE, FEE_LINE, NO_VAT, CANCELLATION } from '../lib/facts';
 import { signupUrl, demoUrl, jsonLd, SITE_URL, DEMO_LINE } from '../lib/site';
 import { graph, softwareSchema, offerSchema, faqSchema } from '../lib/schema';
-import { INVOICE, KPIS, FEE_EXAMPLE, BOOKED_QUOTE, LANE_JHB_DBN } from '../content/demo-data';
-import { rand, date, num } from '../lib/format';
+import { KPIS, FEE_EXAMPLE } from '../content/demo-data';
+import { rand, num } from '../lib/format';
 
 const TITLE = 'TruckWys: quoting, invoicing and debtors for SA transporters';
 const DESCRIPTION =
@@ -229,44 +229,6 @@ export default function Home() {
             <StepSwitcher
               steps={STEPS}
               panels={[<QuoteCard key="q" />, <InvoiceRow key="i" />, <NeedsYouCard key="n" />, <LaneRanking key="l" />]}
-              aside={
-                <>
-                  <p className="chain__title">One delivered load, one record</p>
-                  <p className="chain__sub">
-                    {INVOICE.customer}, {INVOICE.route}. A different load from the new quote above.
-                  </p>
-                  <ul className="chain list-reset">
-                    <li>
-                      <span>Quote</span>
-                      <span>
-                        <span className="nowrap">{BOOKED_QUOTE.number}</span>, accepted
-                      </span>
-                      <span>{rand(BOOKED_QUOTE.amount, { cents: true })}</span>
-                    </li>
-                    <li>
-                      <span>Delivered</span>
-                      <span>
-                        <span className="nowrap">{INVOICE.load}</span>, POD attached
-                      </span>
-                      <span className="nowrap">{date(INVOICE.delivered)}</span>
-                    </li>
-                    <li>
-                      <span>Invoice</span>
-                      <span>
-                        <span className="nowrap">{INVOICE.number}</span>, due {date(INVOICE.due)}
-                      </span>
-                      <span>{rand(INVOICE.total, { cents: true })}</span>
-                    </li>
-                    <li>
-                      <span>Lane</span>
-                      <span>
-                        {LANE_JHB_DBN.lane}, 12 months, {LANE_JHB_DBN.trips} trips
-                      </span>
-                      <span>{rand(LANE_JHB_DBN.perKm, { cents: true })}/km</span>
-                    </li>
-                  </ul>
-                </>
-              }
             />
           </div>
         </div>
