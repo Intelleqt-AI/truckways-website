@@ -8,6 +8,7 @@ import { ArrowRight, Check } from 'lucide-react';
 import { ButtonLink, TextLink, TwoTone } from '../ui';
 import { Breadcrumbs } from '../Blocks';
 import { demoUrl, signupUrl } from '../../lib/site';
+import Backdrop, { type BackdropPhoto } from '../Backdrop';
 
 type Crumb = { name: string; path: string };
 
@@ -62,11 +63,22 @@ export function FeatureHero({
 }
 
 /** One rebuilt product screen on the dashboard's grey surface. */
-export function Stage({ label, children, flush }: { label: string; children: ReactNode; flush?: boolean }) {
+/**
+ * Motion: the frame opens from a clip-path inset as it enters (.clipin, SiteScripts). With `photo`, the screen
+ * sits on a blurred South African road photo (components/Backdrop.tsx) that drifts slightly on scroll.
+ */
+export function Stage({ label, children, flush, photo }: { label: string; children: ReactNode; flush?: boolean; photo?: BackdropPhoto }) {
   return (
-    <figure className="reveal">
-      <div className={`b-stage${flush ? ' b-stage--flush' : ''}`} role="img" aria-label={label}>
-        {children}
+    <figure className="clipin">
+      <div className={`b-stage${flush ? ' b-stage--flush' : ''}${photo ? ' b-stage--photo' : ''}`} role="img" aria-label={label}>
+        {photo ? (
+          <>
+            <Backdrop photo={photo} />
+            <div className="b-stage__screen">{children}</div>
+          </>
+        ) : (
+          children
+        )}
       </div>
     </figure>
   );

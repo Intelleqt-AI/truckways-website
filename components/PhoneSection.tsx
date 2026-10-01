@@ -32,8 +32,9 @@ export default function PhoneSection({ loc = 'home_phone', grey }: { loc?: strin
             <StoreBadges loc={loc} />
           </div>
         </div>
-        <figure className="phs__vis reveal">
-          <PhoneShot scale={0.68} />
+        {/* Motion: the phone rises 40px as the band enters, then drifts slightly on scroll (SiteScripts). */}
+        <figure className="phs__vis" data-pframe>
+          <PhoneShot scale={0.68} className="phs__phone" parallax />
         </figure>
       </div>
     </section>

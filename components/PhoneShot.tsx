@@ -5,9 +5,14 @@ import { rand, num } from '../lib/format';
  * S2: the real phone Home of the demo company (final capture, 30 Sep 2026), in the phone frame.
  * Lazy, at every width (unlike the Home hero, which swaps it for S1 on desktops).
  */
-export default function PhoneShot({ scale = 0.8, className = '' }: { scale?: number; className?: string }) {
+export default function PhoneShot({ scale = 0.8, className = '', parallax }: { scale?: number; className?: string; parallax?: boolean }) {
   return (
-    <div className={`phoneshot ${className}`.trim()} style={{ ['--ps' as string]: scale }} data-theme="light">
+    <div
+      className={`phoneshot ${className}`.trim()}
+      style={{ ['--ps' as string]: scale }}
+      data-theme="light"
+      {...(parallax ? { 'data-parallax': '0.05', 'data-parallax-max': '20' } : {})}
+    >
       <div className="phone">
         <picture>
           <source type="image/avif" srcSet="/product/s02-home-phone-light-390.avif 1x, /product/s02-home-phone-light-780.avif 2x" />

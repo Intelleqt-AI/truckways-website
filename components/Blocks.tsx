@@ -10,7 +10,10 @@ import { getImageProps } from 'next/image';
  */
 function ClosingPhoto() {
   const { props } = getImageProps({ src: '/closing/n3-gillitts.jpg', alt: '', fill: true, quality: 70, sizes: 'calc(100vw - 32px)' });
-  return <img {...props} className="closing__img" alt="" loading="lazy" decoding="async" />;
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { style: _style, ...rest } = props;
+  // 120% tall (CSS) so the scroll parallax (SiteScripts, data-parallax) never shows an edge.
+  return <img {...rest} className="closing__img" alt="" loading="lazy" decoding="async" data-parallax="0.08" />;
 }
 
 /**
@@ -56,7 +59,7 @@ export function Closing({
 }) {
   return (
     <section className="closing" aria-labelledby="closing-h">
-      <div className="closing__frame" data-theme="dark">
+      <div className="closing__frame" data-theme="dark" data-pframe>
         <ClosingPhoto />
         <div className="closing__scrim" aria-hidden="true" />
         <div className="closing__text">

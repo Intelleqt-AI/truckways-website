@@ -139,7 +139,7 @@ export default function CapitalPage() {
             points={['The delivered load, with its route and charges', 'The proof of delivery, on the load', 'The invoice, raised on delivery', 'How each customer has paid you']}
             link={{ href: '/product/invoicing', label: 'How invoicing works' }}
           >
-            <Stage label="An invoice raised on delivery of a load: bill to, issue and due dates, 30-day terms, the charges, VAT at 15% and the total due.">
+            <Stage photo="durban-port" label="An invoice raised on delivery of a load: bill to, issue and due dates, 30-day terms, the charges, VAT at 15% and the total due.">
               <InvoiceDetail />
             </Stage>
           </FeatureRow>

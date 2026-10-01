@@ -3,6 +3,7 @@ import { Calculator, Receipt, Users, FileBarChart, MessageSquareText, Plug, Arro
 import { ButtonLink, TextLink, SectionHeader, TwoTone } from '../components/ui';
 import { Closing } from '../components/Blocks';
 import StepSwitcher from '../components/StepSwitcher';
+import Backdrop from '../components/Backdrop';
 import PhotoHero from '../components/hero/PhotoHero';
 import HeroSections from '../components/hero/HeroSections';
 import FitDiagram from '../components/FitDiagram';
@@ -166,12 +167,11 @@ export default function Home() {
             b="From the first price to the last rand."
             line="Every load carries its price, its invoice, its payment and its margin, so the numbers always agree."
           />
-          <div className="reveal">
-            <StepSwitcher
-              steps={STEPS}
-              panels={[<QuoteCard key="q" />, <InvoiceRow key="i" />, <NeedsYouCard key="n" />, <LaneRanking key="l" />]}
-            />
-          </div>
+          <StepSwitcher
+            steps={STEPS}
+            panels={[<QuoteCard key="q" />, <InvoiceRow key="i" />, <NeedsYouCard key="n" />, <LaneRanking key="l" />]}
+            backdrop={<Backdrop photo="n1-midrand" sizes="(max-width: 1023px) 1px, 50vw" />}
+          />
         </div>
       </section>
 
@@ -187,7 +187,7 @@ export default function Home() {
             b="Not yet in the bank."
             line="Overdue invoices never chased, invoices never sent, customers who stop paying. TruckWys ranks them by rand value."
           />
-          <figure className="reveal">
+          <figure className="clipin">
             <div className="leaks">
               <div className="leaks__main">
                 <Findings />

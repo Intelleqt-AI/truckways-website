@@ -94,7 +94,7 @@ export default function ProductPage() {
         b="to paid invoice."
         lead="Four steps, one record per load, and every number traceable to a cost you can see."
         frame={
-          <Stage label="The TruckWys quotes board for a demo company, with draft, sent, accepted and declined quotes and the value in each column.">
+          <Stage photo="n3-gillitts" label="The TruckWys quotes board for a demo company, with draft, sent, accepted and declined quotes and the value in each column.">
             <QuotesBoard />
           </Stage>
         }

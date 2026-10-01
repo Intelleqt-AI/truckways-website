@@ -43,7 +43,7 @@ function Photo() {
     <div className={s.media} data-subject-desktop={JSON.stringify(SUBJECT.desktop)} data-subject-band={JSON.stringify(SUBJECT.band)}>
       <picture>
         <source media="(max-width: 1199px)" srcSet={band.srcSet} sizes={band.sizes} />
-        <img {...desk} className={s.img} alt="" fetchPriority="high" />
+        <img {...desk} className={s.img} alt="" fetchPriority="high" data-parallax="0.1" data-parallax-mode="top" />
       </picture>
     </div>
     </>
@@ -54,9 +54,11 @@ export default function PhotoHero({ loc = 'home-hero', children }: { loc?: strin
   const i = (n: number) => ({ ['--i' as string]: n });
   return (
     <section className={s.hero} aria-labelledby="hero-h1" data-hero="photo">
-      <div className={s.frame} data-theme="dark">
+      <div className={s.frame} data-theme="dark" data-pframe>
         <Photo />
         <div className={s.scrim} aria-hidden="true" />
+        {/* Motion: the photo fades up from dark on load (CSS only, so it never waits for script). */}
+        <div className={s.veil} aria-hidden="true" />
         <div className={s.text}>
           <p className={`${s.eyebrow} ${s.in}`} style={i(0)}>{HERO_COPY.eyebrow}</p>
           <h1 className={s.h1} id="hero-h1">

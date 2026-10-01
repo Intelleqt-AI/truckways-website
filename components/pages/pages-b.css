@@ -32,6 +32,11 @@
 .b-stage--flush { padding: 0; }
 @media (max-width: 1023px) { .b-stage { padding: 24px; } }
 @media (max-width: 639px) { .b-stage { padding: 16px 12px; border-radius: 12px; } }
+/* Stage on a photo (Stage photo=...): the screen floats on a blurred road photo (Hemut), dark in both themes. */
+.b-stage.b-stage--photo { isolation: isolate; background: #15181D; border-color: transparent; padding: clamp(20px, 5vw, 64px); }
+/* The screen keeps the dashboard's grey page surface (its headers are drawn on it), floating on the photo. */
+.b-stage__screen { position: relative; border-radius: var(--radius-card); background: var(--bg-deep); padding: 24px; box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 24px 48px -12px rgba(0, 0, 0, 0.5); }
+@media (max-width: 639px) { .b-stage.b-stage--photo { padding: 20px 10px; } .b-stage__screen { padding: 14px 10px; } }
 
 /* ------------------------------------------------------------ what it answers */
 .b-answers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--web-col-gap); border-top: 1px solid var(--border-subtle); }

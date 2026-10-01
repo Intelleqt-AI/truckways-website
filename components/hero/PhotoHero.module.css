@@ -92,14 +92,20 @@
   .cell:nth-child(3) { display: flex; }
 }
 
+/* Fade up from dark: a flat veil over the photo (under the text) clears in 1.2s. An overlay, not the image's
+   own opacity or brightness, so the LCP image paints at once and nothing large is filtered. */
+.veil { display: none; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: #101113; }
 @media (prefers-reduced-motion: no-preference) {
-  .img { animation: settle 1600ms cubic-bezier(0.16, 1, 0.3, 1) both, drift 26s ease-in-out 1600ms infinite alternate; }
+  .veil { display: block; animation: unveil 1200ms cubic-bezier(0.33, 0, 0.2, 1) 60ms both; }
+  /* Slow settle on load; the scroll parallax (SiteScripts, data-parallax) uses `translate`, so the two compose.
+     The idle 26s drift was removed: with parallax it read as busy. */
+  .img { animation: settle 1800ms cubic-bezier(0.16, 1, 0.3, 1) both; will-change: transform; }
   .in { animation: up 480ms cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: calc(80ms + var(--i, 0) * 70ms); }
   /* Cross-sections: CSS-only stagger after the buttons, so no script and no layout shift. */
   .cell { animation: rise 640ms cubic-bezier(0.16, 1, 0.3, 1) both; animation-delay: calc(560ms + var(--i, 0) * 90ms); }
 }
 @keyframes settle { from { transform: scale(1.06); } to { transform: scale(1); } }
-@keyframes drift { from { transform: scale(1); } to { transform: scale(1.018) translate3d(-0.5%, 0, 0); } }
+@keyframes unveil { from { opacity: 1; } to { opacity: 0; visibility: hidden; } }
 @keyframes up { from { opacity: 0.001; transform: translateY(14px); } to { opacity: 1; transform: none; } }
 @keyframes rise { from { opacity: 0.001; transform: translateY(28px); } to { opacity: 1; transform: none; } }
 

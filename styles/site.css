@@ -500,7 +500,16 @@ p, li, dd { text-wrap: pretty; }
 .steps__list { display: flex; flex-direction: column; border-top: 1px solid var(--border-subtle); }
 .steps__aside { margin-top: auto; }
 /* Tallest panel (the quote) sets the height, so hovering never moves the page. */
-.steps__panels { grid-column: 7 / 13; position: relative; min-height: 508px; }
+.steps__panels { grid-column: 7 / 13; position: relative; }
+.steps__stack { position: relative; min-height: 508px; }
+/* Product on photo (Hemut): the panels float on a blurred N1 photo, rounded like the hero frame. */
+.steps__panels--photo { isolation: isolate; overflow: hidden; border-radius: var(--radius-dialog); padding: 40px 36px; background: #15181D; }
+.steps__panels--photo .step__panel > * { box-shadow: 0 1px 2px rgba(0, 0, 0, 0.2), 0 24px 48px -12px rgba(0, 0, 0, 0.5); }
+
+/* Backdrop photo (components/Backdrop.tsx): pre-blurred, 120% tall for the scroll parallax, a soft vignette on top. */
+.backdrop { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.backdrop__img { position: absolute; left: 0; top: -10%; width: 100%; height: 120%; object-fit: cover; color: transparent; }
+.backdrop::after { content: ""; position: absolute; inset: 0; background: radial-gradient(120% 90% at 50% 40%, rgba(12, 14, 17, 0) 40%, rgba(12, 14, 17, 0.45) 100%); }
 .chain { border-top: 1px solid var(--border-subtle); }
 .chain li { display: grid; grid-template-columns: 88px minmax(0, 1fr) auto; gap: 12px; align-items: baseline; padding: 10px 0; border-bottom: 1px solid var(--border-subtle); font: 400 14px/20px var(--font-sans); color: var(--text-secondary); font-variant-numeric: tabular-nums; }
 .chain li > span:first-child { color: var(--text-tertiary); font-weight: 500; font-size: 13px; }
@@ -703,7 +712,7 @@ a.pcard:hover .pcard__go { transform: translateX(2px); color: var(--text-primary
   background: #0E1013; color: #FFFFFF;
   padding: 0 max(calc(var(--web-gutter) - 16px), calc((100% - var(--web-container)) / 2)) clamp(56px, 6vw, 96px);
 }
-.closing__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 55%; z-index: -2; }
+.closing__img { position: absolute; left: 0; top: -10%; width: 100%; height: 120%; object-fit: cover; object-position: 50% 55%; z-index: -2; color: transparent; }
 .closing__scrim {
   position: absolute; inset: 0; z-index: -1; pointer-events: none;
   background:
@@ -728,7 +737,8 @@ a.pcard:hover .pcard__go { transform: translateX(2px); color: var(--text-primary
   .closing__ctas .tlink { justify-content: center; }
 }
 @media (prefers-reduced-motion: no-preference) {
-  .closing__img { transform: scale(1.06); transition: transform 2400ms cubic-bezier(0.16, 1, 0.3, 1); }
+  /* Slow scale-in as the band enters; the scroll parallax (SiteScripts) moves it with `translate`. */
+  .closing__img { transform: scale(1.08); transition: transform 2400ms cubic-bezier(0.16, 1, 0.3, 1); will-change: transform; }
   .closing.is-in .closing__img { transform: none; }
   html.js .closing:not(.is-in) .closing__text { opacity: 0; transform: translateY(24px); }
   .closing__text { transition: opacity 900ms cubic-bezier(0.16, 1, 0.3, 1) 200ms, transform 900ms cubic-bezier(0.16, 1, 0.3, 1) 200ms; }
@@ -838,8 +848,14 @@ select.input { appearance: none; -webkit-appearance: none; padding-right: 36px; 
 html.js .reveal { opacity: 0; transform: translateY(32px); }
 html.js .reveal.is-in { opacity: 1; transform: none; transition: opacity 900ms cubic-bezier(0.16, 1, 0.3, 1), transform 900ms cubic-bezier(0.16, 1, 0.3, 1); transition-delay: var(--d, 0ms); }
 @media (prefers-reduced-motion: no-preference) {
-  html.js .shead.reveal .tone-2 { display: inline-block; opacity: 0; transform: translateY(18px); transition: opacity 800ms cubic-bezier(0.16, 1, 0.3, 1) 180ms, transform 800ms cubic-bezier(0.16, 1, 0.3, 1) 180ms; }
+  html.js .shead.reveal .tone-2 { display: inline-block; opacity: 0; transform: translateY(18px); transition: opacity 800ms cubic-bezier(0.16, 1, 0.3, 1) 180ms, transform 800ms cubic-bezier(0.16, 1, 0.3, 1) 180ms, filter 700ms cubic-bezier(0.16, 1, 0.3, 1) 180ms; }
   html.js .shead.reveal.is-in .tone-2 { opacity: 1; transform: none; }
+  /* Headings come into focus (Hemut): a short blur(6px) to sharp on both beats, 700ms. Section headers and
+     the two-tone H2s inside other reveals (Fast Pay, phone band, pricing); the closing H2 has its own. */
+  html.js .reveal .h2, html.js .closing .h2 { filter: blur(6px); transition: filter 700ms cubic-bezier(0.16, 1, 0.3, 1); }
+  html.js .reveal.is-in .h2, html.js .closing.is-in .h2 { filter: none; }
+  html.js .reveal .h2 > .tone-2, html.js .closing .h2 > .tone-2 { filter: blur(6px); transition: opacity 800ms cubic-bezier(0.16, 1, 0.3, 1) 180ms, transform 800ms cubic-bezier(0.16, 1, 0.3, 1) 180ms, filter 700ms cubic-bezier(0.16, 1, 0.3, 1) 180ms; }
+  html.js .reveal.is-in .h2 > .tone-2, html.js .closing.is-in .h2 > .tone-2 { filter: none; }
   html.js .shead.reveal > p { opacity: 0; transition: opacity 800ms ease 320ms; }
   html.js .shead.reveal.is-in > p { opacity: 1; }
   /* Facts row: items rise in turn while the figures count up (SiteScripts). */
@@ -972,10 +988,17 @@ html.js .reveal.is-in { opacity: 1; transform: none; transition: opacity 900ms c
   /* FAQ: the answer fades and rises into place as it opens. */
   .faq__item[open] .faq__a { animation: faq-in 260ms var(--ease-out); }
 
-  /* Product frames settle as they enter (scale, no reflow). */
-  .reveal .b-stage, .reveal.b-stage { transition: transform 700ms var(--ease-out); }
-  html.js .reveal:not(.is-in) .b-stage { transform: scale(0.985); }
-  .b-hero__frame { animation: settle 700ms var(--ease-out) 120ms both; }
+  /* Product frames and panels open as they enter (Hemut): a clip-path window from 6% inset to the full frame
+     while the content settles from 1.03. Same box throughout, so no reflow (CLS 0). Replaces the old 0.985 settle. */
+  .clipin { transition: clip-path 1100ms cubic-bezier(0.16, 1, 0.3, 1), transform 1300ms cubic-bezier(0.16, 1, 0.3, 1), opacity 600ms ease; }
+  html.js .clipin:not(.is-in) { clip-path: inset(6% round 16px); transform: scale(1.03); opacity: 0.001; }
+  html.js .clipin.is-in { clip-path: inset(0 round 0); }
+  html.js .clipin.is-done { clip-path: none; transform: none; }
+
+  /* Phone band: the phone rises 40px as the band enters (then a little parallax, SiteScripts). */
+  .phs__phone { transition: transform 1200ms cubic-bezier(0.16, 1, 0.3, 1), opacity 700ms ease; }
+  html.js .phs__vis:not(.is-in) .phs__phone { transform: translateY(40px); opacity: 0.001; }
+  [data-parallax] { will-change: transform; }
 
   /* Charts: bars grow from the baseline, fills from the left, lines draw once. */
   .chart__bar { transform-origin: center bottom; transition: transform 700ms var(--ease-out); }
