@@ -62,20 +62,27 @@ function MiniLanes() {
 function ArrowUp() {
   return (
     <div className="fit__arrow" aria-hidden="true">
-      <svg viewBox="0 0 12 40" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <path pathLength={1} d="M6 39V2M1.5 6.5 6 2l4.5 4.5" />
+      <svg viewBox="0 0 12 44" fill="none" stroke="currentColor" strokeWidth="1.25" strokeLinecap="round" strokeLinejoin="round">
+        <path pathLength={1} d="M6 43V2M1.5 6.5 6 2l4.5 4.5" />
       </svg>
     </div>
   );
 }
 
+const STEPS = [
+  ['Price', 'Prices every load from this month’s diesel, the real tolls and your own costs.'],
+  ['Invoice', 'Raises the invoice when the load delivers, with VAT and the POD attached.'],
+  ['Collect', 'Follows every rand until it’s paid, and shows what each lane really earns.'],
+];
+const RUN = ['Your TMS', 'Cartrack', 'CtrlFleet', 'Excel', 'CSV', 'API'];
+
 export default function FitDiagram() {
   return (
     <figure className="fit reveal">
       <figcaption className="sr-only">
-        How TruckWys fits: what you already run (your TMS, spreadsheets, Cartrack, CtrlFleet, Excel and CSV, API) feeds
-        TruckWys, which quotes, invoices, collects and reports; what you get is invoices with VAT, debtors by age, and
-        profit by lane with a VAT report.
+        How TruckWys fits: what you already run (your TMS, Cartrack, CtrlFleet, Excel, CSV and the API) feeds TruckWys,
+        which prices, invoices and collects; what you get is invoices with VAT, debtors by age, and profit by lane with a
+        VAT report.
       </figcaption>
       <ul className="fit__top list-reset" aria-label="What you get">
         <li>
@@ -94,28 +101,25 @@ export default function FitDiagram() {
       <ArrowUp />
       <div className="fit__layer" data-theme="dark">
         <div className="fit__brand">
-          <img src="/brand/truckwys-logo.png" alt="TruckWys" width={92} height={18} loading="lazy" />
+          <img src="/brand/truckwys-logo.png" alt="TruckWys" width={133} height={26} loading="lazy" />
         </div>
-        {[
-          ['Quote.', 'Priced from diesel, tolls and your costs.'],
-          ['Invoice.', 'Raised when the load delivers.'],
-          ['Collect.', 'Debtors by age, reminders per invoice.'],
-          ['Know.', 'Profit, margin and VAT from the same numbers.'],
-        ].map(([t, d], i) => (
+        {STEPS.map(([t, d], i) => (
           <div className="fit__step" key={t}>
-            <i>0{i + 1}</i>
-            <b>{t}</b>
-            <span>{d}</span>
+            <p className="fit__kicker">
+              0{i + 1} <span aria-hidden="true">·</span> {t}
+            </p>
+            <p className="fit__say">{d}</p>
           </div>
         ))}
       </div>
       <ArrowUp />
       <div className="fit__bottom">
-        <span className="label">What you already run</span>
+        <p className="fit__kicker fit__kicker--muted">What you already run</p>
         <ul className="fit__run list-reset">
-          {['Your TMS', 'Spreadsheets', 'Cartrack', 'CtrlFleet', 'Excel and CSV', 'API'].map((n) => (
+          {RUN.map((n) => (
             <li key={n}>{n}</li>
           ))}
+          <li aria-hidden="true">…</li>
         </ul>
       </div>
     </figure>
