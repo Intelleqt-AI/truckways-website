@@ -95,7 +95,7 @@ export const softwareSchema = {
     'Insights',
     'Copilot',
     'Integrations and API',
-    'iPhone app',
+    'iPhone and Android apps',
   ],
 };
 

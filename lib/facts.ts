@@ -49,7 +49,8 @@ export const FACTS = {
     csv: 'live',
   },
   appStore: 'https://apps.apple.com/za/app/truckwys/id6796449044',
-  android: 'coming-soon',
+  // Live on Google Play (verified by the owner, 1 Oct 2026).
+  android: 'https://play.google.com/store/apps/details?id=za.co.truckwys.mobile',
   vatRate: 0.15,
   company: {
     name: 'TruckWys (Pty) Ltd',

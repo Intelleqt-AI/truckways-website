@@ -3,17 +3,17 @@ import { StatusChip, TextLink } from './ui';
 
 /**
  * The one "Coming soon" card (Home, Pricing, Product): icon on a quiet tile, chip
- * top right, name, one line, "Get notified" in the footer. Copy lives here so the
+ * top right, name, one line, "Get notified" and a quiet "Learn more" (its page) in the footer. Copy lives here so the
  * three pages can never drift.
  */
 export const SOON = [
-  { topic: 'fast-pay', icon: Zap, name: 'Fast Pay', line: 'Get paid on an invoice before your customer pays. Pricing is published when it goes live.' },
+  { topic: 'fast-pay', href: '/capital', icon: Zap, name: 'Fast Pay', line: 'Get paid on an invoice before your customer pays. Pricing is published when it goes live.' },
   // Q12: no product detail until the owner confirms it; one honest line meanwhile.
-  { topic: 'insurance', icon: ShieldCheck, name: 'Insurance', line: 'Being built. What it covers is published before it goes live.' },
+  { topic: 'insurance', href: '/insurance', icon: ShieldCheck, name: 'Insurance', line: 'Being built. What it covers is published before it goes live.' },
 ] as const;
 
 export function SoonCard({ item, loc }: { item: (typeof SOON)[number]; loc: string }) {
-  const { icon: Icon, name, line, topic } = item;
+  const { icon: Icon, name, line, topic, href } = item;
   return (
     <div className="pcard pcard--soon">
       <span className="pcard__top">
@@ -28,6 +28,9 @@ export function SoonCard({ item, loc }: { item: (typeof SOON)[number]; loc: stri
         <TextLink href={`/contact?topic=${topic}`} cta="notify" loc={loc} quiet>
           Get notified<span className="sr-only"> about {name}</span>
         </TextLink>
+        <a href={href} className="pcard__more">
+          Learn more<span className="sr-only"> about {name}</span>
+        </a>
       </span>
     </div>
   );

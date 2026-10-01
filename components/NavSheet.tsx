@@ -5,7 +5,7 @@ import { createPortal } from 'react-dom';
 
 type Props = {
   links: { href: string; label: string }[];
-  product?: { href: string; label: string }[];
+  product?: { href: string; label: string; soon?: boolean }[];
   signIn: string;
   demo: string;
   signup: string;
@@ -114,7 +114,10 @@ export default function NavSheet({ links, product = [], signIn, demo, signup, pr
                       .filter((p) => p.href !== '/product')
                       .map((p) => (
                         <a key={p.href} href={p.href}>
-                          {p.label}
+                          <span>
+                            {p.label}
+                            {p.soon ? <small className="sheet__soon">Coming soon</small> : null}
+                          </span>
                         </a>
                       ))}
                   </div>

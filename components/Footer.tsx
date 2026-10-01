@@ -1,5 +1,6 @@
 import { FACTS } from '../lib/facts';
-import { APP_STORE_URL, loginUrl } from '../lib/site';
+import { loginUrl } from '../lib/site';
+import StoreBadges from './StoreBadges';
 
 /* Footer (brief §2.4): only pages that exist. For TMS partners and the
    calculators join when their pages ship. */
@@ -12,9 +13,11 @@ const COLS = [
       { href: '/product/invoicing', label: 'Invoicing' },
       { href: '/product/debtors', label: 'Debtors' },
       { href: '/product/reports', label: 'Reports' },
+      { href: '/product/ai', label: 'AI and Copilot' },
       { href: '/integrations', label: 'Integrations' },
+      { href: '/capital', label: 'Capital and Fast Pay' },
+      { href: '/insurance', label: 'Insurance' },
       { href: '/pricing', label: 'Pricing' },
-      { href: APP_STORE_URL, label: 'iPhone app', app: true },
     ],
   },
   {
@@ -47,12 +50,7 @@ export default function Footer() {
             <img className="footer__logo" src="/brand/truckwys-logo.png" alt="TruckWys" width={113} height={22} loading="lazy" />
             <p>Load-to-cash software for South African transporters.</p>
             <div className="footer__app">
-              {/* TODO(owner): swap for Apple's official "Download on the App Store"
-                  badge artwork (Apple marketing guidelines); a text button until then. */}
-              <a href={APP_STORE_URL} className="btn btn--secondary btn--sm" data-appstore="footer">
-                iPhone app on the App Store
-              </a>
-              <span className="small">Android coming soon</span>
+              <StoreBadges loc="footer" size="sm" />
             </div>
           </div>
           <div className="footer__cols">
@@ -62,7 +60,7 @@ export default function Footer() {
                 <ul className="list-reset">
                   {c.links.map((l) => (
                     <li key={l.label}>
-                      <a href={l.href} {...('app' in l ? { 'data-appstore': 'footer_link' } : {})}>
+                      <a href={l.href}>
                         {l.label}
                       </a>
                     </li>

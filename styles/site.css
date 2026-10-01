@@ -694,25 +694,44 @@ a.pcard:hover .pcard__go { transform: translateX(2px); color: var(--text-primary
 @media (max-width: 1023px) { .faq__head, .faq__list { grid-column: 1 / -1; } }
 
 /* ------------------------------------------------------------ closing */
-/* The one closing section (Home and every subpage): page ground, two-tone H2
-   left; the line, the blue button with the demo as a text link, and the price
-   line right. No panel, no screenshot, no float. After a white section it sits
-   under a hairline on the content width instead of a second full gap. */
-.closing { padding: var(--web-section-y) 0 calc(var(--web-section-y) * 0.75); background: var(--web-bg); }
-.sec:not(.sec--grey):not(.sec--ink) + .closing, .phero + .closing { padding-top: 0; }
-.sec:not(.sec--grey):not(.sec--ink) + .closing .closing__grid, .phero + .closing .closing__grid { padding-top: 64px; border-top: 1px solid var(--border-subtle); }
-.closing__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--web-col-gap); row-gap: 32px; align-items: end; }
-.closing__grid > .h2 { grid-column: 1 / 8; }
-.closing__side { grid-column: 9 / 13; display: flex; flex-direction: column; gap: 24px; }
-.closing__side > .body { max-width: 40ch; }
-.closing__price { margin-top: -8px; }
-@media (max-width: 1023px) {
-  .closing__grid > .h2 { grid-column: 1 / -1; }
-  .closing__side { grid-column: 1 / 10; }
+/* Owner (1 Oct): every page closes on a photo band, like Flott. Inset rounded frame, dusk N3 photo,
+   headline + line + blue button + demo text link bottom-left, three quiet words bottom-right. No price line. */
+.closing { padding: 16px 16px 0; }
+.closing__frame {
+  position: relative; isolation: isolate; overflow: hidden; border-radius: var(--radius-dialog);
+  min-height: clamp(520px, 44vw, 680px); display: flex; align-items: flex-end;
+  background: #0E1013; color: #FFFFFF;
+  padding: 0 max(calc(var(--web-gutter) - 16px), calc((100% - var(--web-container)) / 2)) clamp(56px, 6vw, 96px);
 }
-@media (max-width: 639px) {
-  .sec:not(.sec--grey):not(.sec--ink) + .closing .closing__grid, .phero + .closing .closing__grid { padding-top: 48px; }
-  .closing__side { grid-column: 1 / -1; }
+.closing__img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 55%; z-index: -2; }
+.closing__scrim {
+  position: absolute; inset: 0; z-index: -1; pointer-events: none;
+  background:
+    linear-gradient(180deg, rgba(11, 12, 14, 0.15) 0%, rgba(11, 12, 14, 0.25) 40%, rgba(11, 12, 14, 0.78) 100%),
+    linear-gradient(90deg, rgba(11, 12, 14, 0.55) 0%, rgba(11, 12, 14, 0.3) 45%, rgba(11, 12, 14, 0) 75%);
+}
+.closing__text { max-width: 800px; }
+.closing__text .h2 { color: #FFFFFF; }
+.closing__text .h2 .tone-2 { color: rgba(255, 255, 255, 0.72); }
+.closing__line { margin-top: 20px; max-width: 46ch; font: 400 17px/26px var(--font-sans); color: rgba(255, 255, 255, 0.88); }
+.closing__ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; margin-top: 32px; }
+.closing__demo, .closing__demo:hover { color: #FFFFFF; }
+.closing__words { position: absolute; right: max(calc(var(--web-gutter) - 16px), calc((100% - var(--web-container)) / 2)); bottom: clamp(56px, 6vw, 96px); display: flex; flex-direction: column; align-items: flex-end; gap: 14px; font: 500 12px/16px var(--font-sans); letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255, 255, 255, 0.8); }
+.closing__place { position: absolute; right: 24px; top: 20px; font: 500 13px/18px var(--font-sans); color: rgba(255, 255, 255, 0.8); }
+@media (max-width: 767px) {
+  .closing { padding: 8px 8px 0; }
+  .closing__frame { min-height: 560px; padding: 0 20px 40px; }
+  .closing__img { object-position: 62% 55%; }
+  .closing__words { display: none; }
+  .closing__ctas { flex-direction: column; align-items: stretch; gap: 16px; }
+  .closing__ctas .btn { width: 100%; }
+  .closing__ctas .tlink { justify-content: center; }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .closing__img { transform: scale(1.06); transition: transform 2400ms cubic-bezier(0.16, 1, 0.3, 1); }
+  .closing.is-in .closing__img { transform: none; }
+  html.js .closing:not(.is-in) .closing__text { opacity: 0; transform: translateY(24px); }
+  .closing__text { transition: opacity 900ms cubic-bezier(0.16, 1, 0.3, 1) 200ms, transform 900ms cubic-bezier(0.16, 1, 0.3, 1) 200ms; }
 }
 
 /* ---------------------------------------------------------- pricing page */
@@ -1027,3 +1046,48 @@ html.js .reveal.is-in { opacity: 1; transform: none; transition: opacity 900ms c
 @keyframes faq-in { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: none; } }
 @keyframes settle { from { transform: translateY(10px) scale(0.99); } to { transform: none; } }
 @keyframes pulse-once { 0% { opacity: 0; transform: scale(1); } 30% { opacity: 0.7; } 100% { opacity: 0; transform: scale(1.015); } }
+
+/* ----------------------------------------------------- store badges (Home, /product, footer) */
+/* Black with a grey hairline per the App Store and Google Play badge guidelines: the one place
+   pure black and white are used instead of tokens. */
+.stores { display: flex; flex-wrap: wrap; gap: 12px; }
+.store {
+  display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 16px 0 12px;
+  border: 1px solid #A6A6A6; border-radius: 8px; background: #000; color: #fff;
+  transition: opacity 120ms var(--ease-out);
+}
+.store:hover { opacity: 0.86; }
+.store__logo { width: 22px; height: 22px; flex: none; }
+.store__logo--play { width: 19px; height: 19px; }
+.store__txt { display: flex; flex-direction: column; line-height: 1; white-space: nowrap; }
+.store__txt small { font: 500 10px/12px var(--font-sans); letter-spacing: 0.01em; }
+.store__txt b { font: 600 17px/20px var(--font-sans); letter-spacing: -0.015em; }
+.stores--sm .store { height: 40px; padding: 0 14px 0 10px; }
+.stores--sm .store__txt small { font-size: 9px; line-height: 11px; }
+.stores--sm .store__txt b { font-size: 15px; line-height: 18px; }
+
+/* ----------------------------------------------------- Fast Pay band (Home, /product, /pricing) */
+.fpb { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--web-col-gap); row-gap: 48px; align-items: start; }
+.fpb__text { grid-column: 1 / 6; }
+.fpb__text .chip { margin-bottom: 20px; }
+.fpb__text .h2 > .tone-2 { display: block; }
+.fpb__text .body { margin-top: 20px; max-width: 44ch; }
+.fpb__cta { margin-top: 32px; }
+.fpb__how { grid-column: 7 / 13; }
+.fpb__how h3 { font: 600 15px/22px var(--font-sans); color: var(--text-tertiary); letter-spacing: -0.006em; margin-bottom: 12px; }
+.fpb__how ol { border-top: 1px solid var(--border-default); }
+.fpb__how li { display: grid; grid-template-columns: 40px minmax(0, 1fr); padding: 20px 0; border-bottom: 1px solid var(--border-default); }
+.fpb__num { width: 28px; height: 28px; display: grid; place-items: center; border: 1px solid var(--border-default); border-radius: 999px; font: 500 13px/1 var(--font-sans); color: var(--text-secondary); font-variant-numeric: tabular-nums; }
+.fpb__how li b { display: block; font: 600 17px/26px var(--font-sans); letter-spacing: -0.012em; color: var(--text-primary); }
+.fpb__how li b + span { display: block; margin-top: 4px; font: 400 15px/24px var(--font-sans); color: var(--text-secondary); max-width: 52ch; }
+.fpb__note { margin-top: 16px; }
+@media (max-width: 1023px) { .fpb__text, .fpb__how { grid-column: 1 / -1; } }
+.fpb__also { margin-top: 24px; }
+
+/* Product menu: coming-soon items after a hairline, with a quiet marker. */
+.pmenu__soonfirst { margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border-subtle); }
+.pmenu__item b { display: flex; align-items: center; gap: 8px; }
+.pmenu__soon { font: 500 11px/16px var(--font-sans); font-style: normal; color: var(--text-tertiary); padding: 0 6px; border: 1px solid var(--border-default); border-radius: var(--radius-chip); white-space: nowrap; }
+.sheet__soon { display: block; font: 400 12px/16px var(--font-sans); color: var(--text-tertiary); }
+.pcard__more { font: 500 14px/20px var(--font-sans); color: var(--text-secondary); text-decoration: underline; text-decoration-color: var(--border-strong); text-underline-offset: 3px; }
+.pcard__more:hover { color: var(--text-primary); }

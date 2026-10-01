@@ -34,11 +34,14 @@ const BANNED = [
   [/0\.25\s?%/, '0.25% (use 0,25%)'],
   [/48[\s-]?(hours|hrs|hour)/i, '48 hours claim'],
   [/FastPay/, 'FastPay (use Fast Pay, coming soon only)'],
-  [/\bCapital\b/, 'Capital'],
+  // "Capital" only as the pillar's full name, "Capital and Fast Pay" (owner, 1 Oct 2026); never alone.
+  [/\bCapital\b(?! and Fast Pay)/, 'Capital (only as "Capital and Fast Pay")'],
   [/fleet finance/i, 'fleet finance'],
   [/\b(revolutionary|seamless|cutting-edge|game-changing|unlock|supercharge|effortless|autopilot|AI-powered|trusted by)\b/i, 'banned word'],
   [/\breal-time\b/i, 'real-time'],
-  [/\bAI\b/, '"AI" label (describe Copilot as a language model)'],
+  // "AI" only in the page and menu names "AI in TruckWys" and "AI and Copilot" (owner, 1 Oct 2026);
+  // the copy itself says "language model" or "trained model".
+  [/\bAI\b(?! (in TruckWys|and Copilot))/, '"AI" label (describe Copilot as a language model)'],
   [/\bfree trial\b(?!\?)/i, 'free trial claim'],
   // Not VAT registered (owner decision): never say VAT is added to, or included in, the TruckWys price.
   [/4\s?499[^.]{0,40}\b(incl|excl)\.?\s?VAT/i, 'VAT basis on the TruckWys price (TruckWys is not VAT registered)'],

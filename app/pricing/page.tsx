@@ -1,6 +1,6 @@
 import type { Metadata } from 'next';
 import { Check } from 'lucide-react';
-import { SoonCard, SOON } from '../../components/SoonCard';
+import FastPayBand from '../../components/FastPayBand';
 import { ButtonLink, TextLink, TwoTone } from '../../components/ui';
 import { Breadcrumbs, PageHero, Closing } from '../../components/Blocks';
 import Faq, { type QA } from '../../components/Faq';
@@ -38,7 +38,7 @@ const INCLUDED = [
   'Invoice on delivery, debtors and reminders',
   'Nine reports and insights, CSV export',
   'Cartrack and CtrlFleet connections, API and webhooks',
-  'iPhone app',
+  'iPhone and Android apps',
 ];
 
 const FAQ: QA[] = [
@@ -179,22 +179,8 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* Coming soon */}
-      <section className="sec" aria-labelledby="soon-h">
-        <div className="wrap">
-          <div className="shead">
-            <TwoTone id="soon-h" a="Coming soon." b="Not in the price." />
-            <p>Neither is live yet, and neither is part of the plan above.</p>
-          </div>
-          <ul className="soon list-reset">
-            {SOON.map((item) => (
-              <li key={item.name} className="reveal">
-                <SoonCard item={item} loc="pricing_soon" />
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
+      {/* Coming soon: Capital and Fast Pay (not in the price, not live), Insurance as a link. */}
+      <FastPayBand loc="pricing_fastpay" insurance />
 
       {/* Pricing FAQ */}
       <section className="sec" style={{ paddingTop: 0 }} aria-label="Pricing questions">

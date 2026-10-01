@@ -582,3 +582,40 @@ a.b-hubcard:hover .b-hubcard__more svg { transform: translateX(2px); }
   .sig-pnl__val { display: none; }
   .sig-pnl__pct { font-size: 10px; letter-spacing: -0.02em; }
 }
+
+/* ------------------------------------------------ coming-soon heroes: own action row (/capital, /insurance) */
+.b-hero__actions { margin-top: 32px; display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; }
+
+/* ------------------------------------------------ rules, not models (/product/ai) */
+.b-rules { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: var(--web-col-gap); border-top: 1px solid var(--border-default); }
+.b-rules > li { padding: 24px 0 28px; border-bottom: 1px solid var(--border-default); }
+.b-rules h3 { font: 600 18px/26px var(--font-sans); letter-spacing: -0.012em; color: var(--text-primary); }
+.b-rules p { margin-top: 8px; font: 400 16px/26px var(--font-sans); color: var(--text-secondary); max-width: 34ch; }
+@media (max-width: 1023px) { .b-rules { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 639px) { .b-rules { grid-template-columns: 1fr; } .b-rules > li { padding: 20px 0; } }
+/* Copilot panel on a stage: panel width, centred. */
+.b-aistage { max-width: 520px; margin-inline: auto; }
+
+/* ------------------------------------------------ what we'll publish (/insurance), numbered */
+.b-publish { border-top: 1px solid var(--border-default); counter-reset: pub; }
+.b-publish > li { counter-increment: pub; display: grid; grid-template-columns: 48px minmax(0, 1fr); padding: 24px 0; border-bottom: 1px solid var(--border-default); }
+.b-publish > li::before { content: counter(pub, decimal-leading-zero); grid-row: 1 / span 2; font: 500 14px/28px var(--font-sans); color: var(--text-tertiary); font-variant-numeric: tabular-nums; }
+.b-publish h3 { font: 600 20px/28px var(--font-sans); letter-spacing: -0.014em; color: var(--text-primary); }
+.b-publish p { margin-top: 4px; font: 400 16px/26px var(--font-sans); color: var(--text-secondary); }
+
+/* ------------------------------------------------ five-step flow (/capital) */
+.b-steps5 { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); column-gap: var(--web-col-gap); border-top: 1px solid var(--border-default); }
+.b-steps5 > li { padding: 24px 0 8px; display: flex; flex-direction: column; }
+.b-steps5__num { font: 500 14px/20px var(--font-sans); color: var(--text-tertiary); font-variant-numeric: tabular-nums; }
+.b-steps5__tag { align-self: flex-start; margin-top: 12px; padding: 0 8px; border: 1px solid var(--border-default); border-radius: var(--radius-chip); font: 500 12px/22px var(--font-sans); color: var(--text-tertiary); white-space: nowrap; }
+.b-steps5__tag.is-live { color: var(--text-primary); border-color: var(--border-strong); }
+.b-steps5 h3 { margin-top: 16px; font: 600 18px/26px var(--font-sans); letter-spacing: -0.012em; color: var(--text-primary); }
+.b-steps5 p { margin-top: 8px; font: 400 15px/24px var(--font-sans); color: var(--text-secondary); }
+@media (max-width: 1100px) {
+  .b-steps5 { grid-template-columns: 1fr; }
+  .b-steps5 > li { display: grid; grid-template-columns: 48px minmax(0, 1fr); padding: 20px 0; border-bottom: 1px solid var(--border-default); }
+  .b-steps5 > li > * { grid-column: 2; }
+  .b-steps5__num { grid-column: 1 !important; grid-row: 1 / span 3; line-height: 22px; }
+  .b-steps5__tag { margin-top: 0; justify-self: start; }
+  .b-steps5 h3 { margin-top: 8px; }
+}

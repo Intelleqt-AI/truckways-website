@@ -8,13 +8,12 @@ import { ArrowRight, Check } from 'lucide-react';
 import { ButtonLink, TextLink, TwoTone } from '../ui';
 import { Breadcrumbs } from '../Blocks';
 import { demoUrl, signupUrl } from '../../lib/site';
-import { PRICE_AND_FEE } from '../../lib/facts';
 
 type Crumb = { name: string; path: string };
 
 /** Flott calm hero: breadcrumbs, eyebrow, two-tone H1, lead, two buttons, price line, then one large product frame. */
 export function FeatureHero({
-  crumbs, eyebrow, a, b, lead, page, frame, aside, primary = 'signup',
+  crumbs, eyebrow, a, b, lead, page, frame, aside, primary = 'signup', actions,
 }: {
   crumbs: Crumb[];
   eyebrow: string;
@@ -26,6 +25,8 @@ export function FeatureHero({
   /** Optional visual in the right half of the hero (text keeps columns 1 to 7). */
   aside?: ReactNode;
   primary?: 'signup' | 'none';
+  /** With primary="none": the page's own action row (e.g. "Get notified" on a coming-soon page). */
+  actions?: ReactNode;
 }) {
   return (
     <section className="b-hero" aria-labelledby="page-h1">
@@ -46,9 +47,10 @@ export function FeatureHero({
                 Open the demo
               </TextLink>
             </div>
-            {/* Price and fee always together (lib/facts.ts). */}
-            <p className="small b-hero__price">{PRICE_AND_FEE}</p>
+            {/* Owner, 1 Oct 2026: no price line in any hero. The price lives on /pricing, the Home pricing section and Closing. */}
           </>
+        ) : actions ? (
+          <div className="b-hero__actions">{actions}</div>
         ) : null}
         </div>
         {aside ? <div className="b-hero__aside">{aside}</div> : null}

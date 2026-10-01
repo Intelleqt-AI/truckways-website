@@ -1,6 +1,5 @@
 import type { Metadata } from 'next';
 import { ArrowRight } from 'lucide-react';
-import { SoonCard, SOON } from '../../components/SoonCard';
 import '../../components/pages/pages-b.css';
 import { SectionHeader, TextLink, TwoTone } from '../../components/ui';
 import { Closing } from '../../components/Blocks';
@@ -8,8 +7,10 @@ import { CopilotPanel } from '../../components/fragments/Money';
 import { FeatureHero, Stage, DL } from '../../components/pages/blocks';
 import { QuotesBoard, QuoteForm, MiniCost, MiniInvoice, MiniAge, MiniLanes, TeamSettings } from '../../components/pages/frags';
 import PhoneShot from '../../components/PhoneShot';
+import StoreBadges from '../../components/StoreBadges';
+import FastPayBand from '../../components/FastPayBand';
 import { FACTS } from '../../lib/facts';
-import { APP_STORE_URL, SITE_URL, jsonLd } from '../../lib/site';
+import { APP_STORE_URL, PLAY_STORE_URL, SITE_URL, jsonLd } from '../../lib/site';
 import { graph, softwareSchema, offerSchema, breadcrumbSchema, ids } from '../../lib/schema';
 
 const PATH = '/product';
@@ -70,9 +71,9 @@ const mobileSchema = {
   '@type': 'MobileApplication',
   '@id': `${SITE_URL}/#ios`,
   name: 'TruckWys',
-  operatingSystem: 'iOS',
+  operatingSystem: 'iOS, Android',
   applicationCategory: 'BusinessApplication',
-  installUrl: APP_STORE_URL,
+  installUrl: [APP_STORE_URL, PLAY_STORE_URL],
   publisher: { '@id': ids.org },
 };
 
@@ -176,6 +177,9 @@ export default function ProductPage() {
               </Stage>
             </div>
           </div>
+          <div className="b-hubfoot">
+            <TextLink href="/product/ai">More on AI in TruckWys</TextLink>
+          </div>
           {/* TODO(owner) Q11: the data-pooling wording ("Your pricing is never shown to another operator ...") is held until approved. */}
         </div>
       </section>
@@ -209,10 +213,7 @@ export default function ProductPage() {
               See cash, overdue invoices and quotes on the move, on the same account. The web app works in any phone browser too.
             </p>
             <div className="b-app-row">
-              <a href={APP_STORE_URL} className="btn btn--secondary" data-appstore="product">
-                iPhone app on the App Store
-              </a>
-              <span className="small">Android coming soon</span>
+              <StoreBadges loc="product" />
             </div>
           </div>
           <figure className="b-row__vis b-phonefig reveal">
@@ -255,19 +256,8 @@ export default function ProductPage() {
         </div>
       </section>
 
-      {/* 7. Coming soon (W). */}
-      <section className="sec" aria-labelledby="soon-h">
-        <div className="wrap">
-          <SectionHeader id="soon-h" a="Coming soon." b="Not in the price, not live yet." line="We will publish what each one costs and does when it is live. Not before." />
-          <ul className="soon list-reset">
-            {SOON.map((item) => (
-              <li key={item.name} className="reveal">
-                <SoonCard item={item} loc="product_soon" />
-              </li>
-            ))}
-          </ul>
-        </div>
-      </section>
+      {/* 7. Coming soon (W): Capital and Fast Pay as the flagship, Insurance as a link. */}
+      <FastPayBand loc="product_fastpay" insurance />
 
       <Closing page="product" />
     </>

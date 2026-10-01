@@ -8,6 +8,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
   // Real content dates, not the build time. Bump a page's date when its copy changes.
   const v3 = new Date('2026-09-30'); // website v3 phase A: Home, Pricing, Talk to us, privacy
   const legal = new Date('2026-08-04');
+  const oct1 = new Date('2026-10-01');
   const staticPages: MetadataRoute.Sitemap = [
     { url: SITE_URL, lastModified: v3, changeFrequency: 'weekly', priority: 1 },
     { url: `${SITE_URL}/product`, lastModified: v3, changeFrequency: 'monthly', priority: 0.9 },
@@ -16,6 +17,10 @@ export default function sitemap(): MetadataRoute.Sitemap {
     { url: `${SITE_URL}/product/invoicing`, lastModified: v3, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${SITE_URL}/product/debtors`, lastModified: v3, changeFrequency: 'monthly', priority: 0.8 },
     { url: `${SITE_URL}/product/reports`, lastModified: v3, changeFrequency: 'monthly', priority: 0.8 },
+    // AI page and the two coming-soon pages (1 Oct 2026)
+    { url: `${SITE_URL}/product/ai`, lastModified: oct1, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${SITE_URL}/capital`, lastModified: oct1, changeFrequency: 'monthly', priority: 0.7 },
+    { url: `${SITE_URL}/insurance`, lastModified: oct1, changeFrequency: 'monthly', priority: 0.5 },
     { url: `${SITE_URL}/integrations`, lastModified: v3, changeFrequency: 'monthly', priority: 0.7 },
     { url: `${SITE_URL}/pricing`, lastModified: v3, changeFrequency: 'monthly', priority: 0.9 },
     { url: `${SITE_URL}/about`, lastModified: v3, changeFrequency: 'monthly', priority: 0.8 },

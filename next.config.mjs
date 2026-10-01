@@ -7,7 +7,10 @@ const nextConfig = {
   async redirects() {
     return [
       // Phase A (brief §2.2)
-      { source: '/ai', destination: '/product#models', permanent: true },
+      { source: '/ai', destination: '/product/ai', permanent: true },
+      // Capital and Fast Pay (coming soon): the old site's names.
+      { source: '/fast-pay', destination: '/capital', permanent: true },
+      { source: '/fastpay', destination: '/capital', permanent: true },
       { source: '/get-started', destination: `${APP}/signup?ref=site-redirect`, permanent: false },
       { source: '/signup', destination: `${APP}/signup?ref=site-redirect`, permanent: false },
       { source: '/login', destination: `${APP}/login`, permanent: false },

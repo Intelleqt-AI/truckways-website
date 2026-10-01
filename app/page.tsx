@@ -7,6 +7,7 @@ import PhotoHero from '../components/hero/PhotoHero';
 import HeroSections from '../components/hero/HeroSections';
 import FitDiagram from '../components/FitDiagram';
 import { SoonCard, SOON } from '../components/SoonCard';
+import FastPayBand from '../components/FastPayBand';
 import Faq, { type QA } from '../components/Faq';
 import { QuoteCard, N3Tolls } from '../components/fragments/Quote';
 import {
@@ -75,7 +76,7 @@ const CARDS = [
   { icon: Receipt, name: 'Invoicing', line: 'Raised when the load delivers', href: '/product/invoicing', fact: '15% VAT · EFT reference' },
   { icon: Users, name: 'Debtors', line: 'Who owes you, and reminders after a preview', href: '/product/debtors', fact: 'By age · statements' },
   { icon: FileBarChart, name: 'Reports', line: 'P&L, VAT and margin by lane', href: '/product/reports', fact: `${FACTS.reports} reports · CSV export` },
-  { icon: MessageSquareText, name: 'Copilot', line: 'Ask your numbers in plain words', href: '/product#models', fact: 'Drafts wait for you to confirm' },
+  { icon: MessageSquareText, name: 'Copilot', line: 'Ask your numbers in plain words', href: '/product/ai', fact: 'Drafts wait for you to confirm' },
   { icon: Plug, name: 'Integrations', line: 'Cartrack, CtrlFleet, API and CSV', href: '/integrations', fact: 'Nothing to install' },
 ];
 
@@ -96,7 +97,20 @@ const FAQ: QA[] = [
   { id: 'prices', q: 'Where do diesel and toll prices come from?', a: `Diesel from FIASA, inland or coastal. Tolls from the SANRAL tariffs effective 1 March 2026, for ${FACTS.tollPlazas} mainline plazas, by vehicle class.` },
   { id: 'cartrack', q: 'Does it work with Cartrack?', a: 'Yes. Connect with your Cartrack API username and password (in Fleetweb under Settings, API Settings), not your normal login, and vehicle location, speed and ignition status flow in. CtrlFleet connects too.' },
   // Q11 (data pooling wording) is held until the owner approves it.
-  { id: 'fastpay', q: 'What about Fast Pay?', a: 'Coming soon. It is not live, and we will not publish rates until it is.' },
+  {
+    id: 'fastpay',
+    q: 'What about Fast Pay?',
+    a: 'Coming soon. It is not live, and we will not publish rates until it is. It will be opt-in, and TruckWys is not a credit provider.',
+    rich: (
+      <>
+        Coming soon. It is not live, and we will not publish rates until it is. It will be opt-in, and TruckWys is not a credit provider.{' '}
+        <a className="ulink" href="/capital">
+          How Fast Pay will work
+        </a>
+        .
+      </>
+    ),
+  },
 ];
 
 export default function Home() {
@@ -184,6 +198,9 @@ export default function Home() {
           </figure>
         </div>
       </section>
+
+      {/* 5b. Capital and Fast Pay (G): the flagship coming-soon section (owner, 1 Oct 2026). Never claims it is live. */}
+      <FastPayBand loc="home_fastpay" grey />
 
       {/* 6. You approve every change (I, rounded inset band). Ref: flott-1440-full-1 bottom / -2 top, hemut-1440-full-1 */}
       <section aria-labelledby="copilot-h">

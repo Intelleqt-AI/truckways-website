@@ -9,8 +9,12 @@ export const PRODUCT_MENU = [
   { href: '/product/invoicing', label: 'Invoicing', line: 'Raised when the load delivers' },
   { href: '/product/debtors', label: 'Debtors', line: 'Who owes you, and reminders per invoice' },
   { href: '/product/reports', label: 'Reports', line: 'Profit, VAT and margin by lane' },
+  { href: '/product/ai', label: 'AI and Copilot', line: 'Ask your numbers; you approve every change' },
   { href: '/integrations', label: 'Integrations', line: 'Cartrack, CtrlFleet, API and CSV' },
   { href: '/product', label: 'How it works', line: 'From the first price to the last rand' },
+  // Coming soon: after a divider, each with a "Coming soon" marker (ProductMenu, NavSheet).
+  { href: '/capital', label: 'Capital and Fast Pay', line: 'Get paid before your customer pays', soon: true },
+  { href: '/insurance', label: 'Insurance', line: 'For South African transporters', soon: true },
 ];
 export const NAV_LINKS = [
   { href: '/product', label: 'Product' },

@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-export type MenuItem = { href: string; label: string; line: string };
+export type MenuItem = { href: string; label: string; line: string; soon?: boolean };
 
 /** Product menu (brief §2.4): a simple disclosure panel, not a mega-menu. Escape and outside click close it. */
 export default function ProductMenu({ items, current }: { items: MenuItem[]; current?: boolean }) {
@@ -53,10 +53,13 @@ export default function ProductMenu({ items, current }: { items: MenuItem[]; cur
       </button>
       <div className="pmenu__panel" id="product-menu" hidden={!open}>
         <ul className="list-reset">
-          {items.map((i) => (
-            <li key={i.href}>
+          {items.map((i, n) => (
+            <li key={i.href} className={i.soon && !items[n - 1]?.soon ? 'pmenu__soonfirst' : undefined}>
               <a href={i.href} className="pmenu__item">
-                <b>{i.label}</b>
+                <b>
+                  {i.label}
+                  {i.soon ? <i className="pmenu__soon">Coming soon</i> : null}
+                </b>
                 <span>{i.line}</span>
               </a>
             </li>

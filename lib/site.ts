@@ -29,6 +29,7 @@ export const DEMO_LINE = DEMO_DEEP_LINK_LIVE
 export const APP_DEMO_URL = DEMO_DEEP_LINK_LIVE ? DEMO_URL : APP_LOGIN_URL;
 
 export const APP_STORE_URL = FACTS.appStore;
+export const PLAY_STORE_URL = FACTS.android;
 
 /** Where the "Talk to us" form is delivered (FormSubmit). Unchanged address. */
 export const CONTACT_EMAIL = 'grant@truckwys.com';
