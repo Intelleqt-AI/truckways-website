@@ -136,7 +136,7 @@ export default function PaiaManualPage() {
       <h3>5.4 Recipients</h3>
       <ul>
         <li>Paystack: payment processing and card tokenisation</li>
-        <li>Xero: accounting sync, where connected</li>
+        <li>Xero and QuickBooks: accounting sync, once available and where connected</li>
         <li>Cartrack and CtrlFleet: vehicle tracking, where connected</li>
         <li>TomTom: address search, route, distance and travel-time data, and map imagery</li>
         <li>
@@ -170,7 +170,7 @@ export default function PaiaManualPage() {
       <h3>5.6 Security safeguards</h3>
       <ul>
         <li>Encryption in transit over TLS between our applications and our servers</li>
-        <li>Encryption of stored credentials and integration tokens, such as Xero OAuth tokens</li>
+        <li>Encryption of stored credentials and integration tokens, such as accounting-platform sign-in tokens</li>
         <li>Tokenisation of payment card data via Paystack; no full card numbers are stored</li>
         <li>Email verification by one-time code at sign-up, and an optional one-time code at sign-in</li>
         <li>Access controls on a need-to-know basis</li>

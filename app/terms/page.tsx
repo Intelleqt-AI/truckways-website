@@ -306,8 +306,8 @@ export default function TermsPage() {
     <section>
       <h2>11. Third-party services</h2>
       <p>
-        The Platform integrates with third-party services, including Paystack (payments), Xero (accounting sync,
-        where connected by the Customer), Cartrack and CtrlFleet (vehicle tracking, where connected by the
+        The Platform integrates with third-party services, including Paystack (payments), Xero and QuickBooks
+        (accounting sync, once available and where connected by the Customer), Cartrack and CtrlFleet (vehicle tracking, where connected by the
         Customer), TomTom and OpenStreetMap services (routing, address search and maps) and MapTiler (map
         imagery), and relies on OpenAI and Anthropic for language-model and speech-to-text features, Google
         Firebase Cloud Messaging, the Apple Push Notification service and web browser push services for

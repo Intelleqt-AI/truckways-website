@@ -167,7 +167,7 @@ export default function PrivacyPage() {
         <li>To show vehicle locations, where a customer connects a tracking system</li>
         <li>To send transactional and collections communications</li>
         <li>
-          To sync invoicing data with accounting platforms such as Xero, where a customer connects their account
+          Once available, to sync invoicing data with accounting platforms such as Xero or QuickBooks, where a customer connects their account
         </li>
         <li>To secure accounts, including one-time sign-in codes, and fraud and card-health monitoring</li>
         <li>To comply with legal, tax and regulatory obligations</li>
@@ -191,7 +191,7 @@ export default function PrivacyPage() {
           <strong>Paystack</strong>: subscription payment processing and card tokenisation
         </li>
         <li>
-          <strong>Xero</strong>: accounting sync, only where a customer connects their account
+          <strong>Xero and QuickBooks</strong>: accounting sync, once available and only where a customer connects their account
         </li>
         <li>
           <strong>Cartrack</strong> and <strong>CtrlFleet</strong>: vehicle tracking, only where a customer
@@ -314,7 +314,7 @@ export default function PrivacyPage() {
         These providers listed in section 5 process information outside South Africa: OpenAI and Anthropic
         (language-model and speech-to-text features), Google Firebase Cloud Messaging, the Apple Push
         Notification service and browser push services (notifications), Resend (email), TomTom, MapTiler and the
-        OpenStreetMap services (maps and routing), Xero (accounting sync, where connected), Vercel (web dashboard
+        OpenStreetMap services (maps and routing), Xero and QuickBooks (accounting sync, once available and where connected), Vercel (web dashboard
         pages, this website and its analytics) and FormSubmit (website enquiries). Paystack may also process
         payment information outside South Africa.
       </p>
@@ -329,7 +329,7 @@ export default function PrivacyPage() {
       <h2>9. Security safeguards</h2>
       <ul>
         <li>All traffic between the apps and our servers is encrypted in transit over TLS</li>
-        <li>Stored credentials and integration tokens, such as Xero OAuth tokens, are encrypted</li>
+        <li>Stored credentials and integration tokens, such as accounting-platform sign-in tokens, are encrypted</li>
         <li>Card data is tokenised by Paystack; no full card numbers are stored on TruckWys systems</li>
         <li>
           Every new account confirms its email address with a one-time code, and each user can switch on a
