@@ -116,7 +116,7 @@ export function QuoteCard() {
         <div>
           <span>Vehicle</span>
           <b>
-            {q.vehicle}, {q.weightT} t, class {q.tollClass}
+            {q.vehicle}, <span className="nowrap">{q.weightT}&nbsp;t</span>, <span className="nowrap">class&nbsp;{q.tollClass}</span>
           </b>
         </div>
         <div>

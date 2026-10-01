@@ -70,12 +70,21 @@ export function Stage({ label, children, flush }: { label: string; children: Rea
   );
 }
 
-/** "What it answers": three questions, each with a one-line answer. */
-export function Answers({ items }: { items: { q: string; a: string }[] }) {
+/**
+ * "What it answers": three questions, each led by the figure the product shows for it (from the demo
+ * company's data), then the question and a one-line answer.
+ */
+export function Answers({ items }: { items: { q: string; a: string; fig?: string; note?: string }[] }) {
   return (
     <ul className="b-answers list-reset">
       {items.map((i) => (
         <li key={i.q} className="reveal">
+          {i.fig ? (
+            <p className="b-answers__fig">
+              <span>{i.fig}</span>
+              {i.note ? <small>{i.note}</small> : null}
+            </p>
+          ) : null}
           <h3>{i.q}</h3>
           <p>{i.a}</p>
         </li>
@@ -86,7 +95,7 @@ export function Answers({ items }: { items: { q: string; a: string }[] }) {
 
 /** Flott feature row: text in columns 1 to 4, one product frame in 6 to 12 (mirrored on alternate rows). */
 export function FeatureRow({
-  id, title, body, points, link, flip, children,
+  id, title, body, points, link, flip, textOnPhone, children,
 }: {
   id?: string;
   title: string;
@@ -94,10 +103,12 @@ export function FeatureRow({
   points?: string[];
   link?: { href: string; label: string };
   flip?: boolean;
+  /** Phones show the text only (critic R3: long stacked pages); the frame shows from 640px. */
+  textOnPhone?: boolean;
   children: ReactNode;
 }) {
   return (
-    <div className={`b-row${flip ? ' b-row--flip' : ''}`} id={id}>
+    <div className={`b-row${flip ? ' b-row--flip' : ''}${textOnPhone ? ' b-row--text-sm' : ''}`} id={id}>
       <div className="b-row__text reveal">
         <h3 className="h3">{title}</h3>
         <p>{body}</p>

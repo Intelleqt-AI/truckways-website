@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { TwoTone } from '../components/ui';
+import { CostBreakdown } from '../components/fragments/Quote';
 
 export const metadata: Metadata = {
   title: 'Page not found',
@@ -17,9 +18,17 @@ export default function NotFound() {
   return (
     <section className="phero status-page">
       <div className="wrap">
-        <p className="label status__eyebrow">Error 404</p>
-        <TwoTone as="h1" className="h1" a="This page moved." b="Or it never existed." />
-        <p className="lead">The link may be old or mistyped. Try one of these instead.</p>
+        <div className="status">
+          <div className="status__main">
+            <p className="label status__eyebrow">Error 404</p>
+            <TwoTone as="h1" className="h1" a="This page moved." b="Or it never existed." />
+            <p className="lead">The link may be old or mistyped. Try one of these instead.</p>
+          </div>
+          {/* Critic R3: one small product fragment (a quote's cost lines from the demo company). */}
+          <div className="status__side status__side--frag" aria-hidden="true">
+            <CostBreakdown float compact />
+          </div>
+        </div>
         <ul className="list-reset nf-cards">
           {LINKS.map((l) => (
             <li key={l.href}>

@@ -4,10 +4,17 @@ import { Closing } from '../../../components/Blocks';
 import Faq, { type QA } from '../../../components/Faq';
 import { FeatureHero, Stage, Answers, FeatureRow, Split, DL, NextStep } from '../../../components/pages/blocks';
 import { ReportsIndex, ProfitLoss, LanesScatter, Expenses, VatReport } from '../../../components/pages/frags';
+import { SigPnl } from '../../../components/pages/signature';
+import { LANES, REVENUE_VS_COSTS } from '../../../content/demo-data';
+import { VAT_ROWS } from '../../../components/pages/sample';
+import { rand, num } from '../../../lib/format';
 import { pageMeta } from '../../../components/pages/meta';
 import { FACTS } from '../../../lib/facts';
 import { jsonLd } from '../../../lib/site';
 import { graph, breadcrumbSchema, faqSchema } from '../../../lib/schema';
+
+const SEP = REVENUE_VS_COSTS[REVENUE_VS_COSTS.length - 1];
+const SEP_MARGIN = ((SEP.revenue - SEP.costs) / SEP.revenue) * 100; // 18,4%
 
 const PATH = '/product/reports';
 export const metadata = pageMeta({
@@ -67,13 +74,15 @@ export default function ReportsPage() {
           <SectionHeader id="answers-h" a="What it answers." b="Without waiting for year end." />
           <Answers
             items={[
-              { q: 'Did we make money this month?', a: 'Profit and loss by month, with gross and net margin, on a cash basis.' },
-              { q: 'Which lanes pay?', a: 'Revenue per kilometre by lane against your fleet average, with how many trips each lane has.' },
-              { q: 'How much VAT did we charge?', a: 'Output VAT by month, on the invoice or payments basis, for your VAT return.' },
+              { q: 'Did we make money this month?', fig: `${num(SEP_MARGIN, 1)}%`, note: 'net margin, September 2026', a: 'Profit and loss by month, with gross and net margin, on a cash basis.' },
+              { q: 'Which lanes pay?', fig: `${rand(LANES[0].perKm, { cents: true })}/km`, note: `${LANES[0].lane}, the best lane`, a: 'Revenue per kilometre by lane against your fleet average, with how many trips each lane has.' },
+              { q: 'How much VAT did we charge?', fig: rand(VAT_ROWS[2].vat), note: `output VAT, ${VAT_ROWS[2].m}`, a: 'Output VAT by month, on the invoice or payments basis, for your VAT return.' },
             ]}
           />
         </div>
       </section>
+
+      <SigPnl />
 
       <section className="sec sec--grey" aria-labelledby="detail-h">
         <div className="wrap">
@@ -104,6 +113,7 @@ export default function ReportsPage() {
               </Stage>
             </FeatureRow>
             <FeatureRow
+              textOnPhone
               title="Expenses in the same place"
               body="Add an expense, attach it to a truck, approve it, and it flows into profit and loss and the expense report. Pending and rejected expenses stay out of profit."
               points={['Fuel, tolls, maintenance, driver cost, insurance, overhead and other', 'Pending, Approved and Rejected', 'Spend by category and by month']}
@@ -114,6 +124,7 @@ export default function ReportsPage() {
             </FeatureRow>
             <FeatureRow
               flip
+              textOnPhone
               title="A VAT report that checks itself"
               body="Output VAT by month, on the invoice or payments basis. It checks that excl. VAT plus output VAT equals the total incl. VAT. Input VAT is not captured on expenses yet, so it shows what you charged, not what you owe."
               points={['Invoice basis or payments basis', 'Invoice count per month', 'Export CSV for your VAT return']}

@@ -5,7 +5,7 @@ import { track } from '@vercel/analytics';
 
 /**
  * The site's only always-on client code (well under 1 kB of logic):
- * - reveal on scroll (IntersectionObserver, once, 15% visible, stagger 60ms max 4)
+ * - reveal and motion on scroll (IntersectionObserver, once, 15% visible, stagger 60ms max 6)
  * - hairline under the nav after 8px of scroll
  * - Vercel custom events (no personal data): cta_click, app_store_click, faq_open
  */
@@ -13,8 +13,12 @@ export default function SiteScripts() {
   useEffect(() => {
     const page = location.pathname;
 
-    // Reveal
-    const els = Array.from(document.querySelectorAll<HTMLElement>('.reveal'));
+    // Reveal (sections, cards) and motion targets (charts, drawn lines): .is-in once, on entering.
+    const els = Array.from(
+      document.querySelectorAll<HTMLElement>(
+        '.reveal,.chart__plot,.lane,.find__bar,.age__bar,.b-scatter,.sig-age__bar,.sig-pnl__bars,.sig-route__plazas,.sig-flow',
+      ),
+    );
     let io: IntersectionObserver | undefined;
     if ('IntersectionObserver' in window) {
       io = new IntersectionObserver(
@@ -23,7 +27,7 @@ export default function SiteScripts() {
           for (const e of entries) {
             if (!e.isIntersecting) continue;
             const el = e.target as HTMLElement;
-            el.style.setProperty('--d', `${Math.min(i++, 3) * 60}ms`);
+            if (el.classList.contains('reveal')) el.style.setProperty('--d', `${Math.min(i++, 5) * 60}ms`);
             el.classList.add('is-in');
             io!.unobserve(el);
           }

@@ -170,7 +170,7 @@ export default function ProductPage() {
                 same answer every time.
               </p>
             </div>
-            <div className="b-models__vis">
+            <div className="b-models__vis hide-sm">
               <Stage label="The quote builder with a typed load description, and the form filled in: customer, weight, collection and delivery, dates, vehicle type and a one-way trip.">
                 <QuoteForm />
               </Stage>
@@ -247,7 +247,7 @@ export default function ProductPage() {
               ]}
             />
           </div>
-          <div className="b-row__vis">
+          <div className="b-row__vis hide-sm">
             <Stage label="The team settings of a demo company: five people, each with a role (Admin, Manager, Dispatcher, Viewer, Driver), and sign-in by an emailed login code.">
               <TeamSettings />
             </Stage>

@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { ButtonLink, TextLink, TwoTone } from '../../../components/ui';
 import { Breadcrumbs } from '../../../components/Blocks';
+import { InvoiceRow } from '../../../components/fragments/Money';
 import { CONTACT_EMAIL, demoUrl, signupUrl } from '../../../lib/site';
 import { PRICE_SHORT } from '../../../lib/facts';
 
@@ -38,6 +39,10 @@ export default function SentPage() {
             </TextLink>
           </div>
           <p className="small status__price">{PRICE_SHORT}</p>
+          {/* Critic R3: one small product fragment (the delivered invoice from the demo company). */}
+          <div className="status__frag" aria-hidden="true">
+            <InvoiceRow compact float />
+          </div>
         </div>
         <div className="status__side">
           <h2 className="h4">What happens next</h2>

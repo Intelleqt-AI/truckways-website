@@ -707,7 +707,7 @@ export function LanesScatter() {
             <g key={v}>
               <line x1={pad.l} x2={W - pad.r} y1={y(v)} y2={y(v)} stroke="var(--chart-grid)" />
               <text x={pad.l - 8} y={y(v) + 4} textAnchor="end" className="b-scatter__ax">
-                R {v}
+                {`R\u00a0${v}`}
               </text>
             </g>
           ))}
@@ -716,7 +716,7 @@ export function LanesScatter() {
               {num(v)}
             </text>
           ))}
-          <line x1={pad.l} x2={W - pad.r} y1={y(FLEET_AVG_PER_KM)} y2={y(FLEET_AVG_PER_KM)} stroke="var(--text-primary)" strokeWidth="1.25" />
+          <line className="b-scatter__avg" pathLength={1} x1={pad.l} x2={W - pad.r} y1={y(FLEET_AVG_PER_KM)} y2={y(FLEET_AVG_PER_KM)} stroke="var(--text-primary)" strokeWidth="1.25" />
           <text x={pad.l + 4} y={y(FLEET_AVG_PER_KM) + 16} textAnchor="start" className="b-scatter__ax">
             Fleet {rand(FLEET_AVG_PER_KM, { cents: true })}/km
           </text>

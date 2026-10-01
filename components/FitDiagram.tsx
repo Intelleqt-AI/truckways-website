@@ -63,7 +63,7 @@ function ArrowUp() {
   return (
     <div className="fit__arrow" aria-hidden="true">
       <svg viewBox="0 0 12 40" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <path d="M6 39V2M1.5 6.5 6 2l4.5 4.5" />
+        <path pathLength={1} d="M6 39V2M1.5 6.5 6 2l4.5 4.5" />
       </svg>
     </div>
   );

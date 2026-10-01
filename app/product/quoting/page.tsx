@@ -5,6 +5,9 @@ import Faq, { type QA } from '../../../components/Faq';
 import { CostBreakdown, N3Tolls } from '../../../components/fragments/Quote';
 import { FeatureHero, Stage, Answers, FeatureRow, Split, DL, NextStep } from '../../../components/pages/blocks';
 import { QuoteForm, FuelLine } from '../../../components/pages/frags';
+import { SigTolls } from '../../../components/pages/signature';
+import { QUOTE, PIPELINE } from '../../../content/demo-data';
+import { rand } from '../../../lib/format';
 import { pageMeta } from '../../../components/pages/meta';
 import { FACTS } from '../../../lib/facts';
 import { jsonLd } from '../../../lib/site';
@@ -72,13 +75,15 @@ export default function QuotingPage() {
           <SectionHeader id="answers-h" a="What it answers." b="Before the customer sees a number." />
           <Answers
             items={[
-              { q: 'What does this load cost me?', a: 'Diesel, tolls, cross-border fees and driver allowance, line by line, for the truck you pick.' },
-              { q: 'Am I charging enough?', a: 'An "At risk" or "Caution" flag when the margin is thin, with the increase that gets it to 10% where it can work one out.' },
-              { q: 'Will they accept?', a: 'Your customer accepts or declines from a link, and the quote moves to Accepted or Declined on your board.' },
+              { q: 'What does this load cost me?', fig: rand(QUOTE.costs), note: `${QUOTE.from} to ${QUOTE.to}, before your margin`, a: 'Diesel, tolls, cross-border fees and driver allowance, line by line, for the truck you pick.' },
+              { q: 'Am I charging enough?', fig: `${QUOTE.marginPct}%`, note: 'margin at the suggested price', a: 'An "At risk" or "Caution" flag when the margin is thin, with the increase that gets it to 10% where it can work one out.' },
+              { q: 'Will they accept?', fig: `${PIPELINE.winRate}%`, note: 'win rate on your quotes board', a: 'Your customer accepts or declines from a link, and the quote moves to Accepted or Declined on your board.' },
             ]}
           />
         </div>
       </section>
+
+      <SigTolls />
 
       <section className="sec sec--grey" aria-labelledby="detail-h">
         <div className="wrap">

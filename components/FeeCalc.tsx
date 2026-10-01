@@ -3,7 +3,7 @@
 import { useRef, useState } from 'react';
 import { track } from '@vercel/analytics';
 
-const NBSP = ' ';
+const NBSP = '\u00a0';
 const group = (i: string) => i.replace(/\B(?=(\d{3})+(?!\d))/g, NBSP);
 function rand(v: number, cents = false) {
   const fixed = cents ? v.toFixed(2) : Math.round(v).toString();

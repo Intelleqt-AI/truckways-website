@@ -126,11 +126,11 @@ function Chart() {
       </div>
       <div className="chart chart--12">
         <div className="chart__y">
-          <span>R 2m</span>
-          <span>R 1,5m</span>
-          <span>R 1m</span>
-          <span>R 500k</span>
-          <span>R 0</span>
+          <span>R 2m</span>
+          <span>R 1,5m</span>
+          <span>R 1m</span>
+          <span>R 500k</span>
+          <span>R 0</span>
         </div>
         <div className="chart__plot">
           {REVENUE_VS_COSTS.map((d, i) => (

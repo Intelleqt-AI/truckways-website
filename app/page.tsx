@@ -297,12 +297,6 @@ export default function Home() {
       {/* 6. You approve every change (I, rounded inset band). Ref: flott-1440-full-1 bottom / -2 top, hemut-1440-full-1 */}
       <section aria-labelledby="copilot-h">
         <div className="inset band" data-theme="dark">
-          <div className="band__texture" aria-hidden="true">
-            {/* Photo-optional slot (S13). Launch default: a crop of the real S13 capture (Copilot, dark, demo
-                company), dimmed as texture so its text never reads as page text. A captioned documentary photo
-                can replace it later. */}
-            <img src="/product/s13-copilot-dark.webp" alt="" width={1084} height={499} loading="lazy" decoding="async" />
-          </div>
           <div className="band__text reveal">
             <TwoTone id="copilot-h" a="Ask your numbers in plain words." b="You approve every change." />
             <ul className="band__lines list-reset">

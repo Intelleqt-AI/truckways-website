@@ -5,6 +5,9 @@ import Faq, { type QA } from '../../../components/Faq';
 import { NeedsYouCard } from '../../../components/fragments/Money';
 import { FeatureHero, Stage, Answers, FeatureRow, Split, DL, NextStep } from '../../../components/pages/blocks';
 import { DebtorsAge, Statement } from '../../../components/pages/frags';
+import { SigAgeing } from '../../../components/pages/signature';
+import { KPIS, OVERDUE, OVERDUE_COUNT } from '../../../content/demo-data';
+import { rand } from '../../../lib/format';
 import { pageMeta } from '../../../components/pages/meta';
 import { jsonLd } from '../../../lib/site';
 import { graph, breadcrumbSchema, faqSchema } from '../../../lib/schema';
@@ -67,13 +70,15 @@ export default function DebtorsPage() {
           <SectionHeader id="answers-h" a="What it answers." b="Before it is 90 days." />
           <Answers
             items={[
-              { q: 'Who owes me, and how late?', a: 'Current, 1 to 30, 31 to 60, 61 to 90 and over 90 days, by customer or by invoice, aged by due date.' },
-              { q: 'Who should I chase first?', a: 'Overdue invoices, largest first, with how many days late each one is.' },
-              { q: 'Who pays late every time?', a: "A payment risk profile per customer, worked out from how they have paid you." },
+              { q: 'Who owes me, and how late?', fig: rand(KPIS.owed), note: `owed to you, ${rand(KPIS.pastDue)} past due`, a: 'Current, 1 to 30, 31 to 60, 61 to 90 and over 90 days, by customer or by invoice, aged by due date.' },
+              { q: 'Who should I chase first?', fig: rand(OVERDUE[0].amount), note: `${OVERDUE[0].number}, ${OVERDUE[0].daysLate} days late`, a: 'Overdue invoices, largest first, with how many days late each one is.' },
+              { q: 'Who pays late every time?', fig: String(OVERDUE_COUNT), note: 'invoices past due, across customers', a: "A payment risk profile per customer, worked out from how they have paid you." },
             ]}
           />
         </div>
       </section>
+
+      <SigAgeing />
 
       <section className="sec sec--grey" aria-labelledby="detail-h">
         <div className="wrap">

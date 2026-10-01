@@ -104,6 +104,17 @@ for (const page of PAGES) {
     }
   }
 
+  // Critic R3: "R" and its amount are joined by a non-breaking space, so the symbol never wraps away.
+  if (!LEGAL.includes(page)) {
+    const body = html.replace(/^[\s\S]*?<body[^>]*>/i, '').replace(/<script[\s\S]*?<\/script>/gi, ' ').replace(/<style[\s\S]*?<\/style>/gi, ' ').replace(/<[^>]+>/g, ' ');
+    const m = body.match(/(?<![A-Za-z])R \d/);
+    if (m) {
+      failedPages.add(page);
+      const i = m.index ?? 0;
+      fail(page, `"R" and amount split by a normal space: "...${body.slice(Math.max(0, i - 40), i + 40)}..."`);
+    }
+  }
+
   // JSON-LD
   const blocks = [...html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)].map((m) => m[1]);
   for (const raw of blocks) {

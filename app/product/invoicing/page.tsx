@@ -4,6 +4,9 @@ import { Closing } from '../../../components/Blocks';
 import Faq, { type QA } from '../../../components/Faq';
 import { FeatureHero, Stage, Answers, FeatureRow, Split, DL, NextStep } from '../../../components/pages/blocks';
 import { InvoiceDetail, PublicInvoice, InvoiceList } from '../../../components/pages/frags';
+import { SigDelivery } from '../../../components/pages/signature';
+import { INVOICE } from '../../../content/demo-data';
+import { rand, date } from '../../../lib/format';
 import { pageMeta } from '../../../components/pages/meta';
 import { jsonLd } from '../../../lib/site';
 import { graph, breadcrumbSchema, faqSchema } from '../../../lib/schema';
@@ -66,13 +69,15 @@ export default function InvoicingPage() {
           <SectionHeader id="answers-h" a="What it answers." b="The day the load delivers." />
           <Answers
             items={[
-              { q: 'Did we invoice that load?', a: 'Every delivered load gets its invoice, numbered and linked back to the load it came from.' },
-              { q: 'Can the customer pay today?', a: 'Your bank details and the invoice number as the EFT reference, on the invoice and the page it links to.' },
-              { q: 'Where is the POD?', a: 'On the load: the signature, the name of the person who received it and the document.' },
+              { q: 'Did we invoice that load?', fig: INVOICE.number, note: `raised on delivery, ${date(INVOICE.issued)}`, a: 'Every delivered load gets its invoice, numbered and linked back to the load it came from.' },
+              { q: 'Can the customer pay today?', fig: rand(INVOICE.total, { cents: true }), note: 'incl. 15% VAT, due in 30 days', a: 'Your bank details and the invoice number as the EFT reference, on the invoice and the page it links to.' },
+              { q: 'Where is the POD?', fig: 'Attached', note: `on ${INVOICE.load}`, a: 'On the load: the signature, the name of the person who received it and the document.' },
             ]}
           />
         </div>
       </section>
+
+      <SigDelivery />
 
       <section className="sec sec--grey" aria-labelledby="detail-h">
         <div className="wrap">
