@@ -1,6 +1,5 @@
 import { getImageProps } from 'next/image';
 import { ButtonLink } from '../ui';
-import { PRICE_AND_FEE, CANCELLATION } from '../../lib/facts';
 import { signupUrl, demoUrl } from '../../lib/site';
 import s from './PhotoHero.module.css';
 
@@ -73,9 +72,6 @@ export default function PhotoHero({ loc = 'home-hero', children }: { loc?: strin
               Open the demo
             </ButtonLink>
           </div>
-          <p className={`${s.price} ${s.in}`} style={i(5)}>
-            {PRICE_AND_FEE} {CANCELLATION}
-          </p>
         </div>
         <p className={s.place}>Velddrif, Western Cape</p>
       </div>

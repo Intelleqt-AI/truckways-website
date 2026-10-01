@@ -815,8 +815,21 @@ select.input { appearance: none; -webkit-appearance: none; padding-right: 36px; 
 .article th, .article td { text-align: left; padding: 10px 12px 10px 0; border-bottom: 1px solid var(--border-subtle); vertical-align: top; }
 
 /* -------------------------------------------------------------- reveal */
-html.js .reveal { opacity: 0; transform: translateY(12px); }
-html.js .reveal.is-in { opacity: 1; transform: none; transition: opacity 480ms var(--ease-out), transform 480ms var(--ease-out); transition-delay: var(--d, 0ms); }
+/* Owner (1 Oct): motion must be noticeable, still calm. Longer rise, expo ease, headings turn in two beats. */
+html.js .reveal { opacity: 0; transform: translateY(32px); }
+html.js .reveal.is-in { opacity: 1; transform: none; transition: opacity 900ms cubic-bezier(0.16, 1, 0.3, 1), transform 900ms cubic-bezier(0.16, 1, 0.3, 1); transition-delay: var(--d, 0ms); }
+@media (prefers-reduced-motion: no-preference) {
+  html.js .shead.reveal .tone-2 { display: inline-block; opacity: 0; transform: translateY(18px); transition: opacity 800ms cubic-bezier(0.16, 1, 0.3, 1) 180ms, transform 800ms cubic-bezier(0.16, 1, 0.3, 1) 180ms; }
+  html.js .shead.reveal.is-in .tone-2 { opacity: 1; transform: none; }
+  html.js .shead.reveal > p { opacity: 0; transition: opacity 800ms ease 320ms; }
+  html.js .shead.reveal.is-in > p { opacity: 1; }
+  /* Facts row: items rise in turn while the figures count up (SiteScripts). */
+  html.js .facts__list .facts__item { transition: opacity 800ms cubic-bezier(0.16, 1, 0.3, 1), transform 800ms cubic-bezier(0.16, 1, 0.3, 1); }
+  html.js .facts__list:not(.is-in) .facts__item { opacity: 0; transform: translateY(24px); }
+  .facts__item:nth-child(2) { transition-delay: 90ms; }
+  .facts__item:nth-child(3) { transition-delay: 180ms; }
+  .facts__item:nth-child(4) { transition-delay: 270ms; }
+}
 @media (prefers-reduced-motion: reduce) {
   html.js .reveal { opacity: 1; transform: none; }
   *, *::before, *::after { animation-duration: 1ms !important; animation-delay: 0ms !important; transition-duration: 1ms !important; transition-delay: 0ms !important; }
