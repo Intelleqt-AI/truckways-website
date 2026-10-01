@@ -100,10 +100,9 @@ export default function ContactPage() {
       {/* R8: contact-specific closing; no Get started or demo link competing with the form. Q15: no promised turnaround. */}
       <Closing
         page="contact"
-        variant="contact"
-        a="Prefer email?"
-        b="Write to us directly."
-        line={`Write to ${CONTACT_EMAIL} with your fleet size and what you need. A person reads every message and replies on South African working days.`}
+        a="Prefer to look first?"
+        b="Open the demo. No sign-up."
+        line="The demo is a working company with its quotes, invoices and reports, so you can see TruckWys before you talk to anyone."
       />
     </>
   );

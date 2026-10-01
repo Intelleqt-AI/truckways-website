@@ -105,8 +105,8 @@ export default function PaiaManualPage() {
       <h3>5.1 Purpose of processing</h3>
       <p>
         TruckWys processes personal information to provide its fleet quoting, invoicing and trip profitability
-        platform, to process subscription and invoice fee billing, and, where a customer opts in, to facilitate
-        an invoice financing referral and accounting sync.
+        platform, to process subscription and invoice fee billing, and, once available and where a customer opts in,
+        to facilitate an invoice financing referral and accounting sync.
       </p>
 
       <h3>5.2 Categories of data subjects</h3>

@@ -788,6 +788,7 @@ a.b-hubcard:hover .b-hubcard__more svg { transform: translateX(2px); }
 .b-band__img { position: absolute; left: 0; top: -10%; width: 100%; height: 120%; object-fit: cover; object-position: var(--pos, 50% 50%); z-index: -2; color: transparent; }
 .b-band__scrim { position: absolute; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(90deg, rgba(11, 12, 14, 0.86) 0%, rgba(11, 12, 14, 0.8) 46%, rgba(11, 12, 14, 0.3) 72%, rgba(11, 12, 14, 0) 100%); }
 .b-band__text { position: relative; max-width: 880px; }
+.b-band__text .tlink, .b-band__text .tlink:hover { color: #FFFFFF; }
 .b-band__text .h2 { color: #FFFFFF; text-wrap: balance; }
 .b-band__text .h2 > .tone-2 { display: block; color: rgba(255, 255, 255, 0.84); }
 .b-band__text p { margin-top: 20px; font: 400 17px/27px var(--font-sans); color: rgba(255, 255, 255, 0.9); max-width: 46ch; }

@@ -158,7 +158,12 @@ export default function ProductPage() {
         positionPhone="62% 50%"
         a="Built for South Africa."
         b="SANRAL tolls, FIASA diesel, 15% VAT."
-        line="The rules that set your price are South African, and each one is a line you can check."
+        line={
+          <>
+            The rules that set your price are South African, and each one is a line you can check.{' '}
+            <TextLink href="/product/quoting">How tolls and diesel are priced</TextLink>
+          </>
+        }
         place="Port of Durban, KwaZulu-Natal"
       />
 

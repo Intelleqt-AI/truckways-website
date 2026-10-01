@@ -95,7 +95,7 @@ export default function PrivacyPage() {
           or stores full card numbers. We hold only a token, the card type and its last four digits
         </li>
         <li>
-          Banking details where required for payouts, or for the invoice financing referral described in
+          Banking details shown on your invoices, or, once available, for the invoice financing referral described in
           section 4
         </li>
       </ul>
