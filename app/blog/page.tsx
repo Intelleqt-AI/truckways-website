@@ -53,7 +53,7 @@ function CoverImg({ slug, sizes, className, eager }: { slug: string; sizes: stri
   if (!c) return null;
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { props: { style: _style, ...img } } = getImageProps({ src: c.src, alt: '', width: 1600, height: 900, quality: 62, sizes });
-  return <img {...img} alt="" className={className} loading={eager ? 'eager' : 'lazy'} decoding="async" />;
+  return <img {...img} alt="" className={className} loading={eager ? 'eager' : 'lazy'} fetchPriority={eager ? 'high' : undefined} decoding={eager ? 'sync' : 'async'} />;
 }
 
 function Row({ p }: { p: Post }) {
