@@ -1,16 +1,18 @@
 import type { Metadata } from 'next';
-import { Calculator, Receipt, Users, FileBarChart, MessageSquareText, Plug, Zap, ShieldCheck, ArrowRight, Check } from 'lucide-react';
-import { ButtonLink, TextLink, SectionHeader, TwoTone, StatusChip, Caption, SAMPLE_CAPTION } from '../components/ui';
+import { Calculator, Receipt, Users, FileBarChart, MessageSquareText, Plug, ArrowRight, Check } from 'lucide-react';
+import { ButtonLink, TextLink, SectionHeader, TwoTone, Caption, SAMPLE_CAPTION } from '../components/ui';
 import StepSwitcher from '../components/StepSwitcher';
+import FitDiagram from '../components/FitDiagram';
+import { SoonCard, SOON } from '../components/SoonCard';
 import Faq, { type QA } from '../components/Faq';
 import { CostBreakdown, QuoteCard, N3Tolls } from '../components/fragments/Quote';
 import {
   InvoiceRow, NeedsYouCard, LaneRanking, CopilotPanel, Findings, Stats,
 } from '../components/fragments/Money';
 import { FACTS, PRICE, PRICE_AND_FEE, PRICE_SHORT, FEE_LINE, CANCELLATION } from '../lib/facts';
-import { signupUrl, demoUrl, jsonLd, SITE_URL } from '../lib/site';
+import { signupUrl, demoUrl, jsonLd, SITE_URL, DEMO_LINE } from '../lib/site';
 import { graph, softwareSchema, offerSchema, faqSchema } from '../lib/schema';
-import { INVOICE, KPIS, FEE_EXAMPLE, AGEING, BOOKED_QUOTE, LANES, LANE_JHB_DBN } from '../content/demo-data';
+import { INVOICE, KPIS, FEE_EXAMPLE, BOOKED_QUOTE, LANE_JHB_DBN } from '../content/demo-data';
 import { rand, date, num } from '../lib/format';
 
 const TITLE = 'TruckWys: quoting, invoicing and debtors for SA transporters';
@@ -53,7 +55,7 @@ const STEPS = [
   },
   {
     title: 'See who owes you',
-    body: 'Debtors by age, a statement per customer and reminders that get firmer as the days pass, one customer or everyone overdue at once.',
+    body: 'Debtors by age, a statement per customer and reminders that get firmer as the days pass, sent from any overdue invoice in one click after a preview.',
     href: '/product/debtors',
     link: 'How debtors work',
   },
@@ -68,101 +70,31 @@ const STEPS = [
 const CARDS = [
   { icon: Calculator, name: 'Quoting', line: 'Priced from diesel, tolls and your costs', href: '/product/quoting', fact: `FIASA diesel · ${FACTS.tollPlazas} toll plazas` },
   { icon: Receipt, name: 'Invoicing', line: 'Raised when the load delivers', href: '/product/invoicing', fact: '15% VAT · EFT reference' },
-  { icon: Users, name: 'Debtors', line: 'Who owes you, and one-click reminders', href: '/product/debtors', fact: 'By age · statement per customer' },
+  { icon: Users, name: 'Debtors', line: 'Who owes you, and reminders after a preview', href: '/product/debtors', fact: 'By age · statements' },
   { icon: FileBarChart, name: 'Reports', line: 'P&L, VAT and margin by lane', href: '/product/reports', fact: `${FACTS.reports} reports · CSV export` },
   { icon: MessageSquareText, name: 'Copilot', line: 'Ask your numbers in plain words', href: '/product#models', fact: 'Drafts wait for you to confirm' },
   { icon: Plug, name: 'Integrations', line: 'Cartrack, CtrlFleet, API and CSV', href: '/integrations', fact: 'Nothing to install' },
 ];
 
-const SOON = [
-  { icon: Zap, name: 'Fast Pay', line: 'Get paid before your customer pays.', topic: 'fast-pay' },
-  // Q12: no product detail until the owner confirms it; one honest line meanwhile.
-  { icon: ShieldCheck, name: 'Insurance', line: 'Being built. What it covers is published before it goes live.', topic: 'insurance' },
-];
-
 /* Milestones, not durations: nothing here implies a measured setup time. */
 const TIMELINE = [
-  { t: 'Before you pay', h: 'Look around the demo', d: 'A working company with sample data. No form, no call.' },
+  { t: 'Before you pay', h: 'Look around the demo', d: 'A working company with sample data. No sign-up, no call.' },
   { t: 'Day 0', h: 'Create your account', d: 'Confirm your email with a code and add a card. You are live once the payment clears.' },
   { t: 'First quote', h: 'Load your lists and rates', d: 'Paste customers and trucks from Excel, set your rates and allowance, and price a load.' },
-  { t: 'First delivery', h: 'The invoice raises itself', d: 'Mark the load delivered, or let your TMS do it. The invoice goes out with 15% VAT.' },
+  { t: 'First delivery', h: 'The invoice raises itself', d: 'Mark the load delivered, or let your TMS do it. The invoice is raised with 15% VAT, ready to send.' },
   { t: 'Month end', h: 'Close the month', d: 'Profit and loss, debtors by age and the VAT report, from the same numbers.' },
 ];
 
 const FAQ: QA[] = [
   { id: 'tms', q: 'Is TruckWys a TMS?', a: 'No. It does not dispatch, route or schedule. It works next to your TMS, your spreadsheets and your tracking, and handles the money on each load.' },
   { id: 'cost', q: 'What does it cost?', a: `${PRICE_AND_FEE} Unlimited users. No long-term contract.` },
-  { id: 'vat', q: 'Is VAT included?', a: `No. ${PRICE} per month is excl. VAT, and VAT is added to your subscription invoice. The 0,25% is worked out on each delivered load's invoice total including VAT: a load invoiced at ${rand(FEE_EXAMPLE.invoice, { cents: true })} adds ${rand(FEE_EXAMPLE.fee, { cents: true })}.` },
-  { id: 'try', q: 'Can I try it first?', a: 'Yes. Open the demo: a working company with sample data. No form and no call.' },
+  { id: 'fee', q: 'How is the 0,25% worked out?', a: `On each delivered load's invoice total, including the VAT on your customer's invoice: a load invoiced at ${rand(FEE_EXAMPLE.invoice, { cents: true })} adds ${rand(FEE_EXAMPLE.fee, { cents: true })}. Nothing on quotes you lose.` },
+  { id: 'try', q: 'Can I try it first?', a: `Yes. Open the demo: a working company with sample data. ${DEMO_LINE}` },
   { id: 'prices', q: 'Where do diesel and toll prices come from?', a: `Diesel from FIASA, inland or coastal. Tolls from the SANRAL tariffs effective 1 March 2026, for ${FACTS.tollPlazas} mainline plazas, by vehicle class.` },
-  { id: 'cartrack', q: 'Does it work with Cartrack?', a: 'Yes. Connect with your Cartrack API username and password (in Fleetweb under Settings, API Settings), not your normal login, and vehicle location and odometer flow in. CtrlFleet connects too.' },
+  { id: 'cartrack', q: 'Does it work with Cartrack?', a: 'Yes. Connect with your Cartrack API username and password (in Fleetweb under Settings, API Settings), not your normal login, and vehicle location, speed and ignition status flow in. CtrlFleet connects too.' },
   // Q11 (data pooling wording) is held until the owner approves it.
   { id: 'fastpay', q: 'What about Fast Pay?', a: 'Coming soon. It is not live, and we will not publish rates until it is.' },
 ];
-
-function MiniInvoice() {
-  return (
-    <div className="frag tw-card" style={{ padding: 14 }} aria-hidden="true">
-      <div className="tw-row" style={{ paddingTop: 0 }}>
-        <span className="tw-12 tw-muted">{INVOICE.number}</span>
-        <span className="tw-status" style={{ height: 20 }}>
-          <span className="tw-status__dot" style={{ background: 'var(--status-info-dot)' }} />
-          Sent
-        </span>
-      </div>
-      <div className="tw-row">
-        <span className="tw-13 tw-sec">VAT 15%</span>
-        <span className="tw-13">{rand(INVOICE.vat, { cents: true })}</span>
-      </div>
-      <div className="tw-row" style={{ paddingBottom: 0 }}>
-        <span className="tw-13 tw-600">Total</span>
-        <span className="tw-13 tw-600">{rand(INVOICE.total, { cents: true })}</span>
-      </div>
-    </div>
-  );
-}
-function MiniAge() {
-  const tones = ['var(--chart-muted)', 'var(--chart-axis)', 'var(--chart-hatch)', 'var(--text-secondary)', 'var(--text-primary)'];
-  return (
-    <div className="frag tw-card" style={{ padding: 14 }} aria-hidden="true">
-      <div className="tw-row" style={{ paddingTop: 0, borderBottom: 0 }}>
-        <span className="tw-12 tw-muted">Owed to you</span>
-        <span className="tw-13 tw-600">{rand(KPIS.owed)}</span>
-      </div>
-      <div className="age__bar" style={{ margin: '4px 0 8px' }}>
-        {AGEING.map((a, i) => (
-          <span key={a.label} style={{ width: `${(a.amount / KPIS.owed) * 100}%`, background: tones[i] }} />
-        ))}
-      </div>
-      <div className="tw-12 tw-muted">Not due · 30 · 60 · 90 · 90+ days</div>
-    </div>
-  );
-}
-function MiniLanes() {
-  const rows = LANES.slice(0, 3).map((l) => [l.lane, Math.round((l.perKm / LANES[0].perKm) * 100)] as const);
-  return (
-    <div className="frag tw-card" style={{ padding: 14 }} aria-hidden="true">
-      {rows.map(([l, w], i) => (
-        <div key={l} style={{ display: 'grid', gridTemplateColumns: 'minmax(0, 1.4fr) 1fr', alignItems: 'center', gap: 10, padding: '4px 0' }}>
-          <span className="tw-12 tw-sec">{l}</span>
-          <span className="lane__track">
-            <span className="lane__fill" style={{ display: 'block', width: `${w}%`, background: i === 0 ? 'var(--text-primary)' : undefined }} />
-          </span>
-        </div>
-      ))}
-    </div>
-  );
-}
-
-function ArrowUp() {
-  return (
-    <div className="fit__arrow" aria-hidden="true">
-      <svg viewBox="0 0 12 40" fill="none" stroke="currentColor" strokeWidth="1.5">
-        <path d="M6 39V2M1.5 6.5 6 2l4.5 4.5" />
-      </svg>
-    </div>
-  );
-}
 
 export default function Home() {
   return (
@@ -248,9 +180,6 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <div className="hero__below" data-theme="light">
-          <CostBreakdown />
-        </div>
         <p className="small hero__caption">{SAMPLE_CAPTION}</p>
       </section>
 
@@ -277,54 +206,7 @@ export default function Home() {
             b="We run the money."
             line="No dispatch, no routing, nothing to rip out. TruckWys starts when a load is priced and ends when it is paid."
           />
-          <figure className="fit reveal">
-            <figcaption className="sr-only">
-              How TruckWys fits: what you already run (your TMS, spreadsheets, Cartrack, CtrlFleet, Excel and CSV, API) feeds
-              TruckWys, which quotes, invoices, collects and reports; what you get is invoices with VAT, debtors by age, and
-              profit by lane with a VAT report.
-            </figcaption>
-            <ul className="fit__top list-reset" aria-label="What you get">
-              <li>
-                <h3>Invoices with VAT</h3>
-                <MiniInvoice />
-              </li>
-              <li>
-                <h3>Debtors by age</h3>
-                <MiniAge />
-              </li>
-              <li>
-                <h3>Profit by lane and a VAT report</h3>
-                <MiniLanes />
-              </li>
-            </ul>
-            <ArrowUp />
-            <div className="fit__layer" data-theme="dark">
-              <div className="fit__brand">
-                <img src="/brand/truckwys-logo.png" alt="TruckWys" width={92} height={18} loading="lazy" />
-              </div>
-              {[
-                ['Quote.', 'Priced from diesel, tolls and your costs.'],
-                ['Invoice.', 'Raised when the load delivers.'],
-                ['Collect.', 'Debtors by age, one-click reminders.'],
-                ['Know.', 'Profit, margin and VAT from the same numbers.'],
-              ].map(([t, d], i) => (
-                <div className="fit__step" key={t}>
-                  <i>0{i + 1}</i>
-                  <b>{t}</b>
-                  <span>{d}</span>
-                </div>
-              ))}
-            </div>
-            <ArrowUp />
-            <div className="fit__bottom">
-              <span className="label">What you already run</span>
-              <ul className="fit__run list-reset">
-                {['Your TMS', 'Spreadsheets', 'Cartrack', 'CtrlFleet', 'Excel and CSV', 'API'].map((n) => (
-                  <li key={n}>{n}</li>
-                ))}
-              </ul>
-            </div>
-          </figure>
+          <FitDiagram />
           <p className="small fit__note">No hardware to install. Nothing to migrate. Your tools stay in place.</p>
           <p className="caption fit__cap">Invoice, debtors and lanes: {SAMPLE_CAPTION.charAt(0).toLowerCase() + SAMPLE_CAPTION.slice(1)}</p>
           <div className="fit__foot">
@@ -350,7 +232,10 @@ export default function Home() {
               panels={[<QuoteCard key="q" />, <InvoiceRow key="i" />, <NeedsYouCard key="n" />, <LaneRanking key="l" />]}
               aside={
                 <>
-                  <p className="chain__title">One load, one record</p>
+                  <p className="chain__title">One delivered load, one record</p>
+                  <p className="chain__sub">
+                    {INVOICE.customer}, {INVOICE.route}. A different load from the new quote above.
+                  </p>
                   <ul className="chain list-reset">
                     <li>
                       <span>Quote</span>
@@ -456,23 +341,9 @@ export default function Home() {
                 </a>
               </li>
             ))}
-            {SOON.map(({ icon: Icon, name, line, topic }) => (
-              <li key={name} className="reveal">
-                <div className="pcard pcard--soon">
-                  <span className="pcard__top">
-                    <span className="pcard__tile" aria-hidden="true">
-                      <Icon className="pcard__icon" strokeWidth={1.75} />
-                    </span>
-                    <StatusChip />
-                  </span>
-                  <span className="pcard__name">{name}</span>
-                  <span className="pcard__line">{line}</span>
-                  <span className="pcard__foot">
-                    <TextLink href={`/contact?topic=${topic}`} cta="notify" loc="plan_cards" quiet>
-                      Get notified<span className="sr-only"> about {name}</span>
-                    </TextLink>
-                  </span>
-                </div>
+            {SOON.map((item) => (
+              <li key={item.name} className="reveal">
+                <SoonCard item={item} loc="plan_cards" />
               </li>
             ))}
           </ul>
@@ -546,7 +417,7 @@ export default function Home() {
           <div className="psplit__offer reveal">
             <p className="psplit__fig">
               <span className="figure-big">{PRICE}</span>
-              <span>per month excl.&nbsp;VAT</span>
+              <span>per month</span>
             </p>
             <p className="psplit__fee">plus {FEE_LINE}</p>
             <p className="small psplit__eg">
@@ -585,7 +456,7 @@ export default function Home() {
         <div className="inset ctap" data-theme="dark">
           <div className="ctap__text reveal">
             <TwoTone id="cta-h" a="Look around a working company." b="Then decide." />
-            <p className="lead">The demo is open. No form, no sales call.</p>
+            <p className="lead">{DEMO_LINE}</p>
             <div className="btn-row btn-row--stack">
               <ButtonLink href={demoUrl('home-cta')} cta="open_demo" loc="cta_band">
                 Open the demo
@@ -600,8 +471,8 @@ export default function Home() {
             <div className="ctap__crop">
               {/* S14: the real dark Home capture (top 60%), from 640px up only. */}
               <picture>
-                <source media="(min-width: 640px)" type="image/avif" srcSet="/product/s14-home-dark-1080.avif 1080w, /product/s14-home-dark-1440.avif 1440w, /product/s14-home-dark-2880.avif 2880w" sizes="(max-width: 1023px) 100vw, 60vw" />
-                <source media="(min-width: 640px)" type="image/webp" srcSet="/product/s14-home-dark-1080.webp 1080w, /product/s14-home-dark-1440.webp 1440w, /product/s14-home-dark-2880.webp 2880w" sizes="(max-width: 1023px) 100vw, 60vw" />
+                <source media="(min-width: 640px)" type="image/avif" srcSet="/product/s14-home-dark-1080.avif 1080w, /product/s14-home-dark-1440.avif 1440w, /product/s14-home-dark-2880.avif 2880w" sizes="(max-width: 1023px) 100vw, 1484px" />
+                <source media="(min-width: 640px)" type="image/webp" srcSet="/product/s14-home-dark-1080.webp 1080w, /product/s14-home-dark-1440.webp 1440w, /product/s14-home-dark-2880.webp 2880w" sizes="(max-width: 1023px) 100vw, 1484px" />
                 <img className="ctap__shot" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" width={1440} height={540} alt="" loading="lazy" decoding="async" />
               </picture>
             </div>
