@@ -13,11 +13,11 @@ import s from './PhotoHero.module.css';
  * (credited here anyway). Not Unsplash+. No people, plates or trailer branding visible.
  * Edits: two crops from the 5949 x 3966 original, saturation 0.72, slightly cooler, a bird removed
  * from the sky. Masters: public/hero/velddrif-desktop.jpg (3840 x 2194, truck in the right third)
- * and public/hero/velddrif-band.jpg (1600 x 1600, phones and tablets, truck below the text).
+ * and public/hero/velddrif-band.jpg (1600 x 1600, phones below 768px, truck below the text).
  * next/image serves AVIF/WebP at the right width for 1x to 3x.
  *
  * SUBJECT is the truck's box in each master (fractions). Keep UI out of it if the layout changes;
- * scratchpad/web/hero-check.mjs checks it at 1440, 1280, 1200, 1024 and 390.
+ * scratchpad/web/home-check.mjs checks it at 1920, 1440, 1280, 1024, 768 and 390.
  */
 export const SUBJECT = {
   desktop: { x0: 0.55, y0: 0.552, x1: 0.88, y1: 0.64 },
@@ -33,16 +33,16 @@ export const HERO_COPY = {
 
 function Photo() {
   const common = { alt: '', fill: true, priority: true } as const;
-  const { props: desk } = getImageProps({ ...common, src: '/hero/velddrif-desktop.jpg', quality: 72, sizes: 'calc(100vw - 32px)' });
-  const { props: band } = getImageProps({ ...common, src: '/hero/velddrif-band.jpg', quality: 62, sizes: '100vw' });
+  const { props: desk } = getImageProps({ ...common, src: '/hero/velddrif-desktop.jpg', quality: 62, sizes: 'calc(100vw - 32px)' });
+  const { props: band } = getImageProps({ ...common, src: '/hero/velddrif-band.jpg', quality: 55, sizes: '100vw' });
   return (
     <>
       {/* Preload the right crop for the viewport so the LCP image starts with the document. */}
-      <link rel="preload" as="image" href={band.src} imageSrcSet={band.srcSet} imageSizes={band.sizes} media="(max-width: 1199px)" fetchPriority="high" />
-      <link rel="preload" as="image" href={desk.src} imageSrcSet={desk.srcSet} imageSizes={desk.sizes} media="(min-width: 1200px)" fetchPriority="high" />
+      <link rel="preload" as="image" href={band.src} imageSrcSet={band.srcSet} imageSizes={band.sizes} media="(max-width: 767px)" fetchPriority="high" />
+      <link rel="preload" as="image" href={desk.src} imageSrcSet={desk.srcSet} imageSizes={desk.sizes} media="(min-width: 768px)" fetchPriority="high" />
     <div className={s.media} data-subject-desktop={JSON.stringify(SUBJECT.desktop)} data-subject-band={JSON.stringify(SUBJECT.band)}>
       <picture>
-        <source media="(max-width: 1199px)" srcSet={band.srcSet} sizes={band.sizes} />
+        <source media="(max-width: 767px)" srcSet={band.srcSet} sizes={band.sizes} />
         <img {...desk} className={s.img} alt="" fetchPriority="high" data-parallax="0.1" data-parallax-mode="top" />
       </picture>
     </div>

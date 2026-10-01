@@ -41,7 +41,7 @@ export const organizationSchema = {
   },
   areaServed: { '@type': 'Country', name: 'ZA' },
   // LinkedIn company page only once it exists (owner question Q13).
-  sameAs: [FACTS.appStore],
+  sameAs: [FACTS.appStore, FACTS.android],
 };
 
 export const websiteSchema = {
@@ -81,7 +81,7 @@ export const softwareSchema = {
   url: SITE,
   applicationCategory: 'BusinessApplication',
   applicationSubCategory: 'Load-to-cash software for road freight',
-  operatingSystem: 'Web, iOS',
+  operatingSystem: 'Web, iOS, Android',
   description:
     'Load-to-cash software for South African transporters: quotes priced from diesel and SANRAL tolls, invoices raised on delivery, debtors and reminders, and reports.',
   publisher: { '@id': ids.org },

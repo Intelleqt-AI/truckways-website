@@ -4,6 +4,12 @@
 import { FACTS, PRICE, FEE, FEE_LINE, CANCELLATION as CANCEL } from './facts';
 
 export const SITE_URL = 'https://www.truckwys.com';
+
+/**
+ * Spread into every page-level `openGraph`: Next replaces the layout's openGraph object wholesale, so without
+ * this og:type, og:locale and og:site_name go missing on pages that set their own.
+ */
+export const OG_BASE = { type: 'website', locale: 'en_ZA', siteName: 'TruckWys' } as const;
 export const APP_URL = 'https://app.truckwys.com';
 
 /** "Get started": the app's signup (account, email code, card, live). */

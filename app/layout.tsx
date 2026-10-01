@@ -33,6 +33,7 @@ export const metadata: Metadata = {
   twitter: { card: 'summary_large_image' },
   icons: {
     icon: [
+      { url: '/favicon.svg', type: 'image/svg+xml' },
       { url: '/favicon.png', type: 'image/png', sizes: '32x32' },
       { url: '/icon-192.png', type: 'image/png', sizes: '192x192' },
     ],
@@ -50,11 +51,17 @@ export const viewport: Viewport = {
 
 export default function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="en-ZA" data-theme="light" className={inter.variable}>
+    <html lang="en-ZA" data-theme="light" className={inter.variable} suppressHydrationWarning>
       <head>
-        {/* Marks JS as available before first paint so below-fold reveals never flash.
-            Without JS nothing is hidden. */}
-        <script dangerouslySetInnerHTML={{ __html: "document.documentElement.classList.add('js')" }} />
+        {/* Marks JS as available before first paint so below-fold reveals never flash. Without JS nothing is
+            hidden. Safety: if SiteScripts has not run within 4 s (script error, blocked bundle), "js" is removed so
+            content hidden for reveal can never stay hidden. SiteScripts sets window.__twReady. */}
+        <script
+          dangerouslySetInnerHTML={{
+            __html:
+              "document.documentElement.classList.add('js');setTimeout(function(){if(!window.__twReady)document.documentElement.classList.remove('js')},4000)",
+          }}
+        />
       </head>
       <body>
         <a href="#main" className="skip">

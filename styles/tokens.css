@@ -484,6 +484,10 @@
   --web-cta-fg: #FFFFFF;
 }
 
+/* Fix round 7: one step down for laptops, so sections don't feel stretched at 1024 to 1279. */
+@media (max-width: 1279px) {
+  :root { --web-section-y: 96px; }
+}
 @media (max-width: 1023px) {
   :root { --web-gutter: 24px; --web-section-y: 96px; }
 }

@@ -8,8 +8,8 @@ export const metadata: Metadata = {
 };
 
 const LINKS = [
-  { href: '/', label: 'Home', line: 'Price it right. Invoice on delivery. Get paid.' },
-  { href: '/product', label: 'How it works', line: 'From the first price to the last rand.' },
+  { href: '/', label: 'Home', line: 'From the first price to the last rand.' },
+  { href: '/product', label: 'How it works', line: 'Quote, invoice and chase, one load at a time.' },
   { href: '/pricing', label: 'Pricing', line: 'One plan, R 4 499 per month.' },
   { href: '/blog', label: 'Blog', line: 'Costs, quoting and getting paid in SA freight.' },
 ];

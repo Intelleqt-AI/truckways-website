@@ -130,7 +130,10 @@ export function QuoteCard() {
 }
 
 /** F1-N3: plaza-by-plaza tolls from the seeded 2026 SANRAL tariff table. */
-export function N3Tolls() {
+/** `rows` shows only the first n plazas (Home), with a "see all" link (`more`) in place of the rest. */
+export function N3Tolls({ rows, more }: { rows?: number; more?: { href: string; label: string } } = {}) {
+  const shown = rows ? N3_PLAZAS.slice(0, rows) : N3_PLAZAS;
+  const hidden = N3_PLAZAS.length - shown.length;
   return (
     <figure className="frag tw-card cq" style={{ padding: 24 }}>
       <div className="tw-card__head">
@@ -146,7 +149,7 @@ export function N3Tolls() {
         <span>Excl. VAT</span>
       </div>
       <ol className="list-reset">
-        {N3_PLAZAS.map((p, i) => (
+        {shown.map((p, i) => (
           <li className="toll__row" key={p.name}>
             <span className="toll__i">{i + 1}</span>
             <span className="toll__name">
@@ -157,6 +160,19 @@ export function N3Tolls() {
           </li>
         ))}
       </ol>
+      {hidden > 0 || more ? (
+        <div className="toll__more">
+          <span>{hidden > 0 ? `${hidden} more ${hidden === 1 ? 'plaza' : 'plazas'} on this route` : null}</span>
+          {more ? (
+            <a className="tlink" href={more.href}>
+              {more.label}
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
+            </a>
+          ) : null}
+        </div>
+      ) : null}
       <div className="toll__total">
         <span>One way total, excl. VAT (goes into the quote)</span>
         <span>{rand(N3_TOTAL_EX, { cents: true })}</span>

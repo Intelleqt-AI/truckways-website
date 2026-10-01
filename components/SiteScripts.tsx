@@ -84,6 +84,8 @@ function parallax(): () => void {
 
 export default function SiteScripts() {
   useEffect(() => {
+    // Tells the inline safety timer in app/layout.tsx that reveals are wired up, so it keeps html.js.
+    (window as Window & { __twReady?: boolean }).__twReady = true;
     const page = location.pathname;
 
     // Reveal (sections, cards) and motion targets (charts, drawn lines): .is-in once, on entering.

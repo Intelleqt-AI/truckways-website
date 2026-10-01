@@ -194,12 +194,11 @@ export function Findings() {
           </div>
           <div>
             <div className="find__chips">
+              {/* Fix round 7: plain words instead of "High · Get paid · Measured". */}
               <span className={`tw-status tw-status--${f.severity === 'High' ? 'danger' : 'warning'}`}>
                 <span className="tw-status__dot" />
-                {f.severity}
+                Priority: {f.severity.toLowerCase()}
               </span>
-              <span>{f.area}</span>
-              <span className="tw-muted">Measured</span>
             </div>
             <p className="find__detail">{f.detail}</p>
           </div>

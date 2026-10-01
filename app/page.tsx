@@ -16,7 +16,7 @@ import {
   InvoiceRow, NeedsYouCard, LaneRanking, Findings, Stats,
 } from '../components/fragments/Money';
 import { FACTS, PRICE, FEE_LINE, NO_VAT, CANCELLATION } from '../lib/facts';
-import { signupUrl, jsonLd, SITE_URL, DEMO_LINE } from '../lib/site';
+import { signupUrl, jsonLd, SITE_URL, DEMO_LINE, OG_BASE } from '../lib/site';
 import { graph, softwareSchema, offerSchema, faqSchema } from '../lib/schema';
 import { FEE_EXAMPLE } from '../content/demo-data';
 import { rand } from '../lib/format';
@@ -30,6 +30,7 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   alternates: { canonical: SITE_URL },
   openGraph: {
+    ...OG_BASE,
     url: SITE_URL,
     title: TITLE,
     description: DESCRIPTION,
@@ -175,10 +176,7 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 4. Capital and Fast Pay (W): the flagship coming-soon section, moved up (owner R6). Never claims it is live. */}
-      <FastPayBand loc="home_fastpay" />
-
-      {/* 5. Where the money leaks (G). Ref: flott-1440-full-1 "Target the losses in your operations." */}
+      {/* 4. Where the money leaks (G), between the ink step band and the Fast Pay photo band. Ref: flott-1440-full-1 "Target the losses in your operations." */}
       <section className="sec sec--grey" aria-labelledby="leaks-h">
         <div className="wrap">
           <SectionHeader
@@ -199,6 +197,10 @@ export default function Home() {
           </figure>
         </div>
       </section>
+
+      {/* 5b. Capital and Fast Pay: the flagship coming-soon section as a photo band (owner: critical). Sits after the
+          light "Money you have earned" so no two dark bands touch (owner, 1 Oct 2026). Never claims it is live. */}
+      <FastPayBand loc="home_fastpay" />
 
       {/* 6. Everything in one plan (W). Copilot is one card here; its full band lives on /product and /product/ai. */}
       <section className="sec" aria-labelledby="plan-h">
@@ -252,7 +254,7 @@ export default function Home() {
               </li>
             </ul>
             <div className="sa__frag reveal">
-              <N3Tolls />
+              <N3Tolls rows={3} more={{ href: '/product/quoting', label: `See all ${FACTS.tollPlazas} plazas` }} />
             </div>
           </div>
         </div>
@@ -288,8 +290,7 @@ export default function Home() {
             </p>
             <p className="psplit__fee">plus {FEE_LINE}. {NO_VAT}</p>
             <p className="small psplit__eg">
-              Worked example: the load invoiced above, {rand(FEE_EXAMPLE.invoice, { cents: true })} incl. VAT, adds{' '}
-              {rand(FEE_EXAMPLE.fee, { cents: true })}.
+              A load invoiced at {rand(FEE_EXAMPLE.invoice, { cents: true })} adds {rand(FEE_EXAMPLE.fee, { cents: true })}.
             </p>
             <ul className="psplit__list list-reset">
               {['Unlimited loads, quotes, invoices and users', 'Reports, Copilot, integrations and API', 'Nothing on quotes you lose', CANCELLATION].map((t) => (

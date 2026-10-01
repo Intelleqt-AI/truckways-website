@@ -4,12 +4,11 @@ import { useEffect, useRef, useState } from 'react';
 import { createPortal } from 'react-dom';
 
 type Props = {
-  links: { href: string; label: string }[];
+  links: { href: string; label: string; soon?: boolean }[];
   product?: { href: string; label: string; soon?: boolean }[];
   signIn: string;
   demo: string;
   signup: string;
-  price: string;
 };
 
 /**
@@ -17,7 +16,7 @@ type Props = {
  * returns focus, page scroll locked. The sheet is portalled to <body> so no
  * ancestor (the sticky header) can become its containing block and clip it.
  */
-export default function NavSheet({ links, product = [], signIn, demo, signup, price }: Props) {
+export default function NavSheet({ links, product = [], signIn, demo, signup }: Props) {
   const [open, setOpen] = useState(false);
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
@@ -111,7 +110,8 @@ export default function NavSheet({ links, product = [], signIn, demo, signup, pr
                   <a href={l.href}>{l.label}</a>
                   <div className="sheet__sub">
                     {product
-                      .filter((p) => p.href !== '/product')
+                      // Fast Pay has its own top-level row below.
+                      .filter((p) => p.href !== '/capital')
                       .map((p) => (
                         <a key={p.href} href={p.href}>
                           <span>
@@ -123,8 +123,9 @@ export default function NavSheet({ links, product = [], signIn, demo, signup, pr
                   </div>
                 </div>
               ) : (
-                <a key={l.href} href={l.href}>
+                <a key={l.href} href={l.href} className={l.soon ? 'sheet__top' : undefined}>
                   {l.label}
+                  {l.soon ? <span className="nav__soon">Soon</span> : null}
                 </a>
               ),
             )}
@@ -143,7 +144,6 @@ export default function NavSheet({ links, product = [], signIn, demo, signup, pr
                 <path d="M5 12h14M12 5l7 7-7 7" />
               </svg>
             </a>
-            <p className="small sheet__price">{price}</p>
           </div>
         </div>
       </div>,

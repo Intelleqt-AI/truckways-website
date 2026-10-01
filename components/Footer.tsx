@@ -4,9 +4,11 @@ import StoreBadges from './StoreBadges';
 
 /* Footer (brief §2.4): only pages that exist. For TMS partners and the
    calculators join when their pages ship. */
-const COLS = [
+type FLink = { href: string; label: string; soon?: boolean };
+const COLS: { title: string; wide?: boolean; links: FLink[] }[] = [
   {
     title: 'Product',
+    wide: true,
     links: [
       { href: '/product', label: 'How it works' },
       { href: '/product/quoting', label: 'Quoting' },
@@ -14,10 +16,8 @@ const COLS = [
       { href: '/product/debtors', label: 'Debtors' },
       { href: '/product/reports', label: 'Reports' },
       { href: '/product/ai', label: 'AI and Copilot' },
-      { href: '/integrations', label: 'Integrations' },
-      { href: '/capital', label: 'Capital and Fast Pay' },
-      { href: '/insurance', label: 'Insurance' },
-      { href: '/pricing', label: 'Pricing' },
+      { href: '/capital', label: 'Fast Pay', soon: true },
+      { href: '/insurance', label: 'Insurance', soon: true },
     ],
   },
   {
@@ -30,7 +30,11 @@ const COLS = [
   },
   {
     title: 'Resources',
-    links: [{ href: '/blog', label: 'Blog' }],
+    links: [
+      { href: '/pricing', label: 'Pricing' },
+      { href: '/integrations', label: 'Integrations' },
+      { href: '/blog', label: 'Blog' },
+    ],
   },
 ];
 
@@ -55,13 +59,14 @@ export default function Footer() {
           </div>
           <div className="footer__cols">
             {COLS.map((c) => (
-              <nav key={c.title} className="footer__col" aria-label={c.title}>
+              <nav key={c.title} className={`footer__col${c.wide ? ' footer__col--wide' : ''}`} aria-label={c.title}>
                 <h2>{c.title}</h2>
                 <ul className="list-reset">
                   {c.links.map((l) => (
                     <li key={l.label}>
                       <a href={l.href}>
                         {l.label}
+                        {l.soon ? <span className="footer__soon">Soon</span> : null}
                       </a>
                     </li>
                   ))}
