@@ -11,7 +11,8 @@
  * the wrong price, states a VAT flag on the Offer, or lists
  * Fast Pay or Insurance as a feature or offer; sample-data captions; the
  * company address or Information Officer outside the legal pages (owner R4).
- * Legal pages (owner-controlled wording) are checked for em dashes only.
+ * Legal pages (owner-controlled wording) are checked for em dashes, "0.25%",
+ * the old price, Merchant Capital, "exclusive of VAT" and per-fleet pricing.
  */
 import fs from 'node:fs';
 import path from 'node:path';
@@ -66,6 +67,14 @@ const BANNED = [
   [/Keurboom|Information Officer is\b/i, 'company address or Information Officer outside Privacy and PAIA (owner R4)'],
 ];
 
+const LEGAL_BANNED = [
+  ...BANNED.slice(0, 3),
+  [/Merchant Capital/i, 'Merchant Capital (no financing partner is live)'],
+  [/exclusive of VAT|VAT,? which will be added where applicable/i, 'fees exclusive of VAT (TruckWys is not VAT registered)'],
+  [/per fleet|tiered pricing/i, 'per-fleet or tiered pricing (one plan)'],
+  [/R ?4,499/, 'R4,499 (use R 4 499)'],
+];
+
 function visibleText(html) {
   return html
     .replace(/<script[\s\S]*?<\/script>/gi, ' ')
@@ -97,7 +106,7 @@ for (const page of PAGES) {
   const html = load(page);
   if (!html) continue;
   const text = visibleText(html);
-  const rules = LEGAL.includes(page) ? BANNED.slice(0, 1) : BANNED;
+  const rules = LEGAL.includes(page) ? LEGAL_BANNED : BANNED;
   for (const [re, label] of rules) {
     const m = text.match(re);
     if (m) {

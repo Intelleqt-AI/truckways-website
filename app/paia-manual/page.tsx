@@ -105,8 +105,9 @@ export default function PaiaManualPage() {
       <h3>5.1 Purpose of processing</h3>
       <p>
         TruckWys processes personal information to provide its fleet quoting, invoicing and trip profitability
-        platform, to process subscription and invoice fee billing, and, once available and where a customer opts in,
-        to facilitate an invoice financing referral and accounting sync.
+        platform, to process subscription and invoice fee billing, to work out pooled market rates and train its
+        win probability model from quote outcomes without customer or company names, and, where a customer
+        connects them, to sync with accounting and vehicle tracking systems.
       </p>
 
       <h3>5.2 Categories of data subjects</h3>
@@ -119,7 +120,9 @@ export default function PaiaManualPage() {
       <h3>5.3 Categories of personal information</h3>
       <ul>
         <li>Contact and identifying information</li>
-        <li>Vehicle, trip and route data</li>
+        <li>Vehicle, trip and route data, and driver licence and emergency contact details</li>
+        <li>Vehicle location, heading, speed and ignition status, where a customer connects a tracking system</li>
+        <li>Proof of delivery documents and signatures</li>
         <li>Invoice and payment data, including tokenised card information</li>
         <li>
           Where the mobile app is used: photographs uploaded as proof of delivery, voice recordings made for
@@ -131,27 +134,35 @@ export default function PaiaManualPage() {
       <h3>5.4 Recipients</h3>
       <ul>
         <li>Paystack: payment processing and card tokenisation</li>
-        <li>An independent invoice financing provider: invoice financing, once available and where opted in</li>
         <li>Xero and QuickBooks: accounting sync, once available and where connected</li>
-        <li>TomTom: route, distance and travel-time data</li>
-        <li>MapTiler, using OpenStreetMap data: map imagery on route previews</li>
-        <li>Anthropic and OpenAI: quote analysis, the AI assistant and voice transcription</li>
+        <li>Cartrack and CtrlFleet: vehicle tracking, where connected</li>
+        <li>TomTom: address search, route, distance and travel-time data, and map imagery</li>
         <li>
-          Google Firebase Cloud Messaging and Apple Push Notification service: delivery of push notifications
-          to the mobile app
+          OpenStreetMap services (Nominatim, OSRM and OpenStreetMap tiles): address search, routing and maps
+          when TomTom is unavailable
+        </li>
+        <li>MapTiler, using OpenStreetMap data: map imagery on route previews</li>
+        <li>OpenAI: Copilot, price suggestion explanations and voice transcription</li>
+        <li>Anthropic: written summaries and quote parsing, where switched on</li>
+        <li>
+          Google Firebase Cloud Messaging, Apple Push Notification service and web browser push services:
+          delivery of notifications
         </li>
         <li>Resend: transactional email</li>
-        <li>Amazon Web Services: hosting and infrastructure</li>
+        <li>Amazon Web Services: hosting and infrastructure, in the Cape Town region</li>
+        <li>Vercel: web dashboard pages, the TruckWys website and its analytics</li>
+        <li>FormSubmit: messages sent through the website&apos;s Talk to us form</li>
       </ul>
 
       <h3>5.5 Cross-border transfers</h3>
       <p>
-        Our primary infrastructure is hosted in South Africa, in Amazon Web Services&apos; Cape Town region, so
-        platform data is stored locally by default. Some of the recipients listed in 5.4, including our AI
-        providers, push notification services, email delivery, mapping and accounting integrations, process
-        information outside South Africa. Before any such transfer we take reasonable steps to ensure the
-        recipient is subject to data protection terms that provide an adequate level of protection, consistent
-        with section 72 of POPIA.
+        Our primary infrastructure is hosted in South Africa, in Amazon Web Services&apos; Cape Town region
+        (af-south-1), so platform data is stored locally by default. These recipients listed in 5.4 process
+        information outside South Africa: OpenAI, Anthropic, the push notification services, Resend, TomTom,
+        MapTiler, the OpenStreetMap services, Xero, Vercel and FormSubmit, and Paystack may do so. We transfer
+        personal information to them under section 72 of POPIA: where the recipient is bound by law, binding
+        corporate rules or an agreement that provides an adequate level of protection, or where the transfer is
+        necessary to perform our agreement with the data subject or the data subject has consented to it.
       </p>
 
       <h3>5.6 Security safeguards</h3>
@@ -159,7 +170,7 @@ export default function PaiaManualPage() {
         <li>Encryption in transit over TLS between our applications and our servers</li>
         <li>Encryption of stored credentials and integration tokens, such as accounting-platform sign-in tokens</li>
         <li>Tokenisation of payment card data via Paystack; no full card numbers are stored</li>
-        <li>Optional one-time code in addition to a password at sign-in</li>
+        <li>Email verification by one-time code at sign-up, and an optional one-time code at sign-in</li>
         <li>Access controls on a need-to-know basis</li>
       </ul>
     </section>
@@ -173,8 +184,9 @@ export default function PaiaManualPage() {
       </p>
       <p>
         If you only want a copy of your own personal information, or want it corrected or deleted, you do not
-        need the PAIA form: see section 12 of our <a href="/privacy">Privacy Policy</a>, or delete your account
-        yourself from the <a href="/delete-account">account deletion page</a>.
+        need the PAIA form: see section 12 of our <a href="/privacy">Privacy Policy</a>. Deactivating your own
+        account does not erase your personal information; to have it erased, email the Information Officer, as
+        explained on our <a href="/delete-account">account deletion page</a>.
       </p>
     </section>
 
