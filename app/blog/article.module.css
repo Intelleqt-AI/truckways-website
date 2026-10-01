@@ -1,7 +1,7 @@
 /* Blog: index (featured post, categories, lists) and the 68ch article template. Tokens only. */
 
 .head { padding: 96px 0 56px; }
-.head h1 { max-width: 16ch; }
+.head h1 { max-width: 24ch; }
 .head :global(.tone-2) { display: block; }
 .head .lead { margin-top: 24px; max-width: 52ch; }
 @media (max-width: 639px) { .head { padding: 48px 0 40px; } }
@@ -46,14 +46,15 @@
 @media (max-width: 639px) { .group { margin-top: 56px; } }
 
 /* ------------------------------------------------------------ article */
-.article { padding: 96px 0 0; }
+.article { padding: 96px 0 var(--web-section-y); }
 @media (max-width: 639px) { .article { padding-top: 48px; } }
 .col { max-width: 68ch; }
 /* Same H1 as every other page (.h1: size, weight, tracking), two-tone with a period. */
 .eyebrow { margin-bottom: 16px; font: 500 14px/20px var(--font-sans); color: var(--text-tertiary); }
 .eyebrow a { color: inherit; }
 .eyebrow a:hover { color: var(--text-primary); text-decoration: underline; text-underline-offset: 3px; }
-.title { max-width: 22ch; }
+/* R7: a smaller H1 scale for posts (long titles): at most three lines at 390. */
+.title { max-width: 22ch; font-size: clamp(30px, 1.1rem + 2.4vw, 52px); line-height: 1.1; }
 .title :global(.tone-2) { display: block; }
 .dek { margin-top: 20px; font-size: clamp(18px, 0.95rem + 0.3vw, 20px); line-height: 1.5; color: var(--text-secondary); }
 .byline { margin-top: 28px; padding: 16px 0; border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle); display: flex; flex-wrap: wrap; gap: 4px 20px; font: 400 14px/20px var(--font-sans); color: var(--text-tertiary); }
@@ -124,7 +125,6 @@
 
 .layout { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--web-col-gap); align-items: start; }
 .layout > .col { grid-column: 1 / 9; }
-.layout > .more { grid-column: 1 / -1; }
 /* Top aligned with the H1 (the category line above it is 20px + 16px). */
 .toc { grid-column: 10 / 13; grid-row: 1; position: sticky; top: 96px; margin-top: 36px; padding-left: 20px; border-left: 1px solid var(--border-subtle); }
 .toc p { font: 500 14px/20px var(--font-sans); color: var(--text-tertiary); margin-bottom: 8px; }
@@ -138,4 +138,15 @@
 @media (max-width: 639px) {
   .body :global(.wide) td:nth-child(3) a { position: relative; }
   .body :global(.wide) td:nth-child(3) a::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 44px; transform: translateY(-50%); }
+}
+
+/* R7 guard: under 640px, any table that is not a stacked `wide` table scrolls inside its own box,
+   so the page itself never scrolls sideways. */
+@media (max-width: 639px) {
+  .body table:not(:global(.wide)) { display: block; max-width: 100%; overflow-x: auto; -webkit-overflow-scrolling: touch; }
+}
+/* R7: on phones the post H1 runs as one sentence pair (no forced break), so it stays within three lines. */
+@media (max-width: 639px) {
+  .title { font-size: 28px; line-height: 1.12; }
+  .title :global(.tone-2) { display: inline; }
 }

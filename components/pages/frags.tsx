@@ -7,7 +7,7 @@
  * b-* are local to these pages (./pages-b.css).
  */
 import type { ReactNode } from 'react';
-import { ChevronRight, ChevronDown, Download, Printer, Search, Info, Check, Mic, MessageCircle, Plus, KeyRound, Webhook, Calendar } from 'lucide-react';
+import { ChevronRight, ChevronDown, Download, Printer, Search, Info, Check, Mic, MessageCircle, Plus, KeyRound, Webhook, Calendar, Satellite } from 'lucide-react';
 import { COMPANY, INVOICE, KPIS, QUOTE, AGEING, TODAY, OVERDUE } from '../../content/demo-data';
 import { rand, date, num } from '../../lib/format';
 import {
@@ -84,7 +84,7 @@ export function QuotesBoard() {
           <span className="is-active">Board</span>
           <span>List</span>
         </span>
-        <span className="b-toolbar__meta">Drag a card to change its status · {BOARD_COUNT} quotes</span>
+        <span className="b-toolbar__meta">{BOARD_COUNT} quotes</span>
       </div>
       <div className="b-board">
         {BOARD.map((col) => (
@@ -844,9 +844,9 @@ export function Expenses() {
 
 /* ================================================================ S15 integrations settings */
 export function IntegrationsSettings() {
-  const cards: { name: string; mark: string; line: string; status: string; tone: 'success' | 'neutral'; foot: string }[] = [
-    { name: 'Cartrack', mark: 'C', line: 'Vehicle location, speed and ignition status', status: 'Connected', tone: 'success', foot: '15 vehicles linked' },
-    { name: 'CtrlFleet', mark: 'C', line: 'Vehicle location and points of interest', status: 'Not connected', tone: 'neutral', foot: 'Connect CtrlFleet' },
+  const cards: { name: string; line: string; status: string; tone: 'success' | 'neutral'; foot: string }[] = [
+    { name: 'Cartrack', line: 'Vehicle location, speed and ignition status', status: 'Connected', tone: 'success', foot: '15 vehicles linked' },
+    { name: 'CtrlFleet', line: 'Vehicle location and points of interest', status: 'Not connected', tone: 'neutral', foot: 'Connect CtrlFleet' },
   ];
   return (
     <div className="frag b-app cq">
@@ -856,7 +856,7 @@ export function IntegrationsSettings() {
           <div className="tw-card b-intg__card" key={c.name}>
             <div className="b-intg__row">
               <span className="b-intg__mark" aria-hidden="true">
-                {c.mark}
+                <Satellite strokeWidth={S} />
               </span>
               <span style={{ minWidth: 0, flex: 1 }}>
                 <b>{c.name}</b>
@@ -890,7 +890,7 @@ export function IntegrationsSettings() {
             <span className="tw-btn tw-btn--sm">Add webhook</span>
           </div>
           <div className="tw-row b-intg__key">
-            <span className="tw-13 b-ellipsis">https://dispatch.example.co.za/hooks/truckwys</span>
+            <span className="tw-13 b-ellipsis">https://your-tms.example/webhooks/truckwys</span>
             <Status tone="success">Active</Status>
           </div>
         </div>
@@ -939,7 +939,8 @@ export function MiniInvoice() {
   );
 }
 export function MiniAge() {
-  const tones = ['var(--chart-muted)', 'var(--chart-axis)', 'var(--chart-hatch)', 'var(--text-secondary)', 'var(--text-primary)'];
+  // R7: a greyscale ramp (lighter = newer) with one blue highlight, the debt over 90 days.
+  const tones = ['var(--chart-axis)', 'var(--chart-muted)', 'var(--text-tertiary)', 'var(--text-secondary)', 'var(--chart-bar-highlight)'];
   return (
     <div className="frag tw-card b-mini" aria-hidden="true">
       <div className="tw-row" style={{ paddingTop: 0, borderBottom: 0 }}>
@@ -1037,7 +1038,7 @@ export function TeamSettings() {
         ))}
       </div>
       <div className="b-basis" style={{ marginTop: 0 }}>
-        <KeyRound strokeWidth={S} aria-hidden="true" /> Sign-in is a login code by email. Sessions can be logged out from Settings.
+        <KeyRound strokeWidth={S} aria-hidden="true" /> Sign-in is email and password, with an optional emailed code. Sessions can be logged out from Settings.
       </div>
     </div>
   );

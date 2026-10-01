@@ -15,7 +15,7 @@ const post: Post = {
   published: '2026-10-01',
   reviewed: '2026-10-01',
   readingMinutes: 5,
-  related: { href: '/product/invoicing', label: 'How TruckWys raises the invoice on delivery' },
+  related: { href: '/capital', label: 'Fast Pay: get paid before your customer pays' },
   sources: [SRC.vat404, SRC.prescribedAct, SRC.repoMay, SRC.repoSep],
   faq: [
     {
@@ -209,7 +209,7 @@ const post: Post = {
       <p>
         TruckWys raises the invoice on delivery with 15% VAT, ready to send with the POD, through{' '}
         <a href="/product/invoicing">invoicing</a>, and shows your debtors by age with a reminder per invoice that you preview and send
-        yourself, through <a href="/product/debtors">debtors</a>. Fast Pay is coming soon: an opt-in way to get paid on an invoice before
+        yourself, through <a href="/product/debtors">debtors</a>. <a href="/capital">Fast Pay</a> is coming soon: an opt-in way to get paid on an invoice before
         the customer pays, through an independent finance provider. TruckWys is not a lender, and rates will be published at launch.
       </p>
       <p>

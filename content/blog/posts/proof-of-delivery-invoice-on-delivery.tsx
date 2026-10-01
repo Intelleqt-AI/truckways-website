@@ -12,7 +12,7 @@ const S = {
 
 const post: Post = {
   slug: 'proof-of-delivery-invoice-on-delivery',
-  h1: { a: 'Proof of delivery, invoice the same day.', b: 'Every day the paperwork waits, you wait.' },
+  h1: { a: 'Proof of delivery, invoice the same day.', b: 'Because waiting costs you.' },
   title: 'Proof of delivery and invoicing on delivery: a guide for South African transporters',
   seoTitle: 'Proof of delivery: invoice the day you deliver',
   description:

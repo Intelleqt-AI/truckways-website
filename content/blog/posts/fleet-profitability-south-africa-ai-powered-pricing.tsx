@@ -78,7 +78,7 @@ const post: Post = {
         A busy month can still lose money if the work is on the wrong lanes. Compare what each lane pays per kilometre driven, including the
         empty kilometres it causes, with what it costs.
       </p>
-      <table>
+      <table className="wide">
         <caption>Example: margin by lane (example inputs, not benchmarks)</caption>
         <thead>
           <tr>

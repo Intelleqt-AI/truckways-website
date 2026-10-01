@@ -38,7 +38,7 @@ const S = {
 
 const post: Post = {
   slug: 'true-cost-running-truck-fleet-south-africa-2026',
-  h1: { a: 'What it costs to run a truck in 2026.', b: 'The full annual budget, line by line.' },
+  h1: { a: 'What it costs to run a truck in 2026.', b: 'The full annual budget.' },
   title: 'The true cost of running a truck and a small fleet in South Africa in 2026',
   seoTitle: 'Cost of running a truck in South Africa (2026)',
   description:

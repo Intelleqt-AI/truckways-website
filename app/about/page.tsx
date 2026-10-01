@@ -1,10 +1,8 @@
 import { Check, X } from 'lucide-react';
 import '../../components/pages/pages-b.css';
-import { TextLink, SectionHeader, TwoTone } from '../../components/ui';
+import { TextLink, SectionHeader } from '../../components/ui';
 import { Closing } from '../../components/Blocks';
-import FitDiagram from '../../components/FitDiagram';
-import PhoneShot from '../../components/PhoneShot';
-import { FeatureHero, Split, DL } from '../../components/pages/blocks';
+import { PhotoHero, Split, DL } from '../../components/pages/blocks';
 import { pageMeta } from '../../components/pages/meta';
 import { FACTS } from '../../lib/facts';
 import { SITE_URL, jsonLd } from '../../lib/site';
@@ -59,24 +57,18 @@ export default function AboutPage() {
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(graph(aboutPage, breadcrumbSchema(CRUMBS)))} />
 
-      <FeatureHero
-        crumbs={CRUMBS}
-        page="about"
-        primary="none"
+      <PhotoHero
+        photo="durban-port"
         eyebrow="About TruckWys"
         a="The money side"
         b="of running trucks."
         lead="TruckWys is South African software for the part of trucking that decides whether a year was good: price, invoice, collect. Founded in Cape Town in 2025."
-        aside={
-          <figure className="b-phonefig">
-            <PhoneShot scale={0.72} />
-          </figure>
-        }
+        place="Port of Durban, KwaZulu-Natal"
       />
 
       <section className="sec" aria-labelledby="believe-h">
         <div className="wrap">
-          <Split id="believe-h" a="What we believe." b="Four lines we build to." line="Every screen in TruckWys has to pass these.">
+          <Split id="believe-h" a="What we believe." b="We build to these." line="Every screen in TruckWys has to pass these four lines.">
             <ol className="b-beliefs list-reset">
               {BELIEFS.map((b) => (
                 <li key={b} className="reveal">
@@ -96,7 +88,6 @@ export default function AboutPage() {
             b="And what it isn't."
             line="It works next to the TMS, tracking and books you already run. It does not replace them."
           />
-          <FitDiagram />
           <div className="b-isnt">
             <div className="reveal">
               <h3>TruckWys is</h3>
@@ -131,33 +122,31 @@ export default function AboutPage() {
       */}
 
       <section className="sec" aria-labelledby="security-h">
-        <div className="wrap b-duo">
-          <div className="b-duo__a reveal">
-            <h2 className="h3" id="security-h">
-              Security and POPIA
-            </h2>
-            <p>How you sign in, who sees what, and what happens to your data.</p>
-          </div>
-          <div className="b-duo__b reveal">
-            <DL
-              rows={[
-                ['Sign-in', 'A six-digit login code by email, valid for 10 minutes.'],
-                ['Sessions', 'See where you are signed in, and log out any session.'],
-                ['Roles', `${ROLE_COUNT}: ${FACTS.roles.join(', ')}. Each person has one.`],
-                ['Integrations', 'Passwords and keys for connected systems are encrypted at rest. All traffic is over TLS.'],
-                [
-                  'Your data',
-                  <>
-                    Delete your account in Settings, or{' '}
-                    <a className="ulink" href="/delete-account">
-                      on our website
-                    </a>
-                    .
-                  </>,
-                ],
-                // TODO(owner) Q11: data-pooling wording. Omitted until confirmed.
-              ]}
-            />
+        <div className="wrap">
+          <SectionHeader id="security-h" a="Security and POPIA." b="Who sees what." line="How you sign in, and what happens to your data." />
+          <div className="b-duo">
+            <div className="b-duo__b b-duo__b--wide reveal">
+              <DL
+                rows={[
+                  ['Sign-in', 'Email and password. Turn on two-factor in Settings and each sign-in also asks for a six-digit code sent by email.'],
+                  ['Sign-up', 'Your email is confirmed with a six-digit code, valid for 10 minutes.'],
+                  ['Sessions', 'See where you are signed in, and log out any session.'],
+                  ['Roles', `${ROLE_COUNT}: ${FACTS.roles.join(', ')}. Each person has one.`],
+                  ['Integrations', 'Passwords and keys for connected systems are encrypted at rest. All traffic is over TLS.'],
+                  [
+                    'Your data',
+                    <>
+                      Delete your account in Settings, or{' '}
+                      <a className="ulink" href="/delete-account">
+                        on our website
+                      </a>
+                      .
+                    </>,
+                  ],
+                  // TODO(owner) Q11: data-pooling wording. Omitted until confirmed.
+                ]}
+              />
+            </div>
           </div>
         </div>
       </section>

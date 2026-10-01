@@ -9,15 +9,16 @@ import { ButtonLink, TextLink, TwoTone } from '../ui';
 import { Breadcrumbs } from '../Blocks';
 import { demoUrl, signupUrl } from '../../lib/site';
 import Backdrop, { type BackdropPhoto } from '../Backdrop';
+import { getPost } from '../../content/blog';
 
 type Crumb = { name: string; path: string };
 
 /** Flott calm hero: breadcrumbs, eyebrow, two-tone H1, lead, two buttons, price line, then one large product frame. */
 export function FeatureHero({
-  crumbs, eyebrow, a, b, lead, page, frame, aside, primary = 'signup', actions,
+  crumbs, eyebrow, a, b, lead, page, frame, aside, primary = 'signup', actions, note,
 }: {
   crumbs: Crumb[];
-  eyebrow: string;
+  eyebrow: ReactNode;
   a: ReactNode;
   b?: ReactNode;
   lead: ReactNode;
@@ -28,6 +29,8 @@ export function FeatureHero({
   primary?: 'signup' | 'none';
   /** With primary="none": the page's own action row (e.g. "Get notified" on a coming-soon page). */
   actions?: ReactNode;
+  /** Optional small line under the actions (e.g. what "Capital" means). */
+  note?: ReactNode;
 }) {
   return (
     <section className="b-hero" aria-labelledby="page-h1">
@@ -35,7 +38,7 @@ export function FeatureHero({
         <Breadcrumbs trail={crumbs} />
         <div className={aside ? 'b-hero__split' : undefined}>
         <div>
-        <p className="label b-hero__eyebrow">{eyebrow}</p>
+        <div className="label b-hero__eyebrow">{eyebrow}</div>
         <TwoTone as="h1" className="h1" id="page-h1" a={a} b={b} />
         <p className="lead b-hero__lead">{lead}</p>
         {primary === 'signup' ? (
@@ -53,6 +56,7 @@ export function FeatureHero({
         ) : actions ? (
           <div className="b-hero__actions">{actions}</div>
         ) : null}
+        {note ? <p className="small b-hero__note">{note}</p> : null}
         </div>
         {aside ? <div className="b-hero__aside">{aside}</div> : null}
         </div>
@@ -182,5 +186,111 @@ export function NextStep({ href, title, line }: { href: string; title: string; l
         <ArrowRight strokeWidth={1.75} />
       </span>
     </a>
+  );
+}
+
+/**
+ * Fast Pay, compact (owner R7): /product and /pricing link to /capital instead of repeating the full band
+ * (Home keeps the full FastPayBand; /capital is the full story). The whole card is one link. Honest copy
+ * only: coming soon, opt-in, an independent finance provider, no rates.
+ */
+export function FastPayCard({ note, id = 'fastpay-h' }: { note?: ReactNode; id?: string }) {
+  return (
+    <section className="sec" style={{ paddingTop: 0 }} aria-labelledby={id}>
+      <div className="wrap">
+        <a className="b-fpcard reveal" href="/capital">
+          <span className="b-fpcard__text">
+            <span className="b-fpcard__eyebrow">
+              <span className="chip">
+                <span className="chip__dot" aria-hidden="true" />
+                Coming soon
+              </span>
+              <span>Fast Pay</span>
+            </span>
+            <span className="b-fpcard__title" id={id} role="heading" aria-level={2}>
+              Get paid on a delivered load&apos;s invoice, before your customer pays.
+            </span>
+            <span className="b-fpcard__line">
+              Opt in, invoice by invoice. The money would come from an independent finance provider; TruckWys is not a lender. Not live
+              yet.{note ? <> {note}</> : null}
+            </span>
+          </span>
+          <span className="b-fpcard__more">
+            How Fast Pay will work
+            <ArrowRight strokeWidth={1.75} aria-hidden="true" />
+          </span>
+        </a>
+      </div>
+    </section>
+  );
+}
+
+/**
+ * R7: the end of a feature page, as two small matched cards: the next step in load order, and one blog post
+ * that explains the same job in depth. Each card is one link. Replaces NextStep + FromTheBlog.
+ */
+export function NextCards({ next, read }: { next: { href: string; title: string; line: string }; read?: string }) {
+  const post = read ? getPost(read) : undefined;
+  return (
+    <section className="sec" style={{ paddingTop: 0 }} aria-label="Keep reading">
+      <div className="wrap">
+        <ul className="b-nextcards list-reset">
+          <li>
+            <a className="b-nextcard" href={next.href}>
+              <span className="b-nextcard__k">Next step</span>
+              <span className="b-nextcard__t">{next.title}</span>
+              <span className="b-nextcard__l">{next.line}</span>
+              <ArrowRight className="b-nextcard__a" strokeWidth={1.75} aria-hidden="true" />
+            </a>
+          </li>
+          {post ? (
+            <li>
+              <a className="b-nextcard" href={`/blog/${post.slug}`}>
+                <span className="b-nextcard__k">From the blog · {post.readingMinutes} min read</span>
+                <span className="b-nextcard__t">{post.title}</span>
+                <span className="b-nextcard__l">{post.summary}</span>
+                <ArrowRight className="b-nextcard__a" strokeWidth={1.75} aria-hidden="true" />
+              </a>
+            </li>
+          ) : null}
+        </ul>
+      </div>
+    </section>
+  );
+}
+
+/**
+ * R7 photo-led hero (/insurance, /about): the page's H1 on a blurred South African road photo
+ * (components/Backdrop.tsx), in an inset rounded frame like the closing band. Dark in both themes;
+ * a scrim keeps every line of text at 4.5:1 or better.
+ */
+export function PhotoHero({
+  photo, eyebrow, a, b, lead, actions, note, place,
+}: {
+  photo: BackdropPhoto;
+  eyebrow: ReactNode;
+  a: ReactNode;
+  b?: ReactNode;
+  lead: ReactNode;
+  actions?: ReactNode;
+  note?: ReactNode;
+  /** Where the photo was taken, shown small top right. */
+  place?: string;
+}) {
+  return (
+    <section className="b-phero" aria-labelledby="page-h1">
+      <div className="b-phero__frame" data-theme="dark">
+        <Backdrop photo={photo} sizes="100vw" priority />
+        <div className="b-phero__scrim" aria-hidden="true" />
+        <div className="b-phero__text">
+          <div className="label b-hero__eyebrow">{eyebrow}</div>
+          <TwoTone as="h1" className="h1" id="page-h1" a={a} b={b} />
+          <p className="lead b-hero__lead">{lead}</p>
+          {actions ? <div className="b-hero__actions">{actions}</div> : null}
+          {note ? <p className="small b-hero__note">{note}</p> : null}
+        </div>
+        {place ? <p className="b-phero__place">{place}</p> : null}
+      </div>
+    </section>
   );
 }

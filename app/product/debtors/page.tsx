@@ -1,12 +1,10 @@
 import '../../../components/pages/pages-b.css';
 import { SectionHeader } from '../../../components/ui';
 import { Closing } from '../../../components/Blocks';
-import FromTheBlog from '../../../components/FromTheBlog';
 import Faq, { type QA } from '../../../components/Faq';
 import { NeedsYouCard } from '../../../components/fragments/Money';
-import { FeatureHero, Stage, Answers, FeatureRow, Split, DL, NextStep } from '../../../components/pages/blocks';
+import { FeatureHero, Stage, Answers, FeatureRow, Split, DL, NextCards } from '../../../components/pages/blocks';
 import { DebtorsAge, Statement } from '../../../components/pages/frags';
-import { SigAgeing } from '../../../components/pages/signature';
 import { KPIS, OVERDUE, OVERDUE_COUNT } from '../../../content/demo-data';
 import { rand } from '../../../lib/format';
 import { pageMeta } from '../../../components/pages/meta';
@@ -18,7 +16,7 @@ export const metadata = pageMeta({
   path: PATH,
   title: 'Debtors management for transport companies',
   description:
-    'See who owes you by age, send reminders that get firmer as the days pass, and check how each customer really pays. Built for South African transporters.',
+    'See who owes you by age, send reminders you send yourself, in three tones: gentle, firm and final, and check how each customer really pays.',
   og: 'debtors',
   ogAlt: 'TruckWys debtors: see who owes you, and chase them from the invoice.',
 });
@@ -57,10 +55,10 @@ export default function DebtorsPage() {
         page="debtors"
         eyebrow="Debtors"
         a="See who owes you."
-        b="Chase them from the invoice."
-        lead="Debtors by age, a statement per customer, and reminders that get firmer as the days pass."
+        b="Chase what is late."
+        lead="Debtors by age, a statement per customer, and reminders you send yourself, in three tones: gentle, firm and final."
         frame={
-          <Stage label="Debtors age analysis by customer for a demo company: the overdue share, the share over 60 days, the average days late and the largest debtor, then each customer's balance split into current, 1 to 30, 31 to 60, 61 to 90 and over 90 days.">
+          <Stage photo="n1-midrand" label="Debtors age analysis by customer for a demo company: the overdue share, the share over 60 days, the average days late and the largest debtor, then each customer's balance split into current, 1 to 30, 31 to 60, 61 to 90 and over 90 days.">
             <DebtorsAge />
           </Stage>
         }
@@ -79,20 +77,18 @@ export default function DebtorsPage() {
         </div>
       </section>
 
-      <SigAgeing />
-
       <section className="sec sec--grey" aria-labelledby="detail-h">
         <div className="wrap">
           <SectionHeader
             id="detail-h"
-            a="Chase without the awkward call."
-            b="And without forgetting anyone."
+            a="No awkward calls."
+            b="No one forgotten."
             line="The reminder, the statement and the history sit next to the invoice they are about."
           />
           <div className="b-rows">
             <FeatureRow
-              title="Reminders that get firmer"
-              body="Send a reminder from any overdue invoice. You see a preview first. The tone moves from gentle to firm to final as the days pass and reminders repeat. Nothing is sent on its own."
+              title="Reminders in three tones"
+              body="Send a reminder from any overdue invoice. Its tone, gentle, firm or final, follows how late the invoice is and how many reminders went before. You see a preview first, and nothing is sent on its own."
               points={['Gentle before the due date', 'Firm once it is overdue, or after one reminder', 'Final after 30 days overdue, or after three reminders']}
             >
               <Stage label="Needs you: overdue invoices, largest first, each with the customer, amount, days late and a Chase button, above the debtors age strip.">
@@ -115,7 +111,7 @@ export default function DebtorsPage() {
 
       <section className="sec" aria-labelledby="spec-h">
         <div className="wrap">
-          <Split id="spec-h" a="The specifics." b="Exactly what debtors does." line="Everything on this list is in the product today.">
+          <Split id="spec-h" a="The specifics." line="Everything on this list is in the product today.">
             <DL
               rows={[
                 ['Debtors age', 'Current, 1 to 30, 31 to 60, 61 to 90 and over 90 days. Incl. VAT, aged by due date, as at any date.'],
@@ -132,16 +128,14 @@ export default function DebtorsPage() {
 
       <section className="sec" style={{ paddingTop: 0 }} aria-label="Questions about debtors">
         <div className="wrap">
-          <Faq a="Questions" b="about debtors." items={FAQ} />
+          <Faq a="Debtors" b="questions." items={FAQ} />
         </div>
       </section>
 
-      <section className="sec" style={{ paddingTop: 0 }} aria-label="Next step">
-        <div className="wrap">
-          <NextStep href="/product/reports" title="Reports" line="Profit, margin by lane and VAT from the same invoices and payments." />
-          <FromTheBlog slugs={['cash-flow-transport-business-south-africa', 'hidden-profit-leaks-south-african-fleet-operators']} />
-        </div>
-      </section>
+      <NextCards
+        next={{ href: '/product/reports', title: 'Reports', line: 'Profit, margin by lane and VAT from the same invoices and payments.' }}
+        read="cash-flow-transport-business-south-africa"
+      />
 
       <Closing page="debtors" />
     </>

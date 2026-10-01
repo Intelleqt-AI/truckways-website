@@ -27,7 +27,7 @@ const post: Post = {
   published: '2026-01-20',
   reviewed: '2026-10-01',
   readingMinutes: 7,
-  related: { href: '/product/debtors', label: 'How TruckWys shows who owes you' },
+  related: { href: '/capital', label: 'Fast Pay: get paid before your customer pays' },
   sources: [S.deRebusCession, S.mjkCession, SRC.vat404],
   faq: [
     {
@@ -277,7 +277,7 @@ const post: Post = {
       <p>
         Every option above works better with a clean debtors book: invoices raised on delivery, PODs attached, and a clear view of who
         owes what by age. That is what TruckWys{' '}
-        <a href="/product/invoicing">invoicing</a> and <a href="/product/debtors">debtors</a> do today. Fast Pay, coming soon, will let you
+        <a href="/product/invoicing">invoicing</a> and <a href="/product/debtors">debtors</a> do today. <a href="/capital">Fast Pay</a>, coming soon, will let you
         choose to get paid on an invoice before the customer pays, through an independent finance provider. It is opt-in, TruckWys is not
         a lender, and rates will be published when it launches. If you are still finding where the money goes before it reaches the bank,
         start with the <a href="/blog/hidden-profit-leaks-south-african-fleet-operators">six common profit leaks</a>.

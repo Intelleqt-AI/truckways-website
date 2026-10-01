@@ -1,8 +1,8 @@
 import type { Metadata } from 'next';
-import { Breadcrumbs, PageHero } from '../../components/Blocks';
+import { Breadcrumbs, PageHero, Closing } from '../../components/Blocks';
 import { TextLink } from '../../components/ui';
 import ContactForm from '../../components/ContactForm';
-import { SITE_URL, CONTACT_EMAIL, demoUrl, loginUrl, jsonLd } from '../../lib/site';
+import { OG_BASE, SITE_URL, CONTACT_EMAIL, demoUrl, loginUrl, jsonLd } from '../../lib/site';
 import { graph, breadcrumbSchema } from '../../lib/schema';
 
 const URL = `${SITE_URL}/contact`;
@@ -15,6 +15,7 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   alternates: { canonical: URL },
   openGraph: {
+    ...OG_BASE,
     url: URL,
     title: `${TITLE} | TruckWys`,
     description: DESCRIPTION,
@@ -95,6 +96,8 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+
+      <Closing page="contact" />
     </>
   );
 }

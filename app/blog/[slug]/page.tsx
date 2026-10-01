@@ -1,16 +1,20 @@
 import type { Metadata } from 'next';
 import { Children, cloneElement, isValidElement, type ReactElement, type ReactNode } from 'react';
 import { notFound } from 'next/navigation';
-import { ButtonLink, TextLink } from '../../../components/ui';
-import { Breadcrumbs } from '../../../components/Blocks';
+import { existsSync } from 'node:fs';
+import { join } from 'node:path';
+import { TextLink } from '../../../components/ui';
+import { Breadcrumbs, Closing } from '../../../components/Blocks';
 import { POSTS, getPost, relatedPosts } from '../../../content/blog';
-import { SITE_URL, demoUrl, signupUrl, jsonLd } from '../../../lib/site';
-import { PRICE_AND_FEE } from '../../../lib/facts';
+import { OG_BASE, SITE_URL, jsonLd } from '../../../lib/site';
 import { graph, breadcrumbSchema, faqSchema, ids } from '../../../lib/schema';
 import { date } from '../../../lib/format';
 import s from '../article.module.css';
 
 export const dynamicParams = false;
+
+/** The post's own OG card (public/og/blog/<slug>.png) when it exists, else the blog's card. A new post works before its card is made. */
+const ogImage = (slug: string) => (existsSync(join(process.cwd(), 'public', 'og', 'blog', `${slug}.png`)) ? `/og/blog/${slug}.png` : '/og/blog.png');
 
 const slugify = (t: string) => t.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '');
 const textOf = (n: ReactNode): string =>
@@ -77,6 +81,7 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
     description: g.description,
     alternates: { canonical: url },
     openGraph: {
+      ...OG_BASE,
       type: 'article',
       url,
       title: `${g.seoTitle} | TruckWys`,
@@ -85,9 +90,10 @@ export function generateMetadata({ params }: { params: { slug: string } }): Meta
       modifiedTime: g.reviewed,
       section: g.category,
       authors: ['TruckWys'],
-      images: [{ url: '/og/blog.png', width: 1200, height: 630, alt: g.title }],
+      // Per-post card (public/og/blog/<slug>.png, made like the other OG cards: title + "TruckWys Blog").
+      images: [{ url: ogImage(g.slug), width: 1200, height: 630, alt: g.title }],
     },
-    twitter: { card: 'summary_large_image', title: `${g.seoTitle} | TruckWys`, description: g.description, images: ['/og/blog.png'] },
+    twitter: { card: 'summary_large_image', title: `${g.seoTitle} | TruckWys`, description: g.description, images: [ogImage(g.slug)] },
   };
 }
 
@@ -113,7 +119,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
     // Q7: no named author yet, so the organisation is the author.
     author: { '@id': ids.org },
     publisher: { '@id': ids.org },
-    image: `${SITE_URL}/og/blog.png`,
+    image: `${SITE_URL}${ogImage(g.slug)}`,
     articleSection: g.category,
     keywords: g.keyword,
     wordCount: g.wordCount,
@@ -184,18 +190,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
 
             <aside className={s.endcard} aria-labelledby="end-h">
               <h2 id="end-h">Do this for every load, without the spreadsheet</h2>
-              <p>TruckWys prices loads from diesel and tolls, raises the invoice on delivery and shows who owes you. Look around the demo company first.</p>
-              <div className="cta-pair">
-                <ButtonLink href={signupUrl(`blog-${g.slug}`)} cta="get_started" loc="blog_end">
-                  Get started
-                </ButtonLink>
-                <TextLink href={demoUrl(`blog-${g.slug}`)} cta="open_demo" loc="blog_end">
-                  Open the demo
-                </TextLink>
-              </div>
-              <p className="small" style={{ marginTop: 12 }}>
-                {PRICE_AND_FEE}
-              </p>
+              <p>TruckWys prices loads from diesel and tolls, raises the invoice on delivery and shows who owes you.</p>
               <TextLink href={g.related.href}>{g.related.label}</TextLink>
             </aside>
           </div>
@@ -218,7 +213,9 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
               </li>
             </ol>
           </nav>
-
+        </div>
+        {/* R7: outside the grid, so the sticky "On this page" index stops at the article's end. */}
+        <div className="wrap">
           <nav className={s.more} aria-label="More from the blog">
             <h2>More from the blog</h2>
             <ul className={`${s.list} list-reset`}>
@@ -237,7 +234,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
           </nav>
         </div>
       </article>
-      <div style={{ height: 'var(--web-section-y)' }} />
+      <Closing page={`blog-${g.slug}`} />
     </>
   );
 }

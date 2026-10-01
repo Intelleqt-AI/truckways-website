@@ -2,7 +2,7 @@ import '../../components/pages/pages-b.css';
 import { ButtonLink, SectionHeader, StatusChip, TextLink } from '../../components/ui';
 import { Closing } from '../../components/Blocks';
 import Faq, { type QA } from '../../components/Faq';
-import { FeatureHero, Stage, FeatureRow, Split, DL } from '../../components/pages/blocks';
+import { FeatureHero, Stage, Split, DL } from '../../components/pages/blocks';
 import { InvoiceDetail } from '../../components/pages/frags';
 import { pageMeta } from '../../components/pages/meta';
 import { PRICE } from '../../lib/facts';
@@ -20,9 +20,9 @@ export const metadata = pageMeta({
   path: PATH,
   title: 'Capital and Fast Pay: coming soon',
   description:
-    "Fast Pay is coming soon: get paid on a delivered load's invoice before your customer pays. Not live yet. Opt-in, and rates are published when it goes live.",
-  og: 'product',
-  ogAlt: 'TruckWys Fast Pay: coming soon.',
+    "Fast Pay is coming soon: get paid on a delivered load's invoice without waiting out your customer's 30 to 60 days. Opt in, invoice by invoice. Not live yet.",
+  og: 'capital',
+  ogAlt: 'TruckWys Fast Pay: coming soon. Get paid sooner, before your customer pays.',
 });
 
 const CRUMBS = [
@@ -36,13 +36,21 @@ const STEPS = [
   { t: 'The paperwork is already there', d: 'The proof of delivery is on the load, and the invoice was raised on delivery.', live: true },
   { t: 'You opt in', d: 'Pick a delivered invoice and see the fee and the exact amount you would receive, before you ask.', live: false },
   { t: 'You get paid early', d: 'An independent finance provider pays you, on its own terms and credit checks.', live: false },
-  { t: 'Your customer pays as normal', d: 'On the invoice’s usual terms. That payment settles the early payment.', live: false },
+  { t: 'Your customer pays as normal', d: 'Your customer pays the invoice as normal. How that payment reaches the provider is set out at launch.', live: false },
 ];
 
 const WHO = [
   { t: 'You pay out before you get paid', d: 'Diesel, tolls and wages go out this week. The invoice is paid on your customer’s terms.' },
   { t: 'You are taking on more loads', d: 'Every new load costs cash before it pays. Waiting on invoices slows growth down.' },
   { t: 'You already invoice in TruckWys', d: 'Your delivered loads, proof of delivery and invoices are already in one place.' },
+];
+
+/** What is already on the load today (live), which Fast Pay is being built to start from. */
+const ON_THE_LOAD = [
+  { t: 'The delivered load', d: 'With its route and charges, marked delivered in TruckWys or by your TMS.' },
+  { t: 'The proof of delivery', d: 'The signature, who received it and the document, kept on the load.' },
+  { t: 'The invoice', d: 'Raised on delivery with 15% VAT and your terms, ready to send.' },
+  { t: 'How each customer pays', d: 'Debtors shows how each customer has paid you, invoice by invoice.' },
 ];
 
 const FAQ: QA[] = [
@@ -64,12 +72,12 @@ const FAQ: QA[] = [
   {
     id: 'fp-which',
     q: 'Which invoices will qualify?',
-    a: 'The checks being built look for proof of delivery on file, an invoice no more than 90 days old, and no open dispute. The final rules are published at launch.',
+    a: "The provider sets which invoices qualify. We'll publish the rules and rates at launch.",
   },
   {
     id: 'fp-customer',
     q: 'Does my customer pay differently?',
-    a: 'No. Your customer pays the invoice on its usual terms, and that payment settles the early payment.',
+    a: 'No. Your customer pays the invoice as normal. How that payment reaches the provider is set out at launch.',
   },
   {
     id: 'fp-optin',
@@ -87,18 +95,23 @@ export default function CapitalPage() {
         crumbs={CRUMBS}
         page="capital"
         primary="none"
-        eyebrow="Capital and Fast Pay"
-        a="Get paid on a delivered load."
+        eyebrow={<StatusChip>Fast Pay · coming soon</StatusChip>}
+        a="Get paid sooner."
         b="Before your customer pays."
-        lead="Fast Pay is coming soon. It is being built so you can be paid on a delivered load's invoice without waiting out your customer's terms. It is not live yet."
+        lead="Get paid on a delivered load's invoice without waiting out your customer's 30 to 60 days. Opt in, invoice by invoice. Not live yet."
         actions={
           <>
             <ButtonLink href="/contact?topic=fast-pay" cta="notify" loc="hero">
               Get notified
             </ButtonLink>
-            <StatusChip />
             <TextLink href="#how-h">How it will work</TextLink>
           </>
+        }
+        note="TruckWys Capital is the name for the finance features we're building, starting with Fast Pay."
+        frame={
+          <Stage photo="durban-port" label="An invoice raised on delivery of a load: bill to, issue and due dates, 30-day terms, the charges, VAT at 15% and the total due.">
+            <InvoiceDetail />
+          </Stage>
         }
       />
 
@@ -108,7 +121,7 @@ export default function CapitalPage() {
             id="how-h"
             a="How it will work."
             b="From delivered to paid."
-            line="The first two steps are in TruckWys today. Fast Pay adds the last three when it goes live."
+            line="The first two steps are in TruckWys today. The rest are coming soon."
           />
           <ol className="b-steps5 list-reset">
             {STEPS.map((st, i) => (
@@ -130,25 +143,26 @@ export default function CapitalPage() {
           <SectionHeader
             id="why-h"
             a="Why TruckWys."
-            b="The paperwork is already there."
-            line="Invoice finance usually starts with collecting the paperwork again. In TruckWys, it is already on the load."
+            b="The paperwork is there."
+            line="Invoice finance usually starts with collecting the paperwork again. In TruckWys, it is already on the load, and all of it is live today."
           />
-          <FeatureRow
-            title="The load, the proof, the invoice and the history"
-            body="When a load is marked delivered, TruckWys raises the invoice with 15% VAT, and the proof of delivery stays with the load. Debtors shows how each customer has paid you. All of that is live today, and Fast Pay is being built to start from it."
-            points={['The delivered load, with its route and charges', 'The proof of delivery, on the load', 'The invoice, raised on delivery', 'How each customer has paid you']}
-            link={{ href: '/product/invoicing', label: 'How invoicing works' }}
-          >
-            <Stage photo="durban-port" label="An invoice raised on delivery of a load: bill to, issue and due dates, 30-day terms, the charges, VAT at 15% and the total due.">
-              <InvoiceDetail />
-            </Stage>
-          </FeatureRow>
+          <ul className="b-rules b-rules--four list-reset">
+            {ON_THE_LOAD.map((w) => (
+              <li key={w.t} className="reveal">
+                <h3>{w.t}</h3>
+                <p>{w.d}</p>
+              </li>
+            ))}
+          </ul>
+          <div className="b-hubfoot">
+            <TextLink href="/product/invoicing">How invoicing works</TextLink>
+          </div>
         </div>
       </section>
 
       <section className="sec sec--grey" aria-labelledby="who-h">
         <div className="wrap">
-          <SectionHeader id="who-h" a="Who it is for." b="Transporters who wait to be paid." line="If you deliver now and get paid in 30 days or more, the gap is yours to carry." />
+          <SectionHeader id="who-h" a="Who it is for." b="If you wait to be paid." line="If you deliver now and get paid in 30 days or more, the gap is yours to carry." />
           <ul className="b-rules list-reset">
             {WHO.map((w) => (
               <li key={w.t} className="reveal">
@@ -162,12 +176,13 @@ export default function CapitalPage() {
 
       <section className="sec" aria-labelledby="today-h">
         <div className="wrap">
-          <Split id="today-h" a="What we can say today." b="And what waits for launch." line="We publish what Fast Pay costs and how it works when it is live. Not before.">
+          <Split id="today-h" a="Set today." b="Set at launch." line="We publish what Fast Pay costs and how it works when it is live. Not before.">
             <DL
               rows={[
                 ['Status', 'Coming soon. Not live.'],
                 ['Your plan', `Not included in the ${PRICE} plan. Nothing is charged for it today.`],
                 ['Rates', 'Published when it goes live.'],
+                ['Which invoices', "The provider sets which invoices qualify. We'll publish the rules at launch."],
                 ['Choice', 'Opt-in. You decide whether to use it.'],
                 ['Who pays you', 'Not TruckWys. TruckWys is not a credit provider. Financing would come from an independent invoice-finance provider.'],
                 ['Approval', "On that provider's own terms, fees and credit checks."],
@@ -180,11 +195,11 @@ export default function CapitalPage() {
 
       <section className="sec" style={{ paddingTop: 0 }} aria-label="Questions about Fast Pay">
         <div className="wrap">
-          <Faq a="Questions" b="about Fast Pay." items={FAQ} />
+          <Faq a="Fast Pay" b="questions." items={FAQ} />
         </div>
       </section>
 
-      <Closing page="capital" />
+      <Closing page="capital" variant="notify" notifyHref="/contact?topic=fast-pay" a="Be first to know." b="When Fast Pay opens." />
     </>
   );
 }

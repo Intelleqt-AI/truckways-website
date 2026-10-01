@@ -35,21 +35,31 @@ const blog = {
   inLanguage: 'en-ZA',
   isPartOf: { '@id': ids.website },
   publisher: { '@id': ids.org },
-  blogPost: POSTS_SORTED.map((p) => ({ '@id': `${SITE_URL}/blog/${p.slug}#article` })),
+  // Inline BlogPosting items (not bare @id references), so the index stands on its own for parsers.
+  blogPost: POSTS_SORTED.map((p) => ({
+    '@type': 'BlogPosting',
+    '@id': `${SITE_URL}/blog/${p.slug}#article`,
+    headline: p.title,
+    url: `${SITE_URL}/blog/${p.slug}`,
+    datePublished: p.published,
+    dateModified: p.reviewed,
+  })),
 };
 
 function Row({ p }: { p: Post }) {
   return (
     <li className={s.item}>
       <a className={s.itemLink} href={`/blog/${p.slug}`}>
-        <span className={s.itemDate}>Updated {date(p.reviewed)}</span>
+        <span className={s.itemDate}>
+          Published <time dateTime={p.published}>{date(p.published)}</time>
+        </span>
         <span>
           <span className={s.itemTitle}>{p.title}</span>
           <span className={s.itemSummary} style={{ display: 'block' }}>
             {p.summary}
           </span>
           <span className={s.itemMeta} style={{ display: 'block' }}>
-            {p.readingMinutes} min read · First published {date(p.published)}
+            {p.readingMinutes} min read
           </span>
         </span>
         <span className={s.itemArrow} aria-hidden="true">
@@ -62,14 +72,17 @@ function Row({ p }: { p: Post }) {
 
 export default function BlogPage() {
   const featured = getPost(FEATURED_SLUG) ?? POSTS_SORTED[0];
-  const groups = CATEGORIES.map((c) => ({ c, posts: POSTS_SORTED.filter((p) => p.category === c) })).filter((g) => g.posts.length);
+  // The featured post is listed once, at the top, not again in its category (R7).
+  const groups = CATEGORIES.map((c) => ({ c, posts: POSTS_SORTED.filter((p) => p.category === c && p.slug !== featured.slug) })).filter(
+    (g) => g.posts.length,
+  );
 
   return (
     <>
       <script type="application/ld+json" dangerouslySetInnerHTML={jsonLd(graph(blog, breadcrumbSchema(CRUMBS)))} />
       <section className={s.head}>
         <div className="wrap">
-          <TwoTone as="h1" className="h1" a="Blog." b="For the money side of trucking." />
+          <TwoTone as="h1" className="h1" a="Blog." b="The money side of trucking." />
           <p className={`lead ${s.lead}`}>
             Pricing loads, costs, invoicing and getting paid, for South African transporters. Every figure is sourced and dated.
           </p>
@@ -92,7 +105,9 @@ export default function BlogPage() {
             <span className={s.featuredTitle}>{featured.title}</span>
             <span className={s.featuredSummary}>{featured.summary}</span>
             <span className={s.featuredMeta}>
-              {featured.readingMinutes} min read · Reviewed {date(featured.reviewed)}
+              <span>
+                {featured.readingMinutes} min read · Published <time dateTime={featured.published}>{date(featured.published)}</time>
+              </span>
               <span className={s.featuredGo}>
                 Read the article <ArrowRight strokeWidth={1.75} aria-hidden="true" />
               </span>

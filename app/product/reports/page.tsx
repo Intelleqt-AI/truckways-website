@@ -1,10 +1,9 @@
 import '../../../components/pages/pages-b.css';
 import { SectionHeader } from '../../../components/ui';
 import { Closing } from '../../../components/Blocks';
-import FromTheBlog from '../../../components/FromTheBlog';
 import Faq, { type QA } from '../../../components/Faq';
-import { FeatureHero, Stage, Answers, FeatureRow, Split, DL, NextStep } from '../../../components/pages/blocks';
-import { ReportsIndex, ProfitLoss, LanesScatter, Expenses, VatReport } from '../../../components/pages/frags';
+import { FeatureHero, Stage, Answers, FeatureRow, Split, DL, NextCards } from '../../../components/pages/blocks';
+import { ReportsIndex, ProfitLoss, LanesScatter, VatReport } from '../../../components/pages/frags';
 import { SigPnl } from '../../../components/pages/signature';
 import { LANES, REVENUE_VS_COSTS } from '../../../content/demo-data';
 import { VAT_ROWS } from '../../../components/pages/sample';
@@ -20,7 +19,7 @@ const SEP_MARGIN = ((SEP.revenue - SEP.costs) / SEP.revenue) * 100; // 18,4%
 const PATH = '/product/reports';
 export const metadata = pageMeta({
   path: PATH,
-  title: 'Transport VAT reports, P&L and margin by lane',
+  title: 'Transport P&L, margin by lane and output VAT',
   description:
     'Nine reports reconciled to your invoices, payments and expenses: profit and loss, debtors age, revenue per km by lane and output VAT. CSV export and print.',
   og: 'reports',
@@ -60,11 +59,11 @@ export default function ReportsPage() {
         crumbs={CRUMBS}
         page="reports"
         eyebrow="Reports and insights"
-        a="Know what every lane"
-        b="really makes."
-        lead="Profit, margin and cash from your own invoices, payments and approved expenses, so every report agrees with the others."
+        a="P&L, margin by lane"
+        b="and output VAT."
+        lead="Profit, margin per kilometre on every lane and the VAT you charged, from your own invoices, payments and approved expenses, so every report agrees with the others."
         frame={
-          <Stage label="The reports library: nine reports, each with the question it answers, a 12-month figure and the latest entry.">
+          <Stage photo="n3-gillitts" label="The reports library: nine reports, each with the question it answers, a 12-month figure and the latest entry.">
             <ReportsIndex />
           </Stage>
         }
@@ -72,7 +71,7 @@ export default function ReportsPage() {
 
       <section className="sec" aria-labelledby="answers-h">
         <div className="wrap">
-          <SectionHeader id="answers-h" a="What it answers." b="Without waiting for year end." />
+          <SectionHeader id="answers-h" a="What it answers." b="Before year end." />
           <Answers
             items={[
               { q: 'Did we make money this month?', fig: `${num(SEP_MARGIN, 1)}%`, note: 'net margin, September 2026', a: 'Profit and loss by month, with gross and net margin, on a cash basis.' },
@@ -105,27 +104,6 @@ export default function ReportsPage() {
             </FeatureRow>
             <FeatureRow
               flip
-              title="Insights that answer a question"
-              body="Profit this period, net margin by month, invoice to cash, who pays late, revenue by truck and revenue per km by lane. Findings are ranked by the rand value at stake."
-              points={['Lanes with fewer than three trips are marked, not ranked', 'Show any chart as a table', 'Rules and sums, not a model']}
-            >
-              <Stage label="Insights, lanes tab: revenue per kilometre against kilometres per trip for each lane, with the fleet average line.">
-                <LanesScatter />
-              </Stage>
-            </FeatureRow>
-            <FeatureRow
-              textOnPhone
-              title="Expenses in the same place"
-              body="Add an expense, attach it to a truck, approve it, and it flows into profit and loss and the expense report. Pending and rejected expenses stay out of profit."
-              points={['Fuel, tolls, maintenance, driver cost, insurance, overhead and other', 'Pending, Approved and Rejected', 'Spend by category and by month']}
-            >
-              <Stage label="Expenses: spent in September, expenses to approve, spend by category, and expense lines with category, vehicle, status and amount.">
-                <Expenses />
-              </Stage>
-            </FeatureRow>
-            <FeatureRow
-              flip
-              textOnPhone
               title="A VAT report that checks itself"
               body="Output VAT by month, on the invoice or payments basis. It checks that excl. VAT plus output VAT equals the total incl. VAT. Input VAT is not captured on expenses yet, so it shows what you charged, not what you owe."
               points={['Invoice basis or payments basis', 'Invoice count per month', 'Export CSV for your VAT return']}
@@ -138,16 +116,37 @@ export default function ReportsPage() {
         </div>
       </section>
 
+      {/* R7: Insights has its own section, so Home can link to /product/reports#insights. */}
+      <section className="sec" id="insights" aria-labelledby="insights-h">
+        <div className="wrap">
+          <SectionHeader
+            id="insights-h"
+            a="Insights."
+            b="Ranked by the rand at stake."
+            line="Profit this period, net margin by month, invoice to cash, who pays late, revenue by truck and revenue per km by lane. Rules and sums, not a model."
+          />
+          <FeatureRow
+            title="Which lanes pay, and which don't"
+            body="Revenue per kilometre for each lane against kilometres per trip, with your fleet average as the line to beat. Findings are ranked by the rand value at stake."
+            points={['Lanes with fewer than three trips are marked, not ranked', 'Show any chart as a table', 'The same invoices and payments as the reports']}
+          >
+            <Stage label="Insights, lanes tab: revenue per kilometre against kilometres per trip for each lane, with the fleet average line.">
+              <LanesScatter />
+            </Stage>
+          </FeatureRow>
+        </div>
+      </section>
+
       <section className="sec" aria-labelledby="spec-h">
         <div className="wrap">
-          <Split id="spec-h" a="The specifics." b="Exactly what the reports do." line="Everything on this list is in the product today.">
+          <Split id="spec-h" a="The specifics." line="Everything on this list is in the product today.">
             <DL
               rows={[
                 ['Reports', FACTS.reportNames.join(', ')],
                 ['Periods', 'This month, last month, 3, 6 or 12 months, year to date or custom dates.'],
                 ['Basis', 'Every report names its basis and period. P&L on a cash basis; VAT on the invoice or payments basis.'],
                 ['Export', 'CSV and print on every report.'],
-                ['Insights', 'Profit this period, net margin by month, invoice to cash, who pays late, revenue by truck and revenue per km by lane.'],
+                ['Expenses', 'Add an expense, attach it to a truck and approve it: fuel, tolls, maintenance, driver cost, insurance, overhead or other. Only approved expenses count in profit and loss.'],
               ]}
             />
           </Split>
@@ -156,16 +155,14 @@ export default function ReportsPage() {
 
       <section className="sec" style={{ paddingTop: 0 }} aria-label="Questions about reports">
         <div className="wrap">
-          <Faq a="Questions" b="about reports." items={FAQ} />
+          <Faq a="Reports" b="questions." items={FAQ} />
         </div>
       </section>
 
-      <section className="sec" style={{ paddingTop: 0 }} aria-label="Next step">
-        <div className="wrap">
-          <NextStep href="/integrations" title="Integrations" line="Connect your tracking, import your lists and let your TMS send deliveries." />
-          <FromTheBlog slugs={['fleet-profitability-south-africa-ai-powered-pricing', 'true-cost-running-truck-fleet-south-africa-2026']} />
-        </div>
-      </section>
+      <NextCards
+        next={{ href: '/integrations', title: 'Integrations', line: 'Connect your tracking, import your lists and let your TMS send deliveries.' }}
+        read="fleet-profitability-south-africa-ai-powered-pricing"
+      />
 
       <Closing page="reports" />
     </>

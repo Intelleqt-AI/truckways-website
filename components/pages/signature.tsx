@@ -5,7 +5,7 @@
  *   Invoicing  delivery to invoice, one load
  *   Debtors    the ageing bar
  *   Reports    net profit by month, 12 months
- * Server components; no client JS. One blue figure per band (styles: pages-b.css "signature").
+ * Server components; no client JS. At most one blue highlight per band (styles: pages-b.css "signature").
  */
 import type { ReactNode } from 'react';
 import { TwoTone } from '../ui';
@@ -34,7 +34,7 @@ export function SigTolls() {
     <Band
       id="sig-h"
       a="Johannesburg to Durban."
-      b="Five plazas, priced one by one."
+      b="Five plazas, priced."
       line="A superlink pays class 4. Each plaza is named on the quote, and the tolls go in excl. VAT because you claim the VAT back."
       label={`The N3 from Johannesburg to Durban for a class 4 vehicle: ${N3_PLAZAS.map((p) => `${p.name} ${rand(p.tariffIncl, { cents: true })}`).join(', ')}. ${rand(N3_TOTAL_INCL, { cents: true })} incl. VAT, ${rand(N3_TOTAL_EX, { cents: true })} excl. VAT into the quote.`}
     >
@@ -104,18 +104,19 @@ export function SigDelivery() {
 /** Debtors: the ageing bar. */
 export function SigAgeing() {
   const total = KPIS.owed;
-  const tones = ['var(--chart-muted)', 'var(--heat-3)', 'var(--heat-4)', 'var(--heat-5)', 'var(--text-primary)'];
+  // R7: a greyscale ramp (lighter = later) with one blue highlight, the debt over 90 days.
+  const tones = ['var(--chart-axis)', 'var(--chart-muted)', 'var(--text-tertiary)', 'var(--text-secondary)', 'var(--chart-bar-highlight)'];
   return (
     <Band
       id="sig-h"
       a="Everything you are owed."
       b="By how late it is."
-      line="Aged by due date, by customer or by invoice. The share over 60 days is the number to watch."
+      line="Aged by due date, by customer or by invoice. The blue part, over 90 days, is the money to chase first."
       label={`Debtors by age, ${rand(total)} owed: ${AGEING.map((a) => `${a.label} ${rand(a.amount)}`).join(', ')}. ${rand(OVER_60)} is over 60 days.`}
     >
       <div className="sig-age" aria-hidden="true">
         <div className="sig-age__top">
-          <span className="sig__fig-blue">{rand(total)}</span>
+          <span className="sig__num">{rand(total)}</span>
           <span>owed to you · {rand(OVER_60)} over 60 days ({Math.round((OVER_60 / total) * 100)}%)</span>
         </div>
         <div className="sig-age__bar">
@@ -146,12 +147,12 @@ export function SigPnl() {
       id="sig-h"
       a="Twelve months of profit."
       b="One bar per month."
-      line="Net profit and margin by month, from your invoices, payments and approved expenses. Cash basis, excl. VAT."
+      line="Net profit and margin by month, from your invoices, payments and approved expenses. Cash basis, excl. VAT. The latest month in blue."
       label={`Net profit by month, October 2025 to September 2026: ${rows.map((r) => `${r.m} ${rand(r.net * 1000)} (${num(r.margin, 1)}%)`).join(', ')}. Net margin over 12 months ${num(KPIS.netMargin12m, 1)}%.`}
     >
       <div className="sig-pnl" aria-hidden="true">
         <div className="sig-pnl__top">
-          <span className="sig__fig-blue">{num(KPIS.netMargin12m, 1)}%</span>
+          <span className="sig__num">{num(KPIS.netMargin12m, 1)}%</span>
           <span>net margin, last 12 months</span>
         </div>
         <ol className="sig-pnl__bars list-reset">
@@ -159,7 +160,7 @@ export function SigPnl() {
             <li key={r.m} style={{ ['--i' as string]: i }}>
               <span className="sig-pnl__pct">{num(r.margin, 1)}%</span>
               <span className="sig-pnl__track">
-                <span className="sig-pnl__bar" style={{ height: `${(r.net / max) * 100}%` }} />
+                <span className={`sig-pnl__bar${i === rows.length - 1 ? ' is-now' : ''}`} style={{ height: `${(r.net / max) * 100}%` }} />
               </span>
               <span className="sig-pnl__val">R&nbsp;{r.net}k</span>
               <span className={`sig-pnl__m${i === rows.length - 1 ? ' is-now' : ''}`}>{r.m}</span>

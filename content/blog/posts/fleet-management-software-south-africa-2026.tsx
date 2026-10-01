@@ -12,7 +12,7 @@ const S = {
 
 const post: Post = {
   slug: 'fleet-management-software-south-africa-2026',
-  h1: { a: 'Fleet management software in South Africa.', b: 'What each kind does, and how to choose.' },
+  h1: { a: 'Fleet management software in South Africa.', b: 'How to choose.' },
   title: 'Fleet management software in South Africa: the four kinds, what each does, and how to choose',
   seoTitle: 'Fleet management software South Africa (2026)',
   description:

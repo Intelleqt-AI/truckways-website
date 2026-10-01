@@ -4,7 +4,7 @@ import { Closing } from '../../../components/Blocks';
 import Faq, { type QA } from '../../../components/Faq';
 import { CopilotPanel } from '../../../components/fragments/Money';
 import { CostBreakdown } from '../../../components/fragments/Quote';
-import { FeatureHero, Stage, FeatureRow, Split, DL, NextStep } from '../../../components/pages/blocks';
+import { FeatureHero, Stage, FeatureRow, NextCards } from '../../../components/pages/blocks';
 import { QuoteForm } from '../../../components/pages/frags';
 import { pageMeta } from '../../../components/pages/meta';
 import { FACTS } from '../../../lib/facts';
@@ -14,9 +14,9 @@ import { graph, breadcrumbSchema, faqSchema } from '../../../lib/schema';
 const PATH = '/product/ai';
 export const metadata = pageMeta({
   path: PATH,
-  title: 'AI in TruckWys: Copilot, typed loads and win chance',
+  title: 'AI and Copilot: typed loads and win chance',
   description:
-    'Where TruckWys uses a model, and where it does not. Copilot answers from your own data and drafts records you confirm. Prices, tolls, diesel and VAT are rules.',
+    'Where we use a model and where we don’t. Copilot answers from your own data and drafts records you confirm. Prices, tolls, diesel and VAT are rules.',
   og: 'product',
   ogAlt: 'TruckWys: a model where it helps, rules where the money is.',
 });
@@ -32,7 +32,7 @@ const RULES = [
   { t: 'Tolls', d: `The SANRAL tariff for each of the ${FACTS.tollPlazas} mainline plazas on the route, at the truck's class, excl. VAT.` },
   { t: 'Diesel', d: "This month's FIASA price, inland or coastal, for the litres the trip needs." },
   { t: 'VAT', d: '15% on the invoice, worked out from the charges. Never estimated.' },
-  { t: 'The margin warning', d: 'A warning in rand when a quote is below cost.' },
+  { t: 'The margin warning', d: 'A "Caution" flag under a 12% margin and "At risk" under 5%, with the increase in rand that gets it back to 10%.' },
   { t: 'Reminders', d: 'Fixed templates in three tones, gentle, firm and final. You send each one after a preview.' },
   { t: 'Payment risk profile', d: 'A formula: how often a customer pays late, how late, and how much they owe you now.' },
 ];
@@ -82,6 +82,13 @@ export default function AiPage() {
         a="Ask your numbers."
         b="You approve every change."
         lead="TruckWys uses a model in three places: Copilot, a load you type in plain words, and your win chance. The price, the tolls and the VAT never come from a model."
+        frame={
+          <Stage photo="n1-midrand" label="Copilot answering who owes the most right now from the company's invoices, with the source and buttons to view the invoice or draft a reminder.">
+            <div className="b-aistage">
+              <CopilotPanel />
+            </div>
+          </Stage>
+        }
       />
 
       <section className="sec" aria-labelledby="uses-h">
@@ -92,21 +99,15 @@ export default function AiPage() {
             b="Three narrow jobs."
             line="Each one saves typing or answers a question. You see its work, and you confirm before anything changes."
           />
+          {/* R7: Copilot is the hero's screen; here it is one line, and two rows for the other two jobs. */}
+          <div className="b-modelnote b-modelnote--top" id="copilot">
+            <p>
+              <b>Copilot.</b> Ask about cash, quotes or your fleet in plain words. It answers from your own company&apos;s data, shows where
+              the answer came from, and drafts quotes and customers for you to confirm. Nothing is sent on its own.
+            </p>
+          </div>
           <div className="b-rows">
             <FeatureRow
-              id="copilot"
-              title="Copilot"
-              body="Ask about cash, quotes or your fleet in plain words. Copilot answers from your own company's data and shows where the answer came from. It can draft a quote or a customer; you confirm it."
-              points={['Answers from your data only', 'Drafts quotes and customers for you to confirm', 'Nothing is sent on its own']}
-            >
-              <Stage label="Copilot answering who owes the most right now from the company's invoices, with the source and buttons to view the invoice or draft a reminder.">
-                <div className="b-aistage">
-                  <CopilotPanel />
-                </div>
-              </Stage>
-            </FeatureRow>
-            <FeatureRow
-              flip
               id="type-it"
               title="Type a load the way you'd say it"
               body={
@@ -122,6 +123,7 @@ export default function AiPage() {
               </Stage>
             </FeatureRow>
             <FeatureRow
+              flip
               id="win-chance"
               title="Win chance"
               body="After about 40 quote outcomes, with both wins and losses, a trained model estimates your chance of winning at the suggested price. Until then, it shows how many outcomes it still needs."
@@ -139,11 +141,11 @@ export default function AiPage() {
         <div className="wrap">
           <SectionHeader
             id="rules-h"
-            a="Where we don't use a model."
+            a="Where it's a rule."
             b="Same answer every time."
             line="Anything that sets a price, a tax or the tone of a reminder is a rule or a formula. You can check each one by hand."
           />
-          <ul className="b-rules list-reset">
+          <ul className="b-rules b-rules--tiles list-reset">
             {RULES.map((r) => (
               <li key={r.t} className="reveal">
                 <h3>{r.t}</h3>
@@ -154,33 +156,16 @@ export default function AiPage() {
         </div>
       </section>
 
-      <section className="sec" aria-labelledby="spec-h">
+      <section className="sec" aria-label="Questions about models in TruckWys">
         <div className="wrap">
-          <Split id="spec-h" a="The specifics." b="Exactly what each model does." line="Everything on this list is in the product today.">
-            <DL
-              rows={[
-                ['Copilot', 'A language model. Answers about cash, quotes and fleet from your company’s data, and drafts quotes and customers.'],
-                ['Typed loads', 'A language model reads a typed or spoken description and fills the quote form.'],
-                ['Win chance', 'A trained model, after about 40 quote outcomes with both wins and losses.'],
-                ['You confirm', 'Drafts wait for you. Nothing is sent on its own.'],
-                ['Not a model', 'Tolls, diesel, VAT, the margin warning, reminders and the payment risk profile.'],
-              ]}
-            />
-          </Split>
+          <Faq a="AI" b="questions." items={FAQ} />
         </div>
       </section>
 
-      <section className="sec" style={{ paddingTop: 0 }} aria-label="Questions about models in TruckWys">
-        <div className="wrap">
-          <Faq a="Questions" b="about the models." items={FAQ} />
-        </div>
-      </section>
-
-      <section className="sec" style={{ paddingTop: 0 }} aria-label="Next step">
-        <div className="wrap">
-          <NextStep href="/product/quoting" title="Quoting" line="How the price is built: diesel, tolls, allowance and your rate, line by line." />
-        </div>
-      </section>
+      <NextCards
+        next={{ href: '/product/quoting', title: 'Quoting', line: 'How the price is built: diesel, tolls, allowance and your rate, line by line.' }}
+        read="how-to-quote-freight-rates-south-africa-ai"
+      />
 
       <Closing page="ai" />
     </>

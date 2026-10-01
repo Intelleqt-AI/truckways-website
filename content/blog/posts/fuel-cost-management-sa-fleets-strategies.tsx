@@ -12,7 +12,7 @@ const S = {
 
 const post: Post = {
   slug: 'fuel-cost-management-sa-fleets-strategies',
-  h1: { a: 'Diesel costs for South African fleets.', b: 'What you pay for, and what you control.' },
+  h1: { a: 'Diesel costs for South African fleets.', b: 'What you can control.' },
   title: 'Diesel costs for South African fleets: what you pay for, and what you can control',
   seoTitle: 'Diesel price for trucks in South Africa (2026)',
   description:

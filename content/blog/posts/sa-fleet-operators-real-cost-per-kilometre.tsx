@@ -110,7 +110,7 @@ const post: Post = {
         The R&nbsp;81&nbsp;600 does not change when the truck runs less, so the cost per kilometre does. Here is the same truck at different
         monthly distances, with the variable costs above (diesel R&nbsp;13,82, tyres R&nbsp;2,40, maintenance R&nbsp;1,80: R&nbsp;18,02 per km).
       </p>
-      <table>
+      <table className="wide">
         <caption>Fixed cost per km at different monthly kilometres (example inputs)</caption>
         <thead>
           <tr>

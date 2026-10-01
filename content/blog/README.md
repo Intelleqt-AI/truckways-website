@@ -38,3 +38,9 @@ Everything else (the index page, the table of contents, JSON-LD, the sitemap, th
 - Never change a published slug. If you must, add a 308 in `next.config.mjs` from the old URL
   straight to the new one (no chains), and update internal links.
 - Don't delete a post with backlinks; rewrite it.
+
+## Share image
+
+Each post has its own Open Graph card at `public/og/blog/<slug>.png` (1200 x 630, dark, the post's two-tone H1 and
+"TruckWys Blog · <category>"), made the same way as the other cards in `public/og`. Until a post has one, the page
+falls back to `public/og/blog.png` automatically.

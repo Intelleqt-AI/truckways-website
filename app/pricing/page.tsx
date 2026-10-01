@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Check } from 'lucide-react';
-import FastPayBand from '../../components/FastPayBand';
+import '../../components/pages/pages-b.css';
+import { FastPayCard } from '../../components/pages/blocks';
 import { ButtonLink, TextLink, TwoTone, SectionHeader } from '../../components/ui';
 import { Breadcrumbs, PageHero, Closing } from '../../components/Blocks';
 import Faq, { type QA } from '../../components/Faq';
@@ -8,7 +9,7 @@ import FeeCalc from '../../components/FeeCalc';
 import { FACTS, PRICE, CANCELLATION, FEE_LINE, NO_VAT, VAT_ANSWER } from '../../lib/facts';
 import { FEE_EXAMPLE } from '../../content/demo-data';
 import { rand } from '../../lib/format';
-import { SITE_URL, CONTACT_EMAIL, signupUrl, demoUrl, jsonLd } from '../../lib/site';
+import { OG_BASE, SITE_URL, CONTACT_EMAIL, signupUrl, demoUrl, jsonLd } from '../../lib/site';
 import { graph, softwareSchema, offerSchema, faqSchema, breadcrumbSchema } from '../../lib/schema';
 
 const URL = `${SITE_URL}/pricing`;
@@ -21,6 +22,7 @@ export const metadata: Metadata = {
   description: DESCRIPTION,
   alternates: { canonical: URL },
   openGraph: {
+    ...OG_BASE,
     url: URL,
     title: `${TITLE} | TruckWys`,
     description: DESCRIPTION,
@@ -91,7 +93,7 @@ const FAQ: QA[] = [
 /* From demo to first invoice (moved from Home, owner R6). Milestones, not durations: nothing here implies a measured setup time. */
 const TIMELINE = [
   { t: 'Before you pay', h: 'Look around the demo', d: 'A working company, open to everyone. No sign-up, no call.' },
-  { t: 'Day 0', h: 'Create your account', d: 'Confirm your email with a code and add a card. You are live once the payment clears.' },
+  { t: 'Sign-up', h: 'Create your account', d: 'Confirm your email with a code and add a card. You are live once the payment clears.' },
   { t: 'First quote', h: 'Load your lists and rates', d: 'Paste customers and trucks from Excel, set your rates and allowance, and price a load.' },
   { t: 'First delivery', h: 'The invoice raises itself', d: 'Mark the load delivered, or let your TMS do it. The invoice is raised with 15% VAT, ready to send.' },
   { t: 'Month end', h: 'Close the month', d: 'Profit and loss, debtors by age and the VAT report, from the same numbers.' },
@@ -113,7 +115,7 @@ export default function PricingPage() {
       <PageHero
         crumbs={<Breadcrumbs trail={CRUMBS} />}
         a="One plan. One price."
-        b={<>No <span className="nowrap">long-term</span> contract.</>}
+        b="No lock-in."
         lead={`Everything TruckWys does, for your whole team. ${CANCELLATION}`}
       />
 
@@ -194,10 +196,10 @@ export default function PricingPage() {
           <SectionHeader
             id="setup-h"
             a="No migration project."
-            b="Just your lists and your rates."
+            b="Just your lists and rates."
             line="Nothing to install and nothing to rip out. You set it up yourself, and we are a message away."
           />
-          <ol className="tl list-reset reveal">
+          <ol className="tl tl--3x2 list-reset reveal">
             {TIMELINE.map((s, i) => (
               <li className="tl__item" key={s.t}>
                 <span className="tl__node" aria-hidden="true">
@@ -219,8 +221,8 @@ export default function PricingPage() {
         </div>
       </section>
 
-      {/* Coming soon (G): Capital and Fast Pay (not in the price, not live), Insurance as a link. */}
-      <FastPayBand loc="pricing_fastpay" grey insurance />
+      {/* Coming soon: a compact card to /capital (R7); /capital is the full story. Not in the price, not live. */}
+      <FastPayCard note={`Not part of the ${PRICE} plan. Nothing is charged for it today.`} />
 
       {/* Pricing FAQ */}
       <section className="sec" aria-label="Pricing questions">

@@ -405,6 +405,7 @@ a.b-hubcard:hover .b-hubcard__more svg { transform: translateX(2px); }
 .b-intg__row { display: flex; align-items: center; gap: 14px; }
 .b-intg__row b { font: 600 15px/22px var(--font-sans); }
 .b-intg__mark { width: 40px; height: 40px; flex: none; display: grid; place-items: center; border: 1px solid var(--border-subtle); border-radius: 10px; background: var(--bg-raised); font: 600 15px/1 var(--font-sans); color: var(--text-secondary); }
+.b-intg__mark svg { width: 18px; height: 18px; }
 .b-intg__icon { width: 18px; height: 18px; color: var(--text-secondary); flex: none; }
 .b-intg__line { display: block; overflow-wrap: anywhere; }
 .b-intg__btn { align-self: flex-start; }
@@ -624,3 +625,115 @@ a.b-hubcard:hover .b-hubcard__more svg { transform: translateX(2px); }
   .b-steps5__tag { margin-top: 0; justify-self: start; }
   .b-steps5 h3 { margin-top: 8px; }
 }
+
+/* ------------------------------------------------ R7: Fast Pay, compact linked card (/product, /pricing) */
+.b-fpcard { display: grid; grid-template-columns: minmax(0, 1fr) auto; align-items: end; gap: 24px 48px; padding: 32px; border: 1px solid var(--border-default); border-radius: var(--radius-card); background: var(--bg-surface); color: var(--text-primary); transition: background-color 150ms var(--ease-out), border-color 150ms var(--ease-out); }
+.b-fpcard:hover { background: var(--bg-surface-hover); border-color: var(--border-strong); }
+.b-fpcard__text { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.b-fpcard__eyebrow { display: flex; align-items: center; gap: 12px; font: 500 14px/20px var(--font-sans); color: var(--text-tertiary); }
+.b-fpcard__title { display: block; font-weight: 600; font-size: clamp(22px, 1rem + 1vw, 28px); line-height: 1.25; letter-spacing: -0.02em; max-width: 34ch; text-wrap: balance; }
+.b-fpcard__line { display: block; font: 400 16px/26px var(--font-sans); color: var(--text-secondary); max-width: 64ch; }
+.b-fpcard__more { display: inline-flex; align-items: center; gap: 6px; font: 500 15px/20px var(--font-sans); color: var(--link); white-space: nowrap; }
+.b-fpcard__more svg { width: 16px; height: 16px; transition: transform 120ms var(--ease-out); }
+.b-fpcard:hover .b-fpcard__more svg { transform: translateX(2px); }
+@media (max-width: 767px) { .b-fpcard { grid-template-columns: 1fr; padding: 24px 20px; } }
+
+/* R7: matched hub cards. Crops and "Learn more" sit on the same line across a row. */
+.b-hubcard__crop { margin-top: auto; }
+.b-hubcard__line { margin-bottom: 16px; }
+
+/* R7: the /product hero board is capped on phones and fades out (the full board is on the quoting page). */
+@media (max-width: 639px) {
+  .b-capfade { max-height: 560px; overflow: hidden; -webkit-mask-image: linear-gradient(to bottom, #000 78%, transparent); mask-image: linear-gradient(to bottom, #000 78%, transparent); }
+}
+
+/* R7: one-line "where we use a model" note on /product. */
+.b-modelnote { margin-top: 40px; padding-top: 24px; border-top: 1px solid var(--border-default); display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px 32px; }
+.b-modelnote p { font: 400 16px/26px var(--font-sans); color: var(--text-secondary); max-width: 72ch; }
+.b-modelnote p b { color: var(--text-primary); font-weight: 600; }
+
+/* R7 charts: greyscale with one blue highlight. Headline figures are ink, not blue. */
+.sig__num { font: 600 clamp(32px, 1.4rem + 1.4vw, 44px)/1.1 var(--font-sans); letter-spacing: -0.03em; color: var(--text-primary); font-variant-numeric: tabular-nums; white-space: nowrap; }
+.sig-pnl__bar { background: var(--chart-muted); }
+.sig-pnl__bar.is-now { background: var(--chart-bar-highlight); }
+@media (max-width: 639px) {
+  /* 12 bars at 390: every other label (ending on the latest month), so none collide. */
+  .sig-pnl__bars li:nth-child(odd) .sig-pnl__pct, .sig-pnl__bars li:nth-child(odd) .sig-pnl__m { visibility: hidden; }
+  .sig-pnl__pct { font-size: 11px; letter-spacing: 0; }
+}
+
+/* R7: next step + from the blog, two small matched cards. */
+.b-nextcards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--card-gap); }
+.b-nextcards > li { display: flex; }
+.b-nextcard { position: relative; flex: 1; display: flex; flex-direction: column; gap: 6px; padding: 24px 64px 24px 24px; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); background: var(--bg-surface); color: var(--text-primary); transition: background-color 150ms var(--ease-out), border-color 150ms var(--ease-out); }
+.b-nextcard:hover { background: var(--bg-surface-hover); border-color: var(--border-strong); }
+.b-nextcard__k { font: 500 13px/18px var(--font-sans); color: var(--text-tertiary); }
+.b-nextcard__t { font: 600 18px/26px var(--font-sans); letter-spacing: -0.012em; text-wrap: balance; }
+.b-nextcard__l { font: 400 15px/24px var(--font-sans); color: var(--text-secondary); display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
+.b-nextcard__a { position: absolute; right: 24px; top: 24px; width: 18px; height: 18px; color: var(--link); transition: transform 120ms var(--ease-out); }
+.b-nextcard:hover .b-nextcard__a { transform: translateX(2px); }
+.b-nextcards > li:only-child { grid-column: 1 / -1; }
+@media (max-width: 767px) { .b-nextcards { grid-template-columns: 1fr; } .b-nextcard { padding: 20px 52px 20px 20px; } .b-nextcard__a { right: 20px; top: 20px; } }
+
+/* R7 /product/ai: the Copilot line sits above the rows; the rules are matched tiles. */
+.b-modelnote--top { margin: 0 0 72px; }
+.b-rules--tiles { gap: var(--card-gap); border-top: 0; }
+.b-rules--tiles > li { padding: 24px; border: 1px solid var(--border-subtle); border-radius: var(--radius-card); background: var(--bg-surface); }
+@media (max-width: 639px) { .b-rules--tiles > li { padding: 20px; } .b-modelnote--top { margin-bottom: 48px; } }
+
+/* R7: hero eyebrow can hold the Coming soon pill; a small note under the actions (/capital). */
+.b-hero__eyebrow .chip { vertical-align: middle; }
+.b-hero__note { margin-top: 20px; max-width: 56ch; color: var(--text-secondary); }
+.b-rules--four { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 1023px) { .b-rules--four { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 639px) { .b-rules--four { grid-template-columns: 1fr; } }
+
+/* R7: photo-led hero (PhotoHero). Same inset frame as the closing band. */
+.b-phero { padding: 16px 16px 0; }
+.b-phero__frame {
+  position: relative; isolation: isolate; overflow: hidden; border-radius: var(--radius-dialog);
+  min-height: clamp(480px, 40vw, 600px); display: flex; align-items: flex-end;
+  background: #15181D; color: var(--text-primary);
+  padding: 96px max(calc(var(--web-gutter) - 16px), calc((100% - var(--web-container)) / 2)) clamp(48px, 5vw, 80px);
+}
+.b-phero__scrim { position: absolute; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(90deg, rgba(11, 12, 14, 0.5) 0%, rgba(11, 12, 14, 0.22) 55%, rgba(11, 12, 14, 0) 100%), linear-gradient(180deg, rgba(11, 12, 14, 0) 40%, rgba(11, 12, 14, 0.35) 100%); }
+.b-phero__text { position: relative; max-width: 760px; }
+.b-phero__text .h1 { max-width: 20ch; }
+.b-phero__text .h1 > .tone-2 { display: block; }
+.b-phero__text .lead { color: rgba(255, 255, 255, 0.86); }
+.b-phero__text .b-hero__note { color: rgba(255, 255, 255, 0.78); }
+.b-phero__text .label { color: rgba(255, 255, 255, 0.78); }
+.b-phero__place { position: absolute; right: 24px; top: 20px; font: 500 13px/18px var(--font-sans); color: rgba(255, 255, 255, 0.78); }
+.b-phero + .sec { padding-top: 96px; }
+@media (max-width: 767px) {
+  .b-phero { padding: 8px 8px 0; }
+  .b-phero__frame { min-height: 520px; padding: 72px 20px 40px; }
+  .b-phero + .sec { padding-top: 64px; }
+}
+
+/* R7: Split heads get columns 1 to 5, so a two-tone H2 stays on two lines at 1440. */
+@media (min-width: 1024px) {
+  .b-split__head { grid-column: 1 / 6; }
+  .b-split__body { grid-column: 7 / 13; }
+}
+/* R7 /insurance: the four answers as a wide 2 x 2. */
+.b-publish--grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--web-col-gap); }
+@media (max-width: 767px) { .b-publish--grid { grid-template-columns: 1fr; } }
+.b-duo__b--wide { grid-column: 1 / 9; }
+@media (max-width: 1023px) { .b-duo__b--wide { grid-column: 1 / -1; } }
+/* R7 /integrations: six matched cards, 3 x 2 on desktop, links on the bottom line. */
+.b-intlist--six { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.b-intlist--six > li:last-child:nth-child(odd) { grid-column: auto; }
+.b-intlist--six .b-intcard ul { margin-bottom: 4px; }
+@media (max-width: 1023px) { .b-intlist--six { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 767px) { .b-intlist--six { grid-template-columns: 1fr; } }
+/* R7 /pricing: the five steps as 3 + 2 between 1024 and 1279 (five across is too tight there). */
+@media (min-width: 1024px) and (max-width: 1279px) {
+  .tl.tl--3x2 { grid-template-columns: repeat(6, minmax(0, 1fr)); row-gap: 32px; }
+  .tl.tl--3x2::before { display: none; }
+  .tl.tl--3x2 > .tl__item { grid-column: span 2; }
+  .tl.tl--3x2 > .tl__item:nth-child(n + 4) { grid-column: span 3; }
+}
+/* The note beside a signature figure wraps inside the band at 390 (it could push the page wide). */
+.sig__total > span:last-child, .sig-age__top > span:last-child, .sig-pnl__top > span:last-child { flex: 1 1 240px; min-width: 0; }
+.b-phero__text .h1 > .tone-2 { color: rgba(255, 255, 255, 0.76); }

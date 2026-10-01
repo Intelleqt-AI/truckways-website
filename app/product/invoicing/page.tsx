@@ -1,9 +1,8 @@
 import '../../../components/pages/pages-b.css';
 import { SectionHeader } from '../../../components/ui';
 import { Closing } from '../../../components/Blocks';
-import FromTheBlog from '../../../components/FromTheBlog';
 import Faq, { type QA } from '../../../components/Faq';
-import { FeatureHero, Stage, Answers, FeatureRow, Split, DL, NextStep } from '../../../components/pages/blocks';
+import { FeatureHero, Stage, Answers, FeatureRow, Split, DL, NextCards } from '../../../components/pages/blocks';
 import { InvoiceDetail, PublicInvoice, InvoiceList } from '../../../components/pages/frags';
 import { SigDelivery } from '../../../components/pages/signature';
 import { INVOICE } from '../../../content/demo-data';
@@ -42,7 +41,7 @@ const FAQ: QA[] = [
   {
     id: 'invoicing-accountant',
     q: 'Can my accountant get the invoices?',
-    a: 'Yes. Every report exports to CSV and prints, including sales by month and the VAT report. A Xero connection is coming soon.',
+    a: 'Yes. Xero and QuickBooks connections are coming soon; until then every report exports to CSV.',
   },
 ];
 
@@ -59,7 +58,7 @@ export default function InvoicingPage() {
         b="invoiced."
         lead="When a load is marked delivered, in TruckWys or from your TMS, the invoice is raised with 15% VAT and your payment terms, ready to send."
         frame={
-          <Stage label="An invoice raised on delivery of a Johannesburg to Durban load: bill-to customer, issue and due dates, 30-day terms, the linehaul and fuel surcharge lines, VAT at 15% and the total due, with its activity.">
+          <Stage photo="n3-gillitts" label="An invoice raised on delivery of a Johannesburg to Durban load: bill-to customer, issue and due dates, 30-day terms, the linehaul and fuel surcharge lines, VAT at 15% and the total due, with its activity.">
             <InvoiceDetail />
           </Stage>
         }
@@ -84,7 +83,7 @@ export default function InvoicingPage() {
         <div className="wrap">
           <SectionHeader
             id="detail-h"
-            a="No retyping from the job sheet."
+            a="No retyping."
             b="No invoice left in the cab."
             line="The invoice takes the customer, route, rate and VAT from the load. You check it and send it."
           />
@@ -115,7 +114,7 @@ export default function InvoicingPage() {
 
       <section className="sec" aria-labelledby="spec-h">
         <div className="wrap">
-          <Split id="spec-h" a="The specifics." b="Exactly what an invoice does." line="Everything on this list is in the product today.">
+          <Split id="spec-h" a="The specifics." line="Everything on this list is in the product today.">
             <DL
               rows={[
                 ['When', 'Raised the moment a load is marked delivered, in TruckWys or by your TMS through the API.'],
@@ -133,16 +132,14 @@ export default function InvoicingPage() {
 
       <section className="sec" style={{ paddingTop: 0 }} aria-label="Questions about invoicing">
         <div className="wrap">
-          <Faq a="Questions" b="about invoicing." items={FAQ} />
+          <Faq a="Invoicing" b="questions." items={FAQ} />
         </div>
       </section>
 
-      <section className="sec" style={{ paddingTop: 0 }} aria-label="Next step">
-        <div className="wrap">
-          <NextStep href="/product/debtors" title="Debtors" line="Once it is sent, see who owes you and chase what is late." />
-          <FromTheBlog slugs={['proof-of-delivery-invoice-on-delivery', 'cash-flow-transport-business-south-africa']} />
-        </div>
-      </section>
+      <NextCards
+        next={{ href: '/product/debtors', title: 'Debtors', line: 'Once it is sent, see who owes you and chase what is late.' }}
+        read="proof-of-delivery-invoice-on-delivery"
+      />
 
       <Closing page="invoicing" />
     </>

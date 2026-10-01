@@ -22,12 +22,12 @@ import { getImageProps } from 'next/image';
  */
 export type BackdropPhoto = 'n1-midrand' | 'durban-port' | 'n3-gillitts';
 
-export default function Backdrop({ photo, sizes = '(max-width: 1023px) 100vw, 60vw' }: { photo: BackdropPhoto; sizes?: string }) {
+export default function Backdrop({ photo, sizes = '(max-width: 1023px) 100vw, 60vw', priority }: { photo: BackdropPhoto; sizes?: string; /** Above the fold (a page hero): load eagerly. */ priority?: boolean }) {
   // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const { props: { style: _style, ...props } } = getImageProps({ src: `/backdrops/${photo}.jpg`, alt: '', fill: true, quality: 60, sizes });
   return (
     <div className="backdrop" aria-hidden="true" data-pframe>
-      <img {...props} className="backdrop__img" alt="" loading="lazy" decoding="async" data-parallax="0.06" />
+      <img {...props} className="backdrop__img" alt="" loading={priority ? 'eager' : 'lazy'} fetchPriority={priority ? 'high' : undefined} decoding="async" data-parallax="0.06" />
     </div>
   );
 }
