@@ -38,8 +38,8 @@
 }
 .text { position: relative; z-index: 1; width: min(780px, 58%); }
 .eyebrow { font: 500 14px/20px var(--font-sans); letter-spacing: -0.006em; color: #FFFFFF; margin-bottom: 20px; }
-/* Never smaller than the inner-page H1 scale; always two lines (one per span). */
-.h1 { font-weight: 600; font-size: clamp(44px, 1rem + 3.2vw, 66px); line-height: 1.04; letter-spacing: -0.034em; color: #FFFFFF; }
+/* Never smaller than the inner-page H1 (.h1: clamp(40px, 1.6rem + 3.2vw, 64px)) at any width; two lines (one per span). */
+.h1 { font-weight: 600; font-size: clamp(44px, 1.6rem + 3.2vw, 68px); line-height: 1.04; letter-spacing: -0.034em; color: #FFFFFF; }
 .h1 > span { display: block; white-space: nowrap; }
 .blue { color: #9DC4FF; }
 .lead { margin-top: 24px; max-width: 46ch; font-size: clamp(17px, 0.9rem + 0.35vw, 20px); line-height: 1.52; letter-spacing: -0.012em; color: #FFFFFF; }
@@ -107,7 +107,7 @@
 @media (max-width: 767px) {
   .hero { padding: 8px 8px 0; }
   .frame { height: auto; padding: 0; display: flex; flex-direction: column; align-items: stretch; }
-  .text { position: relative; width: auto; max-width: 640px; margin: 0; padding: 48px 20px 0; }
+  .text { position: relative; width: auto; max-width: 640px; margin: 0; padding: 48px 8px 0; } /* 8px frame inset + 8px = the 16px page gutter */
   .h1 { font-size: 40px; }
   .h1 > span { white-space: normal; }
   .media {

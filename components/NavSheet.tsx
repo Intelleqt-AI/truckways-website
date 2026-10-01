@@ -110,14 +110,11 @@ export default function NavSheet({ links, product = [], signIn, demo, signup }: 
                   <a href={l.href}>{l.label}</a>
                   <div className="sheet__sub">
                     {product
-                      // Fast Pay has its own top-level row below.
-                      .filter((p) => p.href !== '/capital')
+                      // Same items as the desktop Product menu; Fast Pay has its own top-level row below.
                       .map((p) => (
                         <a key={p.href} href={p.href}>
-                          <span>
-                            {p.label}
-                            {p.soon ? <small className="sheet__soon">Coming soon</small> : null}
-                          </span>
+                          {p.label}
+                          {p.soon ? <span className="nav__soon">Soon</span> : null}
                         </a>
                       ))}
                   </div>

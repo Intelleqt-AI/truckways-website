@@ -83,13 +83,6 @@ const CARDS = [
   { icon: Plug, name: 'Integrations', line: 'Cartrack, CtrlFleet, API and CSV', href: '/integrations', fact: 'Nothing to install' },
 ];
 
-/* Demo to first invoice, in three milestones (the full timeline lives on /pricing). Milestones, not durations. */
-const FIRST_STEPS = [
-  { h: 'Look around the demo', d: 'A working company, open to everyone. No sign-up, no call.' },
-  { h: 'Create your account and load your lists', d: 'Paste customers and trucks from Excel and set your rates. You are live once the payment clears.' },
-  { h: 'Deliver the first load', d: 'Mark it delivered and the invoice is raised with 15% VAT, ready to send.' },
-];
-
 /* Five questions on Home (owner R6); cost and the 0,25% are answered by the pricing band above and on /pricing. */
 const FAQ: QA[] = [
   { id: 'tms', q: 'Is TruckWys a TMS?', a: 'No. It does not dispatch, route or schedule. It works next to your TMS, your spreadsheets and your tracking, and handles the money on each load.' },
@@ -254,34 +247,18 @@ export default function Home() {
               </li>
             </ul>
             <div className="sa__frag reveal">
-              <N3Tolls rows={3} more={{ href: '/product/quoting', label: `See all ${FACTS.tollPlazas} plazas` }} />
+              <N3Tolls rows={3} more={{ href: '/product/quoting', label: 'How tolls are priced' }} />
             </div>
           </div>
         </div>
       </section>
 
-      {/* 9. Pricing (G). The price is the figure, one worked example, demo to first invoice in three steps. */}
+      {/* 9. Pricing (G). The price is the figure and one worked example (the onboarding steps live on /pricing only). */}
       <section className="sec sec--grey" aria-labelledby="price-h">
         <div className="wrap psplit">
           <div className="psplit__lead reveal">
             <TwoTone id="price-h" a="One plan. One price." b="Everything in it." />
             <p className="body psplit__intro">One subscription for your whole team, month to month. The only other charge is on loads that deliver.</p>
-            <div className="psteps">
-              <h3>From demo to first invoice</h3>
-              <ol className="list-reset">
-                {FIRST_STEPS.map((s, i) => (
-                  <li key={s.h}>
-                    <span className="fpb__num" aria-hidden="true">
-                      {i + 1}
-                    </span>
-                    <span>
-                      <b>{s.h}</b>
-                      <span>{s.d}</span>
-                    </span>
-                  </li>
-                ))}
-              </ol>
-            </div>
           </div>
           <div className="psplit__offer reveal">
             <p className="psplit__fig">

@@ -57,7 +57,7 @@ export default function ProductMenu({ items, current, path }: { items: MenuItem[
               <a href={i.href} className="pmenu__item" aria-current={path === i.href ? 'page' : undefined}>
                 <b>
                   {i.label}
-                  {i.soon ? <i className="pmenu__soon">Coming soon</i> : null}
+                  {i.soon ? <i className="pmenu__soon">Soon</i> : null}
                 </b>
                 <span>{i.line}</span>
               </a>

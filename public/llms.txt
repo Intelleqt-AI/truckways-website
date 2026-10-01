@@ -13,7 +13,7 @@
 - Debtors by age, a statement per customer, and templated reminders in three tones (gentle, firm and final), sent by the user from each overdue invoice, in one click after a preview. Not sent automatically and not written by a model.
 - Nine reports reconciled to invoices, payments and expenses: profit and loss, sales by month, cash movement, debtors age, customer statement, revenue by customer, revenue by lane, expense report and VAT report. CSV export.
 - Copilot: ask about cash, quotes or fleet in plain words. It uses a language model, answers from the company's own data, and drafts quotes and customers for the user to confirm. Prices, tolls, VAT and reminders are rules, not a model.
-- Integrations: Cartrack (connect with your Cartrack API username and password, from Fleetweb under Settings, API Settings) and CtrlFleet, API keys and signed webhooks, Excel and CSV import. Xero is coming soon.
+- Integrations: Cartrack (connect with your Cartrack API username and password, from Fleetweb under Settings, API Settings) and CtrlFleet, API keys and signed webhooks, Excel and CSV import. Xero and QuickBooks: coming soon.
 - Six user roles: Admin, Manager, Operator, Dispatcher, Viewer, Driver.
 - Mobile apps: iPhone (https://apps.apple.com/za/app/truckwys/id6796449044) and Android (https://play.google.com/store/apps/details?id=za.co.truckwys.mobile). Sign in with a TruckWys account created on the web.
 - Try it: the demo company is open to everyone at https://app.truckwys.com/login (press "View demo"). No sign-up, no call.

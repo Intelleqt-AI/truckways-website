@@ -3,8 +3,8 @@ import StoreBadges from './StoreBadges';
 import { TwoTone } from './ui';
 
 /*
- * Home: "TruckWys on your phone", a compact band (owner, 1 Oct 2026). The phone rises from the
- * section's bottom edge, cropped, so the band stays about half a section tall.
+ * Home: "TruckWys on your phone", a compact band (owner, 1 Oct 2026). The whole device sits right, with a
+ * soft shadow (fix round 8: no longer cut by the band edge); the band keeps a reduced section padding.
  * Copy is limited to what the site already claims for the app (/product "The same numbers on your
  * phone") and what the app's README lists (overview, quotes, invoices). Nothing about POD upload,
  * sending quotes or Fast Pay requests from the phone: not confirmed live.

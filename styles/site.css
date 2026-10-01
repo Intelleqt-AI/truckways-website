@@ -615,7 +615,7 @@ a.pcard:hover .pcard__go { transform: translateX(2px); color: var(--text-primary
   /* One footer row per card (fact, or "Get notified"), pinned to the bottom, so the 2-up rows match. */
   .cards .pcard__fact, .cards .pcard--soon .pcard__foot { margin-top: auto; padding-top: 10px; font-size: 12px; line-height: 16px; }
   .cards .pcard--soon .pcard__more { display: none; }
-  .cards .pcard--soon .pcard__foot .tlink { font-size: 13px; }
+  .cards .pcard--soon .pcard__foot .tlink { font-size: 12px; line-height: 16px; }
   .pcard { min-height: 0; }
 }
 
@@ -721,7 +721,7 @@ a.pcard:hover .pcard__go { transform: translateX(2px); color: var(--text-primary
   background: #0E1013; color: #FFFFFF;
   padding: 0 max(calc(var(--web-gutter) - 16px), calc((100% - var(--web-container)) / 2)) clamp(56px, 6vw, 96px);
 }
-.closing__img { position: absolute; left: 0; top: -10%; width: 100%; height: 120%; object-fit: cover; object-position: 50% 55%; z-index: -2; color: transparent; }
+.closing__img { position: absolute; left: 0; top: -10%; width: 100%; height: 120%; object-fit: cover; object-position: var(--pos, 50% 55%); z-index: -2; color: transparent; }
 .closing__scrim {
   position: absolute; inset: 0; z-index: -1; pointer-events: none;
   background:
@@ -735,11 +735,12 @@ a.pcard:hover .pcard__go { transform: translateX(2px); color: var(--text-primary
 .closing__ctas { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; margin-top: 32px; }
 .closing__demo, .closing__demo:hover, .closing__text .tlink, .closing__text .tlink:hover { color: #FFFFFF; }
 .closing__words { position: absolute; right: max(calc(var(--web-gutter) - 16px), calc((100% - var(--web-container)) / 2)); bottom: clamp(56px, 6vw, 96px); display: flex; flex-direction: column; align-items: flex-end; gap: 14px; font: 500 12px/16px var(--font-sans); letter-spacing: 0.16em; text-transform: uppercase; color: rgba(255, 255, 255, 0.8); }
+.closing__soon { flex-direction: row; }
 .closing__place { position: absolute; right: 24px; top: 20px; font: 500 13px/18px var(--font-sans); color: rgba(255, 255, 255, 0.8); }
 @media (max-width: 767px) {
   .closing { padding: 8px 8px 0; }
   .closing__frame { min-height: 560px; padding: 0 20px 40px; }
-  .closing__img { object-position: 62% 55%; }
+  .closing__img { object-position: var(--pos-phone, 62% 55%); }
   .closing__words { display: none; }
   .closing__ctas { flex-direction: column; align-items: stretch; gap: 16px; }
   .closing__ctas .btn { width: 100%; }
@@ -935,7 +936,10 @@ html.js .reveal.is-in { opacity: 1; transform: none; transition: opacity 900ms c
   .chain li > span:nth-child(2) { grid-area: d; }
   .chain li > span:last-child { grid-area: v; }
 }
-.pcard--soon .pcard__foot { border-top: 1px solid var(--border-row); padding-top: 10px; }
+/* Coming-soon cards: the same footer row as the live cards' fact line (rule, 12px above, 13/18 type). */
+.pcard--soon .pcard__foot { border-top: 1px solid var(--border-row); padding-top: 12px; font: 500 13px/18px var(--font-sans); color: var(--text-tertiary); }
+.pcard--soon .pcard__foot .tlink, .pcard--soon .pcard__foot .pcard__more { font: 500 13px/18px var(--font-sans); }
+.pcard--soon .pcard__foot .tlink svg { width: 14px; height: 14px; }
 
 /* ------------------------------------------------ status pages (sent, 404) */
 .status-page { min-height: calc(100vh - var(--web-nav-h) - 120px); }
@@ -1120,29 +1124,30 @@ html.js .reveal.is-in { opacity: 1; transform: none; transition: opacity 900ms c
 .pmenu__soonfirst { margin-top: 8px; padding-top: 8px; border-top: 1px solid var(--border-subtle); }
 .pmenu__item b { display: flex; align-items: center; gap: 8px; }
 .pmenu__soon { font: 500 11px/16px var(--font-sans); font-style: normal; color: var(--text-tertiary); padding: 0 6px; border: 1px solid var(--border-default); border-radius: var(--radius-chip); white-space: nowrap; }
-.sheet__soon { display: block; font: 400 12px/16px var(--font-sans); color: var(--text-tertiary); }
 .pcard__more { font: 500 14px/20px var(--font-sans); color: var(--text-secondary); text-decoration: underline; text-decoration-color: var(--border-strong); text-underline-offset: 3px; }
 .pcard__more:hover { color: var(--text-primary); }
 
-/* ----------------------------------------------------- phone band (Home): compact, the phone rises from the bottom edge */
-.phs { padding-bottom: 0; overflow: hidden; }
-.phs__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--web-col-gap); align-items: end; }
-.phs__text { grid-column: 1 / 8; padding-bottom: var(--web-section-y); }
+/* ----------------------------------------------------- phone band (Home): compact, the whole device on the right (fix round 8) */
+.phs { padding-block: clamp(64px, 6vw, 88px); }
+.phs__grid { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--web-col-gap); align-items: center; }
+.phs__text { grid-column: 1 / 8; }
 .phs__lines { margin-top: 28px; display: grid; gap: 12px; max-width: 48ch; }
 .phs__lines li { font: 400 16px/24px var(--font-sans); color: var(--text-secondary); }
 .phs__lines b { font-weight: 600; color: var(--text-primary); }
 .phs__stores { margin-top: 32px; }
-.phs__vis { grid-column: 8 / 13; height: 470px; align-self: end; display: flex; justify-content: center; align-items: flex-start; overflow: hidden; }
+/* Room above and below for the rise-in, the parallax drift (max 20px) and the shadow. */
+.phs__vis { grid-column: 8 / 13; display: flex; justify-content: center; padding-block: 8px 28px; }
+.phs__vis .phoneshot { --ps: 0.56 !important; }
+.phs__vis .phone { box-shadow: 0 1px 2px rgba(14, 17, 22, 0.06), 0 12px 24px -8px rgba(14, 17, 22, 0.16), 0 32px 56px -24px rgba(14, 17, 22, 0.28); }
 @media (max-width: 1023px) {
-  .phs__text { grid-column: 1 / 9; }
-  .phs__vis { grid-column: 9 / 13; height: 380px; }
-  .phs__vis .phoneshot { --ps: 0.54 !important; }
+  .phs__text { grid-column: 1 / 8; }
+  .phs__vis { grid-column: 8 / 13; }
+  .phs__vis .phoneshot { --ps: 0.5 !important; }
 }
 @media (max-width: 639px) {
   .phs__text, .phs__vis { grid-column: 1 / -1; }
-  .phs__text { padding-bottom: 40px; }
-  .phs__vis { height: 320px; }
-  .phs__vis .phoneshot { --ps: 0.62 !important; }
+  .phs__vis { margin-top: 32px; padding-bottom: 20px; }
+  .phs__vis .phoneshot { --ps: 0.56 !important; }
 }
 
 /* Home: the facts row folded in under the hero as a compact strip. */
@@ -1150,15 +1155,6 @@ html.js .reveal.is-in { opacity: 1; transform: none; transition: opacity 900ms c
 .facts--strip .facts__item { padding-block: 20px; gap: 6px; }
 .facts--strip .figure-big { font-size: clamp(28px, 1.2rem + 1.2vw, 36px); line-height: 1.1; }
 .facts--strip .facts__label { font-size: 13px; line-height: 18px; }
-
-/* Home pricing band: demo to first invoice, three steps under the intro. */
-.psteps { margin-top: 40px; border-top: 1px solid var(--border-default); }
-.psteps h3 { margin: 20px 0 4px; font: 600 15px/22px var(--font-sans); color: var(--text-tertiary); letter-spacing: -0.006em; }
-.psteps ol { display: grid; }
-.psteps li { display: grid; grid-template-columns: 40px minmax(0, 1fr); padding: 16px 0; border-bottom: 1px solid var(--border-default); }
-.psteps li:last-child { border-bottom: 0; }
-.psteps b { display: block; font: 600 16px/24px var(--font-sans); letter-spacing: -0.012em; color: var(--text-primary); }
-.psteps li span span { display: block; margin-top: 2px; font: 400 14px/20px var(--font-sans); color: var(--text-secondary); max-width: 44ch; }
 
 /* ----------------------------------------------------- Fast Pay photo band (fix round 7) */
 /* Owner: Fast Pay is critical. An inset dark frame on the blurred Durban-port backdrop, like the hero and the

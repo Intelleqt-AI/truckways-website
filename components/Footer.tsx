@@ -1,5 +1,5 @@
 import { FACTS } from '../lib/facts';
-import { loginUrl } from '../lib/site';
+import { demoUrl, loginUrl } from '../lib/site';
 import StoreBadges from './StoreBadges';
 
 /* Footer (brief §2.4): only pages that exist. For TMS partners and the
@@ -16,6 +16,7 @@ const COLS: { title: string; wide?: boolean; links: FLink[] }[] = [
       { href: '/product/debtors', label: 'Debtors' },
       { href: '/product/reports', label: 'Reports' },
       { href: '/product/ai', label: 'AI and Copilot' },
+      { href: '/integrations', label: 'Integrations' },
       { href: '/capital', label: 'Fast Pay', soon: true },
       { href: '/insurance', label: 'Insurance', soon: true },
     ],
@@ -32,8 +33,8 @@ const COLS: { title: string; wide?: boolean; links: FLink[] }[] = [
     title: 'Resources',
     links: [
       { href: '/pricing', label: 'Pricing' },
-      { href: '/integrations', label: 'Integrations' },
       { href: '/blog', label: 'Blog' },
+      { href: demoUrl('footer'), label: 'Open the demo' },
     ],
   },
 ];

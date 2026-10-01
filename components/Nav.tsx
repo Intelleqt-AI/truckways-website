@@ -4,6 +4,7 @@ import NavLinks from './NavLinks';
 
 /* Nav (brief §2.4). "For TMS partners" joins when its page ships.
    Fix round 7: "How it works" leads the Product menu; Fast Pay is a top-level link with a "Soon" chip (owner: critical).
+   Fix round 8: Fast Pay is no longer repeated in the Product menu; Insurance stays there, marked Soon.
    Right side stays Sign in + Get started only. */
 export const PRODUCT_MENU = [
   { href: '/product', label: 'How it works', line: 'From the first price to the last rand' },
@@ -13,8 +14,7 @@ export const PRODUCT_MENU = [
   { href: '/product/reports', label: 'Reports', line: 'Profit, VAT and margin by lane' },
   { href: '/product/ai', label: 'AI and Copilot', line: 'Ask your numbers; you approve every change' },
   { href: '/integrations', label: 'Integrations', line: 'Cartrack, CtrlFleet, API and CSV' },
-  // Coming soon: after a divider, each with a "Coming soon" marker (ProductMenu, NavSheet).
-  { href: '/capital', label: 'Capital and Fast Pay', line: 'Get paid before your customer pays', soon: true },
+  // Coming soon: after a divider, with a "Soon" marker (ProductMenu, NavSheet). Fast Pay is top level (fix round 8).
   { href: '/insurance', label: 'Insurance', line: 'For South African transporters', soon: true },
 ];
 export const NAV_LINKS: { href: string; label: string; soon?: boolean }[] = [
