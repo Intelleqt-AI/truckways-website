@@ -1,7 +1,7 @@
 import { Check } from 'lucide-react';
 import '../../components/pages/pages-b.css';
 import { SectionHeader, TextLink } from '../../components/ui';
-import { CTABand } from '../../components/Blocks';
+import { Closing } from '../../components/Blocks';
 import { FeatureHero, Stage, Split } from '../../components/pages/blocks';
 import { IntegrationsSettings } from '../../components/pages/frags';
 import { pageMeta } from '../../components/pages/meta';
@@ -150,7 +150,7 @@ export default function IntegrationsPage() {
         </div>
       </section>
 
-      <CTABand page="integrations" />
+      <Closing page="integrations" />
     </>
   );
 }

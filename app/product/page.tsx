@@ -2,8 +2,8 @@ import type { Metadata } from 'next';
 import { ArrowRight } from 'lucide-react';
 import { SoonCard, SOON } from '../../components/SoonCard';
 import '../../components/pages/pages-b.css';
-import { SectionHeader, TextLink, TwoTone, SAMPLE_CAPTION } from '../../components/ui';
-import { CTABand } from '../../components/Blocks';
+import { SectionHeader, TextLink, TwoTone } from '../../components/ui';
+import { Closing } from '../../components/Blocks';
 import { CopilotPanel } from '../../components/fragments/Money';
 import { FeatureHero, Stage, DL } from '../../components/pages/blocks';
 import { QuotesBoard, QuoteForm, MiniCost, MiniInvoice, MiniAge, MiniLanes, TeamSettings } from '../../components/pages/frags';
@@ -125,7 +125,6 @@ export default function ProductPage() {
             ))}
           </ol>
           <div className="b-hubfoot" id="integrations">
-            <p className="b-cap" style={{ marginTop: 0 }}>{SAMPLE_CAPTION}</p>
             <TextLink href="/integrations" className="tlink--wrap">Works with Cartrack, CtrlFleet, your TMS and Excel</TextLink>
           </div>
         </div>
@@ -194,7 +193,6 @@ export default function ProductPage() {
           </div>
           <figure className="b-cop__vis reveal">
             <CopilotPanel />
-            <figcaption className="b-cap">{SAMPLE_CAPTION}</figcaption>
           </figure>
         </div>
       </section>
@@ -219,7 +217,6 @@ export default function ProductPage() {
           </div>
           <figure className="b-row__vis b-phonefig reveal">
             <PhoneShot scale={0.72} />
-            <figcaption className="b-cap">{SAMPLE_CAPTION}</figcaption>
           </figure>
         </div>
       </section>
@@ -272,7 +269,7 @@ export default function ProductPage() {
         </div>
       </section>
 
-      <CTABand page="product" />
+      <Closing page="product" />
     </>
   );
 }

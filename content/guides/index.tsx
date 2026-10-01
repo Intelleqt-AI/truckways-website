@@ -175,7 +175,7 @@ export const GUIDES: Guide[] = [
 
   /* ---------------------------------------------------------------- 2 */
   {
-    slug: 'how-to-quote-freight-rates-south-africa-ai',
+    slug: 'how-to-quote-freight-rates-south-africa',
     h1: { a: 'How to quote a transport load.', b: 'Line by line, from diesel to VAT.' },
     title: 'How to quote a transport load in South Africa, line by line',
     seoTitle: 'How to quote a transport load in South Africa',
@@ -315,7 +315,7 @@ export const GUIDES: Guide[] = [
         </p>
         <p>
           <strong>Check:</strong> take your last ten quotes and rebuild them line by line. Our{' '}
-          <a href="/guides/how-to-quote-freight-rates-south-africa-ai">quoting guide</a> has the build-up.
+          <a href="/guides/how-to-quote-freight-rates-south-africa">quoting guide</a> has the build-up.
         </p>
 
         <h2>2. Diesel went up, the rate did not</h2>

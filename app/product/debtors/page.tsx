@@ -1,6 +1,6 @@
 import '../../../components/pages/pages-b.css';
 import { SectionHeader } from '../../../components/ui';
-import { CTABand } from '../../../components/Blocks';
+import { Closing } from '../../../components/Blocks';
 import Faq, { type QA } from '../../../components/Faq';
 import { NeedsYouCard } from '../../../components/fragments/Money';
 import { FeatureHero, Stage, Answers, FeatureRow, Split, DL, NextStep } from '../../../components/pages/blocks';
@@ -136,7 +136,7 @@ export default function DebtorsPage() {
         </div>
       </section>
 
-      <CTABand page="debtors" />
+      <Closing page="debtors" />
     </>
   );
 }

@@ -9,7 +9,8 @@
  * are the full amounts); cancellation wording other than 30 days' written
  * notice (owner decision: Terms 6 stands); JSON-LD that is invalid, carries
  * the wrong price, states a VAT flag on the Offer, or lists
- * Fast Pay or Insurance as a feature or offer.
+ * Fast Pay or Insurance as a feature or offer; sample-data captions; the
+ * company address or Information Officer outside the legal pages (owner R4).
  * Legal pages (owner-controlled wording) are checked for em dashes only.
  */
 import fs from 'node:fs';
@@ -55,6 +56,11 @@ const BANNED = [
   [/pricing excludes VAT|excl(usive of|\.?) VAT where applicable/i, 'VAT note on the TruckWys price (TruckWys is not VAT registered)'],
   [/cancel (at )?any ?time|no notice (period|needed|required)|without notice/i, 'cancellation needs 30 days\' written notice (Terms 6)'],
   [/Cartrack login|with your login/i, 'Cartrack takes API credentials, not the normal login'],
+  // Owner R4: no sample-data captions anywhere.
+  [/Sample data from a fictional|Figures are illustrative/i, 'sample-data caption (owner R4: removed site-wide)'],
+  // Owner R4: the address and the Information Officer live only in the Privacy policy and the PAIA manual
+  // (the footer keeps one line: company name and registration number).
+  [/Keurboom|Information Officer is\b/i, 'company address or Information Officer outside Privacy and PAIA (owner R4)'],
 ];
 
 function visibleText(html) {

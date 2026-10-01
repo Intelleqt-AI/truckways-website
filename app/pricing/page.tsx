@@ -2,19 +2,19 @@ import type { Metadata } from 'next';
 import { Check } from 'lucide-react';
 import { SoonCard, SOON } from '../../components/SoonCard';
 import { ButtonLink, TextLink, TwoTone } from '../../components/ui';
-import { Breadcrumbs, PageHero, CTABand } from '../../components/Blocks';
+import { Breadcrumbs, PageHero, Closing } from '../../components/Blocks';
 import Faq, { type QA } from '../../components/Faq';
 import FeeCalc from '../../components/FeeCalc';
-import { FACTS, PRICE, CANCELLATION, FEE_LINE, VAT_ANSWER } from '../../lib/facts';
+import { FACTS, PRICE, CANCELLATION, FEE_LINE, NO_VAT, VAT_ANSWER } from '../../lib/facts';
 import { FEE_EXAMPLE } from '../../content/demo-data';
 import { rand } from '../../lib/format';
-import { SITE_URL, signupUrl, demoUrl, jsonLd } from '../../lib/site';
+import { SITE_URL, CONTACT_EMAIL, signupUrl, demoUrl, jsonLd } from '../../lib/site';
 import { graph, softwareSchema, offerSchema, faqSchema, breadcrumbSchema } from '../../lib/schema';
 
 const URL = `${SITE_URL}/pricing`;
 const TITLE = 'Pricing: R 4 499 per month, one plan';
 const DESCRIPTION =
-  "One plan for South African transporters: R 4 499 per month, plus 0,25% of each delivered load's invoice value. Unlimited users, no setup fees.";
+  "One plan for South African transporters: R 4 499 per month, plus 0,25% of each delivered load's invoice total. Unlimited users, no setup fees.";
 
 export const metadata: Metadata = {
   title: TITLE,
@@ -53,7 +53,20 @@ const FAQ: QA[] = [
   },
   { id: 'vat', q: 'Do you charge VAT?', a: VAT_ANSWER },
   // Owner decision: Terms 6 (30 days' written notice) stands.
-  { id: 'cancel', q: 'Is there a contract?', a: CANCELLATION },
+  {
+    id: 'cancel',
+    q: 'Is there a contract?',
+    a: `${CANCELLATION} To give notice, email ${CONTACT_EMAIL}.`,
+    rich: (
+      <>
+        {CANCELLATION} To give notice, email{' '}
+        <a className="ulink" href={`mailto:${CONTACT_EMAIL}`}>
+          {CONTACT_EMAIL}
+        </a>
+        .
+      </>
+    ),
+  },
   {
     id: 'data',
     q: 'What happens to my data if I cancel?',
@@ -62,13 +75,12 @@ const FAQ: QA[] = [
   {
     id: 'popia',
     q: 'Who looks after personal information under POPIA?',
-    a: `Our Information Officer is ${FACTS.company.infoOfficer}, at grant@truckwys.com. The Privacy policy explains how we handle personal information, and the PAIA manual explains how to request records.`,
+    a: 'Our Information Officer, named in the Privacy policy and the PAIA manual. The Privacy policy explains how we handle personal information, and the PAIA manual explains how to request records.',
     rich: (
       <>
-        Our Information Officer is {FACTS.company.infoOfficer}, at{' '}
-        <a className="ulink" href="mailto:grant@truckwys.com">grant@truckwys.com</a>. The{' '}
-        <a className="ulink" href="/privacy">Privacy policy</a> explains how we handle personal information, and the{' '}
-        <a className="ulink" href="/paia-manual">PAIA manual</a> explains how to request records.
+        Our Information Officer, named in the{' '}
+        <a className="ulink" href="/privacy">Privacy policy</a> and the <a className="ulink" href="/paia-manual">PAIA manual</a>. The
+        Privacy policy explains how we handle personal information, and the PAIA manual explains how to request records.
       </>
     ),
   },
@@ -105,7 +117,7 @@ export default function PricingPage() {
               <span className="figure-big" style={{ color: 'var(--text-primary)' }}>{PRICE}</span>
               <span>per month</span>
             </div>
-            <p className="plan__sub">plus {FEE_LINE}</p>
+            <p className="plan__sub">plus {FEE_LINE}. {NO_VAT}</p>
             <ul className="plan__list list-reset">
               {INCLUDED.map((t) => (
                 <li key={t}>
@@ -198,7 +210,7 @@ export default function PricingPage() {
         </div>
       </section>
 
-      <CTABand page="pricing" />
+      <Closing page="pricing" />
     </>
   );
 }

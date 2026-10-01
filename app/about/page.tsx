@@ -1,15 +1,20 @@
 import { Check, X } from 'lucide-react';
 import '../../components/pages/pages-b.css';
-import { ButtonLink, SectionHeader, TwoTone, SAMPLE_CAPTION } from '../../components/ui';
+import { TextLink, SectionHeader, TwoTone } from '../../components/ui';
+import { Closing } from '../../components/Blocks';
 import FitDiagram from '../../components/FitDiagram';
 import PhoneShot from '../../components/PhoneShot';
 import { FeatureHero, Split, DL } from '../../components/pages/blocks';
 import { pageMeta } from '../../components/pages/meta';
-import { FACTS, PRICE_AND_FEE } from '../../lib/facts';
-import { SITE_URL, demoUrl, jsonLd } from '../../lib/site';
+import { FACTS } from '../../lib/facts';
+import { SITE_URL, jsonLd } from '../../lib/site';
 import { graph, breadcrumbSchema, ids } from '../../lib/schema';
 
 const PATH = '/about';
+
+const NUMBER_WORDS = ['Zero', 'One', 'Two', 'Three', 'Four', 'Five', 'Six', 'Seven', 'Eight', 'Nine', 'Ten'];
+/** "Six roles": one role per user, so never "6 roles per user". */
+const ROLE_COUNT = `${NUMBER_WORDS[FACTS.roles.length] ?? FACTS.roles.length} roles`;
 export const metadata = pageMeta({
   path: PATH,
   title: 'About: South African load-to-cash software',
@@ -61,11 +66,10 @@ export default function AboutPage() {
         eyebrow="About TruckWys"
         a="The money side"
         b="of running trucks."
-        lead="TruckWys is South African software for the part of trucking that decides whether a year was good: price, invoice, collect."
+        lead="TruckWys is South African software for the part of trucking that decides whether a year was good: price, invoice, collect. Founded in Cape Town in 2025."
         aside={
           <figure className="b-phonefig">
             <PhoneShot scale={0.72} />
-            <figcaption className="b-cap">TruckWys on a phone. {SAMPLE_CAPTION}</figcaption>
           </figure>
         }
       />
@@ -93,9 +97,6 @@ export default function AboutPage() {
             line="It works next to the TMS, tracking and books you already run. It does not replace them."
           />
           <FitDiagram />
-          <p className="caption fit__cap" style={{ marginBottom: 48 }}>
-            Invoice, debtors and lanes: {SAMPLE_CAPTION.charAt(0).toLowerCase() + SAMPLE_CAPTION.slice(1)}
-          </p>
           <div className="b-isnt">
             <div className="reveal">
               <h3>TruckWys is</h3>
@@ -129,40 +130,20 @@ export default function AboutPage() {
         Template for the founder to rewrite, never to publish as is: brief §4.8.
       */}
 
-      <section className="sec" aria-labelledby="company-h">
+      <section className="sec" aria-labelledby="security-h">
         <div className="wrap b-duo">
           <div className="b-duo__a reveal">
-            <h2 className="h3" id="company-h">
-              The company
+            <h2 className="h3" id="security-h">
+              Security and POPIA
             </h2>
-            <DL
-              rows={[
-                ['Name', FACTS.company.name],
-                ['Registration', FACTS.company.reg],
-                ['Address', FACTS.company.address],
-                ['Information Officer', FACTS.company.infoOfficer],
-                [
-                  'Documents',
-                  <>
-                    <a className="ulink" href="/privacy">
-                      Privacy policy
-                    </a>
-                    {' · '}
-                    <a className="ulink" href="/paia-manual">
-                      PAIA manual
-                    </a>
-                  </>,
-                ],
-              ]}
-            />
+            <p>How you sign in, who sees what, and what happens to your data.</p>
           </div>
           <div className="b-duo__b reveal">
-            <h2 className="h3">Security and POPIA</h2>
             <DL
               rows={[
                 ['Sign-in', 'A six-digit login code by email, valid for 10 minutes.'],
                 ['Sessions', 'See where you are signed in, and log out any session.'],
-                ['Roles', `${FACTS.roles.length} roles per user: ${FACTS.roles.join(', ')}.`],
+                ['Roles', `${ROLE_COUNT}: ${FACTS.roles.join(', ')}. Each person has one.`],
                 ['Integrations', 'Passwords and keys for connected systems are encrypted at rest. All traffic is over TLS.'],
                 [
                   'Your data',
@@ -174,7 +155,6 @@ export default function AboutPage() {
                     .
                   </>,
                 ],
-                ['Hosting', `${FACTS.hosting}.`],
                 // TODO(owner) Q11: data-pooling wording. Omitted until confirmed.
               ]}
             />
@@ -182,23 +162,15 @@ export default function AboutPage() {
         </div>
       </section>
 
-      <section className="sec sec--ink ctab" data-theme="dark" aria-labelledby="about-cta-h">
-        <div className="wrap grid12">
-          <TwoTone id="about-cta-h" a="Questions before you start?" b="Ask a person." />
-          <div className="ctab__side">
-            <p className="body">For fleets of 50 or more, TMS partners, or anything this page does not answer. Or look around the demo first.</p>
-            <div className="btn-row btn-row--stack">
-              <ButtonLink href="/contact" cta="talk_to_us" loc="cta_band">
-                Talk to us
-              </ButtonLink>
-              <ButtonLink href={demoUrl('about-cta')} variant="secondary" cta="open_demo" loc="cta_band">
-                Open the demo
-              </ButtonLink>
-            </div>
-            <p className="small">{PRICE_AND_FEE}</p>
-          </div>
-        </div>
-      </section>
+      <Closing
+        page="about"
+        line="Fleets of 50 or more, TMS partners, or anything this page does not answer: Grant McEvoy reads every message and replies by email."
+        extra={
+          <TextLink href="/contact" cta="talk_to_us" loc="closing">
+            Talk to Grant
+          </TextLink>
+        }
+      />
     </>
   );
 }

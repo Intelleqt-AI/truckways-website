@@ -18,7 +18,7 @@ export default function PhoneShot({ scale = 0.8, className = '' }: { scale?: num
             height={844}
             loading="lazy"
             decoding="async"
-            alt={`TruckWys on a phone for the demo company: ${rand(KPIS.owed)} owed to you, ${rand(KPIS.revenue12m)} received over 12 months, a ${num(KPIS.netMargin12m, 1)}% margin and ${KPIS.activeLoads} active loads.`}
+            alt={`TruckWys on a phone for a fictional demo company: ${rand(KPIS.owed)} owed to you, ${rand(KPIS.revenue12m)} received over 12 months, a ${num(KPIS.netMargin12m, 1)}% margin and ${KPIS.activeLoads} active loads.`}
           />
         </picture>
       </div>

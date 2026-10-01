@@ -1,6 +1,6 @@
 import '../../../components/pages/pages-b.css';
 import { SectionHeader } from '../../../components/ui';
-import { CTABand } from '../../../components/Blocks';
+import { Closing } from '../../../components/Blocks';
 import Faq, { type QA } from '../../../components/Faq';
 import { CostBreakdown, N3Tolls } from '../../../components/fragments/Quote';
 import { FeatureHero, Stage, Answers, FeatureRow, Split, DL, NextStep } from '../../../components/pages/blocks';
@@ -143,7 +143,7 @@ export default function QuotingPage() {
         </div>
       </section>
 
-      <CTABand page="quoting" />
+      <Closing page="quoting" />
     </>
   );
 }

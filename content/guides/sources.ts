@@ -45,7 +45,7 @@ export const SRC = {
   },
   cbrta: { name: 'Cross-Border Road Transport Agency: permits', url: 'https://www.cbrta.co.za/permits' },
   botswana: { name: 'Government of Botswana: single transit permit', url: 'https://www.gov.bw/transport-permits/single-transit-permit' },
-  namibia: { name: 'Road Fund Administration (Namibia): cross-border charges', url: 'https://www.rfanam.com.na/cbc-cross-border-charges/' },
+  namibia: { name: 'Road Fund Administration (Namibia): fees and tariffs', url: 'https://rfanam.com.na/fees-tariffs/' },
   trac: { name: 'TRAC N4: toll plazas and toll fees', url: 'https://tracn4.co.za/toll-plazas-toll-fees/' },
   eswatini: { name: 'Eswatini Tourism Authority: how to get there (road toll)', url: 'https://www.thekingdomofeswatini.com/how-to-get-there/' },
   lesotho: { name: 'Road Fund (Lesotho), 29 Apr 2022: increase in toll gate fees', url: 'https://www.roadfund.org.ls/news/road-fund-announces-an-increase-in-toll-gate-fees/' },

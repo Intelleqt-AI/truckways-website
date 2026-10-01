@@ -1,6 +1,6 @@
 import { ArrowRight } from 'lucide-react';
 import { TwoTone } from '../../components/ui';
-import { Breadcrumbs, CTABand } from '../../components/Blocks';
+import { Breadcrumbs, Closing } from '../../components/Blocks';
 import { pageMeta } from '../../components/pages/meta';
 import { GUIDES_SORTED } from '../../content/guides';
 import { SITE_URL, jsonLd } from '../../lib/site';
@@ -72,7 +72,7 @@ export default function GuidesPage() {
           </p>
         </div>
       </section>
-      <CTABand page="guides" />
+      <Closing page="guides" />
     </>
   );
 }

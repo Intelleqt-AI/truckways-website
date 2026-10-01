@@ -22,7 +22,10 @@ const nextConfig = {
       { source: '/linkedin-profile', destination: '/', permanent: true },
       // Phase B (brief §2.2, §2.3): /blogs is now /guides. Retired slugs first, then the catch-all.
       { source: '/blogs/true-cost-running-truck-fleet-south-africa-2026', destination: '/guides/sa-fleet-operators-real-cost-per-kilometre', permanent: true },
-      { source: '/blogs/fleet-profitability-south-africa-ai-powered-pricing', destination: '/guides/how-to-quote-freight-rates-south-africa-ai', permanent: true },
+      { source: '/blogs/fleet-profitability-south-africa-ai-powered-pricing', destination: '/guides/how-to-quote-freight-rates-south-africa', permanent: true },
+      // Critic R3: the quoting guide's slug lost its "-ai" suffix (308 from the old URL).
+      { source: '/guides/how-to-quote-freight-rates-south-africa-ai', destination: '/guides/how-to-quote-freight-rates-south-africa', permanent: true },
+      { source: '/blogs/how-to-quote-freight-rates-south-africa-ai', destination: '/guides/how-to-quote-freight-rates-south-africa', permanent: true },
       { source: '/blogs/invoice-factoring-vs-ai-cash-advances-sa-transport', destination: '/guides', permanent: true },
       { source: '/blogs/fleet-management-software-south-africa-2026', destination: '/guides', permanent: true },
       { source: '/blogs/future-of-freight-africa-ai-transforming-transport', destination: '/guides', permanent: true },

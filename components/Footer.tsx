@@ -29,15 +29,13 @@ const COLS = [
     title: 'Resources',
     links: [{ href: '/guides', label: 'Guides' }],
   },
-  {
-    title: 'Legal',
-    links: [
-      { href: '/privacy', label: 'Privacy policy' },
-      { href: '/terms', label: 'Terms' },
-      { href: '/paia-manual', label: 'PAIA manual' },
-      { href: '/delete-account', label: 'Delete your account' },
-    ],
-  },
+];
+
+const LEGAL = [
+  { href: '/privacy', label: 'Privacy' },
+  { href: '/terms', label: 'Terms' },
+  { href: '/paia-manual', label: 'PAIA manual' },
+  { href: '/delete-account', label: 'Delete your account' },
 ];
 
 export default function Footer() {
@@ -76,9 +74,15 @@ export default function Footer() {
         </div>
         <div className="footer__legal">
           <p className="small footer__co">
-            <span>{FACTS.company.name}</span> <span>· Reg. {FACTS.company.reg}</span> <span>· {FACTS.company.address}</span>
+            © 2026 {FACTS.company.name} · Reg.&nbsp;{FACTS.company.reg}
           </p>
-          <p className="small">© 2026 TruckWys</p>
+          <nav aria-label="Legal" className="footer__legal-links">
+            {LEGAL.map((l) => (
+              <a key={l.href} href={l.href} className="small">
+                {l.label}
+              </a>
+            ))}
+          </nav>
         </div>
       </div>
     </footer>

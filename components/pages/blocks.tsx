@@ -7,7 +7,6 @@ import type { ReactNode } from 'react';
 import { ArrowRight, Check } from 'lucide-react';
 import { ButtonLink, TextLink, TwoTone } from '../ui';
 import { Breadcrumbs } from '../Blocks';
-import { SAMPLE_CAPTION } from '../ui';
 import { demoUrl, signupUrl } from '../../lib/site';
 import { PRICE_AND_FEE } from '../../lib/facts';
 
@@ -39,13 +38,13 @@ export function FeatureHero({
         <p className="lead b-hero__lead">{lead}</p>
         {primary === 'signup' ? (
           <>
-            <div className="btn-row btn-row--stack">
+            <div className="cta-pair">
               <ButtonLink href={signupUrl(`${page}-hero`)} cta="get_started" loc="hero">
                 Get started
               </ButtonLink>
-              <ButtonLink href={demoUrl(`${page}-hero`)} variant="secondary" cta="open_demo" loc="hero">
+              <TextLink href={demoUrl(`${page}-hero`)} cta="open_demo" loc="hero">
                 Open the demo
-              </ButtonLink>
+              </TextLink>
             </div>
             {/* Price and fee always together (lib/facts.ts). */}
             <p className="small b-hero__price">{PRICE_AND_FEE}</p>
@@ -60,14 +59,13 @@ export function FeatureHero({
   );
 }
 
-/** One rebuilt product screen on the dashboard's grey surface, with the sample-data caption. */
-export function Stage({ label, children, caption = SAMPLE_CAPTION, flush }: { label: string; children: ReactNode; caption?: string | null; flush?: boolean }) {
+/** One rebuilt product screen on the dashboard's grey surface. */
+export function Stage({ label, children, flush }: { label: string; children: ReactNode; flush?: boolean }) {
   return (
     <figure className="reveal">
       <div className={`b-stage${flush ? ' b-stage--flush' : ''}`} role="img" aria-label={label}>
         {children}
       </div>
-      {caption ? <figcaption className="b-cap">{caption}</figcaption> : null}
     </figure>
   );
 }

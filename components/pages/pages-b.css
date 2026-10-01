@@ -32,7 +32,6 @@
 .b-stage--flush { padding: 0; }
 @media (max-width: 1023px) { .b-stage { padding: 24px; } }
 @media (max-width: 639px) { .b-stage { padding: 16px 12px; border-radius: 12px; } }
-.b-cap { margin-top: 12px; font: 400 14px/20px var(--font-sans); color: var(--text-tertiary); }
 
 /* ------------------------------------------------------------ what it answers */
 .b-answers { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--web-col-gap); border-top: 1px solid var(--border-subtle); }
@@ -486,3 +485,4 @@ a.b-hubcard:hover .b-hubcard__more svg { transform: translateX(2px); }
 .b-phonefig { display: flex; flex-direction: column; align-items: center; }
 .b-row__text .b-dl { margin-top: 16px; }
 .b-row__text .b-dl > div { grid-template-columns: 1fr; gap: 2px; }
+.fit + .b-isnt { margin-top: 48px; }

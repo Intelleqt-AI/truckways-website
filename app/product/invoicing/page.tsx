@@ -1,6 +1,6 @@
 import '../../../components/pages/pages-b.css';
 import { SectionHeader } from '../../../components/ui';
-import { CTABand } from '../../../components/Blocks';
+import { Closing } from '../../../components/Blocks';
 import Faq, { type QA } from '../../../components/Faq';
 import { FeatureHero, Stage, Answers, FeatureRow, Split, DL, NextStep } from '../../../components/pages/blocks';
 import { InvoiceDetail, PublicInvoice, InvoiceList } from '../../../components/pages/frags';
@@ -137,7 +137,7 @@ export default function InvoicingPage() {
         </div>
       </section>
 
-      <CTABand page="invoicing" />
+      <Closing page="invoicing" />
     </>
   );
 }

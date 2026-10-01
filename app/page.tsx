@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import { Calculator, Receipt, Users, FileBarChart, MessageSquareText, Plug, ArrowRight, Check } from 'lucide-react';
-import { ButtonLink, TextLink, SectionHeader, TwoTone, Caption, SAMPLE_CAPTION } from '../components/ui';
+import { ButtonLink, TextLink, SectionHeader, TwoTone } from '../components/ui';
+import { Closing } from '../components/Blocks';
 import StepSwitcher from '../components/StepSwitcher';
 import FitDiagram from '../components/FitDiagram';
 import { SoonCard, SOON } from '../components/SoonCard';
@@ -9,7 +10,7 @@ import { CostBreakdown, QuoteCard, N3Tolls } from '../components/fragments/Quote
 import {
   InvoiceRow, NeedsYouCard, LaneRanking, CopilotPanel, Findings, Stats,
 } from '../components/fragments/Money';
-import { FACTS, PRICE, PRICE_AND_FEE, PRICE_SHORT, FEE_LINE, CANCELLATION } from '../lib/facts';
+import { FACTS, PRICE, PRICE_AND_FEE, FEE_LINE, NO_VAT, CANCELLATION } from '../lib/facts';
 import { signupUrl, demoUrl, jsonLd, SITE_URL, DEMO_LINE } from '../lib/site';
 import { graph, softwareSchema, offerSchema, faqSchema } from '../lib/schema';
 import { INVOICE, KPIS, FEE_EXAMPLE, BOOKED_QUOTE, LANE_JHB_DBN } from '../content/demo-data';
@@ -115,13 +116,13 @@ export default function Home() {
             <p className="lead hero__lead">
               TruckWys runs the money side of every load, next to the TMS, spreadsheets and tracking you already use.
             </p>
-            <div className="btn-row btn-row--stack hero__ctas">
+            <div className="cta-pair hero__ctas">
               <ButtonLink href={signupUrl('home-hero')} cta="get_started" loc="hero">
                 Get started
               </ButtonLink>
-              <ButtonLink href={demoUrl('home-hero')} variant="secondary" cta="open_demo" loc="hero">
+              <TextLink href={demoUrl('home-hero')} cta="open_demo" loc="hero">
                 Open the demo
-              </ButtonLink>
+              </TextLink>
             </div>
             <p className="small hero__price">
               {PRICE_AND_FEE} {CANCELLATION}
@@ -131,7 +132,7 @@ export default function Home() {
           {/* Composition: the real S1 capture (Home, light, demo company, 30 Sep 2026) rising from the panel's
               bottom edge, F1 floating over its left edge. Sources only match from 1024px, where the composition
               shows; phones get the S2 phone capture below and never download this one. */}
-          <figure className="hero__comp" role="img" aria-label={`TruckWys Home for the demo company: ${rand(KPIS.owed)} owed to you (${rand(KPIS.pastDue)} past due), ${rand(KPIS.revenue12m)} received over 12 months, a ${num(KPIS.netMargin12m, 1)}% net margin and ${KPIS.activeLoads} active loads, with the invoices to chase; over it, the cost breakdown of a Johannesburg to Durban quote.`}>
+          <figure className="hero__comp" role="img" aria-label={`TruckWys Home for a fictional demo company: ${rand(KPIS.owed)} owed to you (${rand(KPIS.pastDue)} past due), ${rand(KPIS.revenue12m)} received over 12 months, a ${num(KPIS.netMargin12m, 1)}% net margin and ${KPIS.activeLoads} active loads, with the invoices to chase; over it, the cost breakdown of a Johannesburg to Durban quote.`}>
             <div className="hero__frame" data-theme="light">
               <div className="hero__scale">
                 <picture>
@@ -172,7 +173,7 @@ export default function Home() {
                   src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw=="
                   width={390}
                   height={844}
-                  alt={`TruckWys Home on a phone for the demo company: ${rand(KPIS.owed)} owed to you, ${rand(KPIS.revenue12m)} received over 12 months, a ${num(KPIS.netMargin12m, 1)}% margin and ${KPIS.activeLoads} active loads.`}
+                  alt={`TruckWys Home on a phone for a fictional demo company: ${rand(KPIS.owed)} owed to you, ${rand(KPIS.revenue12m)} received over 12 months, a ${num(KPIS.netMargin12m, 1)}% margin and ${KPIS.activeLoads} active loads.`}
                   fetchPriority="low"
                   decoding="async"
                 />
@@ -180,7 +181,6 @@ export default function Home() {
             </div>
           </div>
         </div>
-        <p className="small hero__caption">{SAMPLE_CAPTION}</p>
       </section>
 
       {/* 2. Facts row (W). Ref: Flott "Backed by" line, replacing Hemut's ROI counters */}
@@ -208,7 +208,6 @@ export default function Home() {
           />
           <FitDiagram />
           <p className="small fit__note">No hardware to install. Nothing to migrate. Your tools stay in place.</p>
-          <p className="caption fit__cap">Invoice, debtors and lanes: {SAMPLE_CAPTION.charAt(0).toLowerCase() + SAMPLE_CAPTION.slice(1)}</p>
           <div className="fit__foot">
             <TextLink href="/contact?topic=partner" cta="talk_to_us" loc="fit">
               For TMS partners
@@ -266,7 +265,6 @@ export default function Home() {
                       <span>{rand(LANE_JHB_DBN.perKm, { cents: true })}/km</span>
                     </li>
                   </ul>
-                  <Caption />
                 </>
               }
             />
@@ -292,7 +290,6 @@ export default function Home() {
                 <Stats />
               </div>
             </div>
-            <figcaption className="caption">{SAMPLE_CAPTION}</figcaption>
           </figure>
         </div>
       </section>
@@ -316,7 +313,6 @@ export default function Home() {
           </div>
           <div className="band__float reveal">
             <CopilotPanel float />
-            <p className="caption band__cap">{SAMPLE_CAPTION}</p>
           </div>
         </div>
       </section>
@@ -419,7 +415,7 @@ export default function Home() {
               <span className="figure-big">{PRICE}</span>
               <span>per month</span>
             </p>
-            <p className="psplit__fee">plus {FEE_LINE}</p>
+            <p className="psplit__fee">plus {FEE_LINE}. {NO_VAT}</p>
             <p className="small psplit__eg">
               Worked example: the load invoiced above, {rand(FEE_EXAMPLE.invoice, { cents: true })} incl. VAT, adds{' '}
               {rand(FEE_EXAMPLE.fee, { cents: true })}.
@@ -451,38 +447,8 @@ export default function Home() {
         </div>
       </section>
 
-      {/* 12. Final CTA (I, rounded inset panel). Ref: hemut-1440-full-2 bottom, hemut-1440-full-3, flott-1440-full-3/4 */}
-      <section aria-labelledby="cta-h" style={{ paddingBottom: 16 }}>
-        <div className="inset ctap" data-theme="dark">
-          <div className="ctap__text reveal">
-            <TwoTone id="cta-h" a="Look around a working company." b="Then decide." />
-            <p className="lead">{DEMO_LINE}</p>
-            <div className="btn-row btn-row--stack">
-              <ButtonLink href={demoUrl('home-cta')} cta="open_demo" loc="cta_band">
-                Open the demo
-              </ButtonLink>
-              <ButtonLink href={signupUrl('home-cta')} variant="secondary" cta="get_started" loc="cta_band">
-                Get started
-              </ButtonLink>
-            </div>
-            <p className="small">{PRICE_SHORT}</p>
-          </div>
-          <div className="ctap__visual" aria-hidden="true">
-            <div className="ctap__crop">
-              {/* S14: the real dark Home capture (top 60%), from 640px up only. */}
-              <picture>
-                <source media="(min-width: 640px)" type="image/avif" srcSet="/product/s14-home-dark-1080.avif 1080w, /product/s14-home-dark-1440.avif 1440w, /product/s14-home-dark-2880.avif 2880w" sizes="(max-width: 1023px) 100vw, 1484px" />
-                <source media="(min-width: 640px)" type="image/webp" srcSet="/product/s14-home-dark-1080.webp 1080w, /product/s14-home-dark-1440.webp 1440w, /product/s14-home-dark-2880.webp 2880w" sizes="(max-width: 1023px) 100vw, 1484px" />
-                <img className="ctap__shot" src="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==" width={1440} height={540} alt="" loading="lazy" decoding="async" />
-              </picture>
-            </div>
-            <div className="ctap__float">
-              <InvoiceRow compact float />
-            </div>
-          </div>
-          <p className="caption ctap__cap">{SAMPLE_CAPTION}</p>
-        </div>
-      </section>
+      {/* 12. Closing (W). Owner R4: no panel, no screenshot; the demo is a link only. */}
+      <Closing page="home" />
     </>
   );
 }

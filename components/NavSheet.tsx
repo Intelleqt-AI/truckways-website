@@ -134,8 +134,11 @@ export default function NavSheet({ links, product = [], signIn, demo, signup, pr
             <a href={signup} className="btn btn--primary" data-cta="get_started" data-loc="menu">
               Get started
             </a>
-            <a href={demo} className="btn btn--secondary" data-cta="open_demo" data-loc="menu">
+            <a href={demo} className="tlink sheet__demo" data-cta="open_demo" data-loc="menu">
               Open the demo
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.75" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+                <path d="M5 12h14M12 5l7 7-7 7" />
+              </svg>
             </a>
             <p className="small sheet__price">{price}</p>
           </div>

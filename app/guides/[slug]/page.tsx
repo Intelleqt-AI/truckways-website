@@ -130,13 +130,13 @@ export default function GuidePage({ params }: { params: { slug: string } }) {
             <aside className={s.endcard} aria-labelledby="end-h">
               <h2 id="end-h">Do this for every load, without the spreadsheet</h2>
               <p>TruckWys prices loads from diesel and tolls, raises the invoice on delivery and shows who owes you. Look around the demo company first.</p>
-              <div className="btn-row btn-row--stack">
-                <ButtonLink href={demoUrl(`guide-${g.slug}`)} cta="open_demo" loc="guide_end">
-                  Open the demo
-                </ButtonLink>
-                <ButtonLink href={signupUrl(`guide-${g.slug}`)} variant="secondary" cta="get_started" loc="guide_end">
+              <div className="cta-pair">
+                <ButtonLink href={signupUrl(`guide-${g.slug}`)} cta="get_started" loc="guide_end">
                   Get started
                 </ButtonLink>
+                <TextLink href={demoUrl(`guide-${g.slug}`)} cta="open_demo" loc="guide_end">
+                  Open the demo
+                </TextLink>
               </div>
               <p className="small" style={{ marginTop: 12 }}>
                 {PRICE_AND_FEE}

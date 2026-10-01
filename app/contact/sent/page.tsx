@@ -29,13 +29,13 @@ export default function SentPage() {
           </p>
           <TwoTone as="h1" className="h1" a="Thanks." b="We have your message." />
           <p className="lead">A person reads it and replies by email, from {CONTACT_EMAIL}, on South African working days.</p>
-          <div className="btn-row btn-row--stack status__ctas">
-            <ButtonLink href={demoUrl('contact-sent')} cta="open_demo" loc="contact_sent">
-              Open the demo while you wait
-            </ButtonLink>
-            <ButtonLink href={signupUrl('contact-sent')} variant="secondary" cta="get_started" loc="contact_sent">
+          <div className="cta-pair status__ctas">
+            <ButtonLink href={signupUrl('contact-sent')} cta="get_started" loc="contact_sent">
               Get started
             </ButtonLink>
+            <TextLink href={demoUrl('contact-sent')} cta="open_demo" loc="contact_sent">
+              Open the demo while you wait
+            </TextLink>
           </div>
           <p className="small status__price">{PRICE_SHORT}</p>
         </div>

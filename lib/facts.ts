@@ -75,9 +75,15 @@ export const PRICE_LINE = `${PRICE} per month`;
 export const VAT_ANSWER =
   "TruckWys isn't registered for VAT yet, so there's no VAT on the subscription or the fee. If that changes, we'll tell you in writing before it applies.";
 export const FEE = '0,25%';
-/** The fee is worked out on the invoice total including VAT (owner decision; matches the code). */
-export const FEE_LINE = `0,25% of each delivered load's invoice value (incl.${NB}VAT)`;
-export const PRICE_AND_FEE = `${PRICE_LINE}, plus ${FEE_LINE}.`;
+/**
+ * The fee is worked out on the invoice total, which includes the VAT on your customer's invoice (owner
+ * decision; matches the code). Critic R3: "(incl. VAT)" after the line read as if it applied to R 4 499,
+ * so the line says "invoice total" and the price line ends with NO_VAT.
+ */
+export const FEE_LINE = `0,25% of each delivered load's invoice total`;
+/** Not VAT registered (owner decision), said as a plain fact after the price. */
+export const NO_VAT = 'No VAT on our fees.';
+export const PRICE_AND_FEE = `${PRICE_LINE}, plus ${FEE_LINE}. ${NO_VAT}`;
 /** Short form for tight spots (CTA bands, the phone menu). */
 export const PRICE_SHORT = `${PRICE_LINE}, plus 0,25% per delivered load.`;
 /** Owner decision: Terms 6 stands (30 days' written notice). Use this wording wherever cancellation comes up. */

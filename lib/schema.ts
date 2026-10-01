@@ -69,7 +69,7 @@ export const offerSchema = {
     // to be included or excluded. true would claim VAT is inside the price and false
     // would claim VAT is added on top; both are wrong. The price is the full amount.
   },
-  description: "Per month, plus 0,25% of each delivered load's invoice value (incl. VAT).",
+  description: "Per month, plus 0,25% of each delivered load's invoice total. No VAT on our fees.",
   eligibleRegion: { '@type': 'Country', name: 'ZA' },
   availability: 'https://schema.org/InStock',
 };
