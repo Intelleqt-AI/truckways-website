@@ -1,5 +1,6 @@
 import type { Metadata } from 'next';
 import { ButtonLink, TextLink, TwoTone } from '../../../components/ui';
+import { Breadcrumbs } from '../../../components/Blocks';
 import { CONTACT_EMAIL, demoUrl, signupUrl } from '../../../lib/site';
 import { PRICE_SHORT } from '../../../lib/facts';
 
@@ -12,6 +13,15 @@ export const metadata: Metadata = {
 export default function SentPage() {
   return (
     <section className="phero status-page">
+      <div className="wrap">
+        <Breadcrumbs
+          trail={[
+            { name: 'Home', path: '/' },
+            { name: 'Talk to us', path: '/contact' },
+            { name: 'Message sent', path: '/contact/sent' },
+          ]}
+        />
+      </div>
       <div className="wrap status">
         <div className="status__main">
           <p className="label status__eyebrow" role="status">

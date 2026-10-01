@@ -1,6 +1,8 @@
 import { Check, X } from 'lucide-react';
 import '../../components/pages/pages-b.css';
-import { ButtonLink, SectionHeader, TwoTone } from '../../components/ui';
+import { ButtonLink, SectionHeader, TwoTone, SAMPLE_CAPTION } from '../../components/ui';
+import FitDiagram from '../../components/FitDiagram';
+import PhoneShot from '../../components/PhoneShot';
 import { FeatureHero, Split, DL } from '../../components/pages/blocks';
 import { pageMeta } from '../../components/pages/meta';
 import { FACTS, PRICE_AND_FEE } from '../../lib/facts';
@@ -60,6 +62,12 @@ export default function AboutPage() {
         a="The money side"
         b="of running trucks."
         lead="TruckWys is South African software for the part of trucking that decides whether a year was good: price, invoice, collect."
+        aside={
+          <figure className="b-phonefig">
+            <PhoneShot scale={0.72} />
+            <figcaption className="b-cap">TruckWys on a phone. {SAMPLE_CAPTION}</figcaption>
+          </figure>
+        }
       />
 
       <section className="sec" aria-labelledby="believe-h">
@@ -84,6 +92,10 @@ export default function AboutPage() {
             b="And what it isn't."
             line="It works next to the TMS, tracking and books you already run. It does not replace them."
           />
+          <FitDiagram />
+          <p className="caption fit__cap" style={{ marginBottom: 48 }}>
+            Invoice, debtors and lanes: {SAMPLE_CAPTION.charAt(0).toLowerCase() + SAMPLE_CAPTION.slice(1)}
+          </p>
           <div className="b-isnt">
             <div className="reveal">
               <h3>TruckWys is</h3>

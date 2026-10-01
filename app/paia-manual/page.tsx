@@ -2,14 +2,14 @@ import type { Metadata } from 'next';
 import LegalPage from '../../components/LegalPage';
 
 export const metadata: Metadata = {
-  title: 'PAIA Manual',
+  title: 'PAIA manual',
   description:
     'TruckWys manual prepared in terms of section 51 of the Promotion of Access to Information Act, explaining how to request access to records we hold.',
   alternates: {
     canonical: 'https://www.truckwys.com/paia-manual',
   },
   openGraph: {
-    title: 'PAIA Manual | TruckWys',
+    title: 'PAIA manual | TruckWys',
     url: 'https://www.truckwys.com/paia-manual',
     images: [{ url: 'https://www.truckwys.com/og-image.png', width: 1200, height: 630 }],
   },

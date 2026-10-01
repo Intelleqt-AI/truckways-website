@@ -1,11 +1,13 @@
 import type { Metadata } from 'next';
-import { ArrowRight, Zap, ShieldCheck } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
+import { SoonCard, SOON } from '../../components/SoonCard';
 import '../../components/pages/pages-b.css';
-import { SectionHeader, StatusChip, TextLink, TwoTone, SAMPLE_CAPTION } from '../../components/ui';
+import { SectionHeader, TextLink, TwoTone, SAMPLE_CAPTION } from '../../components/ui';
 import { CTABand } from '../../components/Blocks';
 import { CopilotPanel } from '../../components/fragments/Money';
 import { FeatureHero, Stage, DL } from '../../components/pages/blocks';
-import { QuotesBoard, QuoteForm, MiniCost, MiniInvoice, MiniAge, MiniLanes } from '../../components/pages/frags';
+import { QuotesBoard, QuoteForm, MiniCost, MiniInvoice, MiniAge, MiniLanes, TeamSettings } from '../../components/pages/frags';
+import PhoneShot from '../../components/PhoneShot';
 import { FACTS } from '../../lib/facts';
 import { APP_STORE_URL, SITE_URL, jsonLd } from '../../lib/site';
 import { graph, softwareSchema, offerSchema, breadcrumbSchema, ids } from '../../lib/schema';
@@ -124,7 +126,7 @@ export default function ProductPage() {
           </ol>
           <div className="b-hubfoot" id="integrations">
             <p className="b-cap" style={{ marginTop: 0 }}>{SAMPLE_CAPTION}</p>
-            <TextLink href="/integrations">Works with Cartrack, CtrlFleet, your TMS and Excel</TextLink>
+            <TextLink href="/integrations" className="tlink--wrap">Works with Cartrack, CtrlFleet, your TMS and Excel</TextLink>
           </div>
         </div>
       </section>
@@ -197,10 +199,10 @@ export default function ProductPage() {
         </div>
       </section>
 
-      {/* 5. Mobile, and team and control (W). */}
+      {/* 5. Mobile (W): the real S2 phone capture beside the copy. */}
       <section className="sec" aria-labelledby="mobile-h">
-        <div className="wrap b-duo">
-          <div className="b-duo__a reveal">
+        <div className="wrap b-row">
+          <div className="b-row__text reveal">
             <h2 className="h3" id="mobile-h">
               The same numbers on your phone
             </h2>
@@ -215,8 +217,20 @@ export default function ProductPage() {
               <span className="small">Android coming soon</span>
             </div>
           </div>
-          <div className="b-duo__b reveal">
-            <h2 className="h3">Team and control</h2>
+          <figure className="b-row__vis b-phonefig reveal">
+            <PhoneShot scale={0.72} />
+            <figcaption className="b-cap">{SAMPLE_CAPTION}</figcaption>
+          </figure>
+        </div>
+      </section>
+
+      {/* 6. Team and control (G): the team list beside the specifics. */}
+      <section className="sec sec--grey" aria-labelledby="team-h">
+        <div className="wrap b-row b-row--flip">
+          <div className="b-row__text reveal">
+            <h2 className="h3" id="team-h">
+              Team and control
+            </h2>
             <DL
               rows={[
                 ['Roles', FACTS.roles.join(', ')],
@@ -236,31 +250,22 @@ export default function ProductPage() {
               ]}
             />
           </div>
+          <div className="b-row__vis">
+            <Stage label="The team settings of a demo company: five people, each with a role (Admin, Manager, Dispatcher, Viewer, Driver), and sign-in by an emailed login code.">
+              <TeamSettings />
+            </Stage>
+          </div>
         </div>
       </section>
 
-      {/* 6. Coming soon (G). */}
-      <section className="sec sec--grey" aria-labelledby="soon-h">
+      {/* 7. Coming soon (W). */}
+      <section className="sec" aria-labelledby="soon-h">
         <div className="wrap">
           <SectionHeader id="soon-h" a="Coming soon." b="Not in the price, not live yet." line="We will publish what each one costs and does when it is live. Not before." />
           <ul className="soon list-reset">
-            {[
-              { icon: Zap, name: 'Fast Pay', line: 'Get paid on an invoice before your customer pays.', topic: 'fast-pay' },
-              // Q12: one-line description of Insurance pending.
-              { icon: ShieldCheck, name: 'Insurance', line: 'Not live yet. We will describe it when it is.', topic: 'insurance' },
-            ].map(({ icon: Icon, name, line, topic }) => (
-              <li key={name} className="reveal" style={{ display: 'flex' }}>
-                <div className="pcard" style={{ flex: 1 }}>
-                  <Icon className="pcard__icon" strokeWidth={1.75} aria-hidden="true" />
-                  <span className="pcard__name">{name}</span>
-                  <span className="pcard__line">{line}</span>
-                  <span className="pcard__foot">
-                    <StatusChip />
-                    <TextLink href={`/contact?topic=${topic}`} cta="notify" loc="product_soon" quiet>
-                      Get notified<span className="sr-only"> about {name}</span>
-                    </TextLink>
-                  </span>
-                </div>
+            {SOON.map((item) => (
+              <li key={item.name} className="reveal">
+                <SoonCard item={item} loc="product_soon" />
               </li>
             ))}
           </ul>

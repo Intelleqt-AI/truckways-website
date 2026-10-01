@@ -13,7 +13,7 @@ export const metadata = pageMeta({
   path: PATH,
   title: 'Trucking invoicing software: invoice on delivery',
   description:
-    'The invoice is raised when the load is marked delivered: 15% VAT, 30-day terms, your bank details and the invoice number as the EFT reference. Your TMS can mark delivery.',
+    'The invoice is raised when the load is marked delivered, by you or your TMS: 15% VAT, your terms, bank details and the invoice number as EFT reference.',
   og: 'invoicing',
   ogAlt: 'TruckWys invoicing: delivered means invoiced.',
 });

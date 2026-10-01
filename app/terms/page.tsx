@@ -4,7 +4,7 @@ import LegalPage from '../../components/LegalPage';
 export const metadata: Metadata = {
   title: 'Terms and conditions',
   description:
-    'The agreement governing access to and use of the TruckWys platform, including fees, the mobile app licence, and South African consumer and data protection provisions.',
+    'The agreement for using the TruckWys platform: fees, the mobile app licence, and South African consumer and data protection provisions.',
   alternates: {
     canonical: 'https://www.truckwys.com/terms',
   },
