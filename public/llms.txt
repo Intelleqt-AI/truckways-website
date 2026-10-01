@@ -35,8 +35,25 @@
 - [About](https://www.truckwys.com/about): what TruckWys is and is not
 - [Talk to us](https://www.truckwys.com/contact): for fleets of 50+ trucks and TMS partners
 - [Get started](https://app.truckwys.com/signup): create an account
-- [Guides](https://www.truckwys.com/guides): pricing loads, tolls, diesel and getting paid in South Africa
+- [Blog](https://www.truckwys.com/blog): pricing loads, costs, invoicing on delivery and getting paid in South Africa
 
 ## Full detail
 
 - [llms-full.txt](https://www.truckwys.com/llms-full.txt): expanded fact sheet
+
+## Blog
+
+Articles for South African transporters. Every figure is sourced and dated.
+
+- [How to price loads for profit: floors, lanes and when to say no](https://www.truckwys.com/blog/fleet-profitability-south-africa-ai-powered-pricing): Set a floor for every lane, find out which lanes and customers really make money, price backloads on the extra cost they add, and know when to say no.
+- [How to quote a transport load in South Africa, line by line](https://www.truckwys.com/blog/how-to-quote-freight-rates-south-africa-ai): Diesel, tolls, allowance, fixed costs and the return leg, then margin and VAT. A worked Johannesburg to Pietermaritzburg quote.
+- [Cross-border trucking costs in southern Africa: permits, road charges and tolls](https://www.truckwys.com/blog/cross-border-trucking-southern-africa-multi-currency): C-BRTA permits, foreign road charges and tolls, and how VAT works on a load that leaves the country.
+- [Diesel costs for South African fleets: what you pay for, and what you can control](https://www.truckwys.com/blog/fuel-cost-management-sa-fleets-strategies): The levies in the price, the monthly adjustment, the diesel refund question and a simple fuel surcharge formula.
+- [How to work out your truck's real cost per kilometre](https://www.truckwys.com/blog/sa-fleet-operators-real-cost-per-kilometre): Diesel, tolls, tyres and fixed costs, turned into one rand figure per kilometre, with a worked example.
+- [The true cost of running a truck and a small fleet in South Africa in 2026](https://www.truckwys.com/blog/true-cost-running-truck-fleet-south-africa-2026): Every cost line of owning and running a heavy truck for a year, which are fixed and which move, when each one changes, and a worked budget for one interlink.
+- [Cash flow for South African transport businesses: how to get paid faster](https://www.truckwys.com/blog/cash-flow-transport-business-south-africa): Why a busy transport business can still run out of cash, how to measure the gap, and the steps that shorten it, in the order you control them.
+- [Invoice factoring and other ways to get paid sooner: a guide for South African transporters](https://www.truckwys.com/blog/invoice-factoring-vs-ai-cash-advances-sa-transport): The ways a transport business can turn unpaid invoices into cash sooner, how the fees are built, how to work out the real cost, and what to check before you sign.
+- [Proof of delivery and invoicing on delivery: a guide for South African transporters](https://www.truckwys.com/blog/proof-of-delivery-invoice-on-delivery): What a good POD shows, what a valid tax invoice must contain, how to handle shorts and disputes, and a routine that gets the invoice raised on the day the load delivers.
+- [Six places transport businesses lose money between the load and the bank](https://www.truckwys.com/blog/hidden-profit-leaks-south-african-fleet-operators): Missed costs, late invoices, missing PODs, unchased debtors, VAT on unpaid invoices and diesel increases not passed on.
+- [Fleet management software in South Africa: the four kinds, what each does, and how to choose](https://www.truckwys.com/blog/fleet-management-software-south-africa-2026): The four kinds of software a South African transport business runs, what each one is for, how they fit together, and a checklist for choosing.
+- [The future of road freight in South Africa: what is actually changing](https://www.truckwys.com/blog/future-of-freight-africa-ai-transforming-transport): Private trains on Transnet lines, rebuilt border posts, continental free trade, digital VAT and volatile diesel: what is happening, what it could mean, and what to do now.

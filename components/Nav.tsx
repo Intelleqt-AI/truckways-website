@@ -19,7 +19,6 @@ export const PRODUCT_MENU = [
 export const NAV_LINKS = [
   { href: '/product', label: 'Product' },
   { href: '/pricing', label: 'Pricing' },
-  { href: '/guides', label: 'Guides' },
   { href: '/about', label: 'About' },
 ];
 

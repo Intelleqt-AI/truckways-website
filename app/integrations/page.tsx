@@ -2,6 +2,7 @@ import { Check } from 'lucide-react';
 import '../../components/pages/pages-b.css';
 import { SectionHeader, TextLink } from '../../components/ui';
 import { Closing } from '../../components/Blocks';
+import FromTheBlog from '../../components/FromTheBlog';
 import { FeatureHero, Stage, Split } from '../../components/pages/blocks';
 import { IntegrationsSettings } from '../../components/pages/frags';
 import { pageMeta } from '../../components/pages/meta';
@@ -146,6 +147,7 @@ export default function IntegrationsPage() {
             <p className="small" style={{ marginTop: 20 }}>
               Not an integration, but handy: share any quote with your customer by link, including on WhatsApp.
             </p>
+            <FromTheBlog slugs={['fleet-management-software-south-africa-2026']} />
           </Split>
         </div>
       </section>
