@@ -127,7 +127,7 @@ export default function IntegrationsPage() {
           >
             <ol className="b-flow list-reset">
               <li>
-                <b>Your customer creates an API key</b>
+                <b>You create an API key for your TMS</b>
                 <span>In TruckWys settings. Each key can carry a monthly quota and a list of allowed IP addresses.</span>
               </li>
               <li>

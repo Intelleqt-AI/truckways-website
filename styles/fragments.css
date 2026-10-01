@@ -316,3 +316,4 @@ html.js .reveal.is-in .lane__fill, html.js .is-active .lane__fill { transform: s
 .chart--12 .chart__plot::before { background-size: 100% 25%; }
 .chart--12 .chart__bar { width: 9px; }
 .chart--12 .chart__col { gap: 3px; }
+@container (max-width: 420px) { .toll__name > span { display: none; } }

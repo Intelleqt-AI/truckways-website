@@ -100,3 +100,7 @@
   .toc { display: none; }
 }
 .body h2 { scroll-margin-top: 88px; }
+@media (max-width: 639px) {
+  .body :global(.wide) td:nth-child(3) a { position: relative; }
+  .body :global(.wide) td:nth-child(3) a::after { content: ""; position: absolute; left: 0; right: 0; top: 50%; height: 44px; transform: translateY(-50%); }
+}
