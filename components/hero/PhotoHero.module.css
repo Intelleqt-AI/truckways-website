@@ -7,7 +7,7 @@
 .hero { --ov: 96px; padding: 16px 16px 0; position: relative; }
 .frame {
   position: relative; isolation: isolate; overflow: hidden;
-  height: clamp(720px, 54vw, 840px);
+  height: clamp(620px, 46vw, 700px);
   border-radius: var(--radius-dialog);
   background: #101113; color: #FFFFFF;
 }
@@ -26,7 +26,7 @@
     linear-gradient(180deg, rgba(11, 12, 14, 0) 55%, rgba(11, 12, 14, 0.35) 75%, rgba(11, 12, 14, 0.7) 100%),
     rgba(11, 12, 14, 0.2);
 }
-.text { position: absolute; z-index: 1; left: clamp(40px, 6vw, 112px); bottom: calc(var(--ov) + clamp(56px, 5vw, 80px)); width: min(660px, 47%); }
+.text { position: absolute; z-index: 1; left: clamp(40px, 6vw, 112px); bottom: calc(var(--ov) + clamp(72px, 7vw, 112px)); width: min(660px, 47%); }
 .eyebrow { font: 500 14px/20px var(--font-sans); letter-spacing: -0.006em; color: #FFFFFF; margin-bottom: 20px; }
 .h1 { font-weight: 600; font-size: clamp(40px, 1rem + 2.6vw, 58px); line-height: 1.04; letter-spacing: -0.034em; color: #FFFFFF; text-wrap: balance; }
 .h1 > span { display: block; }
