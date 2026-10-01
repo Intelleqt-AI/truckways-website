@@ -118,15 +118,16 @@ export function QuotesBoard() {
 
 /* ================================================================ S3 quote builder, top of form */
 export function QuoteForm() {
-  const fields: [string, string, boolean?][] = [
-    ['Client', QUOTE.customer, true],
-    ['Weight (t)', String(QUOTE.weightT), true],
-    ['Collection', 'City Deep, Johannesburg, Gauteng', true],
-    ['Delivery', 'Prospecton, Durban, KwaZulu-Natal', true],
-    ['Pickup date', 'DD/MM/YYYY'],
-    ['Delivery date', 'DD/MM/YYYY'],
-    ['Valid until', '07/10/2026'],
-    ['Vehicle type', `${QUOTE.vehicle} (${QUOTE.vehicleCap})`],
+  // [label, value, required, wide]: wide fields take two of the four columns (or the whole row of two), so names never clip.
+  const fields: [string, string, boolean, boolean][] = [
+    ['Client', QUOTE.customer, true, true],
+    ['Weight (t)', String(QUOTE.weightT), true, false],
+    ['Valid until', '07/10/2026', false, false],
+    ['Collection', 'City Deep, Johannesburg, Gauteng', true, true],
+    ['Delivery', 'Prospecton, Durban, KwaZulu-Natal', true, true],
+    ['Pickup date', 'DD/MM/YYYY', false, false],
+    ['Delivery date', 'DD/MM/YYYY', false, false],
+    ['Vehicle type', `${QUOTE.vehicle} (${QUOTE.vehicleCap})`, false, true],
   ];
   return (
     <div className="frag b-app cq">
@@ -140,8 +141,8 @@ export function QuoteForm() {
         <span className="tw-btn tw-btn--primary">Fill</span>
       </div>
       <div className="b-form">
-        {fields.map(([l, v, req]) => (
-          <div className="b-field" key={l}>
+        {fields.map(([l, v, req, wide]) => (
+          <div className={`b-field${wide ? ' b-field--wide' : ''}`} key={l}>
             <span className="b-field__label">
               {l}
               {req ? <i aria-hidden="true" /> : null}
@@ -153,7 +154,7 @@ export function QuoteForm() {
             </span>
           </div>
         ))}
-        <div className="b-field b-field--wide">
+        <div className="b-field b-field--row">
           <span className="b-field__label">Trip</span>
           <span className="tw-seg b-trip">
             <span className="is-active">One way</span>
@@ -345,7 +346,7 @@ export function InvoiceList() {
           <div className="b-il__tr" key={r.number}>
             <span style={{ minWidth: 0 }}>
               <span className="b-exl__title tw-500">{r.customer}</span>
-              <span className="tw-12 tw-muted">{r.number}</span>
+              <span className="tw-12 tw-muted b-no">{r.number}</span>
             </span>
             <span className="tw-sec">{date(r.issued)}</span>
             <span className="tw-sec">{date(r.due)}</span>
@@ -479,7 +480,15 @@ export function Statement() {
           return (
             <div className="b-stmt__tr" key={r.ref + r.date}>
               <span className="tw-sec">{date(r.date)}</span>
-              <span className="b-ellipsis">{r.ref}</span>
+              <span className="b-ellipsis">
+                {r.ref.startsWith('Payment, EFT, ') ? (
+                  <>
+                    Payment, EFT, <span className="b-no">{r.ref.slice('Payment, EFT, '.length)}</span>
+                  </>
+                ) : (
+                  <span className="b-no">{r.ref}</span>
+                )}
+              </span>
               <span>{r.amount > 0 ? R(r.amount) : ''}</span>
               <span>{r.amount < 0 ? R(-r.amount) : ''}</span>
               <span className="b-stmt__amt">{r.amount < 0 ? `Paid ${R(-r.amount)}` : R(r.amount)}</span>
@@ -541,11 +550,16 @@ export function ProfitLoss() {
     ['Direct costs', () => '', 'group'],
     ['Fuel', (m) => num(m.fuel), 'sub'],
     ['Tolls', (m) => num(m.tolls), 'sub'],
-    ['Driver costs', (m) => num(m.driver), 'sub'],
     ['Maintenance and repairs', (m) => num(m.maint), 'sub'],
+    ['Total direct costs', (m) => num(m.direct)],
     ['Gross profit', (m) => num(m.gross), 'bold'],
     ['Gross margin', (m) => `${num((m.gross / m.revenue) * 100, 1)}%`, 'muted'],
-    ['Overheads', (m) => num(m.overheads), 'sub'],
+    ['Overheads', () => '', 'group'],
+    ['Insurance', (m) => num(m.insurance), 'sub'],
+    ['Overheads and admin', (m) => num(m.admin), 'sub'],
+    ['Driver cost', (m) => num(m.driverCost), 'sub'],
+    ['Other', (m) => num(m.other), 'sub'],
+    ['Total overheads', (m) => num(m.overheads)],
     ['Net profit', (m) => num(m.net), 'bold'],
     ['Net margin', (m) => `${num((m.net / m.revenue) * 100, 1)}%`, 'muted'],
   ];
@@ -640,11 +654,14 @@ export function VatReport() {
 
 /* ================================================================ S12 insights, lanes scatter */
 /** Label placement where the default (right of the dot) would collide, as the app places them. */
-const LBL: Record<string, { dx: number; dy: number; a: 'start' | 'middle' | 'end' }> = {
-  'Tzaneen to Johannesburg': { dx: 8, dy: -10, a: 'start' },
-  'Durban to Johannesburg': { dx: 0, dy: 20, a: 'middle' },
-  'Johannesburg to eMalahleni': { dx: 10, dy: 8, a: 'start' },
-  'Kempton Park to Secunda': { dx: 10, dy: 0, a: 'start' },
+const LBL: Record<string, { dx: number; dy: number; a: 'start' | 'middle' | 'end'; text?: string }> = {
+  'Tzaneen to Johannesburg': { dx: 8, dy: -14, a: 'start' },
+  'Johannesburg to Durban': { dx: 10, dy: 2, a: 'start' },
+  'Durban to Johannesburg': { dx: 10, dy: 20, a: 'start' },
+  'Johannesburg to eMalahleni': { dx: 10, dy: 10, a: 'start' },
+  'Kempton Park to Secunda': { dx: 10, dy: -2, a: 'start' },
+  // The two Cape Town lanes sit 7px apart at 1 400 km: one label for the pair.
+  'Johannesburg to Cape Town': { dx: -10, dy: -13, a: 'end', text: 'Cape Town, both ways' },
 };
 export function LanesScatter() {
   const W = 640;
@@ -720,7 +737,7 @@ export function LanesScatter() {
                 textAnchor={LBL[p.lane]?.a ?? 'start'}
                 className="b-scatter__lbl"
               >
-                {p.lane}
+                {LBL[p.lane]?.text ?? p.lane}
               </text>
               ) : null}
             </g>
@@ -987,6 +1004,40 @@ export function FuelLine() {
       <div className="cost__price">
         <span>Fuel on this quote</span>
         <span>{rand(q.fuel, { cents: true })}</span>
+      </div>
+    </div>
+  );
+}
+
+/* ================================================================ settings: team and sessions (sample) */
+/** The team list in Settings, at product scale: one person per role the demo company uses, plus the sign-in rule. */
+export function TeamSettings() {
+  const people: [string, string, string, string][] = [
+    ['ND', 'Nandi Dube', 'Owner', 'Admin'],
+    ['PV', 'Pieter Venter', 'Finance', 'Manager'],
+    ['TM', 'Thabo Mokoena', 'Operations', 'Dispatcher'],
+    ['AK', 'Anele Khumalo', 'Bookkeeper', 'Viewer'],
+    ['SN', 'Sipho Ndlovu', 'Driver, superlink', 'Driver'],
+  ];
+  return (
+    <div className="frag b-app cq">
+      <AppHead title="Team" sub="Unlimited users, each with one of six roles" actions={<span className="tw-btn tw-btn--primary">Invite</span>} />
+      <div className="tw-card">
+        {people.map(([i, n, sub, role]) => (
+          <div className="b-team__row" key={n}>
+            <span className="b-team__av" aria-hidden="true">
+              {i}
+            </span>
+            <span style={{ minWidth: 0 }}>
+              <span className="b-team__name" style={{ display: 'block' }}>{n}</span>
+              <span className="b-team__sub" style={{ display: 'block' }}>{sub}</span>
+            </span>
+            <Status tone={role === 'Admin' ? 'info' : 'neutral'}>{role}</Status>
+          </div>
+        ))}
+      </div>
+      <div className="b-basis" style={{ marginTop: 0 }}>
+        <KeyRound strokeWidth={S} aria-hidden="true" /> Sign-in is a login code by email. Sessions can be logged out from Settings.
       </div>
     </div>
   );
