@@ -12,7 +12,7 @@ const post: Post = {
   category: 'Pricing',
   keyword: 'how to quote a transport load South Africa',
   published: '2026-02-03',
-  reviewed: '2026-09-30',
+  reviewed: '2026-10-01',
   readingMinutes: 7,
   related: { href: '/product/quoting', label: 'See how TruckWys builds the same quote' },
   faq: [
@@ -33,7 +33,7 @@ const post: Post = {
       a: 'Diesel changes on the first Wednesday of every month, so give every quote a validity date, usually before the next adjustment, or include a fuel clause for longer contracts.',
     },
   ],
-  sources: [SRC.citizenSep, SRC.sanralPoster, SRC.sanralBooklet, SRC.etolls, SRC.vat404, SRC.sarsVat, SRC.nbcrfli],
+  sources: [SRC.citizenSep, SRC.vat404, SRC.sanralPoster, SRC.sanralBooklet, SRC.etolls, SRC.sarsVat, SRC.nbcrfli, SRC.sarsThreshold],
   body: (
     <>
       <p>
@@ -51,6 +51,10 @@ const post: Post = {
       <p>
         Distance times consumption gives litres: 490 km × 46 L per 100 km = 225,40 L. At the September 2026 inland price of R&nbsp;30,05 a
         litre for 50 ppm diesel (<A s={SRC.citizenSep}>The Citizen</A>), that is <strong>R&nbsp;6&nbsp;773,27</strong>.
+      </p>
+      <p>
+        Diesel is zero-rated for VAT as a fuel levy good (<A s={SRC.vat404}>SARS VAT 404</A>, section 6.3.2), so it goes into the quote
+        at the price you pay. Of the costs on this trip, only the tolls need the VAT taken out.
       </p>
 
       <h2>Step 2: every toll plaza on the route</h2>
@@ -104,7 +108,8 @@ const post: Post = {
         </tbody>
       </table>
       <p>
-        If you do have a backload, the return leg&apos;s costs go on that load instead, and this quote only carries the loaded leg.
+        If you do have a backload, the return leg&apos;s costs go on that load instead, and this quote only carries the loaded leg. See
+        the backload section below.
       </p>
 
       <h2>Step 6: margin, then VAT</h2>
@@ -118,6 +123,89 @@ const post: Post = {
         Diesel changes on the first Wednesday of every month, so give every quote a validity date, and consider a fuel clause for
         contracts that run longer than a month. Our <a href="/blog/fuel-cost-management-sa-fleets-strategies">diesel guide</a> shows a
         simple way to work out a fuel surcharge.
+      </p>
+
+      <h2>With a backload</h2>
+      <p>
+        Say you have a load back from Pietermaritzburg to Johannesburg. The return leg&apos;s R&nbsp;12&nbsp;043,57 is then priced into
+        that backload&apos;s own quote, and the outbound quote only has to carry the loaded leg. In this example we keep the full
+        R&nbsp;850 allowance on the outbound load; you could split it between the two loads instead. Same inputs as above, example
+        figures, not benchmarks.
+      </p>
+      <table>
+        <caption>Worked example: the same load with and without a backload</caption>
+        <thead>
+          <tr>
+            <th scope="col">Line</th>
+            <th scope="col">No backload</th>
+            <th scope="col">With a backload</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Cost carried by this load</td><td>R&nbsp;26&nbsp;115,10</td><td>R&nbsp;14&nbsp;071,53</td></tr>
+          <tr><td>Price, excl. VAT</td><td>R&nbsp;29&nbsp;700,00</td><td>R&nbsp;16&nbsp;000,00</td></tr>
+          <tr><td>Margin</td><td>R&nbsp;3&nbsp;584,90</td><td>R&nbsp;1&nbsp;928,47</td></tr>
+          <tr><td>Margin, % of price</td><td>12,1%</td><td>12,1%</td></tr>
+          <tr><td>VAT at 15%</td><td>R&nbsp;4&nbsp;455,00</td><td>R&nbsp;2&nbsp;400,00</td></tr>
+          <tr><th scope="row">Invoice total</th><td>R&nbsp;34&nbsp;155,00</td><td>R&nbsp;18&nbsp;400,00</td></tr>
+        </tbody>
+      </table>
+      <p>
+        The same margin on a much lower price. That is why a backload lets you quote sharper, and why a customer who asks for the
+        backload price on a lane where you have none is asking you to run the way home for free. Only quote the one-way price once the
+        backload is confirmed.
+      </p>
+
+      <h2>Not a VAT vendor?</h2>
+      <p>
+        From 1 April 2026 you must register for VAT once your taxable supplies exceed R&nbsp;2,3 million in 12 months, up from
+        R&nbsp;1 million (<A s={SRC.sarsThreshold}>SARS</A>). A smaller operator may not be registered. If you are not:
+      </p>
+      <ul>
+        <li>
+          You cannot claim the VAT on tolls back, so tolls go into the quote including VAT: R&nbsp;1&nbsp;217 a leg, not
+          R&nbsp;1&nbsp;058,26. The same goes for any other cost that carries VAT, such as tyres and parts: use what you actually pay.
+        </li>
+        <li>Diesel does not change, because it carries no VAT.</li>
+        <li>You must not charge VAT or issue a tax invoice. Your price is the total.</li>
+      </ul>
+      <p>
+        In the example, the tolls add R&nbsp;317,48 over the round trip, for a cost of R&nbsp;26&nbsp;432,58. A price of
+        R&nbsp;30&nbsp;100 leaves R&nbsp;3&nbsp;667,42, a margin of 12,2%, and that is the amount on the invoice. Check your own position
+        with a tax practitioner, especially as you get close to the threshold.
+      </p>
+
+      <h2>What the quote you send should show</h2>
+      <p>
+        A clear quote saves arguments at invoice time. Copy this layout and fill in your own figures; the right-hand column is the
+        example load.
+      </p>
+      <table className="wide">
+        <caption>Quote layout (example load)</caption>
+        <thead>
+          <tr>
+            <th scope="col">Field</th>
+            <th scope="col">Example</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Customer</td><td>Name, address, VAT number, contact person</td></tr>
+          <tr><td>Quote number and date</td><td>Q-0412, 15 September 2026</td></tr>
+          <tr><td>Route</td><td>Johannesburg to Pietermaritzburg via the N3, one way, 490 km</td></tr>
+          <tr><td>Vehicle type</td><td>Interlink, class 4 for tolls</td></tr>
+          <tr><td>Load</td><td>What it is, weight or pallet count, loading and delivery addresses</td></tr>
+          <tr><td>Rate, excl. VAT</td><td>R&nbsp;29&nbsp;700,00</td></tr>
+          <tr><td>VAT at 15%</td><td>R&nbsp;4&nbsp;455,00</td></tr>
+          <tr><td>Total</td><td>R&nbsp;34&nbsp;155,00</td></tr>
+          <tr><td>Valid until</td><td>6 October 2026, the day before the next diesel adjustment</td></tr>
+          <tr><td>Fuel clause</td><td>Rate based on 50 ppm inland diesel at R&nbsp;30,05 a litre (September 2026); the diesel portion moves with the monthly price</td></tr>
+          <tr><td>Payment terms</td><td>30 days from invoice date, invoice raised on delivery with the signed POD</td></tr>
+          <tr><td>Not included</td><td>Waiting time beyond the free time you agree, at your hourly rate; extra drops; cross-border costs</td></tr>
+        </tbody>
+      </table>
+      <p>
+        The payment terms and the POD line matter as much as the rate: see our guide to{' '}
+        <a href="/blog/proof-of-delivery-invoice-on-delivery">proof of delivery and invoicing on delivery</a>.
       </p>
 
       <h2>A checklist before you send</h2>

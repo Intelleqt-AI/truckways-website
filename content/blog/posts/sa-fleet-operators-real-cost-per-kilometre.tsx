@@ -12,7 +12,7 @@ const post: Post = {
   category: 'Costs',
   keyword: 'truck cost per kilometre South Africa',
   published: '2026-02-13',
-  reviewed: '2026-09-30',
+  reviewed: '2026-10-01',
   readingMinutes: 7,
   related: { href: '/product/quoting', label: 'How TruckWys prices a load from these costs' },
   faq: [
@@ -61,6 +61,19 @@ const post: Post = {
         <p>0,46 L/km × R&nbsp;30,05/L = <strong>R&nbsp;13,82 per km</strong> for diesel</p>
       </div>
       <p>
+        Work this out per truck, not as a fleet average. Say three interlinks each run 12&nbsp;000 km a month at 44, 46 and 52 litres per
+        100 km (example inputs). The fleet average is 47,3 litres per 100 km, or R&nbsp;14,22 per km. But the thirsty truck really costs
+        R&nbsp;15,63 per km in diesel and the best one R&nbsp;13,22.
+      </p>
+      <div className="b-calc">
+        <p>0,52 L/km × R&nbsp;30,05 = R&nbsp;15,63 per km, against the fleet average of R&nbsp;14,22</p>
+        <p>R&nbsp;1,40 per km × 570 km = about <strong>R&nbsp;800 under-costed</strong> on one Johannesburg to Durban trip</p>
+      </div>
+      <p>
+        Quote that truck on the average and you lose about R&nbsp;800 a trip before you start. Quote the efficient truck on the average and you
+        price yourself about R&nbsp;1,00 per km above what you need to.
+      </p>
+      <p>
         Road freight is not one of the activities that qualify for the diesel refund, which is limited to farming, forestry, mining,
         some marine uses, rail freight and large power plants (<A s={SRC.dieselRefund}>SARS</A>). So price the full pump price.
       </p>
@@ -85,36 +98,38 @@ const post: Post = {
       </p>
 
       <h2>2. Fixed costs: the ones you pay even when the truck stands</h2>
-      <p>Add up everything the truck costs you in a month whether it moves or not:</p>
-      <ul>
-        <li>the finance instalment or, if you own it outright, a depreciation figure</li>
-        <li>insurance, licences and permits</li>
-        <li>
-          the driver&apos;s wage and benefits (the minimums are set by the bargaining council&apos;s main agreement,{' '}
-          <A s={SRC.nbcrfli}>NBCRFLI</A>)
-        </li>
-        <li>tracking subscription, and a fair share of your office and admin costs</li>
-      </ul>
-      <p>Then divide by the kilometres the truck really runs in a month.</p>
+      <p>
+        Finance, the driver (at or above the bargaining council minimums, <A s={SRC.nbcrfli}>NBCRFLI</A>), insurance, licences, tracking
+        and a share of your overheads are paid every month whether the truck moves or not. Fixed costs in our example come to
+        R&nbsp;81&nbsp;600 a month (the line-by-line budget is in{' '}
+        <a href="/blog/true-cost-running-truck-fleet-south-africa-2026">the true cost of running a truck</a>).
+      </p>
+      <p>At 12&nbsp;000 km a month, that is R&nbsp;81&nbsp;600 ÷ 12&nbsp;000 = <strong>R&nbsp;6,80 per km</strong>.</p>
+      <h3>Kilometres decide the fixed cost per km</h3>
+      <p>
+        The R&nbsp;81&nbsp;600 does not change when the truck runs less, so the cost per kilometre does. Here is the same truck at different
+        monthly distances, with the variable costs above (diesel R&nbsp;13,82, tyres R&nbsp;2,40, maintenance R&nbsp;1,80: R&nbsp;18,02 per km).
+      </p>
       <table>
-        <caption>Worked example: fixed costs for one interlink (example inputs)</caption>
+        <caption>Fixed cost per km at different monthly kilometres (example inputs)</caption>
         <thead>
           <tr>
-            <th scope="col">Item</th>
-            <th scope="col">Per month</th>
+            <th scope="col">Km per month</th>
+            <th scope="col">Fixed cost per km</th>
+            <th scope="col">Total cost per km, before tolls</th>
           </tr>
         </thead>
         <tbody>
-          <tr><td>Finance instalment</td><td>R&nbsp;38&nbsp;000</td></tr>
-          <tr><td>Driver wage and benefits</td><td>R&nbsp;24&nbsp;000</td></tr>
-          <tr><td>Insurance</td><td>R&nbsp;9&nbsp;500</td></tr>
-          <tr><td>Share of office and admin</td><td>R&nbsp;8&nbsp;000</td></tr>
-          <tr><td>Licences and permits</td><td>R&nbsp;1&nbsp;500</td></tr>
-          <tr><td>Tracking</td><td>R&nbsp;600</td></tr>
-          <tr><th scope="row">Total</th><td><strong>R&nbsp;81&nbsp;600</strong></td></tr>
+          <tr><td>8&nbsp;000</td><td>R&nbsp;10,20</td><td>R&nbsp;28,22</td></tr>
+          <tr><td>10&nbsp;000</td><td>R&nbsp;8,16</td><td>R&nbsp;26,18</td></tr>
+          <tr><td>12&nbsp;000</td><td>R&nbsp;6,80</td><td>R&nbsp;24,82</td></tr>
+          <tr><td>14&nbsp;000</td><td>R&nbsp;5,83</td><td>R&nbsp;23,85</td></tr>
         </tbody>
       </table>
-      <p>At 12&nbsp;000 km a month, that is R&nbsp;81&nbsp;600 ÷ 12&nbsp;000 = <strong>R&nbsp;6,80 per km</strong>.</p>
+      <p>
+        A truck that loses a week to a breakdown or waits for loads can drop from 12&nbsp;000 to 8&nbsp;000 km in a month, and its cost per
+        kilometre rises by R&nbsp;3,40. Use the kilometres the truck really runs over the last few months, not the kilometres you hope for.
+      </p>
 
       <h2>3. Put it together</h2>
       <table>
@@ -136,11 +151,23 @@ const post: Post = {
         </tbody>
       </table>
 
-      <h2>4. The kilometres you are not paid for</h2>
+      <h2>4. From cost per km to a minimum rate per loaded km</h2>
       <p>
-        The figure above is per kilometre driven. Customers pay for loaded kilometres. If one kilometre in five is empty, your cost per
+        The figures above are per kilometre driven. Customers pay for loaded kilometres. If one kilometre in five is empty, your cost per
         paid kilometre is R&nbsp;24,82 ÷ 0,8 = <strong>R&nbsp;31,03</strong> before tolls. This is the number that decides whether a lane
         works, and it is the one most often left out.
+      </p>
+      <p>On a tolled lane, add the tolls first, then spread the empty running over the loaded kilometres:</p>
+      <div className="b-calc">
+        <p>Cost per km on the lane ÷ share of kilometres loaded = minimum rate per loaded km</p>
+        <p>R&nbsp;26,76 ÷ 0,8 = <strong>R&nbsp;33,45 per loaded km</strong> on the N3 example</p>
+        <p>570 loaded km × R&nbsp;33,45 = <strong>R&nbsp;19&nbsp;066,50</strong>, excl. VAT, before any margin</p>
+      </div>
+      <p>
+        This assumes the empty kilometres run on the same tolled road. If the truck comes back on a different route, work out that
+        leg&apos;s cost separately. The result is a floor, not a price: a load below it loses money on every kilometre. How much margin to
+        add on top, and when to walk away from a lane, is a pricing decision, covered in{' '}
+        <a href="/blog/fleet-profitability-south-africa-ai-powered-pricing">how to price loads profitably</a>.
       </p>
 
       <h2>5. Keep it current</h2>

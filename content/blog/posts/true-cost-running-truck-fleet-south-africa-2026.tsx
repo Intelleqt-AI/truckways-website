@@ -23,13 +23,9 @@ const S = {
     name: 'National Road Traffic Act 93 of 1996 (sections 32 and 45 to 49), RTMC',
     url: 'https://www.rtmc.co.za/images/rtmc/docs/legislation/National%20Road%20Traffic%20Act.pdf',
   },
-  nrtrOperator: {
-    name: 'National Road Traffic Regulations, 2000: regulations 265 to 267 (operator registration and operator cards)',
-    url: 'https://registers.ecoimpact.co.za/app/webroot/uploads/doc_legislations/file_56e1301f55903o_1adfq80551gphea41s1s1dan44l7.htm',
-  },
-  nrtrRoadworthy: {
-    name: 'National Road Traffic Regulations, 2000: regulations 142 and 145 (roadworthy certificates)',
-    url: 'https://registers.ecoimpact.co.za/app/webroot/uploads/doc_legislations/file_56e12ffcb90a2o_1adfq6leo1oe91rde8ll10e1mms7.htm',
+  nrtr: {
+    name: 'National Road Traffic Regulations, 2000 (GNR.225), consolidated copy, KwaZulu-Natal Department of Transport',
+    url: 'http://www.kzntransport.gov.za/reading_room/acts/national/NRTA%20Regs%20Part%201.pdf',
   },
   wcPrdp: { name: 'Western Cape Government: professional driving permit', url: 'https://www.westerncape.gov.za/service/professional-driving-permit' },
   aartoPhase2: { name: 'SAnews, 1 Jul 2026: implementation of AARTO continues', url: 'https://www.sanews.gov.za/south-africa/implementation-aarto-continues' },
@@ -65,8 +61,7 @@ const post: Post = {
     SRC.nbcrfli,
     S.nbcrfliWages,
     S.nrta,
-    S.nrtrOperator,
-    S.nrtrRoadworthy,
+    S.nrtr,
     S.wcPrdp,
     SRC.sanralPoster,
     S.aartoPhase2,
@@ -158,11 +153,11 @@ const post: Post = {
           <strong>Operator registration.</strong> The owner of a vehicle of a prescribed class must be registered as its operator, and the
           registering authority issues an operator card that must be displayed on the vehicle (<A s={S.nrta}>National Road Traffic Act</A>,
           sections 45 to 47). Goods vehicles over 3&nbsp;500 kg are one of those classes, and the operator card is valid until the vehicle
-          licence disc expires (<A s={S.nrtrOperator}>regulations 265 to 267</A>).
+          licence disc expires (<A s={S.nrtr}>National Road Traffic Regulations</A>, regulations 265 and 267).
         </li>
         <li>
           <strong>Roadworthy certificate (COF).</strong> A goods vehicle over 3&nbsp;500 kg needs a roadworthy certificate, and it is valid
-          until the licence disc expires (<A s={S.nrtrRoadworthy}>regulations 142 and 145</A>). In practice that means a test at a testing
+          until the licence disc expires (<A s={S.nrtr}>regulations 142 and 145</A>). In practice that means a test at a testing
           station every year, before you renew the licence.
         </li>
         <li>
@@ -270,15 +265,59 @@ const post: Post = {
 
       <h2>What a second and a fifth truck add</h2>
       <p>
-        Each new truck brings its own finance, driver, insurance, licence, tracking, diesel, tyres and maintenance. Those lines grow roughly
-        in step with the fleet. The overheads do not. The yard, the office, the software and the accountant are shared, so their cost per
-        truck usually falls as you add trucks.
+        Each new truck brings its own finance, driver, insurance, licence, tracking, diesel, tyres and maintenance. Those lines grow in
+        step with the fleet. The overheads do not: the yard, the office, the software and the accountant are shared. But they do not stay
+        flat either. They rise in steps, usually when you hire your first dispatcher or admin person and move to a proper yard.
       </p>
       <p>
-        That does not mean overheads stand still. Somewhere between a handful of trucks and a larger fleet you will need a dedicated
-        dispatcher, someone on invoicing and debtors, more yard space and probably a workshop arrangement. Overheads tend to rise in steps
-        rather than smoothly. Before you add a truck, rebuild the budget with the overhead you will really need at the new size, then check
-        that the work you have lined up covers it.
+        Here is the same interlink in a five-truck fleet. All five run like the truck above, so each one costs R&nbsp;289&nbsp;876 a month in
+        its own lines (the R&nbsp;297&nbsp;876 total less the R&nbsp;8&nbsp;000 overhead share). The overheads below are{' '}
+        <strong>example inputs, not benchmarks</strong>.
+      </p>
+      <table>
+        <caption>Shared overheads for a five-truck fleet (example inputs)</caption>
+        <thead>
+          <tr>
+            <th scope="col">Overhead</th>
+            <th scope="col">Per month</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>Dispatcher and admin person (invoicing, debtors, driver files)</td><td>R&nbsp;18&nbsp;000</td></tr>
+          <tr><td>Yard rent and security</td><td>R&nbsp;8&nbsp;000</td></tr>
+          <tr><td>Software (excluding tracking, which is per truck)</td><td>R&nbsp;3&nbsp;500</td></tr>
+          <tr><td>Accountant or bookkeeper</td><td>R&nbsp;3&nbsp;000</td></tr>
+          <tr><td>Reserve for insurance excesses</td><td>R&nbsp;3&nbsp;000</td></tr>
+          <tr><td>Office, phones and bank charges</td><td>R&nbsp;2&nbsp;000</td></tr>
+          <tr><th scope="row">Total shared overheads</th><td><strong>R&nbsp;37&nbsp;500</strong></td></tr>
+          <tr><th scope="row">Per truck</th><td><strong>R&nbsp;7&nbsp;500</strong></td></tr>
+        </tbody>
+      </table>
+      <table>
+        <caption>Annual cost per truck, one truck against five (example inputs, before tolls)</caption>
+        <thead>
+          <tr>
+            <th scope="col">Per truck, per year</th>
+            <th scope="col">1 truck</th>
+            <th scope="col">5 trucks</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr><td>The truck&apos;s own costs (R&nbsp;289&nbsp;876 × 12)</td><td>R&nbsp;3&nbsp;478&nbsp;512</td><td>R&nbsp;3&nbsp;478&nbsp;512</td></tr>
+          <tr><td>Share of overheads</td><td>R&nbsp;96&nbsp;000</td><td>R&nbsp;90&nbsp;000</td></tr>
+          <tr><th scope="row">Total per truck</th><td><strong>R&nbsp;3&nbsp;574&nbsp;512</strong></td><td><strong>R&nbsp;3&nbsp;568&nbsp;512</strong></td></tr>
+          <tr><td>Per km, at 144&nbsp;000 km a year</td><td>R&nbsp;24,82</td><td>R&nbsp;24,78</td></tr>
+        </tbody>
+      </table>
+      <p>
+        The whole five-truck fleet costs R&nbsp;17&nbsp;842&nbsp;560 a year in this example (5 × R&nbsp;3&nbsp;478&nbsp;512 plus R&nbsp;450&nbsp;000 of overheads).
+        The lesson is in the small difference: in these inputs, growing from one truck to five saves only R&nbsp;6&nbsp;000 per truck a year,
+        because the R&nbsp;8&nbsp;000 for one truck leaves out the owner&apos;s own time, and the bigger fleet pays someone to do that work. Scale
+        does not make a truck cheap. What moves cost per truck far more is kilometres, consumption and empty running.
+      </p>
+      <p>
+        Before you add a truck, rebuild the budget with the overhead you will really need at the new size, and check that the work you
+        have lined up covers the extra fixed costs from the first month.
       </p>
 
       <h2>Keep the budget honest</h2>
