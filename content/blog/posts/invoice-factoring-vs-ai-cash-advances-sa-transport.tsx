@@ -268,7 +268,8 @@ const post: Post = {
       <h2>VAT does not wait for the finance</h2>
       <p>
         A company that is a VAT vendor accounts for VAT on the invoice basis, where output VAT is due for the tax period in which the invoice is
-        issued, paid or not (<A s={SRC.vat404}>SARS VAT 404</A>). Finance can help you cover that VAT, but it does not change when it is
+        issued, paid or not (<A s={SRC.vat404}>SARS VAT 404</A>). Sole proprietors and partnerships of natural persons with taxable
+        supplies under R&nbsp;2,5 million can apply for the payments basis instead. Finance can help you cover that VAT, but it does not change when it is
         due. Check your own case with a tax practitioner.
       </p>
 

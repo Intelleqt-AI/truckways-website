@@ -129,8 +129,9 @@ const post: Post = {
       </p>
       <ul>
         <li>
-          <strong>Waiting.</strong> If the backload means a day standing, add a day of fixed costs. With the cost guide&apos;s example of
-          R&nbsp;81&nbsp;600 a month over 22 working days, that is R&nbsp;3&nbsp;709,09, which turns a cheap backload into a loss.
+          <strong>Waiting.</strong> If the backload means a day standing, that is a day the truck cannot earn. Price in at least a day of
+          fixed-cost recovery: with the cost guide&apos;s example of R&nbsp;81&nbsp;600 a month over 22 working days, that is
+          R&nbsp;3&nbsp;709,09, which turns a cheap backload into a loss.
         </li>
         <li>
           <strong>Habit.</strong> If cheap backloads become regular, they must be in your lane maths. Otherwise the outbound customer is paying

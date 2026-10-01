@@ -1,6 +1,7 @@
 import '../../../components/pages/pages-b.css';
 import { SectionHeader } from '../../../components/ui';
 import { Closing } from '../../../components/Blocks';
+import FromTheBlog from '../../../components/FromTheBlog';
 import Faq, { type QA } from '../../../components/Faq';
 import { CostBreakdown, N3Tolls } from '../../../components/fragments/Quote';
 import { FeatureHero, Stage, Answers, FeatureRow, Split, DL, NextStep } from '../../../components/pages/blocks';
@@ -145,6 +146,7 @@ export default function QuotingPage() {
       <section className="sec" style={{ paddingTop: 0 }} aria-label="Next step">
         <div className="wrap">
           <NextStep href="/product/invoicing" title="Invoicing" line="The accepted quote becomes the load, and the load becomes the invoice." />
+          <FromTheBlog slugs={['how-to-quote-freight-rates-south-africa-ai', 'sa-fleet-operators-real-cost-per-kilometre']} />
         </div>
       </section>
 

@@ -1,6 +1,7 @@
 import '../../../components/pages/pages-b.css';
 import { SectionHeader } from '../../../components/ui';
 import { Closing } from '../../../components/Blocks';
+import FromTheBlog from '../../../components/FromTheBlog';
 import Faq, { type QA } from '../../../components/Faq';
 import { FeatureHero, Stage, Answers, FeatureRow, Split, DL, NextStep } from '../../../components/pages/blocks';
 import { ReportsIndex, ProfitLoss, LanesScatter, Expenses, VatReport } from '../../../components/pages/frags';
@@ -162,6 +163,7 @@ export default function ReportsPage() {
       <section className="sec" style={{ paddingTop: 0 }} aria-label="Next step">
         <div className="wrap">
           <NextStep href="/integrations" title="Integrations" line="Connect your tracking, import your lists and let your TMS send deliveries." />
+          <FromTheBlog slugs={['fleet-profitability-south-africa-ai-powered-pricing', 'true-cost-running-truck-fleet-south-africa-2026']} />
         </div>
       </section>
 

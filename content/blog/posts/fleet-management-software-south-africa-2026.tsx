@@ -158,7 +158,7 @@ const post: Post = {
       </ul>
       <p>
         Work out the cost at your size today and at twice your size. For comparison, TruckWys is R&nbsp;4&nbsp;499 per month plus 0,25% of each
-        delivered load&apos;s invoice total, with no VAT on our fees (<a href="/pricing">pricing</a>).
+        delivered load&apos;s invoice total (including the VAT on your customer&apos;s invoice), with no VAT on our fees (<a href="/pricing">pricing</a>).
       </p>
 
       <h3>How long is the contract?</h3>

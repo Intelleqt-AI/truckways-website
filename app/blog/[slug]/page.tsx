@@ -116,6 +116,7 @@ export default function BlogPostPage({ params }: { params: { slug: string } }) {
     image: `${SITE_URL}/og/blog.png`,
     articleSection: g.category,
     keywords: g.keyword,
+    wordCount: g.wordCount,
     isPartOf: { '@id': `${SITE_URL}/blog#blog` },
     citation: g.sources.map((x) => x.url),
   };

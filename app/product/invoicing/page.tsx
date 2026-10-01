@@ -1,6 +1,7 @@
 import '../../../components/pages/pages-b.css';
 import { SectionHeader } from '../../../components/ui';
 import { Closing } from '../../../components/Blocks';
+import FromTheBlog from '../../../components/FromTheBlog';
 import Faq, { type QA } from '../../../components/Faq';
 import { FeatureHero, Stage, Answers, FeatureRow, Split, DL, NextStep } from '../../../components/pages/blocks';
 import { InvoiceDetail, PublicInvoice, InvoiceList } from '../../../components/pages/frags';
@@ -139,6 +140,7 @@ export default function InvoicingPage() {
       <section className="sec" style={{ paddingTop: 0 }} aria-label="Next step">
         <div className="wrap">
           <NextStep href="/product/debtors" title="Debtors" line="Once it is sent, see who owes you and chase what is late." />
+          <FromTheBlog slugs={['proof-of-delivery-invoice-on-delivery', 'cash-flow-transport-business-south-africa']} />
         </div>
       </section>
 

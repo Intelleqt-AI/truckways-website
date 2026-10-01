@@ -1,6 +1,7 @@
 import '../../../components/pages/pages-b.css';
 import { SectionHeader } from '../../../components/ui';
 import { Closing } from '../../../components/Blocks';
+import FromTheBlog from '../../../components/FromTheBlog';
 import Faq, { type QA } from '../../../components/Faq';
 import { NeedsYouCard } from '../../../components/fragments/Money';
 import { FeatureHero, Stage, Answers, FeatureRow, Split, DL, NextStep } from '../../../components/pages/blocks';
@@ -138,6 +139,7 @@ export default function DebtorsPage() {
       <section className="sec" style={{ paddingTop: 0 }} aria-label="Next step">
         <div className="wrap">
           <NextStep href="/product/reports" title="Reports" line="Profit, margin by lane and VAT from the same invoices and payments." />
+          <FromTheBlog slugs={['cash-flow-transport-business-south-africa', 'hidden-profit-leaks-south-african-fleet-operators']} />
         </div>
       </section>
 

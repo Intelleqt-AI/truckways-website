@@ -3,7 +3,7 @@
  * House rules: no hype, no em dashes, South African formats (R&nbsp;4&nbsp;499, decimal comma),
  * every figure sourced and dated or shown as a worked example with its inputs stated.
  */
-import { CATEGORIES, type Category, type Post } from './types';
+import { CATEGORIES, textOf, type Category, type Post } from './types';
 
 import costPerKm from './posts/sa-fleet-operators-real-cost-per-kilometre';
 import quoting from './posts/how-to-quote-freight-rates-south-africa-ai';
@@ -21,7 +21,13 @@ import pod from './posts/proof-of-delivery-invoice-on-delivery';
 export type { Post, Category };
 export { CATEGORIES };
 
-export const POSTS: Post[] = [costPerKm, quoting, leaks, diesel, crossBorder, pricing, trueCost, invoiceFinance, software, future, cashFlow, pod];
+const RAW: Post[] = [costPerKm, quoting, leaks, diesel, crossBorder, pricing, trueCost, invoiceFinance, software, future, cashFlow, pod];
+
+/** Word count and reading time come from the body (220 words a minute), so they can never drift from the text. */
+export const POSTS: (Post & { wordCount: number; readingMinutes: number })[] = RAW.map((p) => {
+  const words = textOf(p.body).split(/\s+/).filter(Boolean).length;
+  return { ...p, wordCount: words, readingMinutes: Math.max(1, Math.round(words / 220)) };
+});
 
 /** The post the index leads with. */
 export const FEATURED_SLUG = 'how-to-quote-freight-rates-south-africa-ai';

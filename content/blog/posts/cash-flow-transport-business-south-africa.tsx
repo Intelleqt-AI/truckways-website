@@ -189,11 +189,11 @@ const post: Post = {
 
       <h3>9. Plan for VAT on unpaid invoices</h3>
       <p>
-        On the invoice basis, which applies to companies, you account for output VAT in the tax period in which the invoice is issued,
+        On the invoice basis, which applies to companies (sole proprietors and partnerships of natural persons with taxable supplies under R&nbsp;2,5 million can apply for the payments basis instead), you account for output VAT in the tax period in which the invoice is issued,
         even if the customer has not paid (<A s={SRC.vat404}>SARS VAT 404</A>). The standard tax period is two months, with the
-        return and payment normally due by the 25th of the following month, or the last business day for eFiling. In the example
-        above, R&nbsp;300&nbsp;000 of invoices excluding VAT in a month carries R&nbsp;45&nbsp;000 of output VAT, less your input VAT on
-        diesel and other costs. Before each return, check how much of it relates to invoices that are still unpaid, and keep the cash
+        return and payment normally due by the 25th of the following month, or the last business day for eFiling. For
+        example, R&nbsp;300&nbsp;000 of invoices excluding VAT in a month carries R&nbsp;45&nbsp;000 of output VAT, less the input VAT on
+        standard-rated costs such as tolls, tyres and repairs. Diesel is zero-rated, so there is no VAT on it to claim back. Before each return, check how much of it relates to invoices that are still unpaid, and keep the cash
         aside. Check your own case with a tax practitioner.
       </p>
 
@@ -211,6 +211,11 @@ const post: Post = {
         <a href="/product/invoicing">invoicing</a>, and shows your debtors by age with a reminder per invoice that you preview and send
         yourself, through <a href="/product/debtors">debtors</a>. Fast Pay is coming soon: an opt-in way to get paid on an invoice before
         the customer pays, through an independent finance provider. TruckWys is not a lender, and rates will be published at launch.
+      </p>
+      <p>
+        TruckWys works alongside the tracking system or TMS you already run. If you are weighing up software, our guide to{' '}
+        <a href="/blog/fleet-management-software-south-africa-2026">the four kinds of fleet and transport software</a> explains what each
+        one does.
       </p>
     </>
   ),

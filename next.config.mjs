@@ -25,6 +25,7 @@ const nextConfig = {
       // v3's quoting slug dropped "-ai"; the original slug was restored, so that one is mapped by name first.
       { source: '/guides/how-to-quote-freight-rates-south-africa', destination: '/blog/how-to-quote-freight-rates-south-africa-ai', permanent: true },
       { source: '/blog/how-to-quote-freight-rates-south-africa', destination: '/blog/how-to-quote-freight-rates-south-africa-ai', permanent: true },
+      { source: '/blogs/how-to-quote-freight-rates-south-africa', destination: '/blog/how-to-quote-freight-rates-south-africa-ai', permanent: true },
       { source: '/blogs', destination: '/blog', permanent: true },
       { source: '/blogs/:slug', destination: '/blog/:slug', permanent: true },
       { source: '/guides', destination: '/blog', permanent: true },

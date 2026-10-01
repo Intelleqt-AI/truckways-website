@@ -37,7 +37,7 @@ const post: Post = {
     },
     {
       q: 'Do I need a full tax invoice for a transport load?',
-      a: 'SARS requires a full tax invoice when the price is more than R 5 000, which covers most loads. It must show your and the customer’s name, address and VAT number, a serial number and date, a description, quantity, and the value and VAT.',
+      a: "SARS requires a full tax invoice when the price is more than R 5 000, which covers most loads. It must show your and the customer's name and address, both VAT numbers (the customer's if they are a vendor), a serial number and date, a description, quantity, and the value and VAT.",
     },
     {
       q: 'The customer says the delivery was short. Do I change the invoice?',
@@ -111,7 +111,7 @@ const post: Post = {
         <a href="/blog/cash-flow-transport-business-south-africa">cash flow for transport businesses</a>.
       </p>
       <p>
-        There is a VAT side too. On the invoice basis, which applies to companies, the time of supply is generally the earlier of the
+        There is a VAT side too. On the invoice basis, which applies to companies (sole proprietors and partnerships of natural persons with taxable supplies under R&nbsp;2,5 million can apply for the payments basis instead), the time of supply is generally the earlier of the
         invoice being issued or payment being received, and you account for the VAT in that period whether or not the customer has paid (
         <A s={SRC.vat404}>SARS VAT 404</A>).
       </p>
@@ -159,7 +159,8 @@ const post: Post = {
       <h2>Paper or electronic POD</h2>
       <p>
         Paper PODs travel slowly: in the cab, in a folder, in a photo on a driver&apos;s phone. Electronic PODs reach the office the day
-        they are signed.
+        they are signed. Many TMS and tracking products capture the POD on the driver&apos;s phone; our guide to{' '}
+        <a href="/blog/fleet-management-software-south-africa-2026">fleet and transport software</a> explains which tool does what.
       </p>
       <p>
         South African law recognises electronic records. Under the{' '}

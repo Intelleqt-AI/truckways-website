@@ -42,14 +42,14 @@ function Row({ p }: { p: Post }) {
   return (
     <li className={s.item}>
       <a className={s.itemLink} href={`/blog/${p.slug}`}>
-        <span className={s.itemDate}>{date(p.published)}</span>
+        <span className={s.itemDate}>Updated {date(p.reviewed)}</span>
         <span>
           <span className={s.itemTitle}>{p.title}</span>
           <span className={s.itemSummary} style={{ display: 'block' }}>
             {p.summary}
           </span>
           <span className={s.itemMeta} style={{ display: 'block' }}>
-            {p.readingMinutes} min read · Reviewed {date(p.reviewed)}
+            {p.readingMinutes} min read · First published {date(p.published)}
           </span>
         </span>
         <span className={s.itemArrow} aria-hidden="true">
@@ -112,8 +112,9 @@ export default function BlogPage() {
             </section>
           ))}
           <p className={`small ${s.note}`}>
-            Articles explain how costs and rules work. They are not tax, legal or financial advice; check your own case with a tax
-            practitioner or adviser.
+            How we write these: by the TruckWys team, for South African transporters. Every figure links to its source and is checked again
+            when a post is updated; worked examples state their inputs. Articles explain how costs and rules work. They are not tax, legal or
+            financial advice; check your own case with a tax practitioner or adviser.
           </p>
         </div>
       </section>

@@ -2,7 +2,7 @@
  * The shape of a blog post, plus the small helpers every post uses.
  * How to add a post: see ./README.md.
  */
-import type { ReactNode } from 'react';
+import { isValidElement, type ReactNode } from 'react';
 import type { Source } from './sources';
 
 export type { Source };
@@ -30,7 +30,10 @@ export type Post = {
   /** ISO dates. `reviewed` is when the figures were last checked against the sources. */
   published: string;
   reviewed: string;
-  readingMinutes: number;
+  /** Optional hint only: content/blog/index.ts recomputes it from the body at 220 words a minute. */
+  readingMinutes?: number;
+  /** Set by content/blog/index.ts from the body. */
+  wordCount?: number;
   /** The product page this post supports, shown in the end card. */
   related: { href: string; label: string };
   /** Every source cited in the body, in the order first cited. */
@@ -46,3 +49,13 @@ export const A = ({ s, children }: { s: Source; children: ReactNode }) => (
     {children}
   </a>
 );
+
+/** Plain text of a React node tree (for word counts and heading ids). */
+export const textOf = (n: ReactNode): string =>
+  typeof n === 'string' || typeof n === 'number'
+    ? String(n)
+    : Array.isArray(n)
+      ? n.map(textOf).join(' ')
+      : isValidElement(n)
+        ? textOf((n.props as { children?: ReactNode }).children)
+        : '';
