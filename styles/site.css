@@ -20,6 +20,7 @@ html {
 body {
   margin: 0;
   min-height: 100vh;
+  min-height: 100svh;
   background: var(--web-bg);
   color: var(--text-primary);
   font: 400 16px/26px var(--font-sans);
@@ -150,25 +151,18 @@ p, li, dd { text-wrap: pretty; }
   transition: background-color 120ms var(--ease-out), border-color 120ms var(--ease-out), color 120ms var(--ease-out);
 }
 .btn--primary { background: var(--web-cta-bg); color: var(--web-cta-fg); }
-.btn--primary:hover { background: var(--web-cta-hover); }
 .btn--primary:active { background: var(--web-cta-pressed); }
+/* Hover only where a pointer can hover: on touch screens iOS keeps :hover after a tap (mobile fixes). */
+@media (hover: hover) { .btn--primary:hover { background: var(--web-cta-hover); } }
 .btn--secondary { background: transparent; color: var(--text-primary); border-color: var(--border-default); }
-.btn--secondary:hover { background: var(--surface-tint-hover); border-color: var(--border-strong); }
+@media (hover: hover) { .btn--secondary:hover { background: var(--surface-tint-hover); border-color: var(--border-strong); } }
 .btn--secondary:active { background: var(--surface-tint-active); }
 .btn--sm { height: 36px; padding: 0 14px; font-size: 14px; }
 .btn--block { width: 100%; }
 .btn-row { display: flex; flex-wrap: wrap; gap: 12px; }
 /* The one action pair: the blue button, then a text link (the demo, never a button). */
 .cta-pair { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 28px; }
-@media (max-width: 639px) {
-  .cta-pair { flex-direction: column; align-items: stretch; gap: 16px; }
-  .cta-pair .btn { width: 100%; }
-  .cta-pair .tlink { align-self: flex-start; }
-}
-@media (max-width: 639px) {
-  .btn-row--stack { flex-direction: column; align-items: stretch; }
-  .btn-row--stack .btn { width: 100%; }
-}
+
 
 .tlink {
   position: relative;
@@ -177,8 +171,10 @@ p, li, dd { text-wrap: pretty; }
   color: var(--link); text-decoration: none;
 }
 .tlink svg { width: 16px; height: 16px; flex: none; transition: transform 120ms var(--ease-out); }
-.tlink:hover svg { transform: translateX(2px); }
-.tlink:hover { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+@media (hover: hover) {
+  .tlink:hover svg { transform: translateX(2px); }
+  .tlink:hover { text-decoration: underline; text-underline-offset: 3px; text-decoration-thickness: 1px; }
+}
 .tlink--quiet { color: var(--text-primary); }
 /* 44 x 44 hit area on coarse pointers without changing the layout (dashboard technique). */
 .hit { position: relative; }
@@ -364,7 +360,6 @@ p, li, dd { text-wrap: pretty; }
 .hero__h1 > span { display: block; }
 .hero__lead { max-width: 40ch; margin: 24px auto 0; }
 .hero__ctas { justify-content: center; margin-top: 32px; }
-@media (max-width: 639px) { .hero__ctas .tlink { align-self: center; } }
 .hero__price { margin-top: 20px; text-wrap: balance; max-width: 62ch; margin-inline: auto; }
 /*
  * Composition: the Home dashboard is laid out at a real app width (--nw: 1440
@@ -536,7 +531,7 @@ p, li, dd { text-wrap: pretty; }
   border-radius: var(--radius-control);
   transition: color 150ms var(--ease-out), background-color 150ms var(--ease-out);
 }
-.step__tab:hover { color: var(--text-primary); }
+@media (hover: hover) { .step__tab:hover { color: var(--text-primary); } }
 .step__tab:focus-visible { outline-offset: -2px; }
 .step__num { display: grid; place-items: center; width: 22px; height: 22px; margin-inline: -3px; border-radius: 50%; font: 600 12px/1 var(--font-sans); color: var(--text-tertiary); font-variant-numeric: tabular-nums; flex: none; transition: background-color 150ms var(--ease-out), color 150ms var(--ease-out); }
 .step.is-active .step__num { background: var(--text-primary); color: var(--bg-deep); }
@@ -555,7 +550,7 @@ p, li, dd { text-wrap: pretty; }
   .step.is-active .step__inline { display: block; }
   .step__body { padding-left: 48px; }
 }
-@media (max-width: 639px) { .step__body { padding-left: 16px; } .step__tab { padding-inline: 12px; } }
+@media (max-width: 639px) { .step__body { padding: 0 20px 20px; } .step__tab { padding-inline: 20px; } } /* mobile fixes: 20px inside the panel (was 12/16) */
 
 /* ----------------------------------------------------------- leaks */
 .leaks { border-radius: var(--radius-dialog); background: var(--bg-deep); padding: 24px; display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); gap: var(--card-gap); border: 1px solid var(--border-subtle); }
@@ -564,7 +559,7 @@ p, li, dd { text-wrap: pretty; }
 @media (max-width: 1023px) {
   .leaks__main, .leaks__side { grid-column: 1 / -1; }
 }
-@media (max-width: 639px) { .leaks { padding: 12px; margin-inline: -4px; } }
+@media (max-width: 639px) { .leaks { padding: 20px; } } /* mobile fixes: was 12px with -4px margins (13px text inset) */
 
 /* ------------------------------------------------------ photo band */
 .band {
@@ -606,20 +601,25 @@ a.pcard:hover .pcard__go { transform: translateX(2px); color: var(--text-primary
 .pcard__foot .tlink { font-size: 14px; }
 .pcard__fact { border-top: 1px solid var(--border-row); margin-top: auto; padding-top: 12px; font: 500 13px/18px var(--font-sans); color: var(--text-tertiary); }
 @media (max-width: 1023px) { .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
-/* Phones: a compact two-column grid (icon, name, one line), as Hemut's product row. */
+/* Phones (mobile fixes, 2 Oct 2026): one card per row, icon left, name, line and fact right. Replaces the compact
+   2-up grid whose 14px padding and 12 to 13px text were too small to read and tap. Same page length. */
 @media (max-width: 639px) {
-  .cards { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
-  .cards .pcard { min-height: 0; padding: 14px; gap: 4px; }
-  .cards .pcard__top { margin-bottom: 10px; flex-wrap: wrap; row-gap: 8px; }
-  .cards .pcard__tile { width: 32px; height: 32px; }
+  .cards { grid-template-columns: 1fr; gap: 10px; }
+  .cards .pcard {
+    display: grid; grid-template-columns: 36px minmax(0, 1fr); column-gap: 16px; row-gap: 2px; align-content: start;
+    min-height: 0; padding: 18px 20px;
+  }
+  .cards .pcard__top { display: contents; }
+  .cards .pcard__tile { grid-column: 1; grid-row: 1 / span 4; width: 36px; height: 36px; }
   .cards .pcard__icon { width: 18px; height: 18px; }
-  .cards .pcard__go { display: none; }
-  .cards .pcard__name { font-size: 16px; line-height: 22px; }
-  .cards .pcard__line { font-size: 13px; line-height: 18px; }
-  /* One footer row per card (fact, or "Get notified"), pinned to the bottom, so the 2-up rows match. */
-  .cards .pcard__fact, .cards .pcard--soon .pcard__foot { margin-top: auto; padding-top: 10px; font-size: 12px; line-height: 16px; }
-  .cards .pcard--soon .pcard__more { display: none; }
-  .cards .pcard--soon .pcard__foot .tlink { font-size: 12px; line-height: 16px; }
+  .cards .pcard > :not(.pcard__top) { grid-column: 2; }
+  .cards .pcard__go { position: absolute; top: 20px; right: 20px; }
+  .cards a.pcard .pcard__name { padding-right: 28px; }
+  .cards .pcard--soon .chip { grid-column: 2; justify-self: start; margin-bottom: 6px; }
+  .cards .pcard__name { font-size: 17px; line-height: 24px; }
+  .cards .pcard__line { font-size: 15px; line-height: 22px; }
+  .cards .pcard__fact, .cards .pcard--soon .pcard__foot { margin-top: 10px; padding-top: 10px; font-size: 13px; line-height: 18px; }
+  .cards .pcard--soon .pcard__foot .tlink, .cards .pcard--soon .pcard__foot .pcard__more { font-size: 14px; line-height: 20px; min-height: 44px; margin-block: -12px; }
   .pcard { min-height: 0; }
 }
 
@@ -688,9 +688,6 @@ a.pcard:hover .pcard__go { transform: translateX(2px); color: var(--text-primary
 }
 @media (max-width: 639px) {
   .psplit__list { grid-template-columns: 1fr; }
-  .psplit__cta { flex-direction: column; align-items: stretch; }
-  .psplit__cta .btn { width: 100%; }
-  .psplit__cta .tlink { align-self: flex-start; }
 }
 
 /* -------------------------------------------------------------- FAQ */
@@ -746,9 +743,6 @@ a.pcard:hover .pcard__go { transform: translateX(2px); color: var(--text-primary
   .closing__frame { min-height: 560px; padding: 0 20px 40px; }
   .closing__img { object-position: var(--pos-phone, 62% 55%); }
   .closing__words { display: none; }
-  .closing__ctas { flex-direction: column; align-items: stretch; gap: 16px; }
-  .closing__ctas .btn { width: 100%; }
-  .closing__ctas .tlink { justify-content: center; }
 }
 @media (prefers-reduced-motion: no-preference) {
   /* Slow scale-in as the band enters; the scroll parallax (SiteScripts) moves it with `translate`. */
@@ -798,7 +792,7 @@ a.pcard:hover .pcard__go { transform: translateX(2px); color: var(--text-primary
 .input-affix > span { position: absolute; left: 12px; top: 50%; transform: translateY(-50%); color: var(--text-tertiary); font: 400 15px/20px var(--font-sans); pointer-events: none; }
 .input-affix .input { padding-left: 28px; }
 @media (max-width: 1023px) { .calc__head, .calc__box { grid-column: 1 / -1; } }
-@media (max-width: 639px) { .calc__inputs { grid-template-columns: 1fr; } .calc__box { padding: 16px; } }
+@media (max-width: 639px) { .calc__inputs { grid-template-columns: 1fr; } .calc__box { padding: 20px; } }
 
 .soon { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--card-gap); }
 .soon > li { display: flex; }
@@ -843,7 +837,7 @@ select.input { appearance: none; -webkit-appearance: none; padding-right: 36px; 
 @media (max-width: 1023px) {
   .contact__side, .contact__form { grid-column: 1 / -1; grid-row: auto; }
 }
-@media (max-width: 639px) { .contact__form { padding: 20px 16px; } }
+@media (max-width: 639px) { .contact__form { padding: 24px 20px; } }
 
 /* ------------------------------------------------------ article (legal) */
 .article { max-width: 68ch; }
@@ -946,7 +940,7 @@ html.js .reveal.is-in { opacity: 1; transform: none; transition: opacity 900ms c
 .pcard--soon .pcard__foot .tlink svg { width: 14px; height: 14px; }
 
 /* ------------------------------------------------ status pages (sent, 404) */
-.status-page { min-height: calc(100vh - var(--web-nav-h) - 120px); }
+.status-page { min-height: calc(100vh - var(--web-nav-h) - 120px); min-height: calc(100svh - var(--web-nav-h) - 120px); }
 .status { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--web-col-gap); row-gap: 48px; align-items: start; }
 .status__main { grid-column: 1 / 7; }
 .status__side { grid-column: 8 / 13; padding-top: 44px; }
@@ -1103,6 +1097,7 @@ html.js .reveal.is-in { opacity: 1; transform: none; transition: opacity 900ms c
 .store__txt small { font: 500 10px/12px var(--font-sans); letter-spacing: 0.01em; }
 .store__txt b { font: 600 17px/20px var(--font-sans); letter-spacing: -0.015em; }
 .stores--sm .store { height: 40px; padding: 0 14px 0 10px; }
+@media (pointer: coarse), (max-width: 1023px) { .stores--sm .store { height: 44px; } } /* mobile fixes: 44px tap height on touch */
 .stores--sm .store__txt small { font-size: 9px; line-height: 11px; }
 .stores--sm .store__txt b { font-size: 15px; line-height: 18px; }
 
@@ -1213,7 +1208,7 @@ html.js .reveal.is-in { opacity: 1; transform: none; transition: opacity 900ms c
   .fpsec + .sec { margin-top: 8px; }
   .fpsec__frame { --ph: 320px; padding: calc(var(--ph) - 72px) 20px 24px; }
   .fpsec .fpb { row-gap: 40px; }
-  .fpsec .fpb__how { padding: 16px 16px 12px; }
+  .fpsec .fpb__how { padding: 20px 20px 16px; }
 }
 
 /* ----------------------------------------------------- nav: Fast Pay link with a "Soon" chip (fix round 7) */
@@ -1234,3 +1229,55 @@ html.js .reveal.is-in { opacity: 1; transform: none; transition: opacity 900ms c
 .leaks .stat__fig--em { color: var(--text-primary); }
 .toll__more { flex-wrap: wrap; }
 .toll__more .tlink { white-space: nowrap; margin-left: auto; }
+
+/*
+ * Mobile fixes (2 Oct 2026): ONE rule for every action group on phones: Home hero (.cta-group), page heroes
+ * (.cta-pair, .b-hero__actions), the Fast Pay band, the Home pricing block (.psplit__cta), the closing band
+ * (.closing__ctas) and stacked button rows.
+ *   up to 479px: stacked. Buttons full width, 48px tall (--web-btn-h), 12px apart. A text link sits centred
+ *     under the buttons in its own 44px row.
+ *   480 to 767px: one row, buttons at their own width, 12px between buttons, 24px before a text link.
+ */
+body :is(.cta-group, .cta-pair, .b-hero__actions, .closing__ctas, .psplit__cta, .btn-row--stack) .tlink { min-height: 44px; }
+@media (max-width: 767px) {
+  body :is(.cta-group, .cta-pair, .b-hero__actions, .closing__ctas, .psplit__cta, .btn-row--stack) {
+    display: flex; flex-direction: row; flex-wrap: wrap; align-items: center; gap: 12px;
+  }
+  body :is(.cta-group, .cta-pair, .b-hero__actions, .closing__ctas, .psplit__cta, .btn-row--stack) .btn + .tlink { margin-left: 12px; }
+}
+@media (max-width: 479px) {
+  body :is(.cta-group, .cta-pair, .b-hero__actions, .closing__ctas, .psplit__cta, .btn-row--stack) {
+    flex-direction: column; align-items: stretch; gap: 12px;
+  }
+  body :is(.cta-group, .cta-pair, .b-hero__actions, .closing__ctas, .psplit__cta, .btn-row--stack) .btn { width: 100%; }
+  body :is(.cta-group, .cta-pair, .b-hero__actions, .closing__ctas, .psplit__cta, .btn-row--stack) .tlink {
+    align-self: center; justify-content: center; margin: -4px 0 0;
+  }
+}
+
+/* Mobile fixes (2 Oct 2026): photo and dark frames on tablets (768 to 1023, also phones in landscape). The
+   desktop formula max(gutter - 16px, ...) left the text 8px inside the frame when the gutter is 24px. */
+@media (min-width: 768px) and (max-width: 1023px) {
+  body .closing__frame, body .fpsec__frame, body .b-band__frame, body .b-phero__frame { padding-inline: 32px; }
+  body .closing__words { right: 32px; }
+}
+/* The header button on phones and tablets: 40px tall (was 36), still a 44px hit area. */
+@media (max-width: 1023px) {
+  .nav__right .btn { height: 40px; padding: 0 16px; font-size: 15px; }
+}
+/* Touch screens: footer links 44px tall (was 36px on tablets). */
+@media (pointer: coarse) {
+  .footer__col a, .footer__legal-links a { min-height: 44px; }
+}
+@media (hover: none) {
+  a.pcard:hover { background: var(--bg-surface); border-color: var(--border-subtle); }
+  a.pcard:hover .pcard__go { transform: none; color: var(--text-tertiary); }
+}
+/* "Learn more" on the coming-soon cards: a 44px hit area like the other text links. */
+.pcard__more { position: relative; }
+.pcard__more::after { content: ""; position: absolute; left: 50%; top: 50%; width: max(100%, 44px); height: 44px; transform: translate(-50%, -50%); }
+@media (max-width: 639px) {
+  /* One card per row on phones: each row as tall as its own content (desktop keeps equal rows). */
+  .cards { grid-auto-rows: auto; }
+  .cards .pcard--soon .pcard__foot .pcard__more { display: inline-flex; align-items: center; }
+}
