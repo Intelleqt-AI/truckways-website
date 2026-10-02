@@ -66,7 +66,7 @@ export default function PhotoHero({ loc = 'home-hero', children }: { loc?: strin
             <span className={`${s.blue} ${s.in}`} style={i(2)}>{HERO_COPY.b}</span>
           </h1>
           <p className={`${s.lead} ${s.in}`} style={i(3)}>{HERO_COPY.lead}</p>
-          <div className={`${s.ctas} ${s.in}`} style={i(4)}>
+          <div className={`cta-group ${s.ctas} ${s.in}`} style={i(4)}>
             <ButtonLink href={signupUrl(loc)} cta="get_started" loc="hero">
               Get started
             </ButtonLink>
