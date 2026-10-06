@@ -22,11 +22,11 @@ export const APP_LOGIN_URL = `${APP_URL}/login`;
  */
 export const DEMO_URL = `${APP_URL}/demo?ref=website`;
 /**
- * TODO: flip to true once truckwyas-frontend #123 is deployed.
- * Until then /demo would 404 in production, so "Open the demo" stays on the
- * login page, whose "View demo" button signs into the demo company with no form.
+ * The app's /demo route is live (truckwyas-frontend #123), so "Open the demo"
+ * goes straight into the demo company. Set to false to fall back to the login
+ * page, whose "View demo" button signs into the demo company with no form.
  */
-export const DEMO_DEEP_LINK_LIVE = false;
+export const DEMO_DEEP_LINK_LIVE = true;
 /** What "Open the demo" does, said truthfully for where the button lands today. */
 export const DEMO_LINE = DEMO_DEEP_LINK_LIVE
   ? 'The demo is open. No form, no sales call.'
